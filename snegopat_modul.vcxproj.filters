@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="1 Основные">
+      <UniqueIdentifier>{c0d91c21-c7d5-4960-a5ea-f5431de9e967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2 Ресурсы">
+      <UniqueIdentifier>{8107311a-a89b-4fdb-819d-d3d6ca9a6b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3 Прочее">
+      <UniqueIdentifier>{02671a0b-68cb-41cc-9f38-9eb0120f6f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4 v8api">
+      <UniqueIdentifier>{e2a320aa-395b-4a58-9d6f-22b57722c7bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5 engine">
+      <UniqueIdentifier>{c5148a9d-dc70-4ba4-b791-597f7d440971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="6 scripts">
+      <UniqueIdentifier>{747b2c0c-fc89-445d-81e7-d8d775640f84}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\test_load_dll\framework.h">
+      <Filter>3 Прочее</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test_load_dll\pch.h">
+      <Filter>3 Прочее</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test_load_dll\resource.h">
+      <Filter>2 Ресурсы</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\test_load_dll\pch.cpp">
+      <Filter>3 Прочее</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_load_dll\dllmain.cpp">
+      <Filter>1 Основные</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\test_load_dll\snegopat_modul.rc">
+      <Filter>2 Ресурсы</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="v8api\window.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="engine\add_global.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\addins.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\colorer.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_commands.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_debug.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_designer.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_events.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_files.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_hotkeys.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_metadata.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_profile.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_snegopat.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_sqlite.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_textwindow.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_v8ti.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_v8value.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\com_windows.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\controls.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\develop.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\dllloader.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\exitApp.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\forms.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\grid.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\intellisite.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\keywords.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\lexer.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\main.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\mainframe.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\mlist.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\ModuleElements.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\ModuleTextProcessor.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\options.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\packets.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\pathes.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\scriptLoader.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\smartboxitems.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\sqlcolors.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\StockListInterceptor.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\synedit.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\tests.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\textwnd.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="engine\typereader.as">
+      <Filter>5 engine</Filter>
+    </None>
+    <None Include="src\ts\std\commands.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\editors.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\help.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\hotkeys.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\macroswnd.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\main.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\repo.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\scintilla.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\snegopat.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\snegopatwnd.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="src\ts\std\std.ts">
+      <Filter>6 scripts</Filter>
+    </None>
+    <None Include="v8api\bkendui.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\com.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\command.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\compositeid.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\datasource.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\debugger.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\document.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\event.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\file.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\font.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\form.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\metadata.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\picture.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\process.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\profile.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\properties.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\rect.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\scintilla.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\stlstd.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\string.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\text.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\textcolors.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\textmgr.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\TypeDomainPattern.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\typeinfos.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\url.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\value.v">
+      <Filter>4 v8api</Filter>
+    </None>
+    <None Include="v8api\vt.v">
+      <Filter>4 v8api</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="module.info">
+      <Filter>1 Основные</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

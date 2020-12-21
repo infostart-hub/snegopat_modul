@@ -1,0 +1,5 @@
+_build/
+!.gitignore
+AngelScript/
+*.ipch
+*.VC.*

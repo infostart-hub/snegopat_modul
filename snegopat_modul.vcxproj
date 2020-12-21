@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup>
+    <XPDeprecationWarning>false</XPDeprecationWarning>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{41b881a6-b806-4451-a27a-3f2a68632de4}</ProjectGuid>
+    <RootNamespace>snegopatmodul</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
+    <TargetName>test</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
+    <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Debug\lib\x86;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
+    <TargetName>test</TargetName>
+    <GenerateManifest>false</GenerateManifest>
+    <TargetExt>.dll</TargetExt>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
+    <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Release\lib\x86;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
+    <TargetName>test</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Debug\lib\x64;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
+    <TargetName>test</TargetName>
+    <GenerateManifest>false</GenerateManifest>
+    <TargetExt>.dll</TargetExt>
+    <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Release\lib\x64;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;SNEGOPATMODUL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+    </Link>
+    <PostBuildEvent>
+      <Command>del "$(OutDir)$(TargetName).pdb</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Собираем архив, работает только на Win10
+for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
+set year=%25year:~0,4%25
+for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
+if exist %25zipname%25 del /s %25zipname%25
+tar -a -c -f %25zipname%25 *
+</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Копируем файлы</Message>
+      <Outputs>bld</Outputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;SNEGOPATMODUL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <EntryPointSymbol>start</EntryPointSymbol>
+    </Link>
+    <CustomBuildStep>
+      <Command>:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Собираем архив, работает только на Win10
+for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
+set year=%25year:~0,4%25
+for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
+if exist %25zipname%25 del /s %25zipname%25
+tar -a -c -f %25zipname%25 *
+</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Копируем файлы</Message>
+      <Outputs>bld</Outputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;SNEGOPATMODUL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+    </Link>
+    <PostBuildEvent>
+      <Command>del "$(OutDir)$(TargetName).pdb</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;SNEGOPATMODUL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <EntryPointSymbol>start</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\test_load_dll\resource.h" />
+    <ClInclude Include="src\test_load_dll\framework.h" />
+    <ClInclude Include="src\test_load_dll\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\test_load_dll\dllmain.cpp" />
+    <ClCompile Include="src\test_load_dll\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\test_load_dll\snegopat_modul.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="engine\addins.as" />
+    <None Include="engine\add_global.as" />
+    <None Include="engine\colorer.as" />
+    <None Include="engine\com_commands.as" />
+    <None Include="engine\com_debug.as" />
+    <None Include="engine\com_designer.as" />
+    <None Include="engine\com_events.as" />
+    <None Include="engine\com_files.as" />
+    <None Include="engine\com_hotkeys.as" />
+    <None Include="engine\com_metadata.as" />
+    <None Include="engine\com_profile.as" />
+    <None Include="engine\com_snegopat.as" />
+    <None Include="engine\com_sqlite.as" />
+    <None Include="engine\com_textwindow.as" />
+    <None Include="engine\com_v8ti.as" />
+    <None Include="engine\com_v8value.as" />
+    <None Include="engine\com_windows.as" />
+    <None Include="engine\controls.as" />
+    <None Include="engine\develop.as" />
+    <None Include="engine\dllloader.as" />
+    <None Include="engine\exitApp.as" />
+    <None Include="engine\forms.as" />
+    <None Include="engine\grid.as" />
+    <None Include="engine\intellisite.as" />
+    <None Include="engine\keywords.as" />
+    <None Include="engine\lexer.as" />
+    <None Include="engine\main.as" />
+    <None Include="engine\mainframe.as" />
+    <None Include="engine\mlist.as" />
+    <None Include="engine\ModuleElements.as" />
+    <None Include="engine\ModuleTextProcessor.as" />
+    <None Include="engine\options.as" />
+    <None Include="engine\packets.as" />
+    <None Include="engine\pathes.as" />
+    <None Include="engine\scriptLoader.as" />
+    <None Include="engine\smartboxitems.as" />
+    <None Include="engine\sqlcolors.as" />
+    <None Include="engine\StockListInterceptor.as" />
+    <None Include="engine\synedit.as" />
+    <None Include="engine\tests.as" />
+    <None Include="engine\textwnd.as" />
+    <None Include="engine\typereader.as" />
+    <None Include="src\ts\std\commands.ts" />
+    <None Include="src\ts\std\editors.ts" />
+    <None Include="src\ts\std\help.ts" />
+    <None Include="src\ts\std\hotkeys.ts" />
+    <None Include="src\ts\std\macroswnd.ts" />
+    <None Include="src\ts\std\main.ts" />
+    <None Include="src\ts\std\repo.ts" />
+    <None Include="src\ts\std\scintilla.ts" />
+    <None Include="src\ts\std\snegopat.ts" />
+    <None Include="src\ts\std\snegopatwnd.ts" />
+    <None Include="src\ts\std\std.ts" />
+    <None Include="v8api\bkendui.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\com.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\command.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\compositeid.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\datasource.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\debugger.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\document.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\event.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\file.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\font.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\form.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\metadata.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\picture.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\process.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\profile.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\properties.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\rect.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\scintilla.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\stlstd.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\string.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\text.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\textcolors.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\textmgr.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\TypeDomainPattern.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\typeinfos.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\url.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\value.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\vt.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+    <None Include="v8api\window.v">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="module.info">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)v8api" v8api\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)engine" engine\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP
+xcopy "$(ProjectDir)module.info" .\ /d /y
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Построение билда</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)v8api" v8api\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)engine" engine\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP
+xcopy "$(ProjectDir)module.info" .\ /d /y
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Построение билда</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)v8api" v8api\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)engine" engine\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP
+xcopy "$(ProjectDir)module.info" .\ /d /y
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Построение билда</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)v8api" v8api\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)engine" engine\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP
+xcopy "$(ProjectDir)module.info" .\ /d /y
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Построение билда</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\module.info</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\module.info</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\module.info</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\module.info</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
