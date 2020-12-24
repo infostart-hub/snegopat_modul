@@ -265,6 +265,7 @@
 	61 cmdProcessTemplate
 
 :enum TxtOffsets
+#if x86 = 1
   #if ver < 8.3
 	0x224 ModuleTxtExtSettingsMap
   #elif ver < 8.3.6
@@ -278,3 +279,6 @@
   #else
 	0x274 ModuleTxtExtSettingsMap
   #endif
+#else
+	0x3C8 ModuleTxtExtSettingsMap
+#endif

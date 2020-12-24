@@ -79,9 +79,9 @@
     <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
     <TargetName>test</TargetName>
     <TargetExt>.dll</TargetExt>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
+    <CustomBuildAfterTargets>Link</CustomBuildAfterTargets>
     <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Debug\lib\x86;$(ExecutablePath)</ExecutablePath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -90,9 +90,9 @@
     <TargetName>test</TargetName>
     <GenerateManifest>false</GenerateManifest>
     <TargetExt>.dll</TargetExt>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
+    <CustomBuildAfterTargets>Link</CustomBuildAfterTargets>
     <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Release\lib\x86;$(ExecutablePath)</ExecutablePath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -101,6 +101,8 @@
     <TargetName>test</TargetName>
     <TargetExt>.dll</TargetExt>
     <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Debug\lib\x64;$(ExecutablePath)</ExecutablePath>
+    <CustomBuildAfterTargets>Link</CustomBuildAfterTargets>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -110,6 +112,8 @@
     <GenerateManifest>false</GenerateManifest>
     <TargetExt>.dll</TargetExt>
     <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Release\lib\x64;$(ExecutablePath)</ExecutablePath>
+    <CustomBuildAfterTargets>Link</CustomBuildAfterTargets>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,22 +139,33 @@
       </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>del "$(OutDir)$(TargetName).pdb</Command>
+      <Command>echo checking "$(OutDir)$(TargetName).pdb"
+if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+</Command>
+      <Message>Убираем лишнее...</Message>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>:: Идем в выходной каталог
 cd /d "$(OutDir)"
 cd ..\..
-:: Собираем архив, работает только на Win10
-for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
-set year=%25year:~0,4%25
-for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
-if exist %25zipname%25 del /s %25zipname%25
-tar -a -c -f %25zipname%25 *
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
 </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Message>Копируем файлы</Message>
+      <Message>...Копируем и проверяем файлы ...</Message>
       <Outputs>bld</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
@@ -187,6 +202,44 @@ tar -a -c -f %25zipname%25 *
       <Command>:: Идем в выходной каталог
 cd /d "$(OutDir)"
 cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>...Копируем и проверяем файлы ...</Message>
+      <Outputs>bld</Outputs>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+if not exist lib\x64\snegopat.dll (
+   echo Не найден lib\x64\snegopat.dll
+   exit 1
+)
+if not exist lib\x64\test.dll (
+   echo Не найден lib\x64\test.dll
+   exit 1
+)
+if not exist lib\x86\snegopat.dll (
+   echo Не найден lib\x86\snegopat.dll
+   exit 1
+)
+
 :: Собираем архив, работает только на Win10
 for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
 set year=%25year:~0,4%25
@@ -194,11 +247,8 @@ for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$
 if exist %25zipname%25 del /s %25zipname%25
 tar -a -c -f %25zipname%25 *
 </Command>
-    </CustomBuildStep>
-    <CustomBuildStep>
-      <Message>Копируем файлы</Message>
-      <Outputs>bld</Outputs>
-    </CustomBuildStep>
+      <Message>Пакуем файлы...</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -224,8 +274,33 @@ tar -a -c -f %25zipname%25 *
       </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>del "$(OutDir)$(TargetName).pdb</Command>
+      <Command>echo checking "$(OutDir)$(TargetName).pdb"
+if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+</Command>
+      <Message>Убираем лишнее...</Message>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message>...Копируем и проверяем файлы ...</Message>
+      <Outputs>bld</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -256,6 +331,43 @@ tar -a -c -f %25zipname%25 *
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <EntryPointSymbol>start</EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>::echo checking "$(OutDir)$(TargetName).pdb"
+if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Собираем архив, работает только на Win10
+for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
+set year=%25year:~0,4%25
+for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
+if exist %25zipname%25 del /s %25zipname%25
+tar -a -c -f %25zipname%25 *
+</Command>
+      <Message>Пакуем файлы...</Message>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>:: Идем в выходной каталог
+cd /d "$(OutDir)"
+cd ..\..
+:: Копируем то, что нужно просто скопировать
+robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+:: Соберем скрипты из TypeScript
+set rootdir=%25cd%25
+cd "$(ProjectDir)"
+echo Typescript...
+tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
+echo Готово
+:: Проверяем модуль
+echo Синтакс-проверка...
+runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
+echo Готово
+</Command>
+      <Message>...Копируем и проверяем файлы ...</Message>
+      <Outputs>bld</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\test_load_dll\resource.h" />
@@ -275,48 +387,310 @@ tar -a -c -f %25zipname%25 *
     <ResourceCompile Include="src\test_load_dll\snegopat_modul.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="engine\addins.as" />
-    <None Include="engine\add_global.as" />
-    <None Include="engine\colorer.as" />
-    <None Include="engine\com_commands.as" />
-    <None Include="engine\com_debug.as" />
-    <None Include="engine\com_designer.as" />
-    <None Include="engine\com_events.as" />
-    <None Include="engine\com_files.as" />
-    <None Include="engine\com_hotkeys.as" />
-    <None Include="engine\com_metadata.as" />
-    <None Include="engine\com_profile.as" />
-    <None Include="engine\com_snegopat.as" />
-    <None Include="engine\com_sqlite.as" />
-    <None Include="engine\com_textwindow.as" />
-    <None Include="engine\com_v8ti.as" />
-    <None Include="engine\com_v8value.as" />
-    <None Include="engine\com_windows.as" />
-    <None Include="engine\controls.as" />
-    <None Include="engine\develop.as" />
-    <None Include="engine\dllloader.as" />
-    <None Include="engine\exitApp.as" />
-    <None Include="engine\forms.as" />
-    <None Include="engine\grid.as" />
-    <None Include="engine\intellisite.as" />
-    <None Include="engine\keywords.as" />
-    <None Include="engine\lexer.as" />
-    <None Include="engine\main.as" />
-    <None Include="engine\mainframe.as" />
-    <None Include="engine\mlist.as" />
-    <None Include="engine\ModuleElements.as" />
-    <None Include="engine\ModuleTextProcessor.as" />
-    <None Include="engine\options.as" />
-    <None Include="engine\packets.as" />
-    <None Include="engine\pathes.as" />
-    <None Include="engine\scriptLoader.as" />
-    <None Include="engine\smartboxitems.as" />
-    <None Include="engine\sqlcolors.as" />
-    <None Include="engine\StockListInterceptor.as" />
-    <None Include="engine\synedit.as" />
-    <None Include="engine\tests.as" />
-    <None Include="engine\textwnd.as" />
-    <None Include="engine\typereader.as" />
+    <CopyFileToFolders Include="engine\addins.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\add_global.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\colorer.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_commands.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_debug.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_designer.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_events.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_files.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_hotkeys.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_metadata.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_profile.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_snegopat.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_sqlite.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_textwindow.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_v8ti.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_v8value.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_windows.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\controls.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\develop.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\dllloader.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\exitApp.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\forms.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\grid.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\intellisite.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\keywords.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\lexer.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\main.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\mainframe.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\mlist.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\ModuleElements.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\ModuleTextProcessor.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\options.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\packets.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\pathes.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\scriptLoader.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\smartboxitems.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\sqlcolors.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\StockListInterceptor.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\synedit.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\tests.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\textwnd.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\typereader.as">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\engine</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\engine</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\x64\snegopat.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\x86\snegopat.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
     <None Include="src\ts\std\commands.ts" />
     <None Include="src\ts\std\editors.ts" />
     <None Include="src\ts\std\help.ts" />
@@ -328,212 +702,212 @@ tar -a -c -f %25zipname%25 *
     <None Include="src\ts\std\snegopat.ts" />
     <None Include="src\ts\std\snegopatwnd.ts" />
     <None Include="src\ts\std\std.ts" />
-    <None Include="v8api\bkendui.v">
+    <CopyFileToFolders Include="v8api\bkendui.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\com.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\com.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\command.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\command.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\compositeid.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\compositeid.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\datasource.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\datasource.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\debugger.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\debugger.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\document.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\document.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\event.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\event.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\file.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\file.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\font.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\font.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\form.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\form.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\metadata.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\metadata.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\picture.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\picture.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\process.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\process.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\profile.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\profile.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\properties.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\properties.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\rect.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\rect.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\scintilla.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\scintilla.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\stlstd.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\stlstd.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\string.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\string.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\text.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\text.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\textcolors.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\textcolors.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\textmgr.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\textmgr.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\TypeDomainPattern.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\TypeDomainPattern.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\typeinfos.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\typeinfos.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\url.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\url.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\value.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\value.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\vt.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\vt.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
-    <None Include="v8api\window.v">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\window.v">
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\v8api\</DestinationFolders>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\v8api\</DestinationFolders>
-    </None>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\v8api</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="module.info">
+    <CopyFileToFolders Include="module.info">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">:: Идем в выходной каталог
 cd /d "$(OutDir)"
@@ -635,7 +1009,11 @@ echo Готово
       </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </AdditionalInputs>
-    </CustomBuild>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)..\..\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)..\..\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)..\..\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)..\..\</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

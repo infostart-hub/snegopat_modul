@@ -1,1855 +1,161 @@
 interface V8Global{ connectGlobals(obj);}
 declare var global: V8Global;
-interface EnumXBaseEncoding {
-	ANSI;
-	OEM;
+interface InterfaceControlItem {
+	Visible: boolean;
+	Видимость: boolean;
+	Switchable: boolean;
+	Переключаемый: boolean;
 }
-declare type ПеречислениеКодировкаXBase = EnumXBaseEncoding;
-interface EnumInternetMailTextType {
-	HTML;
-	PlainText;
-	ПростойТекст;
-	RichText;
-	РазмеченныйТекст;
-}
-declare type ПеречислениеТипТекстаПочтовогоСообщения = EnumInternetMailTextType;
-interface EnumInternetMailTextProcessing {
-	Process;
-	Обрабатывать;
-	DontProcess;
-	НеОбрабатывать;
-}
-declare type ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения = EnumInternetMailTextProcessing;
-interface EnumInternetMailMessageImportance {
-	Highest;
-	Наивысшая;
-	High;
-	Высокая;
-	Normal;
-	Обычная;
-	Low;
-	Низкая;
-	Lowest;
-	Наименьшая;
-}
-declare type ПеречислениеВажностьИнтернетПочтовогоСообщения = EnumInternetMailMessageImportance;
-interface EnumInternetMailAttachmentEncodingMode {
-	MIME;
-	UUEncode;
-}
-declare type ПеречислениеСпособКодированияИнтернетПочтовогоВложения = EnumInternetMailAttachmentEncodingMode;
-interface EnumInternetMailMessageNonASCIISymbolsEncodingMode {
-	None;
-	БезКодирования;
-	MIME;
-	QuotedPrintable;
-}
-declare type ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения = EnumInternetMailMessageNonASCIISymbolsEncodingMode;
-interface EnumSMTPAuthenticationMode {
-	None;
-	БезАутентификации;
-	Default;
-	ПоУмолчанию;
-	Plain;
-	Login;
-	CramMD5;
-}
-declare type ПеречислениеСпособSMTPАутентификации = EnumSMTPAuthenticationMode;
-interface EnumPOP3AuthenticationMode {
-	General;
-	Обычная;
-	APOP;
-	CramMD5;
-}
-declare type ПеречислениеСпособPOP3Аутентификации = EnumPOP3AuthenticationMode;
-interface EnumInternetMailProtocol {
-	POP3;
-	IMAP;
-	SMTP;
-}
-declare type ПеречислениеПротоколИнтернетПочты = EnumInternetMailProtocol;
-interface EnumZIPCompressionMethod {
-	Copy;
-	Копирование;
-	Deflate;
-	Сжатие;
-	BZIP2;
-}
-declare type ПеречислениеМетодСжатияZIP = EnumZIPCompressionMethod;
-interface EnumZIPCompressionLevel {
-	Minimum;
-	Минимальный;
-	Optimal;
-	Оптимальный;
-	Maximum;
-	Максимальный;
-}
-declare type ПеречислениеУровеньСжатияZIP = EnumZIPCompressionLevel;
-interface EnumZIPEncryptionMethod {
-	Zip20;
-	AES128;
-	AES192;
-	AES256;
-}
-declare type ПеречислениеМетодШифрованияZIP = EnumZIPEncryptionMethod;
-interface EnumZIPStorePathMode {
-	StoreFullPath;
-	СохранятьПолныеПути;
-	StoreRelativePath;
-	СохранятьОтносительныеПути;
-	DontStorePath;
-	НеСохранятьПути;
-}
-declare type ПеречислениеРежимСохраненияПутейZIP = EnumZIPStorePathMode;
-interface EnumZIPSubDirProcessingMode {
-	ProcessRecursively;
-	ОбрабатыватьРекурсивно;
-	DontProcess;
-	НеОбрабатывать;
-}
-declare type ПеречислениеРежимОбработкиПодкаталоговZIP = EnumZIPSubDirProcessingMode;
-interface EnumZIPRestoreFilePathsMode {
-	Restore;
-	Восстанавливать;
-	DontRestore;
-	НеВосстанавливать;
-}
-declare type ПеречислениеРежимВосстановленияПутейФайловZIP = EnumZIPRestoreFilePathsMode;
-interface FixedArray {
+interface InterfaceControlItemCollection {
 	Count(): number;
 	Количество(): number;
-	UBound(): number;
-	ВГраница(): number;
-	Get(... params);
-	Получить(... params);
-	Find(... params): number;
-	Найти(... params): number;
+	SwitchInterface(... params): void;
+	ПереключитьИнтерфейс(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): InterfaceControlItem;
+	Найти(... params): InterfaceControlItem;
+	Get(... params): InterfaceControlItem;
+	Получить(... params): InterfaceControlItem;
 }
-declare type ФиксированныйМассив = FixedArray;
-interface CryptoModuleInformation {
-	Name: string;
-	Имя: string;
-	HashAlgorithms: FixedArray;
-	АлгоритмыХеширования: FixedArray;
-	SignAlgorithms: FixedArray;
-	АлгоритмыПодписи: FixedArray;
-	EncryptAlgorithms: FixedArray;
-	АлгоритмыШифрования: FixedArray;
+interface EnumWorkingDateMode {
+	UseCurrentDate;
+	ИспользоватьТекущуюДату;
+	Assign;
+	Назначать;
 }
-interface CryptoToolsManager {
-	GetCryptoModuleInformation(... params): CryptoModuleInformation;
-	ПолучитьИнформациюМодуляКриптографии(... params): CryptoModuleInformation;
-	BeginGettingCryptoModuleInformation(... params): void;
-	НачатьПолучениеИнформацииМодуляКриптографии(... params): void;
+declare type ПеречислениеРежимРабочейДаты = EnumWorkingDateMode;
+interface Style {
 }
-interface EnumInternetMailMessageParseStatus {
-	ErrorsNotDetected;
-	ОшибокНеОбнаружено;
-	ErrorsDetected;
-	ОбнаруженыОшибки;
-}
-declare type ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения = EnumInternetMailMessageParseStatus;
-interface ArrayV8 {
+interface StyleLib {
 	Count(): number;
 	Количество(): number;
-	UBound(): number;
-	ВГраница(): number;
-	Insert(... params): void;
-	Вставить(... params): void;
-	Add(... params): void;
-	Добавить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params);
-	Получить(... params);
-	Set(... params): void;
-	Установить(... params): void;
-	Find(... params): number;
-	Найти(... params): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): Style;
+	Получить(... params): Style;
 }
-declare type Массив = ArrayV8;
-interface DeliverableNotificationSendManager {
-	Send(... params): void;
-	Отправить(... params): void;
-	GetExcludedRecipients(... params): ArrayV8;
-	ПолучитьИсключенныхПолучателей(... params): ArrayV8;
-	GetAccessToken(... params): string;
-	ПолучитьМаркерДоступа(... params): string;
+interface EnumIntervalBoundVariant {
+	WithoutRestriction;
+	БезОграничения;
+	WorkingDate;
+	РабочаяДата;
+	BeforeAfter;
+	Смещение;
+	Week;
+	Неделя;
+	Month;
+	Месяц;
+	Quarter;
+	Квартал;
+	Year;
+	Год;
+	SpecificDate;
+	КонкретнаяДата;
 }
-interface EnumDeliverableNotificationSubscriberType {
-	APNS;
-	GCM;
-	WNS;
-	FCM;
+declare type ПеречислениеВариантГраницыИнтервала = EnumIntervalBoundVariant;
+interface EnumPeriodVariant {
+	Year;
+	Год;
+	Quarter;
+	Квартал;
+	QuarterFromBegOfYear;
+	КварталСНачалаГода;
+	Month;
+	Месяц;
+	MonthFromBegOfQuarter;
+	МесяцСНачалаКвартала;
+	MonthFromBegOfYear;
+	МесяцСНачалаГода;
+	Day;
+	День;
+	DayFromBegOfMonth;
+	ДеньСНачалаМесяца;
+	DayFromBegOfQuarter;
+	ДеньСНачалаКвартала;
+	DayFromBegOfYear;
+	ДеньСНачалаГода;
+	AnyInterval;
+	ПроизвольныйИнтервал;
 }
-declare type ПеречислениеТипПодписчикаДоставляемыхУведомлений = EnumDeliverableNotificationSubscriberType;
-interface EnumSoundAlert {
-	None;
-	Нет;
-	Default;
-	ПоУмолчанию;
-}
-declare type ПеречислениеЗвуковоеОповещение = EnumSoundAlert;
-interface EnumInAppPurchaseService {
-	GooglePlayInAppBilling;
-	AppleInAppPurchase;
-	WindowsInAppPurchase;
-}
-declare type ПеречислениеСервисВстроенныхПокупок = EnumInAppPurchaseService;
-interface InAppPurchasesValidationManager {
-	ValidateInAppPurchaseReceipt(... params): boolean;
-	ПроверитьКвитанциюВстроеннойПокупки(... params): boolean;
-	ValidateInAppPurchaseReceiptAtMobileDevice(... params): boolean;
-	ПроверитьКвитанциюВстроеннойПокупкиНаМобильномУстройстве(... params): boolean;
-}
-interface EnumFileNamesEncodingInZipFile {
-	Auto;
-	Авто;
-	OSEncodingWithUTF8;
-	КодировкаОСДополнительноUTF8;
-	UTF8;
-}
-declare type ПеречислениеКодировкаИменФайловВZipФайле = EnumFileNamesEncodingInZipFile;
-interface EnumDeliverableNotificationSendErrorType {
-	AuthenticationDataError;
-	ОшибкаДанныхАутентификации;
-	NotificationBodyError;
-	ОшибкаТелаУведомления;
-	NotificationsLimitExceeded;
-	ПревышенЛимитОтправкиУведомлений;
-	SubscriberIDError;
-	ОшибкаИдентификатораПодписчика;
-	DeliverableNotificationServiceConnectionError;
-	ОшибкаПодключенияКСервисуДоставляемыхУведомлений;
-	DeliverableNotificationServiceError;
-	ОшибкаСервисаДоставляемыхУведомлений;
-	UnknownError;
-	НеизвестнаяОшибка;
-}
-declare type ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления = EnumDeliverableNotificationSendErrorType;
-interface EnumUseInternetMailTokenAuthentication {
-	DontUse;
-	НеИспользовать;
-	Use;
-	Использовать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену = EnumUseInternetMailTokenAuthentication;
-declare var XBaseEncoding: EnumXBaseEncoding;
-declare var КодировкаXBase: EnumXBaseEncoding;
-declare var InternetMailTextType: EnumInternetMailTextType;
-declare var ТипТекстаПочтовогоСообщения: EnumInternetMailTextType;
-declare var InternetMailTextProcessing: EnumInternetMailTextProcessing;
-declare var ОбработкаТекстаИнтернетПочтовогоСообщения: EnumInternetMailTextProcessing;
-declare var InternetMailMessageImportance: EnumInternetMailMessageImportance;
-declare var ВажностьИнтернетПочтовогоСообщения: EnumInternetMailMessageImportance;
-declare var InternetMailAttachmentEncodingMode: EnumInternetMailAttachmentEncodingMode;
-declare var СпособКодированияИнтернетПочтовогоВложения: EnumInternetMailAttachmentEncodingMode;
-declare var InternetMailMessageNonASCIISymbolsEncodingMode: EnumInternetMailMessageNonASCIISymbolsEncodingMode;
-declare var СпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения: EnumInternetMailMessageNonASCIISymbolsEncodingMode;
-declare var SMTPAuthenticationMode: EnumSMTPAuthenticationMode;
-declare var СпособSMTPАутентификации: EnumSMTPAuthenticationMode;
-declare var POP3AuthenticationMode: EnumPOP3AuthenticationMode;
-declare var СпособPOP3Аутентификации: EnumPOP3AuthenticationMode;
-declare var InternetMailProtocol: EnumInternetMailProtocol;
-declare var ПротоколИнтернетПочты: EnumInternetMailProtocol;
-declare var ZIPCompressionMethod: EnumZIPCompressionMethod;
-declare var МетодСжатияZIP: EnumZIPCompressionMethod;
-declare var ZIPCompressionLevel: EnumZIPCompressionLevel;
-declare var УровеньСжатияZIP: EnumZIPCompressionLevel;
-declare var ZIPEncryptionMethod: EnumZIPEncryptionMethod;
-declare var МетодШифрованияZIP: EnumZIPEncryptionMethod;
-declare var ZIPStorePathMode: EnumZIPStorePathMode;
-declare var РежимСохраненияПутейZIP: EnumZIPStorePathMode;
-declare var ZIPSubDirProcessingMode: EnumZIPSubDirProcessingMode;
-declare var РежимОбработкиПодкаталоговZIP: EnumZIPSubDirProcessingMode;
-declare var ZIPRestoreFilePathsMode: EnumZIPRestoreFilePathsMode;
-declare var РежимВосстановленияПутейФайловZIP: EnumZIPRestoreFilePathsMode;
-declare var CryptoTools: CryptoToolsManager;
-declare var СредстваКриптографии: CryptoToolsManager;
-declare var InternetMailMessageParseStatus: EnumInternetMailMessageParseStatus;
-declare var СтатусРазбораИнтернетПочтовогоСообщения: EnumInternetMailMessageParseStatus;
-declare var DeliverableNotificationSend: DeliverableNotificationSendManager;
-declare var ОтправкаДоставляемыхУведомлений: DeliverableNotificationSendManager;
-declare var DeliverableNotificationSubscriberType: EnumDeliverableNotificationSubscriberType;
-declare var ТипПодписчикаДоставляемыхУведомлений: EnumDeliverableNotificationSubscriberType;
-declare var SoundAlert: EnumSoundAlert;
-declare var ЗвуковоеОповещение: EnumSoundAlert;
-declare var InAppPurchaseService: EnumInAppPurchaseService;
-declare var СервисВстроенныхПокупок: EnumInAppPurchaseService;
-declare var InAppPurchasesValidation: InAppPurchasesValidationManager;
-declare var ПроверкаВстроенныхПокупок: InAppPurchasesValidationManager;
-declare var FileNamesEncodingInZipFile: EnumFileNamesEncodingInZipFile;
-declare var КодировкаИменФайловВZipФайле: EnumFileNamesEncodingInZipFile;
-declare var DeliverableNotificationSendErrorType: EnumDeliverableNotificationSendErrorType;
-declare var ТипОшибкиОтправкиДоставляемогоУведомления: EnumDeliverableNotificationSendErrorType;
-declare var UseInternetMailTokenAuthentication: EnumUseInternetMailTokenAuthentication;
-declare var ИспользованиеАутентификацииИнтернетПочтыПоТокену: EnumUseInternetMailTokenAuthentication;
-declare function NumberInWords(... params): string;
-declare function ЧислоПрописью(... params): string;
-declare function PeriodPresentation(... params): string;
-declare function ПредставлениеПериода(... params): string;
-declare function FileCopy(... params): void;
-declare function КопироватьФайл(... params): void;
-declare function MoveFile(... params): void;
-declare function ПереместитьФайл(... params): void;
-declare function DeleteFiles(... params): void;
-declare function УдалитьФайлы(... params): void;
-declare function FindFiles(... params): ArrayV8;
-declare function НайтиФайлы(... params): ArrayV8;
-declare function CreateDirectory(... params): void;
-declare function СоздатьКаталог(... params): void;
-declare function GetCOMObject(... params);
-declare function ПолучитьCOMОбъект(... params);
-declare function SplitFile(... params): ArrayV8;
-declare function РазделитьФайл(... params): ArrayV8;
-declare function MergeFiles(... params): void;
-declare function ОбъединитьФайлы(... params): void;
-declare function RunApp(... params): void;
-declare function ЗапуститьПриложение(... params): void;
-declare function CurrentUniversalDateInMilliseconds();
-declare function ТекущаяУниверсальнаяДатаВМиллисекундах();
-declare function BeginCopyingFile(... params): void;
-declare function НачатьКопированиеФайла(... params): void;
-declare function BeginMovingFile(... params): void;
-declare function НачатьПеремещениеФайла(... params): void;
-declare function BeginDeletingFiles(... params): void;
-declare function НачатьУдалениеФайлов(... params): void;
-declare function BeginFindingFiles(... params): void;
-declare function НачатьПоискФайлов(... params): void;
-declare function BeginCreatingDirectory(... params): void;
-declare function НачатьСозданиеКаталога(... params): void;
-declare function BeginRunningApplication(... params): void;
-declare function НачатьЗапускПриложения(... params): void;
-declare function StringWithNumber(... params): string;
-declare function СтрокаСЧислом(... params): string;
-interface EnumFormItemTitleLocation {
-	None;
-	Нет;
-	Auto;
-	Авто;
-	Left;
-	Лево;
-	Top;
-	Верх;
-	Right;
-	Право;
-	Bottom;
-	Низ;
-}
-declare type ПеречислениеПоложениеЗаголовкаЭлементаФормы = EnumFormItemTitleLocation;
-interface EnumFormItemCommandBarLabelLocation {
-	None;
-	Нет;
-	Auto;
-	Авто;
-	Top;
-	Верх;
-	Bottom;
-	Низ;
-}
-declare type ПеречислениеПоложениеКоманднойПанелиЭлементаФормы = EnumFormItemCommandBarLabelLocation;
-interface EnumFormCommandBarLabelLocation {
-	None;
-	Нет;
-	Auto;
-	Авто;
-	Top;
-	Верх;
-	Bottom;
-	Низ;
-}
-declare type ПеречислениеПоложениеКоманднойПанелиФормы = EnumFormCommandBarLabelLocation;
-interface EnumIncompleteChoiceMode {
-	OnEnterPressed;
-	ПриНажатииEnter;
-	OnActivate;
-	ПриАктивизации;
-}
-declare type ПеречислениеРежимВыбораНезаполненного = EnumIncompleteChoiceMode;
-interface EnumSelectionShowMode {
-	WhenActive;
-	ПриАктивности;
-	Always;
-	Всегда;
-	DontShow;
-	НеОтображать;
-	WhenMultipleCellsSelected;
-	ПриВыделенииНесколькихЯчеек;
-	WhenMultipleCellsSelectedWhenActive;
-	ПриВыделенииНесколькихЯчеекПриАктивности;
-}
-declare type ПеречислениеРежимОтображенияВыделения = EnumSelectionShowMode;
-interface EnumItemHorizontalLocation {
-	Left;
-	Лево;
-	Center;
-	Центр;
-	Right;
-	Право;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеГоризонтальноеПоложениеЭлемента = EnumItemHorizontalLocation;
-interface EnumItemVerticalAlign {
-	Top;
-	Верх;
-	Center;
-	Центр;
-	Bottom;
-	Низ;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеВертикальноеПоложениеЭлемента = EnumItemVerticalAlign;
-interface EnumColumnsGroup {
-	Horizontal;
-	Горизонтальная;
-	Vertical;
-	Вертикальная;
-	InCell;
-	ВЯчейке;
-}
-declare type ПеречислениеГруппировкаКолонок = EnumColumnsGroup;
-interface EnumChildFormItemsGroup {
-	AlwaysHorizontal;
-	ГоризонтальнаяВсегда;
-	Vertical;
-	Вертикальная;
-	HorizontalIfPossible;
-	ГоризонтальнаяЕслиВозможно;
-	Horizontal;
-	Горизонтальная;
-}
-declare type ПеречислениеГруппировкаПодчиненныхЭлементовФормы = EnumChildFormItemsGroup;
-interface EnumItemsAndTitlesAlignVariant {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	ItemsLeftTitlesLeft;
-	ЭлементыЛевоЗаголовкиЛево;
-	ItemsRightTitlesLeft;
-	ЭлементыПравоЗаголовкиЛево;
-	ItemsLeftTitlesRight;
-	ЭлементыЛевоЗаголовкиПраво;
-	ItemsRightTitlesRight;
-	ЭлементыПравоЗаголовкиПраво;
-	ItemsAutoTitlesLeft;
-	ЭлементыАвтоЗаголовкиЛево;
-}
-declare type ПеречислениеВариантВыравниванияЭлементовИЗаголовков = EnumItemsAndTitlesAlignVariant;
-interface EnumFormItemSpacing {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	Half;
-	Половинный;
-	Single;
-	Одинарный;
-	OneAndHalf;
-	Полуторный;
-	Double;
-	Двойной;
-}
-declare type ПеречислениеИнтервалМеждуЭлементамиФормы = EnumFormItemSpacing;
-interface EnumFixingInTable {
-	None;
-	Нет;
-	Left;
-	Лево;
-	Right;
-	Право;
-}
-declare type ПеречислениеФиксацияВТаблице = EnumFixingInTable;
-interface EnumTableHeightControlVariant {
-	Auto;
-	Авто;
-	UseHeightInFormRows;
-	ВСтрокахФормы;
-	UseHeightInTableRows;
-	ВСтрокахТаблицы;
-	UseContentHeight;
-	ПоСодержимому;
-}
-declare type ПеречислениеВариантУправленияВысотойТаблицы = EnumTableHeightControlVariant;
-interface EnumChildFormItemsWidth {
-	Auto;
-	Авто;
-	Equal;
-	Одинаковая;
-	LeftWide;
-	ЛевыйШирокий;
-	LeftWidest;
-	ЛевыйОченьШирокий;
-	LeftNarrow;
-	ЛевыйУзкий;
-	LeftNarrowest;
-	ЛевыйОченьУзкий;
-}
-declare type ПеречислениеШиринаПодчиненныхЭлементовФормы = EnumChildFormItemsWidth;
-interface EnumUsualGroupRepresentation {
-	None;
-	Нет;
-	StrongSeparation;
-	СильноеВыделение;
-	WeakSeparation;
-	СлабоеВыделение;
-	NormalSeparation;
-	ОбычноеВыделение;
-}
-declare type ПеречислениеОтображениеОбычнойГруппы = EnumUsualGroupRepresentation;
-interface EnumUsualGroupBehavior {
-	Usual;
-	Обычное;
-	Collapsible;
-	Свертываемая;
-	PopUp;
-	Всплывающая;
-}
-declare type ПеречислениеПоведениеОбычнойГруппы = EnumUsualGroupBehavior;
-interface EnumUsualGroupControlRepresentation {
-	TitleHyperlink;
-	ГиперссылкаЗаголовка;
-	Picture;
-	Картинка;
-}
-declare type ПеречислениеОтображениеУправленияОбычнойГруппы = EnumUsualGroupControlRepresentation;
-interface EnumThroughAlign {
-	Use;
-	Использовать;
-	DontUse;
-	НеИспользовать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеСквозноеВыравнивание = EnumThroughAlign;
-interface EnumFormButtonType {
-	CommandBarButton;
-	КнопкаКоманднойПанели;
-	UsualButton;
-	ОбычнаяКнопка;
-	Hyperlink;
-	Гиперссылка;
-	CommandBarHyperlink;
-	ГиперссылкаКоманднойПанели;
-}
-declare type ПеречислениеВидКнопкиФормы = EnumFormButtonType;
-interface EnumCheckBoxType {
-	Auto;
-	Авто;
-	CheckBox;
-	Флажок;
-	Tumbler;
-	Тумблер;
-	Switch;
-	Выключатель;
-}
-declare type ПеречислениеВидФлажка = EnumCheckBoxType;
-interface EnumRadioButtonType {
-	Auto;
-	Авто;
-	RadioButton;
-	Переключатель;
-	Tumbler;
-	Тумблер;
-}
-declare type ПеречислениеВидПереключателя = EnumRadioButtonType;
-interface EnumFormFieldType {
-	LabelField;
-	ПолеНадписи;
-	InputField;
-	ПолеВвода;
-	CheckBoxField;
-	ПолеФлажка;
-	PictureField;
-	ПолеКартинки;
-	RadioButtonField;
-	ПолеПереключателя;
-	SpreadsheetDocumentField;
-	ПолеТабличногоДокумента;
-	TextDocumentField;
-	ПолеТекстовогоДокумента;
-	FormattedDocumentField;
-	ПолеФорматированногоДокумента;
-	PlannerField;
-	ПолеПланировщика;
-	CalendarField;
-	ПолеКалендаря;
-	PeriodField;
-	ПолеПериода;
-	ProgressBarField;
-	ПолеИндикатора;
-	TrackBarField;
-	ПолеПолосыРегулирования;
-	ChartField;
-	ПолеДиаграммы;
-	GanttChartField;
-	ПолеДиаграммыГанта;
-	DendrogramField;
-	ПолеДендрограммы;
-	GraphicalSchemaField;
-	ПолеГрафическойСхемы;
-	HTMLDocumentField;
-	ПолеHTMLДокумента;
-	GeographicalSchemaField;
-	ПолеГеографическойСхемы;
-}
-declare type ПеречислениеВидПоляФормы = EnumFormFieldType;
-interface EnumFormDecorationType {
-	Label;
-	Надпись;
-	Picture;
-	Картинка;
-}
-declare type ПеречислениеВидДекорацииФормы = EnumFormDecorationType;
-interface EnumFormGroupType {
-	CommandBar;
-	КоманднаяПанель;
-	Popup;
-	Подменю;
-	ColumnGroup;
-	ГруппаКолонок;
-	Pages;
-	Страницы;
-	Page;
-	Страница;
-	UsualGroup;
-	ОбычнаяГруппа;
-	ButtonGroup;
-	ГруппаКнопок;
-	ContextMenu;
-	КонтекстноеМеню;
-}
-declare type ПеречислениеВидГруппыФормы = EnumFormGroupType;
-interface EnumTableRepresentation {
-	List;
-	Список;
-	HierarchicalList;
-	ИерархическийСписок;
-	Tree;
-	Дерево;
-}
-declare type ПеречислениеОтображениеТаблицы = EnumTableRepresentation;
-interface EnumTableRowInputMode {
-	EndOfList;
-	ВКонецСписка;
-	EndOfWindow;
-	ВКонецОкна;
-	AfterCurrentRow;
-	ПослеТекущейСтроки;
-	BeforeCurrentRow;
-	ПередТекущейСтрокой;
-}
-declare type ПеречислениеРежимВводаСтрокТаблицы = EnumTableRowInputMode;
-interface EnumTableSelectionMode {
-	SingleRow;
-	Одиночный;
-	MultiRow;
-	Множественный;
-}
-declare type ПеречислениеРежимВыделенияТаблицы = EnumTableSelectionMode;
-interface EnumTableRowSelectionMode {
-	Cell;
-	Ячейка;
-	Row;
-	Строка;
-}
-declare type ПеречислениеРежимВыделенияСтрокиТаблицы = EnumTableRowSelectionMode;
-interface EnumScrollBarUse {
-	DontUse;
-	НеИспользовать;
-	UseAlways;
-	ИспользоватьВсегда;
-	AutoUse;
-	ИспользоватьАвтоматически;
-}
-declare type ПеречислениеИспользованиеПолосыПрокрутки = EnumScrollBarUse;
-interface EnumSearchInTableOnInput {
-	Use;
-	Использовать;
-	DontUse;
-	НеИспользовать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеПоискВТаблицеПриВводе = EnumSearchInTableOnInput;
-interface EnumToolTipRepresentation {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	Balloon;
-	Всплывающая;
-	Button;
-	Кнопка;
-	ShowAuto;
-	ОтображатьАвто;
-	ShowTop;
-	ОтображатьСверху;
-	ShowLeft;
-	ОтображатьСлева;
-	ShowBottom;
-	ОтображатьСнизу;
-	ShowRight;
-	ОтображатьСправа;
-}
-declare type ПеречислениеОтображениеПодсказки = EnumToolTipRepresentation;
-interface EnumInitialListView {
-	Beginning;
-	Начало;
-	End;
-	Конец;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеНачальноеОтображениеСписка = EnumInitialListView;
-interface EnumInitialTreeView {
-	NoExpand;
-	НеРаскрывать;
-	ExpandTopLevel;
-	РаскрыватьВерхнийУровень;
-	ExpandAllLevels;
-	РаскрыватьВсеУровни;
-}
-declare type ПеречислениеНачальноеОтображениеДерева = EnumInitialTreeView;
-interface EnumFoldersAndItems {
-	Items;
-	Элементы;
-	Folders;
-	Группы;
-	FoldersAndItems;
-	ГруппыИЭлементы;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеГруппыИЭлементы = EnumFoldersAndItems;
-interface EnumEnterKeyBehaviorType {
-	DefaultButton;
-	КнопкаПоУмолчанию;
-	ControlNavigation;
-	ПереходПоЭлементамФормы;
-}
-declare type ПеречислениеТипПоведенияКлавишиEnter = EnumEnterKeyBehaviorType;
-interface EnumColumnEditMode {
-	Directly;
-	Непосредственно;
-	Enter;
-	Вход;
-	EnterOnInput;
-	ВходПриВводе;
-}
-declare type ПеречислениеРежимРедактированияКолонки = EnumColumnEditMode;
-interface UserWorkHistoryManager {
-	Get(): ArrayV8;
-	Получить(): ArrayV8;
-	Add(... params): void;
-	Добавить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	ClearAll(): void;
-	ОчиститьВсе(): void;
-}
-interface EnumReportFormType {
-	Main;
-	Основная;
-	Settings;
-	Настройка;
-	Variant;
-	Вариант;
-}
-declare type ПеречислениеТипФормыОтчета = EnumReportFormType;
-interface EnumViewScalingMode {
-	Auto;
-	Авто;
-	Normal;
-	Обычный;
-	Large;
-	Крупный;
-}
-declare type ПеречислениеРежимМасштабированияПросмотра = EnumViewScalingMode;
-interface EnumDateSelectionMode {
-	Single;
-	Одиночный;
-	Multiple;
-	Множественный;
+declare type ПеречислениеВариантПериода = EnumPeriodVariant;
+interface EnumPeriodSettingsVariant {
+	Period;
+	Период;
 	Interval;
 	Интервал;
 }
-declare type ПеречислениеРежимВыделенияДаты = EnumDateSelectionMode;
-interface EnumFormItemOrientation {
-	Horizontal;
-	Горизонтально;
-	Vertical;
-	Вертикально;
+declare type ПеречислениеВариантНастройкиПериода = EnumPeriodSettingsVariant;
+interface EnumNewRowShowCheckVariant {
+	DontCheck;
+	НеПроверять;
+	FilterMismatchMessage;
+	СообщатьОНесоответствииОтбору;
 }
-declare type ПеречислениеОриентацияЭлементаФормы = EnumFormItemOrientation;
-interface EnumProgressBarSmoothingMode {
-	Smooth;
-	Плавный;
-	Broken;
-	Прерывистый;
-	BrokenTilt;
-	ПрерывистыйНаклонный;
+declare type ПеречислениеВариантПроверкиОтображенияНовойСтроки = EnumNewRowShowCheckVariant;
+interface DialogReturnCode {
 }
-declare type ПеречислениеРежимСглаживанияИндикатора = EnumProgressBarSmoothingMode;
-interface EnumTrackBarMarkingAppearance {
-	DontShow;
-	НеОтображать;
-	TopLeft;
-	СверхуИлиСлева;
-	BottomRight;
-	СнизуИлиСправа;
-	BothSides;
-	СОбоихСторон;
+interface SpreadsheetDocumentDetailUse {
 }
-declare type ПеречислениеОтображениеРазметкиПолосыРегулирования = EnumTrackBarMarkingAppearance;
-interface EnumFormPagesRepresentation {
-	None;
-	Нет;
-	TabsOnTop;
-	ЗакладкиСверху;
-	TabsOnBottom;
-	ЗакладкиСнизу;
-	TabsOnLeftHorizontal;
-	ЗакладкиСлеваГоризонтально;
-	TabsOnRightHorizontal;
-	ЗакладкиСправаГоризонтально;
-	Swipe;
-	Пролистывание;
+interface FontType {
 }
-declare type ПеречислениеОтображениеСтраницФормы = EnumFormPagesRepresentation;
-interface EnumWarningOnEditRepresentation {
-	Show;
-	Отображать;
-	DontShow;
-	НеОтображать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеОтображениеПредупрежденияПриРедактировании = EnumWarningOnEditRepresentation;
-interface EnumVerticalFormScroll {
-	Auto;
-	Авто;
-	Use;
-	Использовать;
-	UseIfNecessary;
-	ИспользоватьПриНеобходимости;
-	UseWithoutStretch;
-	ИспользоватьБезРастягивания;
-}
-declare type ПеречислениеВертикальнаяПрокруткаФормы = EnumVerticalFormScroll;
-interface EnumFormItemAdditionType {
-	SearchStringRepresentation;
-	ОтображениеСтрокиПоиска;
-	ViewStatusRepresentation;
-	ОтображениеСостоянияПросмотра;
-	SearchControl;
-	УправлениеПоиском;
-}
-declare type ПеречислениеВидДополненияЭлементаФормы = EnumFormItemAdditionType;
-interface EnumSaveFormDataInSettings {
-	DontUse;
-	НеИспользовать;
-	UseList;
-	ИспользоватьСписок;
-}
-declare type ПеречислениеСохранениеДанныхФормыВНастройках = EnumSaveFormDataInSettings;
-interface EnumAutoSaveFormDataInSettings {
-	DontUse;
-	НеИспользовать;
-	Use;
-	Использовать;
-}
-declare type ПеречислениеАвтоматическоеСохранениеДанныхФормыВНастройках = EnumAutoSaveFormDataInSettings;
-interface EnumFormWindowOpeningMode {
-	Independent;
-	Независимый;
-	LockOwnerWindow;
-	БлокироватьОкноВладельца;
-	LockWholeInterface;
-	БлокироватьВесьИнтерфейс;
-}
-declare type ПеречислениеРежимОткрытияОкнаФормы = EnumFormWindowOpeningMode;
-interface EnumClientRunMode {
-	ManagedApplication;
-	УправляемоеПриложение;
-	OrdinaryApplication;
-	ОбычноеПриложение;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеРежимЗапускаКлиентскогоПриложения = EnumClientRunMode;
-interface EnumCommandGroupCategory {
-	NavigationPanel;
-	ПанельНавигации;
-	FormNavigationPanel;
-	ПанельНавигацииФормы;
-	ActionsPanel;
-	ПанельДействий;
-	FormCommandBar;
-	КоманднаяПанельФормы;
-}
-declare type ПеречислениеКатегорияГруппыКоманд = EnumCommandGroupCategory;
-interface EnumCommandParameterUseMode {
-	Single;
-	Одиночный;
-	Multiple;
-	Множественный;
-}
-declare type ПеречислениеРежимИспользованияПараметраКоманды = EnumCommandParameterUseMode;
-interface EnumAdditionalShowMode {
-	DontUse;
-	НеИспользовать;
-	Irrelevance;
-	Неактуальность;
-}
-declare type ПеречислениеДополнительныйРежимОтображения = EnumAdditionalShowMode;
-interface EnumEditTextUpdate {
-	Auto;
-	Авто;
-	DontUse;
-	НеИспользовать;
-	OnValueChange;
-	ПриИзмененииЗначения;
-	Always;
-	Всегда;
-}
-declare type ПеречислениеОбновлениеТекстаРедактирования = EnumEditTextUpdate;
-interface EnumApplicationFormsOpenningMode {
-	SingleWindows;
-	ОтдельныеОкна;
-	Tabs;
-	Закладки;
-}
-declare type ПеречислениеРежимОткрытияФормПриложения = EnumApplicationFormsOpenningMode;
-interface EnumSectionsPanelRepresentation {
-	Picture;
-	Картинка;
-	PictureAndText;
-	КартинкаИТекст;
-	Text;
-	Текст;
-	PictureOnTopAndText;
-	КартинкаСверхуИТекст;
-	PictureOnLeftAndText;
-	КартинкаСлеваИТекст;
-}
-declare type ПеречислениеОтображениеПанелиРазделов = EnumSectionsPanelRepresentation;
-interface EnumChoiceHistoryOnInput {
-	Auto;
-	Авто;
-	DontUse;
-	НеИспользовать;
-}
-declare type ПеречислениеИсторияВыбораПриВводе = EnumChoiceHistoryOnInput;
-interface EnumButtonGroupRepresentation {
-	Auto;
-	Авто;
-	Usual;
-	Обычное;
-	Compact;
-	Компактное;
-}
-declare type ПеречислениеОтображениеГруппыКнопок = EnumButtonGroupRepresentation;
-interface EnumButtonShape {
-	Auto;
-	Авто;
-	Usual;
-	Обычная;
-	Oval;
-	Овал;
-}
-declare type ПеречислениеФигураКнопки = EnumButtonShape;
-interface EnumButtonShapeRepresentation {
-	Auto;
-	Авто;
-	Always;
-	Всегда;
-	WhenActive;
-	ПриАктивности;
-	None;
-	Нет;
-}
-declare type ПеречислениеОтображениеФигурыКнопки = EnumButtonShapeRepresentation;
-interface EnumButtonRepresentation {
-	Text;
-	Текст;
-	Picture;
-	Картинка;
-	PictureAndText;
-	КартинкаИТекст;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеОтображениеКнопки = EnumButtonRepresentation;
-interface EnumSearchStringModeOnInputByString {
-	Begin;
-	Начало;
-	AnyPart;
-	ЛюбаяЧасть;
-}
-declare type ПеречислениеСпособПоискаСтрокиПриВводеПоСтроке = EnumSearchStringModeOnInputByString;
-interface EnumFullTextSearchOnInputByString {
-	Use;
-	Использовать;
-	DontUse;
-	НеИспользовать;
-}
-declare type ПеречислениеПолнотекстовыйПоискПриВводеПоСтроке = EnumFullTextSearchOnInputByString;
-interface EnumChoiceDataGetModeOnInputByString {
-	Directly;
-	Непосредственно;
-	Background;
-	Фоновый;
-}
-declare type ПеречислениеРежимПолученияДанныхВыбораПриВводеПоСтроке = EnumChoiceDataGetModeOnInputByString;
-interface EnumChoiceButtonRepresentation {
-	Auto;
-	Авто;
-	ShowInDropList;
-	ОтображатьВВыпадающемСписке;
-	ShowInDropListAndInInputField;
-	ОтображатьВВыпадающемСпискеИВПолеВвода;
-	ShowInInputField;
-	ОтображатьВПолеВвода;
-}
-declare type ПеречислениеОтображениеКнопкиВыбора = EnumChoiceButtonRepresentation;
-interface EnumSearchStringLocation {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	CommandBar;
-	КоманднаяПанель;
-	Top;
-	Верх;
-	Bottom;
-	Низ;
-	FormCaption;
-	ЗаголовокФормы;
-	PullFromTop;
-	ПотянутьСверху;
-}
-declare type ПеречислениеПоложениеСтрокиПоиска = EnumSearchStringLocation;
-interface EnumViewStatusLocation {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	Top;
-	Верх;
-	Bottom;
-	Низ;
-}
-declare type ПеречислениеПоложениеСостоянияПросмотра = EnumViewStatusLocation;
-interface EnumSearchControlLocation {
-	Auto;
-	Авто;
-	None;
-	Нет;
-	CommandBar;
-	КоманднаяПанель;
-}
-declare type ПеречислениеПоложениеУправленияПоиском = EnumSearchControlLocation;
-interface EnumFormButtonPictureLocation {
-	Auto;
-	Авто;
-	Left;
-	Лево;
-	Right;
-	Право;
-}
-declare type ПеречислениеПоложениеКартинкиКнопкиФормы = EnumFormButtonPictureLocation;
-interface EnumButtonLocationInCommandBar {
-	Auto;
-	Авто;
-	InAdditionalSubmenu;
-	ВДополнительномПодменю;
-	InCommandBar;
-	ВКоманднойПанели;
-	InCommandBarAndInAdditionalSubmenu;
-	ВКоманднойПанелиИВДополнительномПодменю;
-}
-declare type ПеречислениеПоложениеКнопкиВКоманднойПанели = EnumButtonLocationInCommandBar;
-interface EnumFormConversationsRepresentation {
-	Auto;
-	Авто;
-	Show;
-	Отображать;
-	DontShow;
-	НеОтображать;
-}
-declare type ПеречислениеОтображениеОбсужденийФормы = EnumFormConversationsRepresentation;
-interface MainClientApplicationWindowMode {
-}
-interface ClientApplicationBaseFontVariant {
-}
-interface ClientApplicationInterfaceVariant {
-}
-interface ClientApplication {
-	SetMainWindowMode(... params): void;
-	УстановитьРежимОсновногоОкна(... params): void;
-	GetMainWindowMode(): MainClientApplicationWindowMode;
-	ПолучитьРежимОсновногоОкна(): MainClientApplicationWindowMode;
-	SetShortCaption(... params): void;
-	УстановитьКраткийЗаголовок(... params): void;
-	GetShortCaption(): string;
-	ПолучитьКраткийЗаголовок(): string;
-	SetCaption(... params): void;
-	УстановитьЗаголовок(... params): void;
-	GetCaption(): string;
-	ПолучитьЗаголовок(): string;
-	CurrentBaseFontVariant(): ClientApplicationBaseFontVariant;
-	ТекущийВариантОсновногоШрифта(): ClientApplicationBaseFontVariant;
-	CurrentInterfaceVariant(): ClientApplicationInterfaceVariant;
-	ТекущийВариантИнтерфейса(): ClientApplicationInterfaceVariant;
-	GetOSCaptionRepresentation();
-	ПолучитьОтображениеЗаголовкаОС();
-	SetOSCaptionRepresentation(... params): void;
-	УстановитьОтображениеЗаголовкаОС(... params): void;
-}
-declare type КлиентскоеПриложение = ClientApplication;
-interface EnumStandardGlobalSearchType {
-	UserWorkFavorites;
-	ИзбранноеРаботыПользователя;
-	UserWorkHistory;
-	ИсторияРаботыПользователя;
-	FunctionsMenu;
-	МенюФункций;
-	CollaborationSystemConversations;
-	ОбсужденияСистемыВзаимодействия;
-	CollaborationSystemMessages;
-	СообщенияСистемыВзаимодействия;
-	Data;
-	Данные;
-	Expression;
-	Выражение;
-	URL;
-	НавигационнаяСсылка;
-	Help;
-	Справка;
-	FunctionsForTechnicalSpecialist;
-	ФункцииДляТехническогоСпециалиста;
-	GlobalStandardCommands;
-	ГлобальныеСтандартныеКоманды;
-}
-declare type ПеречислениеСтандартныйВидГлобальногоПоиска = EnumStandardGlobalSearchType;
-interface EnumUsedServer {
-	Standalone;
-	Автономный;
-	Main;
-	Основной;
-}
-declare type ПеречислениеИспользуемыйСервер = EnumUsedServer;
-interface EnumDrawingSelectionShowMode {
-	Show;
-	Отображать;
-	DontShow;
-	НеОтображать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеРежимОтображенияВыделенияРисунков = EnumDrawingSelectionShowMode;
-interface EnumErrorMessageDisplayVariant {
-	Auto;
-	Авто;
-	ErrorMessageForUser;
-	СообщениеОбОшибкеДляПользователя;
-	BriefErrorDescription;
-	КраткоеПредставлениеОшибки;
-	DetailErrorDescription;
-	ПодробноеПредставлениеОшибки;
-}
-declare type ПеречислениеВариантОтображенияСообщенияОбОшибке = EnumErrorMessageDisplayVariant;
-interface EnumErrorReportingMode {
-	Auto;
-	Авто;
-	DontSend;
-	НеОтправлять;
-	AskUser;
-	СпрашиватьПользователя;
-	Send;
-	Отправлять;
-}
-declare type ПеречислениеРежимОтправкиИнформацииОбОшибке = EnumErrorReportingMode;
-interface ErrorMessageDisplayVariant {
-}
-interface ErrorReportingMode {
-}
-interface FormattedString {
-}
-declare type ФорматированнаяСтрока = FormattedString;
-interface ErrorMessageTexts {
-	RestartNotRequiredErrorText: FormattedString | string;
-	ТекстДляОшибкиНеТребующейПерезапуск: FormattedString | string;
-	RestartRequiredErrorText: FormattedString | string;
-	ТекстДляОшибкиТребующейПерезапуск: FormattedString | string;
-}
-declare type ТекстыСообщенияОбОшибке = ErrorMessageTexts;
-interface ErrorMessagesTexts {
-	Count(): number;
-	Количество(): number;
-	Insert(... params): void;
-	Вставить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params): ErrorMessageTexts;
-	Получить(... params): ErrorMessageTexts;
-}
-declare type ТекстыСообщенийОбОшибках = ErrorMessagesTexts;
-interface ErrorProcessingSettings {
-	MessageDisplayVariant: ErrorMessageDisplayVariant;
-	ВариантОтображенияСообщения: ErrorMessageDisplayVariant;
-	ErrorRegistrationServiceURL: string;
-	АдресСервисаРегистрацииОшибок: string;
-	SendReport: ErrorReportingMode;
-	ОтправлятьОчет: ErrorReportingMode;
-	SendCrashReport: ErrorReportingMode;
-	ОтправлятьОтчетОбАварийномЗавершении: ErrorReportingMode;
-	IncludeUserNameInReport: ErrorReportingMode;
-	ВключатьИмяПользователяВОтчет: ErrorReportingMode;
-	IncludeSystemInfoInReport: ErrorReportingMode;
-	ВключатьИнформациюОСистемеВОтчет: ErrorReportingMode;
-	IncludeWindowsPictureInReport: ErrorReportingMode;
-	ВключатьСнимокОконВОтчет: ErrorReportingMode;
-	IncludeDetailErrorDescriptionInReport: ErrorReportingMode;
-	ВключатьПодробныйТекстОшибкиВОтчет: ErrorReportingMode;
-	IncludeInfobaseInformationInReport: ErrorReportingMode;
-	ВключатьСведенияОбИнформационнойБазеВОтчет: ErrorReportingMode;
-	AdditionalReportInformation: string;
-	ДополнительнаяИнформацияОтчета: string;
-	SendCrashReportToPlatformErrorRegistrationService: ErrorReportingMode;
-	ОтправлятьОтчетОбАварийномЗавершенииВСервисРегистрацииОшибокПлатформы: ErrorReportingMode;
-	ErrorMessageTexts: ErrorMessagesTexts;
-	ТекстыСообщенийОбОшибках: ErrorMessagesTexts;
-}
-declare type НастройкиОбработкиОшибок = ErrorProcessingSettings;
-interface ErrorCategory {
-}
-interface ErrorProcessingManager {
-	GetCommonSettings(): ErrorProcessingSettings;
-	ПолучитьОбщиеНастройки(): ErrorProcessingSettings;
-	GetUserSettings(... params): ErrorProcessingSettings;
-	ПолучитьНастройкиПользователя(... params): ErrorProcessingSettings;
-	SetCommonSettings(... params): void;
-	УстановитьОбщиеНастройки(... params): void;
-	SetUserSettings(... params): void;
-	УстановитьНастройкиПользователя(... params): void;
-	ErrorCategoryForUser(... params): ErrorCategory;
-	КатегорияОшибкиДляПользователя(... params): ErrorCategory;
-	ErrorMessageForUser(... params): FormattedString;
-	СообщениеОбОшибкеДляПользователя(... params): FormattedString;
-	ErrorDescriptionForUser(... params): FormattedString;
-	ПредставлениеОшибкиДляПользователя(... params): FormattedString;
-	BriefErrorDescription(... params): string;
-	КраткоеПредставлениеОшибки(... params): string;
-	DetailErrorDescription(... params): string;
-	ПодробноеПредставлениеОшибки(... params): string;
-	ShowErrorInfo(... params): void;
-	ПоказатьИнформациюОбОшибке(... params): void;
-}
-declare type МенеджерОбработкиОшибок = ErrorProcessingManager;
-declare var FormItemTitleLocation: EnumFormItemTitleLocation;
-declare var ПоложениеЗаголовкаЭлементаФормы: EnumFormItemTitleLocation;
-declare var FormItemCommandBarLabelLocation: EnumFormItemCommandBarLabelLocation;
-declare var ПоложениеКоманднойПанелиЭлементаФормы: EnumFormItemCommandBarLabelLocation;
-declare var FormCommandBarLabelLocation: EnumFormCommandBarLabelLocation;
-declare var ПоложениеКоманднойПанелиФормы: EnumFormCommandBarLabelLocation;
-declare var IncompleteChoiceMode: EnumIncompleteChoiceMode;
-declare var РежимВыбораНезаполненного: EnumIncompleteChoiceMode;
-declare var SelectionShowMode: EnumSelectionShowMode;
-declare var РежимОтображенияВыделения: EnumSelectionShowMode;
-declare var ItemHorizontalLocation: EnumItemHorizontalLocation;
-declare var ГоризонтальноеПоложениеЭлемента: EnumItemHorizontalLocation;
-declare var ItemVerticalAlign: EnumItemVerticalAlign;
-declare var ВертикальноеПоложениеЭлемента: EnumItemVerticalAlign;
-declare var ColumnsGroup: EnumColumnsGroup;
-declare var ГруппировкаКолонок: EnumColumnsGroup;
-declare var ChildFormItemsGroup: EnumChildFormItemsGroup;
-declare var ГруппировкаПодчиненныхЭлементовФормы: EnumChildFormItemsGroup;
-declare var ItemsAndTitlesAlignVariant: EnumItemsAndTitlesAlignVariant;
-declare var ВариантВыравниванияЭлементовИЗаголовков: EnumItemsAndTitlesAlignVariant;
-declare var FormItemSpacing: EnumFormItemSpacing;
-declare var ИнтервалМеждуЭлементамиФормы: EnumFormItemSpacing;
-declare var FixingInTable: EnumFixingInTable;
-declare var ФиксацияВТаблице: EnumFixingInTable;
-declare var TableHeightControlVariant: EnumTableHeightControlVariant;
-declare var ВариантУправленияВысотойТаблицы: EnumTableHeightControlVariant;
-declare var ChildFormItemsWidth: EnumChildFormItemsWidth;
-declare var ШиринаПодчиненныхЭлементовФормы: EnumChildFormItemsWidth;
-declare var UsualGroupRepresentation: EnumUsualGroupRepresentation;
-declare var ОтображениеОбычнойГруппы: EnumUsualGroupRepresentation;
-declare var UsualGroupBehavior: EnumUsualGroupBehavior;
-declare var ПоведениеОбычнойГруппы: EnumUsualGroupBehavior;
-declare var UsualGroupControlRepresentation: EnumUsualGroupControlRepresentation;
-declare var ОтображениеУправленияОбычнойГруппы: EnumUsualGroupControlRepresentation;
-declare var ThroughAlign: EnumThroughAlign;
-declare var СквозноеВыравнивание: EnumThroughAlign;
-declare var FormButtonType: EnumFormButtonType;
-declare var ВидКнопкиФормы: EnumFormButtonType;
-declare var CheckBoxType: EnumCheckBoxType;
-declare var ВидФлажка: EnumCheckBoxType;
-declare var RadioButtonType: EnumRadioButtonType;
-declare var ВидПереключателя: EnumRadioButtonType;
-declare var FormFieldType: EnumFormFieldType;
-declare var ВидПоляФормы: EnumFormFieldType;
-declare var FormDecorationType: EnumFormDecorationType;
-declare var ВидДекорацииФормы: EnumFormDecorationType;
-declare var FormGroupType: EnumFormGroupType;
-declare var ВидГруппыФормы: EnumFormGroupType;
-declare var TableRepresentation: EnumTableRepresentation;
-declare var ОтображениеТаблицы: EnumTableRepresentation;
-declare var TableRowInputMode: EnumTableRowInputMode;
-declare var РежимВводаСтрокТаблицы: EnumTableRowInputMode;
-declare var TableSelectionMode: EnumTableSelectionMode;
-declare var РежимВыделенияТаблицы: EnumTableSelectionMode;
-declare var TableRowSelectionMode: EnumTableRowSelectionMode;
-declare var РежимВыделенияСтрокиТаблицы: EnumTableRowSelectionMode;
-declare var ScrollBarUse: EnumScrollBarUse;
-declare var ИспользованиеПолосыПрокрутки: EnumScrollBarUse;
-declare var SearchInTableOnInput: EnumSearchInTableOnInput;
-declare var ПоискВТаблицеПриВводе: EnumSearchInTableOnInput;
-declare var ToolTipRepresentation: EnumToolTipRepresentation;
-declare var ОтображениеПодсказки: EnumToolTipRepresentation;
-declare var InitialListView: EnumInitialListView;
-declare var НачальноеОтображениеСписка: EnumInitialListView;
-declare var InitialTreeView: EnumInitialTreeView;
-declare var НачальноеОтображениеДерева: EnumInitialTreeView;
-declare var FoldersAndItems: EnumFoldersAndItems;
-declare var ГруппыИЭлементы: EnumFoldersAndItems;
-declare var EnterKeyBehaviorType: EnumEnterKeyBehaviorType;
-declare var ТипПоведенияКлавишиEnter: EnumEnterKeyBehaviorType;
-declare var ColumnEditMode: EnumColumnEditMode;
-declare var РежимРедактированияКолонки: EnumColumnEditMode;
-declare var UserWorkHistory: UserWorkHistoryManager;
-declare var ИсторияРаботыПользователя: UserWorkHistoryManager;
-declare var ReportFormType: EnumReportFormType;
-declare var ТипФормыОтчета: EnumReportFormType;
-declare var ViewScalingMode: EnumViewScalingMode;
-declare var РежимМасштабированияПросмотра: EnumViewScalingMode;
-declare var DateSelectionMode: EnumDateSelectionMode;
-declare var РежимВыделенияДаты: EnumDateSelectionMode;
-declare var FormItemOrientation: EnumFormItemOrientation;
-declare var ОриентацияЭлементаФормы: EnumFormItemOrientation;
-declare var ProgressBarSmoothingMode: EnumProgressBarSmoothingMode;
-declare var РежимСглаживанияИндикатора: EnumProgressBarSmoothingMode;
-declare var TrackBarMarkingAppearance: EnumTrackBarMarkingAppearance;
-declare var ОтображениеРазметкиПолосыРегулирования: EnumTrackBarMarkingAppearance;
-declare var URLPresentation;
-declare var ПредставлениеНавигационнойСсылки;
-declare var FormPagesRepresentation: EnumFormPagesRepresentation;
-declare var ОтображениеСтраницФормы: EnumFormPagesRepresentation;
-declare var WarningOnEditRepresentation: EnumWarningOnEditRepresentation;
-declare var ОтображениеПредупрежденияПриРедактировании: EnumWarningOnEditRepresentation;
-declare var VerticalFormScroll: EnumVerticalFormScroll;
-declare var ВертикальнаяПрокруткаФормы: EnumVerticalFormScroll;
-declare var FormItemAdditionType: EnumFormItemAdditionType;
-declare var ВидДополненияЭлементаФормы: EnumFormItemAdditionType;
-declare var SaveFormDataInSettings: EnumSaveFormDataInSettings;
-declare var СохранениеДанныхФормыВНастройках: EnumSaveFormDataInSettings;
-declare var AutoSaveFormDataInSettings: EnumAutoSaveFormDataInSettings;
-declare var АвтоматическоеСохранениеДанныхФормыВНастройках: EnumAutoSaveFormDataInSettings;
-declare var FormWindowOpeningMode: EnumFormWindowOpeningMode;
-declare var РежимОткрытияОкнаФормы: EnumFormWindowOpeningMode;
-declare var ClientRunMode: EnumClientRunMode;
-declare var РежимЗапускаКлиентскогоПриложения: EnumClientRunMode;
-declare var CommandGroupCategory: EnumCommandGroupCategory;
-declare var КатегорияГруппыКоманд: EnumCommandGroupCategory;
-declare var CommandParameterUseMode: EnumCommandParameterUseMode;
-declare var РежимИспользованияПараметраКоманды: EnumCommandParameterUseMode;
-declare var AdditionalShowMode: EnumAdditionalShowMode;
-declare var ДополнительныйРежимОтображения: EnumAdditionalShowMode;
-declare var EditTextUpdate: EnumEditTextUpdate;
-declare var ОбновлениеТекстаРедактирования: EnumEditTextUpdate;
-declare var ApplicationFormsOpenningMode: EnumApplicationFormsOpenningMode;
-declare var РежимОткрытияФормПриложения: EnumApplicationFormsOpenningMode;
-declare var SectionsPanelRepresentation: EnumSectionsPanelRepresentation;
-declare var ОтображениеПанелиРазделов: EnumSectionsPanelRepresentation;
-declare var ChoiceHistoryOnInput: EnumChoiceHistoryOnInput;
-declare var ИсторияВыбораПриВводе: EnumChoiceHistoryOnInput;
-declare var ButtonGroupRepresentation: EnumButtonGroupRepresentation;
-declare var ОтображениеГруппыКнопок: EnumButtonGroupRepresentation;
-declare var ButtonShape: EnumButtonShape;
-declare var ФигураКнопки: EnumButtonShape;
-declare var ButtonShapeRepresentation: EnumButtonShapeRepresentation;
-declare var ОтображениеФигурыКнопки: EnumButtonShapeRepresentation;
-declare var ButtonRepresentation: EnumButtonRepresentation;
-declare var ОтображениеКнопки: EnumButtonRepresentation;
-declare var SearchStringModeOnInputByString: EnumSearchStringModeOnInputByString;
-declare var СпособПоискаСтрокиПриВводеПоСтроке: EnumSearchStringModeOnInputByString;
-declare var FullTextSearchOnInputByString: EnumFullTextSearchOnInputByString;
-declare var ПолнотекстовыйПоискПриВводеПоСтроке: EnumFullTextSearchOnInputByString;
-declare var ChoiceDataGetModeOnInputByString: EnumChoiceDataGetModeOnInputByString;
-declare var РежимПолученияДанныхВыбораПриВводеПоСтроке: EnumChoiceDataGetModeOnInputByString;
-declare var ChoiceButtonRepresentation: EnumChoiceButtonRepresentation;
-declare var ОтображениеКнопкиВыбора: EnumChoiceButtonRepresentation;
-declare var SearchStringLocation: EnumSearchStringLocation;
-declare var ПоложениеСтрокиПоиска: EnumSearchStringLocation;
-declare var ViewStatusLocation: EnumViewStatusLocation;
-declare var ПоложениеСостоянияПросмотра: EnumViewStatusLocation;
-declare var SearchControlLocation: EnumSearchControlLocation;
-declare var ПоложениеУправленияПоиском: EnumSearchControlLocation;
-declare var FormButtonPictureLocation: EnumFormButtonPictureLocation;
-declare var ПоложениеКартинкиКнопкиФормы: EnumFormButtonPictureLocation;
-declare var ButtonLocationInCommandBar: EnumButtonLocationInCommandBar;
-declare var ПоложениеКнопкиВКоманднойПанели: EnumButtonLocationInCommandBar;
-declare var FormConversationsRepresentation: EnumFormConversationsRepresentation;
-declare var ОтображениеОбсужденийФормы: EnumFormConversationsRepresentation;
-declare var ClientApplication: ClientApplication;
-declare var КлиентскоеПриложение: ClientApplication;
-declare var StandardGlobalSearchType: EnumStandardGlobalSearchType;
-declare var СтандартныйВидГлобальногоПоиска: EnumStandardGlobalSearchType;
-declare var UsedServer: EnumUsedServer;
-declare var ИспользуемыйСервер: EnumUsedServer;
-declare var DrawingSelectionShowMode: EnumDrawingSelectionShowMode;
-declare var РежимОтображенияВыделенияРисунков: EnumDrawingSelectionShowMode;
-declare var ErrorMessageDisplayVariant: EnumErrorMessageDisplayVariant;
-declare var ВариантОтображенияСообщенияОбОшибке: EnumErrorMessageDisplayVariant;
-declare var ErrorReportingMode: EnumErrorReportingMode;
-declare var РежимОтправкиИнформацииОбОшибке: EnumErrorReportingMode;
-declare var ErrorProcessing: ErrorProcessingManager;
-declare var ОбработкаОшибок: ErrorProcessingManager;
-declare function CopyFormData(... params): boolean;
-declare function КопироватьДанныеФормы(... params): boolean;
-declare function IsTempStorageURL(... params): boolean;
-declare function ЭтоАдресВременногоХранилища(... params): boolean;
-declare function GetInfoBaseURL(): string;
-declare function ПолучитьНавигационнуюСсылкуИнформационнойБазы(): string;
-declare function GetClientDisplaysInformation(): FixedArray;
-declare function ПолучитьИнформациюЭкрановКлиента(): FixedArray;
-declare function GetAllFilesMask();
-declare function ПолучитьМаскуВсеФайлы();
-declare function GetPathSeparator();
-declare function ПолучитьРазделительПути();
-interface EnumWindowOpenVariant {
-	SingleWindow;
-	ОтдельноеОкно;
-}
-declare type ПеречислениеВариантОткрытияОкна = EnumWindowOpenVariant;
-interface EnumClientApplicationAgentState {
-	Connected;
-	Подключен;
-	Disconnected;
-	Отключен;
-	NotStarted;
-	НеЗапущен;
-}
-declare type ПеречислениеСостояниеАгентаКлиентскогоПриложения = EnumClientApplicationAgentState;
-interface ClientApplicationAgentManager {
-	BeginConnect(): void;
-	НачатьПодключение(): void;
-	BeginDisconnect(): void;
-	НачатьОтключение(): void;
-	BeginInstallation(): void;
-	НачатьУстановку(): void;
-	AttachStateChangeHandler(... params): void;
-	ПодключитьОбработчикИзмененияСостояния(... params): void;
-	DetachStateChangeHandler(... params): void;
-	ОтключитьОбработчикИзмененияСостояния(... params): void;
-	GetApplicationDescription(): string;
-	ПолучитьНаименованиеПриложения(): string;
-	SetApplicationDescription(... params): void;
-	УстановитьНаименованиеПриложения(... params): void;
-	IsVersionActual(): boolean;
-	ВерсияАктуальна(): boolean;
-	GetCurrentState(): EnumClientApplicationAgentState;
-	ПолучитьТекущееСостояние(): EnumClientApplicationAgentState;
-}
-interface ExternalSiteWindowManager {
-	Enabled: boolean;
-	Доступно: boolean;
-	AttachMessageHandler(... params): void;
-	ПодключитьОбработчикСообщений(... params): void;
-	DetachMessageHandler(... params): void;
-	ОтключитьОбработчикСообщений(... params): void;
-	PostMessage(... params): void;
-	ОтправитьСообщение(... params): void;
-}
-interface GlobalSearchPlanItem {
-	SearchType;
-	ВидПоиска;
-	ProcedureName;
-	ИмяПроцедуры;
-	Module;
-	Модуль;
-	AtServer;
-	НаСервере;
-	Background;
-	Фоновый;
-	Order;
-	Порядок;
-	AdditionalParameters;
-	ДополнительныеПараметры;
-}
-declare type ЭлементПланаГлобальногоПоиска = GlobalSearchPlanItem;
-interface GlobalSearchPlan {
-	Insert(... params): void;
-	Вставить(... params): void;
-	Add(... params): void;
-	Добавить(... params): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Find(... params): GlobalSearchPlanItem;
-	Найти(... params): GlobalSearchPlanItem;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params): GlobalSearchPlanItem;
-	Получить(... params): GlobalSearchPlanItem;
-	Delete(... params): void;
-	Удалить(... params): void;
-}
-declare type ПланГлобальногоПоиска = GlobalSearchPlan;
-interface GlobalSearchManager {
-	SetPlan(... params): void;
-	УстановитьПлан(... params): void;
-	GetPlan(): GlobalSearchPlan;
-	ПолучитьПлан(): GlobalSearchPlan;
-	SetDescription(... params): void;
-	УстановитьОписание(... params): void;
-	GetDescription(): FormattedString | string;
-	ПолучитьОписание(): FormattedString | string;
-	BeginSearch(... params): void;
-	НачатьПоиск(... params): void;
-	SetInputHint(... params): void;
-	УстановитьПодсказкуВвода(... params): void;
-	GetInputHint();
-	ПолучитьПодсказкуВвода();
-}
-interface ClientApplicationWindow {
-	Caption: string;
-	Заголовок: string;
-	IsMain: boolean;
-	Основное: boolean;
-	HomePage: boolean;
-	НачальнаяСтраница: boolean;
-	Content: FixedArray;
-	Содержимое: FixedArray;
-	GetContent();
-	ПолучитьСодержимое();
-	GetURL(): string;
-	ПолучитьНавигационнуюСсылку(): string;
-	Activate(): void;
-	Активизировать(): void;
-}
-declare type ОкноКлиентскогоПриложения = ClientApplicationWindow;
-interface ClientApplicationWindows {
-	Count(): number;
-	Количество(): number;
-	Get(... params): ClientApplicationWindow;
-	Получить(... params): ClientApplicationWindow;
-}
-declare type ОкнаКлиентскогоПриложения = ClientApplicationWindows;
-declare var WindowOpenVariant: EnumWindowOpenVariant;
-declare var ВариантОткрытияОкна: EnumWindowOpenVariant;
-declare var ClientApplicationAgent: ClientApplicationAgentManager;
-declare var АгентКлиентскогоПриложения: ClientApplicationAgentManager;
-declare var ExternalSiteWindow: ExternalSiteWindowManager;
-declare var ОкноВнешнегоСайта: ExternalSiteWindowManager;
-declare var GlobalSearch: GlobalSearchManager;
-declare var ГлобальныйПоиск: GlobalSearchManager;
-declare function GetApplicationCaption();
-declare function ПолучитьЗаголовокПриложения();
-declare function SetApplicationCaption(... params): void;
-declare function УстановитьЗаголовокПриложения(... params): void;
-declare function ShowUserNotification(... params): void;
-declare function ПоказатьОповещениеПользователя(... params): void;
-declare function GetFile(... params);
-declare function ПолучитьФайл(... params);
-declare function PutFile(... params);
-declare function ПоместитьФайл(... params);
-declare function BeginPutFile(... params): void;
-declare function НачатьПомещениеФайла(... params): void;
-declare function GetInterfaceFunctionalOption(... params);
-declare function ПолучитьФункциональнуюОпциюИнтерфейса(... params);
-declare function SetInterfaceFunctionalOptionParameters(... params): void;
-declare function УстановитьПараметрыФункциональныхОпцийИнтерфейса(... params): void;
-declare function GetInterfaceFunctionalOptionParameters();
-declare function ПолучитьПараметрыФункциональныхОпцийИнтерфейса();
-declare function RefreshInterface(): void;
-declare function ОбновитьИнтерфейс(): void;
-declare function GetWindows(): ClientApplicationWindows;
-declare function ПолучитьОкна(): ClientApplicationWindows;
-declare function SetShortApplicationCaption(... params): void;
-declare function УстановитьКраткийЗаголовокПриложения(... params): void;
-declare function GetShortApplicationCaption();
-declare function ПолучитьКраткийЗаголовокПриложения();
-declare function ActiveWindow(): ClientApplicationWindow;
-declare function АктивноеОкно(): ClientApplicationWindow;
-declare function GotoURL(... params): void;
-declare function ПерейтиПоНавигационнойСсылке(... params): void;
-declare function FindWindowByURL(... params): ClientApplicationWindow;
-declare function НайтиОкноПоНавигационнойСсылке(... params): ClientApplicationWindow;
-declare function ExecuteNotifyProcessing(... params);
-declare function ВыполнитьОбработкуОповещения(... params);
-declare function System(... params): void;
-declare function КомандаСистемы(... params): void;
-declare function NotifyChanged(... params): void;
-declare function ОповеститьОбИзменении(... params): void;
-declare function AttachFileSystemExtension();
-declare function ПодключитьРасширениеРаботыСФайлами();
-declare function BeginAttachingFileSystemExtension(... params): void;
-declare function НачатьПодключениеРасширенияРаботыСФайлами(... params): void;
-declare function InstallFileSystemExtension(): void;
-declare function УстановитьРасширениеРаботыСФайлами(): void;
-declare function BeginInstallFileSystemExtension(... params): void;
-declare function НачатьУстановкуРасширенияРаботыСФайлами(... params): void;
-declare function GetFiles(... params);
-declare function ПолучитьФайлы(... params);
-declare function PutFiles(... params);
-declare function ПоместитьФайлы(... params);
-declare function BeginGettingFiles(... params): void;
-declare function НачатьПолучениеФайлов(... params): void;
-declare function BeginPuttingFiles(... params): void;
-declare function НачатьПомещениеФайлов(... params): void;
-declare function InstallAddIn(... params): void;
-declare function УстановитьВнешнююКомпоненту(... params): void;
-declare function BeginInstallAddIn(... params): void;
-declare function НачатьУстановкуВнешнейКомпоненты(... params): void;
-declare function RequestUserPermission(... params);
-declare function ЗапроситьРазрешениеПользователя(... params);
-declare function BeginRequestingUserPermission(... params): void;
-declare function НачатьЗапросРазрешенияПользователя(... params): void;
-declare function GetClientApplicationCaption();
-declare function ПолучитьЗаголовокКлиентскогоПриложения();
-declare function SetClientApplicationCaption(... params): void;
-declare function УстановитьЗаголовокКлиентскогоПриложения(... params): void;
-declare function BeginPutFileToServer(... params): void;
-declare function НачатьПомещениеФайлаНаСервер(... params): void;
-declare function BeginPutFilesToServer(... params): void;
-declare function НачатьПомещениеФайловНаСервер(... params): void;
-declare function BeginGetFileFromServer(... params): void;
-declare function НачатьПолучениеФайлаССервера(... params): void;
-declare function BeginGetFilesFromServer(... params): void;
-declare function НачатьПолучениеФайловССервера(... params): void;
-interface EnumDynamicListKeyType {
-	Auto;
-	Авто;
-	FieldValue;
-	ЗначениеПоля;
-	RowKey;
-	КлючСтроки;
-	RowNumber;
-	НомерСтроки;
-}
-declare type ПеречислениеВидКлючаДинамическогоСписка = EnumDynamicListKeyType;
-interface EnumCollaborationSystemNotificationRepresentation {
-	Normal;
-	Обычное;
-	DontDisturb;
-	НеБеспокоить;
-}
-declare type ПеречислениеОтображениеОповещенийСистемыВзаимодействия = EnumCollaborationSystemNotificationRepresentation;
-declare var DynamicListKeyType: EnumDynamicListKeyType;
-declare var ВидКлючаДинамическогоСписка: EnumDynamicListKeyType;
-declare var CollaborationSystemNotificationRepresentation: EnumCollaborationSystemNotificationRepresentation;
-declare var ОтображениеОповещенийСистемыВзаимодействия: EnumCollaborationSystemNotificationRepresentation;
-declare function ValueToFormData(... params): void;
-declare function ЗначениеВДанныеФормы(... params): void;
-declare function FormDataToValue(... params);
-declare function ДанныеФормыВЗначение(... params);
-declare function GetFunctionalOption(... params);
-declare function ПолучитьФункциональнуюОпцию(... params);
-declare function PutToTempStorage(... params);
-declare function ПоместитьВоВременноеХранилище(... params);
-declare function GetFromTempStorage(... params);
-declare function ПолучитьИзВременногоХранилища(... params);
-declare function DeleteFromTempStorage(... params): void;
-declare function УдалитьИзВременногоХранилища(... params): void;
-declare function PredefinedValue(... params);
-declare function ПредопределенноеЗначение(... params);
-declare function GetPredefinedValueFullName(... params);
-declare function ПолучитьПолноеИмяПредопределенногоЗначения(... params);
-declare function GetURL(... params);
-declare function ПолучитьНавигационнуюСсылку(... params);
-declare function GetChoiceData(... params);
-declare function ПолучитьДанныеВыбора(... params);
-declare function GetClientConnectionSpeed();
-declare function ПолучитьСкоростьКлиентскогоСоединения();
-declare function GetClientAllFilesMask();
-declare function ПолучитьМаскуВсеФайлыКлиента();
-declare function GetClientPathSeparator();
-declare function ПолучитьРазделительПутиКлиента();
-declare function SetObjectAndFormAttributeConformity(... params): void;
-declare function УстановитьСоответствиеОбъектаИРеквизитаФормы(... params): void;
-declare function GetObjectAndFormAttributeConformity(... params): string;
-declare function ПолучитьСоответствиеОбъектаИРеквизитаФормы(... params): string;
-declare function SetObjectAndFormConformity(... params): void;
-declare function УстановитьСоответствиеОбъектаИФормы(... params): void;
-declare function GetObjectAndFormConformity(... params);
-declare function ПолучитьСоответствиеОбъектаИФормы(... params);
-declare function GetURLsPresentations(... params);
-declare function ПолучитьПредставленияНавигационныхСсылок(... params);
-declare function ConnectExternalDataSource(... params): void;
-declare function УстановитьСоединениеСВнешнимИсточникомДанных(... params): void;
-declare function DisconnectExternalDataSource(... params): void;
-declare function РазорватьСоединениеСВнешнимИсточникомДанных(... params): void;
-interface PictureLib {
-}
-interface EnumEventLogLevel {
-	Note;
-	Примечание;
-	Information;
-	Информация;
-	Warning;
-	Предупреждение;
-	Error;
-	Ошибка;
-}
-declare type ПеречислениеУровеньЖурналаРегистрации = EnumEventLogLevel;
-interface EnumEventLogEntryTransactionMode {
-	Transactional;
-	Транзакционная;
-	Independent;
-	Независимая;
-}
-declare type ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации = EnumEventLogEntryTransactionMode;
-interface EnumEventLogEntryTransactionStatus {
-	Unfinished;
-	НеЗавершена;
-	Committed;
-	Зафиксирована;
-	RolledBack;
-	Отменена;
-	NotApplicable;
-	НетТранзакции;
-}
-declare type ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации = EnumEventLogEntryTransactionStatus;
-interface EnumAutoChangeRecord {
-	Deny;
-	Запретить;
-	Allow;
-	Разрешить;
-}
-declare type ПеречислениеАвтоРегистрацияИзменений = EnumAutoChangeRecord;
-interface EnumAllowedMessageNo {
-	Any;
-	Любой;
-	Next;
-	Очередной;
-	Greater;
-	Больший;
-}
-declare type ПеречислениеДопустимыйНомерСообщения = EnumAllowedMessageNo;
-interface UUID {
-}
-declare type УникальныйИдентификатор = UUID;
-interface UserRoles {
-	Add(... params): void;
-	Добавить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Contains(... params): boolean;
-	Содержит(... params): boolean;
-}
-interface MetadataObject {
-	Parent();
-	Родитель();
-	Presentation();
-	Представление();
-	FullName();
-	ПолноеИмя();
-	ConfigurationExtension();
-	РасширениеКонфигурации();
-	ChangedByConfigurationExtensions();
-	ЕстьИзмененияРасширениямиКонфигурации();
-	GetPredefinedNames();
-	ПолучитьИменаПредопределенных();
-}
-interface ClientRunMode {
-}
-interface UnsafeOperationProtectionDescription {
-	UnsafeOperationWarnings: boolean;
-	ПредупреждатьОбОпасныхДействиях: boolean;
-}
-declare type ОписаниеЗащитыОтОпасныхДействий = UnsafeOperationProtectionDescription;
-interface SecondAuthenticationFactorSettingsProcessingType {
-}
-interface InfoBaseUser {
-	UUID: UUID;
-	УникальныйИдентификатор: UUID;
+interface Font {
 	Name: string;
 	Имя: string;
-	FullName: string;
-	ПолноеИмя: string;
-	StandardAuthentication: boolean;
-	АутентификацияСтандартная: boolean;
-	Password: string;
-	Пароль: string;
-	ShowInList: boolean;
-	ПоказыватьВСпискеВыбора: boolean;
-	OSAuthentication: boolean;
-	АутентификацияОС: boolean;
-	OSUser: string;
-	ПользовательОС: string;
-	Roles: UserRoles;
-	Роли: UserRoles;
-	DefaultInterface: MetadataObject;
-	ОсновнойИнтерфейс: MetadataObject;
-	Language: MetadataObject;
-	Язык: MetadataObject;
-	PasswordIsSet: boolean;
-	ПарольУстановлен: boolean;
-	CannotChangePassword;
-	ЗапрещеноИзменятьПароль;
-	RunMode: ClientRunMode;
-	РежимЗапуска: ClientRunMode;
-	StoredPasswordValue: string;
-	СохраняемоеЗначениеПароля: string;
-	DataSeparation;
-	РазделениеДанных;
-	OpenIDAuthentication: boolean;
-	АутентификацияOpenID: boolean;
-	UnsafeOperationProtection: UnsafeOperationProtectionDescription;
-	ЗащитаОтОпасныхДействий: UnsafeOperationProtectionDescription;
-	SecondAuthenticationFactorSettings;
-	НастройкиВторогоФактораАутентификации;
-	SecondAuthenticationFactorSettingsProcessing: SecondAuthenticationFactorSettingsProcessingType;
-	ОбработкаНастроекВторогоФактораАутентификации: SecondAuthenticationFactorSettingsProcessingType;
-	CannotRecoveryPassword;
-	ЗапрещеноВосстанавливатьПароль;
-	Email;
-	АдресЭлектроннойПочты;
-	Write(): void;
-	Записать(): void;
-	Delete(): void;
-	Удалить(): void;
+	Size: number;
+	Размер: number;
+	Bold: boolean;
+	Полужирный: boolean;
+	Italic: boolean;
+	Наклонный: boolean;
+	Underline: boolean;
+	Подчеркивание: boolean;
+	Strikeout: boolean;
+	Зачеркивание: boolean;
+	Type: FontType;
+	Вид: FontType;
+	Scale: number;
+	Масштаб: number;
 }
-interface InfoBaseUsersManager {
-	CreateUser(): InfoBaseUser;
-	СоздатьПользователя(): InfoBaseUser;
-	GetUsers(): ArrayV8;
-	ПолучитьПользователей(): ArrayV8;
-	FindByName(... params): InfoBaseUser;
-	НайтиПоИмени(... params): InfoBaseUser;
-	FindByUUID(... params): InfoBaseUser;
-	НайтиПоУникальномуИдентификатору(... params): InfoBaseUser;
-	CurrentUser(): InfoBaseUser;
-	ТекущийПользователь(): InfoBaseUser;
+declare type Шрифт = Font;
+interface VerticalAlign {
 }
-interface Map {
-	Count(): number;
-	Количество(): number;
-	Insert(... params): void;
-	Вставить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params);
-	Получить(... params);
+interface HorizontalAlign {
 }
-declare type Соответствие = Map;
+interface SpreadsheetDocumentTextPlacementType {
+}
+interface ColorType {
+}
+interface Color {
+	R: number;
+	Красный: number;
+	G: number;
+	Зеленый: number;
+	B: number;
+	Синий: number;
+	Type: ColorType;
+	Вид: ColorType;
+}
+declare type Цвет = Color;
+interface SpreadsheetDocumentPatternType {
+}
+interface Line {
+	LineType;
+	ТипЛинии;
+	Width: number;
+	Толщина: number;
+	Gap: boolean;
+	Отступ: boolean;
+}
+declare type Линия = Line;
+interface SpreadsheetDocumentDrawingType {
+}
+interface PictureType {
+}
+interface PictureFormat {
+}
+interface ColorDepth {
+}
 interface Stream {
 	CanRead: boolean;
 	ДоступноЧтение: boolean;
@@ -1905,335 +211,39 @@ interface BinaryData {
 	НачатьЗапись(... params): void;
 }
 declare type ДвоичныеДанные = BinaryData;
-interface HTTPRequest {
-	ResourceAddress: string;
-	АдресРесурса: string;
-	Headers: Map;
-	Заголовки: Map;
-	SetBodyFromString(... params): void;
-	УстановитьТелоИзСтроки(... params): void;
-	SetBodyFromBinaryData(... params): void;
-	УстановитьТелоИзДвоичныхДанных(... params): void;
-	SetBodyFileName(... params): void;
-	УстановитьИмяФайлаТела(... params): void;
-	GetBodyAsString(): string;
-	ПолучитьТелоКакСтроку(): string;
-	GetBodyAsBinaryData(): BinaryData;
-	ПолучитьТелоКакДвоичныеДанные(): BinaryData;
-	GetBodyFileName(): string;
-	ПолучитьИмяФайлаТела(): string;
-	GetBodyAsStream(): Stream;
-	ПолучитьТелоКакПоток(): Stream;
+interface Picture {
+	Type: PictureType;
+	Вид: PictureType;
+	VariantSet;
+	НаборВариантов;
+	Write(... params): void;
+	Записать(... params): void;
+	FileNameFilter(... params): string;
+	ФильтрИменФайлов(... params): string;
+	Convert(... params): Picture;
+	Преобразовать(... params): Picture;
+	Format(): PictureFormat;
+	Формат(): PictureFormat;
+	Width(): number;
+	Ширина(): number;
+	Height(): number;
+	Высота(): number;
+	ColorDepth(): ColorDepth;
+	ГлубинаЦвета(): ColorDepth;
+	GrayScale(): boolean;
+	ОттенкиСерого(): boolean;
+	HorizontalDensity(): number;
+	ПлотностьПоГоризонтали(): number;
+	VerticalDensity(): number;
+	ПлотностьПоВертикали(): number;
+	FileSize(): number;
+	РазмерФайла(): number;
+	GetBinaryData(... params): BinaryData;
+	ПолучитьДвоичныеДанные(... params): BinaryData;
 }
-declare type HTTPЗапрос = HTTPRequest;
-interface SecondAuthenticationFactorSettingTemplate {
-	Name: string;
-	Имя: string;
-	AuthenticationHTTPRequest: HTTPRequest;
-	HTTPЗапросНаАутентификацию: HTTPRequest;
-	AuthenticationHTTPRequestMethod: string;
-	МетодHTTPЗапросаНаАутентификацию: string;
-	AuthenticationResultVerificationHTTPRequest: HTTPRequest;
-	HTTPЗапросНаПроверкуРезультатаАутентификации: HTTPRequest;
-	AuthenticationResultVerificationHTTPRequestMethod: string;
-	МетодHTTPЗапросаНаПроверкуРезультатаАутентификации: string;
-	Write(): void;
-	Записать(): void;
-	Delete(): void;
-	Удалить(): void;
+declare type Картинка = Picture;
+interface PictureSize {
 }
-interface SecondAuthenticationFactorSettingsTemplatesManager {
-	FindByName(... params): SecondAuthenticationFactorSettingTemplate;
-	НайтиПоИмени(... params): SecondAuthenticationFactorSettingTemplate;
-	CreateTemplate(): SecondAuthenticationFactorSettingTemplate;
-	СоздатьШаблон(): SecondAuthenticationFactorSettingTemplate;
-	GetTemplates(): ArrayV8;
-	ПолучитьШаблоны(): ArrayV8;
-}
-interface EnumDataItemSend {
-	Auto;
-	Авто;
-	Delete;
-	Удалить;
-	Ignore;
-	Игнорировать;
-}
-declare type ПеречислениеОтправкаЭлементаДанных = EnumDataItemSend;
-interface EnumDataItemReceive {
-	Auto;
-	Авто;
-	Accept;
-	Принять;
-	Ignore;
-	Игнорировать;
-}
-declare type ПеречислениеПолучениеЭлементаДанных = EnumDataItemReceive;
-interface StyleColors {
-}
-interface StyleFonts {
-}
-interface StyleBorders {
-}
-interface EnumFullTextSearchMode {
-	Disable;
-	Запретить;
-	Enable;
-	Разрешить;
-}
-declare type ПеречислениеРежимПолнотекстовогоПоиска = EnumFullTextSearchMode;
-interface FullTextSearchMode {
-}
-interface FullTextSearchMetadataUse {
-}
-interface FullTextSearchList {
-	SearchString: string;
-	СтрокаПоиска: string;
-	GetDescription: boolean;
-	ПолучатьОписание: boolean;
-	GetPresentation: boolean;
-	ПолучатьПредставление: boolean;
-	PortionSize: number;
-	РазмерПорции: number;
-	SearchArea;
-	ОбластьПоиска;
-	FuzzinessThreshold: number;
-	ПорогНечеткости: number;
-	MetadataUse: FullTextSearchMetadataUse;
-	ИспользованиеМетаданных: FullTextSearchMetadataUse;
-	StartPosition();
-	НачальнаяПозиция();
-	TooManyResults();
-	СлишкомМногоРезультатов();
-	FirstPart(): void;
-	ПерваяЧасть(): void;
-	NextPart(... params): void;
-	СледующаяЧасть(... params): void;
-	PreviousPart(... params): void;
-	ПредыдущаяЧасть(... params): void;
-	TotalCount();
-	ПолноеКоличество();
-	Count();
-	Количество();
-	Get(... params);
-	Получить(... params);
-	GetRepresentation(... params);
-	ПолучитьОтображение(... params);
-}
-interface CompositeWordsSeparationMode {
-}
-interface FullTextSearchManager {
-	GetFullTextSearchMode(): FullTextSearchMode;
-	ПолучитьРежимПолнотекстовогоПоиска(): FullTextSearchMode;
-	SetFullTextSearchMode(... params): void;
-	УстановитьРежимПолнотекстовогоПоиска(... params): void;
-	UpdateIndex(... params): void;
-	ОбновитьИндекс(... params): void;
-	ClearIndex(): void;
-	ОчиститьИндекс(): void;
-	CheckIndex();
-	ПроверитьИндекс();
-	CreateList(... params): FullTextSearchList;
-	СоздатьСписок(... params): FullTextSearchList;
-	IndexUpdateComplete(): boolean;
-	ОбновлениеИндексаЗавершено(): boolean;
-	UpdateDate(): Date;
-	ДатаАктуальности(): Date;
-	IndexTrue(): boolean;
-	ИндексАктуален(): boolean;
-	GetMaxIndexedDataSize(): number;
-	ПолучитьМаксимальныйРазмерИндексируемыхДанных(): number;
-	SetMaxIndexedDataSize(... params): void;
-	УстановитьМаксимальныйРазмерИндексируемыхДанных(... params): void;
-	GetIndexingJobsCount();
-	ПолучитьКоличествоЗаданийИндексирования();
-	SetIndexingJobsCount(... params): void;
-	УстановитьКоличествоЗаданийИндексирования(... params): void;
-	SetCompositeWordsSeparationMode(... params): void;
-	УстановитьРежимРазделенияСоставныхСлов(... params): void;
-	GetCompositeWordsSeparationMode(): CompositeWordsSeparationMode;
-	ПолучитьРежимРазделенияСоставныхСлов(): CompositeWordsSeparationMode;
-}
-interface EnumFullTextSearchRepresentationType {
-	HTMLText;
-	HTMLТекст;
-	XML;
-}
-declare type ПеречислениеВидОтображенияПолнотекстовогоПоиска = EnumFullTextSearchRepresentationType;
-interface EnumFullTextSearchMetadataUse {
-	Use;
-	Использовать;
-	DontUse;
-	НеИспользовать;
-}
-declare type ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска = EnumFullTextSearchMetadataUse;
-interface EnumBackgroundJobState {
-	Active;
-	Активно;
-	Completed;
-	Завершено;
-	Failed;
-	ЗавершеноАварийно;
-	Canceled;
-	Отменено;
-}
-declare type ПеречислениеСостояниеФоновогоЗадания = EnumBackgroundJobState;
-interface JobSchedule {
-	BeginDate: Date;
-	ДатаНачала: Date;
-	EndDate: Date;
-	ДатаКонца: Date;
-	BeginTime: Date;
-	ВремяНачала: Date;
-	EndTime: Date;
-	ВремяКонца: Date;
-	CompletionTime: Date;
-	ВремяЗавершения: Date;
-	CompletionInterval: number;
-	ИнтервалЗавершения: number;
-	RepeatPeriodInDay: number;
-	ПериодПовтораВТечениеДня: number;
-	RepeatPause: number;
-	ПаузаПовтора: number;
-	WeekDays: ArrayV8;
-	ДниНедели: ArrayV8;
-	WeekDayInMonth: number;
-	ДеньНеделиВМесяце: number;
-	DayInMonth: number;
-	ДеньВМесяце: number;
-	Months: ArrayV8;
-	Месяцы: ArrayV8;
-	WeeksPeriod: number;
-	ПериодНедель: number;
-	DaysRepeatPeriod: number;
-	ПериодПовтораДней: number;
-	DetailedDailySchedules: ArrayV8;
-	ДетальныеРасписанияДня: ArrayV8;
-	ExecutionRequired(... params): boolean;
-	ТребуетсяВыполнение(... params): boolean;
-}
-declare type РасписаниеРегламентногоЗадания = JobSchedule;
-interface Structure {
-	Count(): number;
-	Количество(): number;
-	Insert(... params): void;
-	Вставить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Property(... params): boolean;
-	Свойство(... params): boolean;
-}
-declare type Структура = Structure;
-interface ScheduledJob {
-	UUID: UUID;
-	УникальныйИдентификатор: UUID;
-	Description: string;
-	Наименование: string;
-	Key: string;
-	Ключ: string;
-	Metadata: MetadataObject;
-	Метаданные: MetadataObject;
-	Predefined: boolean;
-	Предопределенное: boolean;
-	Parameters: ArrayV8;
-	Параметры: ArrayV8;
-	UserName: string;
-	ИмяПользователя: string;
-	Schedule: JobSchedule;
-	Расписание: JobSchedule;
-	Use: boolean;
-	Использование: boolean;
-	RestartCountOnFailure: number;
-	КоличествоПовторовПриАварийномЗавершении: number;
-	RestartIntervalOnFailure: number;
-	ИнтервалПовтораПриАварийномЗавершении: number;
-	LastJob: BackgroundJob;
-	ПоследнееЗадание: BackgroundJob;
-	DataSeparation: Structure;
-	РазделениеДанных: Structure;
-	Write(): void;
-	Записать(): void;
-	Delete(): void;
-	Удалить(): void;
-}
-interface BackgroundJobState {
-}
-interface ErrorInfo {
-	Description;
-	Описание;
-	ModuleName;
-	ИмяМодуля;
-	LineNumber;
-	НомерСтроки;
-	SourceLine;
-	ИсходнаяСтрока;
-	Cause;
-	Причина;
-	IsErrorOfCategory(... params);
-	ЯвляетсяОшибкойКатегории(... params);
-}
-interface BackgroundJob {
-	UUID: UUID;
-	УникальныйИдентификатор: UUID;
-	Description: string;
-	Наименование: string;
-	Key: string;
-	Ключ: string;
-	ScheduledJob: ScheduledJob;
-	РегламентноеЗадание: ScheduledJob;
-	MethodName: string;
-	ИмяМетода: string;
-	State: BackgroundJobState;
-	Состояние: BackgroundJobState;
-	Location: string;
-	Расположение: string;
-	Begin: Date;
-	Начало: Date;
-	End: Date;
-	Конец: Date;
-	ErrorInfo: ErrorInfo;
-	ИнформацияОбОшибке: ErrorInfo;
-	DataSeparation: Structure;
-	РазделениеДанных: Structure;
-	Cancel(): void;
-	Отменить(): void;
-	WaitForCompletion(... params): void;
-	ОжидатьЗавершения(... params): void;
-	WaitForExecutionCompletion(... params);
-	ОжидатьЗавершенияВыполнения(... params);
-	GetUserMessages(... params): FixedArray;
-	ПолучитьСообщенияПользователю(... params): FixedArray;
-}
-interface BackgroundJobsManager {
-	FindByUUID(... params): BackgroundJob;
-	НайтиПоУникальномуИдентификатору(... params): BackgroundJob;
-	GetBackgroundJobs(... params): ArrayV8;
-	ПолучитьФоновыеЗадания(... params): ArrayV8;
-	Execute(... params): BackgroundJob;
-	Выполнить(... params): BackgroundJob;
-	WaitForCompletion(... params): void;
-	ОжидатьЗавершения(... params): void;
-	WaitForExecutionCompletion(... params);
-	ОжидатьЗавершенияВыполнения(... params);
-}
-interface ScheduledJobsManager {
-	FindByUUID(... params): ScheduledJob;
-	НайтиПоУникальномуИдентификатору(... params): ScheduledJob;
-	FindPredefined(... params): ScheduledJob;
-	НайтиПредопределенное(... params): ScheduledJob;
-	GetScheduledJobs(... params): ArrayV8;
-	ПолучитьРегламентныеЗадания(... params): ArrayV8;
-	CreateScheduledJob(... params): ScheduledJob;
-	СоздатьРегламентноеЗадание(... params): ScheduledJob;
-}
-interface EnumAutonumerationInForm {
-	Auto;
-	Авто;
-	DontUse;
-	НеИспользовать;
-}
-declare type ПеречислениеАвтонумерацияВФорме = EnumAutonumerationInForm;
 interface AllowedSign {
 }
 interface NumberQualifiers {
@@ -2268,6 +278,27 @@ interface BinaryDataQualifiers {
 	ДопустимаяДлина: AllowedLength;
 }
 declare type КвалификаторыДвоичныхДанных = BinaryDataQualifiers;
+interface ArrayV8 {
+	Count(): number;
+	Количество(): number;
+	UBound(): number;
+	ВГраница(): number;
+	Insert(... params): void;
+	Вставить(... params): void;
+	Add(... params): void;
+	Добавить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params);
+	Получить(... params);
+	Set(... params): void;
+	Установить(... params): void;
+	Find(... params): number;
+	Найти(... params): number;
+}
+declare type Массив = ArrayV8;
 interface TypeDescription {
 	NumberQualifiers: NumberQualifiers;
 	КвалификаторыЧисла: NumberQualifiers;
@@ -2285,45 +316,325 @@ interface TypeDescription {
 	ПривестиЗначение(... params);
 }
 declare type ОписаниеТипов = TypeDescription;
-interface PictureType {
+interface SpreadsheetDocumentAreaFillType {
 }
-interface PictureFormat {
+interface SpreadsheetDocumentDrawing {
+	Text: string;
+	Текст: string;
+	Details;
+	Расшифровка;
+	VerticalAlign: VerticalAlign;
+	ВертикальноеПоложение: VerticalAlign;
+	HorizontalAlign: HorizontalAlign;
+	ГоризонтальноеПоложение: HorizontalAlign;
+	Print: boolean;
+	ВыводитьНаПечать: boolean;
+	BackColor: Color;
+	ЦветФона: Color;
+	TextColor: Color;
+	ЦветТекста: Color;
+	Pattern: SpreadsheetDocumentPatternType;
+	Узор: SpreadsheetDocumentPatternType;
+	PatternColor: Color;
+	ЦветУзора: Color;
+	Line: Line;
+	Линия: Line;
+	LineColor: Color;
+	ЦветЛинии: Color;
+	Font: Font;
+	Шрифт: Font;
+	DrawingType: SpreadsheetDocumentDrawingType;
+	ТипРисунка: SpreadsheetDocumentDrawingType;
+	TextPlacement: SpreadsheetDocumentTextPlacementType;
+	РазмещениеТекста: SpreadsheetDocumentTextPlacementType;
+	MarkNegatives: boolean;
+	ВыделятьОтрицательные: boolean;
+	TextOrientation: number;
+	ОриентацияТекста: number;
+	AutoSize: boolean;
+	АвтоРазмер: boolean;
+	Protection: boolean;
+	Защита: boolean;
+	Object;
+	Объект;
+	HyperLink: boolean;
+	ГиперСсылка: boolean;
+	Picture: Picture;
+	Картинка: Picture;
+	PictureSize: PictureSize;
+	РазмерКартинки: PictureSize;
+	Name: string;
+	Имя: string;
+	LeftBorder: boolean;
+	ГраницаСлева: boolean;
+	TopBorder: boolean;
+	ГраницаСверху: boolean;
+	RightBorder: boolean;
+	ГраницаСправа: boolean;
+	BottomBorder: boolean;
+	ГраницаСнизу: boolean;
+	Value;
+	Значение;
+	ContainsValue: boolean;
+	СодержитЗначение: boolean;
+	Control;
+	ЭлементУправления;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	Format: string;
+	Формат: string;
+	Left: number;
+	Лево: number;
+	Top: number;
+	Верх: number;
+	Width: number;
+	Ширина: number;
+	Height: number;
+	Высота: number;
+	AutoMarkIncomplete: boolean;
+	АвтоОтметкаНезаполненного: boolean;
+	MarkIncomplete: boolean;
+	ОтметкаНезаполненного: boolean;
+	Indent: number;
+	Отступ: number;
+	FillType: SpreadsheetDocumentAreaFillType;
+	Заполнение: SpreadsheetDocumentAreaFillType;
+	Parameter: string;
+	Параметр: string;
+	DetailsParameter: string;
+	ПараметрРасшифровки: string;
+	EditFormat: string;
+	ФорматРедактирования: string;
+	Mask: string;
+	Маска: string;
+	Place(... params): void;
+	Расположить(... params): void;
+	SetControl(... params): void;
+	УстановитьЭлементУправления(... params): void;
+	GetSelectedItems(): ArrayV8;
+	ПолучитьВыделенныеЭлементы(): ArrayV8;
+	SetSelectedItems(... params): void;
+	УстановитьВыделенныеЭлементы(... params): void;
 }
-interface ColorDepth {
+interface SpreadsheetDocumentCellAreaType {
 }
-interface Picture {
-	Type: PictureType;
-	Вид: PictureType;
-	VariantSet;
-	НаборВариантов;
-	Write(... params): void;
-	Записать(... params): void;
-	FileNameFilter(... params): string;
-	ФильтрИменФайлов(... params): string;
-	Convert(... params): Picture;
-	Преобразовать(... params): Picture;
-	Format(): PictureFormat;
-	Формат(): PictureFormat;
-	Width(): number;
-	Ширина(): number;
-	Height(): number;
-	Высота(): number;
-	ColorDepth(): ColorDepth;
-	ГлубинаЦвета(): ColorDepth;
-	GrayScale(): boolean;
-	ОттенкиСерого(): boolean;
-	HorizontalDensity(): number;
-	ПлотностьПоГоризонтали(): number;
-	VerticalDensity(): number;
-	ПлотностьПоВертикали(): number;
-	FileSize(): number;
-	РазмерФайла(): number;
-	GetBinaryData(... params): BinaryData;
-	ПолучитьДвоичныеДанные(... params): BinaryData;
-	FrameCount(): number;
-	КоличествоКадров(): number;
+interface TextPositionRelativeToPicture {
 }
-declare type Картинка = Picture;
+interface SpreadsheetDocumentRange {
+	Text: string;
+	Текст: string;
+	Details;
+	Расшифровка;
+	DetailsUse: SpreadsheetDocumentDetailUse;
+	ИспользованиеРасшифровки: SpreadsheetDocumentDetailUse;
+	Font: Font;
+	Шрифт: Font;
+	VerticalAlign: VerticalAlign;
+	ВертикальноеПоложение: VerticalAlign;
+	HorizontalAlign: HorizontalAlign;
+	ГоризонтальноеПоложение: HorizontalAlign;
+	BySelectedColumns: boolean;
+	ПоВыделеннымКолонкам: boolean;
+	TextPlacement: SpreadsheetDocumentTextPlacementType;
+	РазмещениеТекста: SpreadsheetDocumentTextPlacementType;
+	MarkNegatives: boolean;
+	ВыделятьОтрицательные: boolean;
+	BackColor: Color;
+	ЦветФона: Color;
+	BorderColor: Color;
+	ЦветРамки: Color;
+	TextColor: Color;
+	ЦветТекста: Color;
+	RowHeight: number;
+	ВысотаСтроки: number;
+	AutoRowHeight: boolean;
+	АвтоВысотаСтроки: boolean;
+	ColumnWidth: number;
+	ШиринаКолонки: number;
+	Protection: boolean;
+	Защита: boolean;
+	TextOrientation: number;
+	ОриентацияТекста: number;
+	Pattern: SpreadsheetDocumentPatternType;
+	Узор: SpreadsheetDocumentPatternType;
+	PatternColor: Color;
+	ЦветУзора: Color;
+	Visible: boolean;
+	Видимость: boolean;
+	Comment: SpreadsheetDocumentDrawing;
+	Примечание: SpreadsheetDocumentDrawing;
+	Name: string;
+	Имя: string;
+	Value;
+	Значение;
+	ContainsValue: boolean;
+	СодержитЗначение: boolean;
+	Control;
+	ЭлементУправления;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	StayWithNext: boolean;
+	ВместеСоСледующим: boolean;
+	PageTop: boolean;
+	НачалоСтраницы: boolean;
+	PageBottom: boolean;
+	КонецСтраницы: boolean;
+	Format: string;
+	Формат: string;
+	LeftBorder: Line;
+	ГраницаСлева: Line;
+	TopBorder: Line;
+	ГраницаСверху: Line;
+	RightBorder: Line;
+	ГраницаСправа: Line;
+	BottomBorder: Line;
+	ГраницаСнизу: Line;
+	Hyperlink: boolean;
+	Гиперссылка: boolean;
+	AreaType: SpreadsheetDocumentCellAreaType;
+	ТипОбласти: SpreadsheetDocumentCellAreaType;
+	Left: number;
+	Лево: number;
+	Right: number;
+	Право: number;
+	Top: number;
+	Верх: number;
+	Bottom: number;
+	Низ: number;
+	AutoMarkIncomplete: boolean;
+	АвтоОтметкаНезаполненного: boolean;
+	MarkIncomplete: boolean;
+	ОтметкаНезаполненного: boolean;
+	Indent: number;
+	Отступ: number;
+	AutoIndent: number;
+	АвтоОтступ: number;
+	FillType: SpreadsheetDocumentAreaFillType;
+	Заполнение: SpreadsheetDocumentAreaFillType;
+	Parameter: string;
+	Параметр: string;
+	DetailsParameter: string;
+	ПараметрРасшифровки: string;
+	PictureParameter: string;
+	ПараметрКартинки: string;
+	EditFormat: string;
+	ФорматРедактирования: string;
+	ColumnSizeChangeMode: boolean;
+	РежимИзмененияРазмераКолонки: boolean;
+	Mask: string;
+	Маска: string;
+	Picture: Picture;
+	Картинка: Picture;
+	PictureSize: PictureSize;
+	РазмерКартинки: PictureSize;
+	PictureHorizontalAlign: HorizontalAlign;
+	ГоризонтальноеПоложениеКартинки: HorizontalAlign;
+	PictureVerticalAlign: VerticalAlign;
+	ВертикальноеПоложениеКартинки: VerticalAlign;
+	TextPositionRelativeToPicture: TextPositionRelativeToPicture;
+	ПоложениеТекстаОтносительноКартинки: TextPositionRelativeToPicture;
+	HorizontalStretch: boolean;
+	РастягиватьПоГоризонтали: boolean;
+	WidthWeightFactor: number;
+	ВесовойКоэффициентШирины: number;
+	Merge(): void;
+	Объединить(): void;
+	UndoMerge(): void;
+	Разъединить(): void;
+	Clear(... params): void;
+	Очистить(... params): void;
+	Group(... params): void;
+	Сгруппировать(... params): void;
+	Ungroup(): void;
+	Разгруппировать(): void;
+	Outline(... params): void;
+	Обвести(... params): void;
+	SetControl(... params): void;
+	УстановитьЭлементУправления(... params): void;
+	CreateFormatOfRows(): void;
+	СоздатьФорматСтрок(): void;
+}
+interface SpreadsheetDocumentStepDirectionType {
+}
+interface SpreadsheetDocumentDrawingCollection {
+	Add(... params): SpreadsheetDocumentDrawing;
+	Добавить(... params): SpreadsheetDocumentDrawing;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): SpreadsheetDocumentDrawing;
+	Получить(... params): SpreadsheetDocumentDrawing;
+}
+interface SpreadsheetDocumentTemplateParameters {
+	Count(): number;
+	Количество(): number;
+	Fill(... params): void;
+	Заполнить(... params): void;
+	Get(... params);
+	Получить(... params);
+	Set(... params): void;
+	Установить(... params): void;
+}
+interface SpreadsheetDocumentAreaCollection {
+	Count();
+	Количество();
+	IndexOf(... params);
+	Индекс(... params);
+	Find(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
+	Найти(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
+	Get(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
+	Получить(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
+}
+interface PageOrientation {
+}
+interface FormattedString {
+}
+declare type ФорматированнаяСтрока = FormattedString;
+interface SpreadsheetDocumentHeaderFooter {
+	LeftText: FormattedString | string;
+	ТекстСлева: FormattedString | string;
+	RightText: FormattedString | string;
+	ТекстСправа: FormattedString | string;
+	CenterText: FormattedString | string;
+	ТекстВЦентре: FormattedString | string;
+	Font: Font;
+	Шрифт: Font;
+	VerticalAlign: VerticalAlign;
+	ВертикальноеПоложение: VerticalAlign;
+	StartPage: number;
+	НачальнаяСтраница: number;
+	Enabled: number;
+	Выводить: number;
+}
+interface ComparisonType {
+}
+interface FilterItem {
+	Use: boolean;
+	Использование: boolean;
+	Value;
+	Значение;
+	ComparisonType: ComparisonType;
+	ВидСравнения: ComparisonType;
+	ValueFrom;
+	ЗначениеС;
+	ValueTo;
+	ЗначениеПо;
+	Name: string;
+	Имя: string;
+	Presentation: string;
+	Представление: string;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	DataPath;
+	ПутьКДанным;
+	Set(... params): void;
+	Установить(... params): void;
+}
 interface ValueListItem {
 	Value;
 	Значение;
@@ -2383,277 +694,6 @@ interface ValueList {
 	ЗаполнитьПометки(... params): void;
 }
 declare type СписокЗначений = ValueList;
-interface SettingsDescription {
-	ObjectKey;
-	КлючОбъекта;
-	SettingsKey;
-	КлючНастроек;
-	User: string;
-	Пользователь: string;
-	Presentation: string;
-	Представление: string;
-	AdditionalProperties: Structure;
-	ДополнительныеСвойства: Structure;
-}
-declare type ОписаниеНастроек = SettingsDescription;
-interface StandardSettingsStorageSelection {
-	ObjectKey;
-	КлючОбъекта;
-	SettingsKey;
-	КлючНастроек;
-	User;
-	Пользователь;
-	Presentation;
-	Представление;
-	Settings;
-	Настройки;
-	Next();
-	Следующий();
-}
-interface StandardSettingsStorageManager {
-	Load(... params);
-	Загрузить(... params);
-	Save(... params): void;
-	Сохранить(... params): void;
-	GetList(... params): ValueList;
-	ПолучитьСписок(... params): ValueList;
-	Delete(... params): void;
-	Удалить(... params): void;
-	GetDescription(... params): SettingsDescription;
-	ПолучитьОписание(... params): SettingsDescription;
-	SetDescription(... params): string;
-	УстановитьОписание(... params): string;
-	Select(... params): StandardSettingsStorageSelection;
-	Выбрать(... params): StandardSettingsStorageSelection;
-}
-interface EnumStandardCommandsGroup {
-	NavigationPanelImportant;
-	ПанельНавигацииВажное;
-	NavigationPanelOrdinary;
-	ПанельНавигацииОбычное;
-	NavigationPanelSeeAlso;
-	ПанельНавигацииСмТакже;
-	ActionsPanelCreate;
-	ПанельДействийСоздать;
-	ActionsPanelReports;
-	ПанельДействийОтчеты;
-	ActionsPanelTools;
-	ПанельДействийСервис;
-	FormNavigationPanelImportant;
-	ПанельНавигацииФормыВажное;
-	FormNavigationPanelGoTo;
-	ПанельНавигацииФормыПерейти;
-	FormNavigationPanelSeeAlso;
-	ПанельНавигацииФормыСмТакже;
-	FormCommandBarImportant;
-	КоманднаяПанельФормыВажное;
-	FormCommandBarCreateBasedOn;
-	КоманднаяПанельФормыСоздатьНаОсновании;
-}
-declare type ПеречислениеСтандартнаяГруппаКоманд = EnumStandardCommandsGroup;
-interface EnumDataBaseConfigurationUpdateExecutionInformationItemType {
-	Information;
-	Информация;
-	Warning;
-	Предупреждение;
-	Error;
-	Ошибка;
-}
-declare type ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных = EnumDataBaseConfigurationUpdateExecutionInformationItemType;
-interface EnumDataBaseConfigurationUpdateState {
-	NotActive;
-	Неактивно;
-	ProcessingInProgress;
-	ВыполняетсяОбработка;
-	RefreshInProgress;
-	ВыполняетсяАктуализация;
-}
-declare type ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных = EnumDataBaseConfigurationUpdateState;
-interface ConfigurationExtensionPurpose {
-}
-interface EnumConfigurationExtensionScope {
-	InfoBase;
-	ИнформационнаяБаза;
-	DataSeparation;
-	РазделениеДанных;
-}
-declare type ПеречислениеОбластьДействияРасширенияКонфигурации = EnumConfigurationExtensionScope;
-interface ConfigurationExtension {
-	UUID: UUID;
-	УникальныйИдентификатор: UUID;
-	Name: string;
-	Имя: string;
-	HashSum: string;
-	ХешСумма: string;
-	Version;
-	Версия;
-	SafeMode: boolean | string;
-	БезопасныйРежим: boolean | string;
-	Synonym: string;
-	Синоним: string;
-	UnsafeOperationProtection: UnsafeOperationProtectionDescription;
-	ЗащитаОтОпасныхДействий: UnsafeOperationProtectionDescription;
-	Purpose: ConfigurationExtensionPurpose;
-	Назначение: ConfigurationExtensionPurpose;
-	MasterNode;
-	ГлавныйУзел;
-	UsedInDistributedInfoBase: boolean;
-	ИспользуетсяВРаспределеннойИнформационнойБазе: boolean;
-	Scope: EnumConfigurationExtensionScope;
-	ОбластьДействия: EnumConfigurationExtensionScope;
-	Active: boolean;
-	Активно: boolean;
-	DefaultRoles;
-	ОсновныеРоли;
-	UseDefaultRolesForAllUsers;
-	ИспользоватьОсновныеРолиДляВсехПользователей;
-	Write(... params): void;
-	Записать(... params): void;
-	Delete(): void;
-	Удалить(): void;
-	GetData(): BinaryData;
-	ПолучитьДанные(): BinaryData;
-	CheckCanApply(... params): ArrayV8;
-	ПроверитьВозможностьПрименения(... params): ArrayV8;
-	ModifiesDataStructure(): boolean;
-	ИзменяетСтруктуруДанных(): boolean;
-}
-interface ConfigurationExtensionsManager {
-	Create(): ConfigurationExtension;
-	Создать(): ConfigurationExtension;
-	Get(... params): ArrayV8;
-	Получить(... params): ArrayV8;
-	ExecuteBackgroundJobWithDatabaseExtensions(... params): BackgroundJob;
-	ВыполнитьФоновоеЗаданиеСРасширениямиБазыДанных(... params): BackgroundJob;
-	CheckCanApplyAll(): ArrayV8;
-	ПроверитьВозможностьПримененияВсех(): ArrayV8;
-	GetSessionApplicationIssuesInformation(): ArrayV8;
-	ПолучитьИнформациюОПроблемахПримененияВСеансе(): ArrayV8;
-	ExecuteBackgroundJobWithoutExtensions(... params): BackgroundJob;
-	ВыполнитьФоновоеЗаданиеБезРасширений(... params): BackgroundJob;
-}
-interface EnumConfigurationExtensionsSource {
-	Database;
-	БазаДанных;
-	SessionApplied;
-	СеансАктивные;
-	SessionDisabled;
-	СеансОтключенные;
-}
-declare type ПеречислениеИсточникРасширенийКонфигурации = EnumConfigurationExtensionsSource;
-interface EnumConfigurationExtensionApplicationIssueSeverity {
-	Critical;
-	Критичная;
-	Moderate;
-	Обычная;
-	Low;
-	Низкая;
-}
-declare type ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации = EnumConfigurationExtensionApplicationIssueSeverity;
-interface EnumCompositeWordsSeparationMode {
-	DontUse;
-	НеИспользовать;
-	Use;
-	Использовать;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеРежимРазделенияСоставныхСлов = EnumCompositeWordsSeparationMode;
-interface InfoBaseUserAuthenticationLockSettings {
-	MaxUnsuccessfulAttemptsCount: number;
-	МаксимальноеКоличествоНеуспешныхПопыток: number;
-	LockDuration: number;
-	ДлительностьБлокировки: number;
-	UserNameAdditionCodes: string;
-	КодыДополненияИмениПользователя: string;
-}
-declare type НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы = InfoBaseUserAuthenticationLockSettings;
-interface InfoBaseUserAuthenticationLockManager {
-	GetSettings(): InfoBaseUserAuthenticationLockSettings;
-	ПолучитьНастройки(): InfoBaseUserAuthenticationLockSettings;
-	SetSettings(... params): void;
-	УстановитьНастройки(... params): void;
-	GetLocks(... params): ArrayV8;
-	ПолучитьБлокировки(... params): ArrayV8;
-}
-interface EnumInfoBaseUserPasswordRecoveryMethod {
-	GoToURL;
-	ПереходПоНавигационнойСсылке;
-	SendVerificationCodeThroughStandardService;
-	ОтправкаКодаПодтвержденияЧерезСтандартныйСервис;
-	SendVerificationCodeBySetParameters;
-	ОтправкаКодаПодтвержденияПоЗаданнымПараметрам;
-	None;
-	Нет;
-}
-declare type ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы = EnumInfoBaseUserPasswordRecoveryMethod;
-interface PasswordRecoverySettings {
-	PasswordRecoveryMethod: EnumInfoBaseUserPasswordRecoveryMethod;
-	СпособВосстановленияПароля: EnumInfoBaseUserPasswordRecoveryMethod;
-	PasswordRecoveryURL: string;
-	НавигационнаяСсылкаВосстановленияПароля: string;
-	VerificationCodeLength: number;
-	ДлинаКодаПодтверждения: number;
-	MaxUnsuccessfulVerificationCodeValidationAttemptsCount: number;
-	МаксимальноеКоличествоНеуспешныхПопытокПроверкиКодаПодтверждения: number;
-	SMTPServerAddress: string;
-	АдресСервераSMTP: string;
-	SMTPUser: string;
-	ПользовательSMTP: string;
-	SMTPPassword: string;
-	ПарольSMTP: string;
-	SMTPPort: number;
-	ПортSMTP: number;
-	SenderName: string;
-	ИмяОтправителя: string;
-	Header: string;
-	Заголовок: string;
-	HTMLMailText: string;
-	ТекстСообщенияHTML: string;
-	ShowHelpHyperlink: boolean;
-	ОтображатьГиперссылкуПомощи: boolean;
-	HelpURL: string;
-	НавигационнаяСсылкаПомощи: string;
-	VerificationCodeRefreshRequestLockDuration: number;
-	ДлительностьБлокировкиЗапросаОбновленияКодаПодтверждения: number;
-	UseSSL;
-	ИспользоватьSSL;
-}
-declare type НастройкиВосстановленияПароля = PasswordRecoverySettings;
-interface AdditionalAuthenticationSettingsManager {
-	GetPasswordRecoverySettings(): PasswordRecoverySettings;
-	ПолучитьНастройкиВосстановленияПароля(): PasswordRecoverySettings;
-	SetPasswordRecoverySettings(... params): void;
-	УстановитьНастройкиВосстановленияПароля(... params): void;
-}
-interface DatabaseCopyReplicationType {
-}
-interface DatabaseCopyDBMSType {
-}
-interface ComparisonType {
-}
-interface FilterItem {
-	Use: boolean;
-	Использование: boolean;
-	Value;
-	Значение;
-	ComparisonType: ComparisonType;
-	ВидСравнения: ComparisonType;
-	ValueFrom;
-	ЗначениеС;
-	ValueTo;
-	ЗначениеПо;
-	Name: string;
-	Имя: string;
-	Presentation: string;
-	Представление: string;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	DataPath;
-	ПутьКДанным;
-	Set(... params): void;
-	Установить(... params): void;
-}
 interface CustomField {
 	Name: string;
 	Имя: string;
@@ -2720,123 +760,145 @@ interface Filter {
 	Get(... params): FilterItem;
 	Получить(... params): FilterItem;
 }
-interface DatabaseCopyContentItemFieldUse {
+interface ReportBuilderDimension {
+	Template: SpreadsheetDocument;
+	Макет: SpreadsheetDocument;
+	HierarchyTemplate: SpreadsheetDocument;
+	МакетИерархии: SpreadsheetDocument;
+	LevelTemplates: ArrayV8;
+	МакетыУровней: ArrayV8;
+	LevelFooterTemplates;
+	МакетыПодваловУровней;
+	FooterTemplate;
+	МакетПодвала;
+	HierarchyFooterTemplate;
+	МакетПодвалаИерархии;
+	Name;
+	Имя;
+	DimensionType;
+	ТипИзмерения;
+	DataPath;
+	ПутьКДанным;
+	Presentation;
+	Представление;
 }
-interface DatabaseCopyContentItemField {
-	Name: string;
-	Имя: string;
-	Use: DatabaseCopyContentItemFieldUse;
-	Использование: DatabaseCopyContentItemFieldUse;
-	Fields: DatabaseCopyContentItemFields;
-	Поля: DatabaseCopyContentItemFields;
-	GetCurrentUse(): boolean;
-	ПолучитьТекущееИспользование(): boolean;
-}
-interface DatabaseCopyContentItemFields {
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Find(... params): DatabaseCopyContentItemField;
-	Найти(... params): DatabaseCopyContentItemField;
-	Get(... params): DatabaseCopyContentItemField;
-	Получить(... params): DatabaseCopyContentItemField;
-}
-interface DatabaseCopyContentItem {
-	Metadata;
-	Метаданные;
-	Filter: Filter;
-	Отбор: Filter;
-	Fields: DatabaseCopyContentItemFields;
-	Поля: DatabaseCopyContentItemFields;
-	TabularSectionsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеТабличныхЧастей: DatabaseCopyContentItemFieldUse;
-	ValueStoragesUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеХранилищЗначений: DatabaseCopyContentItemFieldUse;
-	UnlimitedLengthStringsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеСтрокНеограниченнойДлины: DatabaseCopyContentItemFieldUse;
-	OtherFieldsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеПрочихПолей: DatabaseCopyContentItemFieldUse;
-}
-interface DatabaseCopyContent {
-	Insert(... params): DatabaseCopyContentItem;
-	Вставить(... params): DatabaseCopyContentItem;
-	Add(... params): DatabaseCopyContentItem;
-	Добавить(... params): DatabaseCopyContentItem;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Find(... params): DatabaseCopyContentItem;
-	Найти(... params): DatabaseCopyContentItem;
+interface ReportBuilderDimensions {
+	Add(... params): ReportBuilderDimension;
+	Добавить(... params): ReportBuilderDimension;
+	Delete(... params): void;
+	Удалить(... params): void;
 	Clear(): void;
 	Очистить(): void;
-	Get(... params): DatabaseCopyContentItem;
-	Получить(... params): DatabaseCopyContentItem;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-}
-interface DatabaseCopyManager {
-	Name: string;
-	Имя: string;
-	UseEmbeddedDataAccelerator;
-	ИспользоватьВстроенныйДатаАкселератор;
-	ReplicationType: DatabaseCopyReplicationType;
-	ТипРепликации: DatabaseCopyReplicationType;
-	DBMSType: DatabaseCopyDBMSType;
-	ТипСУБД: DatabaseCopyDBMSType;
-	DatabaseServer: string;
-	СерверБазыДанных: string;
-	Database: string;
-	БазаДанных: string;
-	DatabaseUser: string;
-	ПользовательБазыДанных: string;
-	DatabaseUserPassword: string;
-	ПарольПользователяБазыДанных: string;
-	CreateDatabase;
-	СоздатьБазуДанных;
-	Content: DatabaseCopyContent;
-	Состав: DatabaseCopyContent;
-	TabularSectionsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеТабличныхЧастей: DatabaseCopyContentItemFieldUse;
-	ValueStoragesUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеХранилищЗначений: DatabaseCopyContentItemFieldUse;
-	UnlimitedLengthStringsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеСтрокНеограниченнойДлины: DatabaseCopyContentItemFieldUse;
-	OtherFieldsUse: DatabaseCopyContentItemFieldUse;
-	ИспользованиеПрочихПолей: DatabaseCopyContentItemFieldUse;
-	Write(): void;
-	Записать(): void;
-	GetDataUpdateTime(): Date;
-	ПолучитьВремяОбновленияДанных(): Date;
-}
-interface DatabaseCopiesManager {
-	Add(... params): DatabaseCopyManager;
-	Добавить(... params): DatabaseCopyManager;
 	Count(): number;
 	Количество(): number;
-	Find(... params): DatabaseCopyManager;
-	Найти(... params): DatabaseCopyManager;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): ReportBuilderDimension;
+	Найти(... params): ReportBuilderDimension;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): ReportBuilderDimension;
+	Вставить(... params): ReportBuilderDimension;
+	Get(... params): ReportBuilderDimension;
+	Получить(... params): ReportBuilderDimension;
+}
+interface SortDirection {
+}
+interface OrderingItem {
+	Data: string;
+	Данные: string;
+	Presentation: string;
+	Представление: string;
+	Direction: SortDirection;
+	Направление: SortDirection;
+	DataPath;
+	ПутьКДанным;
+	Name: string;
+	Имя: string;
+}
+interface Order {
+	Clear(): void;
+	Очистить(): void;
+	Set(... params): void;
+	Установить(... params): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): OrderingItem;
+	Получить(... params): OrderingItem;
+	Add(... params): void;
+	Добавить(... params): void;
 	Delete(... params): void;
 	Удалить(... params): void;
-	Update(... params): void;
-	Обновить(... params): void;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	SetAvailableFields(... params): void;
+	УстановитьДоступныеПоля(... params): void;
+	GetAvailableFields(): CustomFields;
+	ПолучитьДоступныеПоля(): CustomFields;
+	Find(... params): OrderingItem;
+	Найти(... params): OrderingItem;
 }
-interface EnumDatabaseCopyReplicationType {
-	Standard;
-	Стандартная;
-	External;
-	Внешняя;
+interface ReportBuilderDetailsFillType {
 }
-declare type ПеречислениеТипРепликацииКопииБазыДанных = EnumDatabaseCopyReplicationType;
-interface EnumDatabaseCopyDBMSType {
-	MSSQLServer;
-	PostgreSQL;
-	OracleDatabase;
+interface Structure {
+	Count(): number;
+	Количество(): number;
+	Insert(... params): void;
+	Вставить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Property(... params): boolean;
+	Свойство(... params): boolean;
 }
-declare type ПеречислениеТипСУБДКопииБазыДанных = EnumDatabaseCopyDBMSType;
+declare type Структура = Structure;
+interface QueryResultColumn {
+	Name: string;
+	Имя: string;
+	Width: number;
+	Ширина: number;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+}
+interface QueryResultColumnsCollection {
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): QueryResultColumn;
+	Найти(... params): QueryResultColumn;
+	Get(... params): QueryResultColumn;
+	Получить(... params): QueryResultColumn;
+}
+interface QueryRecordType {
+}
+interface QueryResultSelection {
+	Next();
+	Следующий();
+	Select(... params): QueryResultSelection;
+	Выбрать(... params): QueryResultSelection;
+	Group(): string;
+	Группировка(): string;
+	RecordType(): QueryRecordType;
+	ТипЗаписи(): QueryRecordType;
+	Level(): number;
+	Уровень(): number;
+	NextByFieldValue(... params): boolean;
+	СледующийПоЗначениюПоля(... params): boolean;
+	FindNext(... params): boolean;
+	НайтиСледующий(... params): boolean;
+	Count(): number;
+	Количество(): number;
+	Reset();
+	Сбросить();
+	Get(... params);
+	Получить(... params);
+	Owner(): QueryResult;
+	Владелец(): QueryResult;
+}
 interface ValueTableColumn {
 	Name: string;
 	Имя: string;
@@ -2932,363 +994,622 @@ interface ValueTable {
 	ВыбратьСтроку(... params): ValueTableRow;
 }
 declare type ТаблицаЗначений = ValueTable;
-interface AccessParameters {
-	Accessibility: boolean;
-	Доступность: boolean;
-	RestrictionByCondition: boolean;
-	ОграничениеУсловием: boolean;
+interface ValueTreeColumn {
+	Name: string;
+	Имя: string;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	Title: string;
+	Заголовок: string;
+	Width: number;
+	Ширина: number;
 }
-interface InfoBaseSession {
-	User: InfoBaseUser;
-	Пользователь: InfoBaseUser;
-	ApplicationName: string;
-	ИмяПриложения: string;
-	ComputerName: string;
-	ИмяКомпьютера: string;
-	ClientIPAddress;
-	IPАдресКлиента;
-	SessionStarted: Date;
-	НачалоСеанса: Date;
-	ConnectionNumber: number;
-	НомерСоединения: number;
-	SessionNumber: number;
-	НомерСеанса: number;
-	GetBackgroundJob(): BackgroundJob;
-	ПолучитьФоновоеЗадание(): BackgroundJob;
-}
-interface ConnectionsLock {
-	Use: boolean;
-	Установлена: boolean;
-	Begin: Date;
-	Начало: Date;
-	End: Date;
-	Конец: Date;
-	Message: string;
-	Сообщение: string;
-	KeyCode: string;
-	КодРазрешения: string;
-	Parameter: string;
-	Параметр: string;
-}
-declare type БлокировкаУстановкиСоединений = ConnectionsLock;
-interface SessionsLock {
-	Use: boolean;
-	Установлена: boolean;
-	Begin: Date;
-	Начало: Date;
-	End: Date;
-	Конец: Date;
-	Message: string;
-	Сообщение: string;
-	KeyCode: string;
-	КодРазрешения: string;
-	Parameter: string;
-	Параметр: string;
-}
-declare type БлокировкаСеансов = SessionsLock;
-interface ActiveDocumentShell {
-	Write(... params): void;
-	Записать(... params): void;
-	Get();
-	Получить();
-}
-interface PageOrientation {
-}
-interface GeographicalSchemaRectangle {
-	WestBorderLongitude: number;
-	ДолготаЗападнойГраницы: number;
-	EastBorderLongitude: number;
-	ДолготаВосточнойГраницы: number;
-	SouthBorderLatitude: number;
-	ШиротаЮжнойГраницы: number;
-	NorthBorderLatitude: number;
-	ШиротаСевернойГраницы: number;
-}
-interface GeographicalSchemaObject {
-	Details;
-	Расшифровка;
-	ToolTip: string;
-	Подсказка: string;
-	ShowData: boolean;
-	ОтображатьДанные: boolean;
-	Visible: boolean;
-	Видимость: boolean;
-	Value;
-	Значение;
-	Layer: GeographicalSchemaLayer;
-	Слой: GeographicalSchemaLayer;
-	BoundaryBox: GeographicalSchemaRectangle;
-	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
-}
-interface GeographicalSchemaLayerObjects {
+interface ValueTreeColumnCollection {
 	Count(): number;
 	Количество(): number;
-	Get(... params): GeographicalSchemaObject;
-	Получить(... params): GeographicalSchemaObject;
-	Add(): GeographicalSchemaObject;
-	Добавить(): GeographicalSchemaObject;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Insert(... params): ValueTreeColumn;
+	Вставить(... params): ValueTreeColumn;
+	Add(... params): ValueTreeColumn;
+	Добавить(... params): ValueTreeColumn;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Find(... params): ValueTreeColumn;
+	Найти(... params): ValueTreeColumn;
+	Get(... params): ValueTreeColumn;
+	Получить(... params): ValueTreeColumn;
+}
+interface ValueTreeRow {
+	Parent: ValueTreeRow;
+	Родитель: ValueTreeRow;
+	Rows: ValueTreeRowCollection;
+	Строки: ValueTreeRowCollection;
+	Get(... params);
+	Получить(... params);
+	Set(... params): void;
+	Установить(... params): void;
+	Level(): number;
+	Уровень(): number;
+	Owner();
+	Владелец();
+}
+interface ValueTreeRowCollection {
+	Parent: ValueTreeRow;
+	Родитель: ValueTreeRow;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Add(): ValueTreeRow;
+	Добавить(): ValueTreeRow;
+	Insert(... params): ValueTreeRow;
+	Вставить(... params): ValueTreeRow;
 	Delete(... params): void;
 	Удалить(... params): void;
 	Clear(): void;
 	Очистить(): void;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Find(... params): ValueTreeRow;
+	Найти(... params): ValueTreeRow;
+	FindRows(... params): ArrayV8;
+	НайтиСтроки(... params): ArrayV8;
+	Total(... params): number;
+	Итог(... params): number;
+	Sort(... params): void;
+	Сортировать(... params): void;
+	LoadColumn(... params): void;
+	ЗагрузитьКолонку(... params): void;
+	UnloadColumn(... params): ArrayV8;
+	ВыгрузитьКолонку(... params): ArrayV8;
+	Get(... params): ValueTreeRow;
+	Получить(... params): ValueTreeRow;
 }
-interface GeographicalSchemaLayerSeriesShowMode {
+interface ValueTree {
+	Columns: ValueTreeColumnCollection;
+	Колонки: ValueTreeColumnCollection;
+	Rows: ValueTreeRowCollection;
+	Строки: ValueTreeRowCollection;
+	Copy(): ValueTree;
+	Скопировать(): ValueTree;
+	ChooseRow(... params): ValueTreeRow;
+	ВыбратьСтроку(... params): ValueTreeRow;
 }
-interface ColorType {
+declare type ДеревоЗначений = ValueTree;
+interface QueryResult {
+	Columns: QueryResultColumnsCollection;
+	Колонки: QueryResultColumnsCollection;
+	DataIsRelevant;
+	ДанныеАктуальны;
+	DataRelevanceTime;
+	ВремяАктуальностиДанных;
+	DatabaseCopy;
+	КопияБазыДанных;
+	Select(... params): QueryResultSelection;
+	Выбрать(... params): QueryResultSelection;
+	Unload(... params): ValueTable | ValueTree;
+	Выгрузить(... params): ValueTable | ValueTree;
+	IsEmpty(): boolean;
+	Пустой(): boolean;
 }
-interface Color {
-	R: number;
-	Красный: number;
-	G: number;
-	Зеленый: number;
-	B: number;
-	Синий: number;
-	Type: ColorType;
-	Вид: ColorType;
-}
-declare type Цвет = Color;
-interface FontType {
-}
-interface Font {
+interface ReportBuilderField {
 	Name: string;
 	Имя: string;
-	Size: number;
-	Размер: number;
-	Bold: boolean;
-	Полужирный: boolean;
-	Italic: boolean;
-	Наклонный: boolean;
-	Underline: boolean;
-	Подчеркивание: boolean;
-	Strikeout: boolean;
-	Зачеркивание: boolean;
-	Type: FontType;
-	Вид: FontType;
-	Scale: number;
-	Масштаб: number;
+	DataPath: string;
+	ПутьКДанным: string;
+	Presentation: string;
+	Представление: string;
 }
-declare type Шрифт = Font;
-interface SeriesValuesDrawingMode {
-}
-interface GeographicalSchemaLayerDataSeries {
-	Name: string;
-	Имя: string;
-	Text: string;
-	Текст: string;
-	Format: string;
-	Формат: string;
-	ShowMode: GeographicalSchemaLayerSeriesShowMode;
-	ТипОтображения: GeographicalSchemaLayerSeriesShowMode;
-	ShapeBaseColor: Color;
-	БазовыйЦветФигуры: Color;
-	TextColor: Color;
-	ЦветТекста: Color;
-	TextFont: Font;
-	ШрифтТекста: Font;
-	TextOrientation: number;
-	ОриентацияТекста: number;
-	Value;
-	Значение;
-	SeriesGroupName: string;
-	ИмяГруппыСерий: string;
-	ValuesShowMode: SeriesValuesDrawingMode;
-	РежимОтображенияЗначений: SeriesValuesDrawingMode;
-}
-interface GeographicalSchemaLayerSeries {
-	Count(): number;
-	Количество(): number;
-	Get(... params): GeographicalSchemaLayerDataSeries;
-	Получить(... params): GeographicalSchemaLayerDataSeries;
-	Add(... params): GeographicalSchemaLayerDataSeries;
-	Добавить(... params): GeographicalSchemaLayerDataSeries;
+interface ReportBuilderFields {
+	Add(... params): ReportBuilderField;
+	Добавить(... params): ReportBuilderField;
 	Delete(... params): void;
 	Удалить(... params): void;
 	Clear(): void;
 	Очистить(): void;
-	Find(... params): GeographicalSchemaLayerDataSeries;
-	Найти(... params): GeographicalSchemaLayerDataSeries;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): ReportBuilderField;
+	Найти(... params): ReportBuilderField;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): ReportBuilderField;
+	Вставить(... params): ReportBuilderField;
+	Get(... params): ReportBuilderField;
+	Получить(... params): ReportBuilderField;
 }
-interface GeographicalSchemaDataSourceOrganizationType {
+interface DimensionPlacementType {
 }
-interface GeographicalSchemaLayerSeriesValue {
-	ToolTip: string;
-	Подсказка: string;
-	Value;
-	Значение;
-	Details;
-	Расшифровка;
-	Object: GeographicalSchemaObject;
-	Объект: GeographicalSchemaObject;
-	Series: GeographicalSchemaLayerDataSeries;
-	Серия: GeographicalSchemaLayerDataSeries;
+interface DimensionAttributePlacementType {
 }
-interface GeographicalSchemaLayer {
+interface TotalPlacementType {
+}
+interface AppearanceAreaType {
+}
+interface AppearanceAreaItem {
+	DataPath: string;
+	ПутьКДанным: string;
+	Title: string;
+	Заголовок: string;
+	AreaType: AppearanceAreaType;
+	ТипОбласти: AppearanceAreaType;
+}
+interface AppearanceArea {
+	Count(): number;
+	Количество(): number;
+	Add(... params): AppearanceAreaItem;
+	Добавить(... params): AppearanceAreaItem;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	GetAvailableFields(): CustomFields;
+	ПолучитьДоступныеПоля(): CustomFields;
+	SetAvailableFields(... params): void;
+	УстановитьДоступныеПоля(... params): void;
+}
+declare type ОбластьОформления = AppearanceArea;
+interface AppearanceSetting {
+}
+declare type НастройкаОформления = AppearanceSetting;
+interface ConditionalAppearanceItem {
+	Use: boolean;
+	Использование: boolean;
 	Name: string;
 	Имя: string;
-	Text: string;
-	Текст: string;
-	Visible: boolean;
-	Видимость: boolean;
-	EnableChoice;
-	РазрешитьВыбор;
-	Objects: GeographicalSchemaLayerObjects;
-	Объекты: GeographicalSchemaLayerObjects;
-	Series: GeographicalSchemaLayerSeries;
-	Серии: GeographicalSchemaLayerSeries;
-	ScaleRangeBegin: number;
-	НачалоМасштабногоДиапазона: number;
-	ScaleRangeEnd: number;
-	КонецМасштабногоДиапазона: number;
-	ObjectsType;
-	ТипОбъектов;
+	Title: string;
+	Заголовок: string;
+	Area: AppearanceArea;
+	Область: AppearanceArea;
+	Filter: Filter;
+	Отбор: Filter;
+	Appearance: AppearanceSetting;
+	Оформление: AppearanceSetting;
+}
+interface ConditionalAppearance {
+	Count(): number;
+	Количество(): number;
+	Get(... params): ConditionalAppearanceItem;
+	Получить(... params): ConditionalAppearanceItem;
+	Add(... params): ConditionalAppearanceItem;
+	Добавить(... params): ConditionalAppearanceItem;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Insert(... params): ConditionalAppearanceItem;
+	Вставить(... params): ConditionalAppearanceItem;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	SetAvailableFields(... params): void;
+	УстановитьДоступныеПоля(... params): void;
+	GetAvailableFields(): AppearanceArea;
+	ПолучитьДоступныеПоля(): AppearanceArea;
+}
+declare type УсловноеОформление = ConditionalAppearance;
+interface DataSourceDescriptionColumn {
+	Dimension: boolean;
+	Измерение: boolean;
+	Field: boolean;
+	Поле: boolean;
+	Order: boolean;
+	Порядок: boolean;
+	Filter: boolean;
+	Отбор: boolean;
+	Total: string;
+	Итог: string;
+	Name: string;
+	Имя: string;
+	DataPath: string;
+	ПутьКДанным: string;
+}
+interface DataSourceDescriptionColumns {
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): DataSourceDescriptionColumn;
+	Получить(... params): DataSourceDescriptionColumn;
+}
+interface DataSourceDescription {
 	DataSource;
 	ИсточникДанных;
-	DataSourceOrganizationType: GeographicalSchemaDataSourceOrganizationType;
-	ТипОрганизацииИсточникаДанных: GeographicalSchemaDataSourceOrganizationType;
-	BoundaryBox: GeographicalSchemaRectangle;
-	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
-	SetValue(... params): void;
-	УстановитьЗначение(... params): void;
-	GetValue(... params): GeographicalSchemaLayerSeriesValue;
-	ПолучитьЗначение(... params): GeographicalSchemaLayerSeriesValue;
-	FindObject(... params): GeographicalSchemaObject;
-	НайтиОбъект(... params): GeographicalSchemaObject;
-	FindByValue(... params): GeographicalSchemaObject;
-	НайтиПоЗначению(... params): GeographicalSchemaObject;
-	SelectObjects(... params): ArrayV8;
-	ВыбратьОбъекты(... params): ArrayV8;
+	Columns: DataSourceDescriptionColumns;
+	Колонки: DataSourceDescriptionColumns;
 }
-interface GeographicalSchemaLayers {
+declare type ОписаниеИсточникаДанных = DataSourceDescription;
+interface PresentationAdditionType {
+}
+interface QueryTempTableColumn {
+	Name: string;
+	Имя: string;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+}
+interface QueryTempTableColumns {
 	Count(): number;
 	Количество(): number;
-	Get(... params): GeographicalSchemaLayer;
-	Получить(... params): GeographicalSchemaLayer;
-	Add(... params): GeographicalSchemaLayer;
-	Добавить(... params): GeographicalSchemaLayer;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Find(... params): GeographicalSchemaLayer;
-	Найти(... params): GeographicalSchemaLayer;
-	Move(... params): void;
-	Сдвинуть(... params): void;
+	Find(... params): QueryTempTableColumn;
+	Найти(... params): QueryTempTableColumn;
+	Get(... params): QueryTempTableColumn;
+	Получить(... params): QueryTempTableColumn;
 	IndexOf(... params): number;
 	Индекс(... params): number;
 }
-interface HorizontalAlign {
+interface QueryTempTable {
+	FullName: string;
+	ПолноеИмя: string;
+	Columns: QueryTempTableColumns;
+	Колонки: QueryTempTableColumns;
+	GetData(): QueryResult;
+	ПолучитьДанные(): QueryResult;
 }
-interface ControlBorderType {
+interface QueryTempTables {
+	Count(): number;
+	Количество(): number;
+	Find(... params): QueryTempTable;
+	Найти(... params): QueryTempTable;
+	Get(... params): QueryTempTable;
+	Получить(... params): QueryTempTable;
+	IndexOf(... params): number;
+	Индекс(... params): number;
 }
-interface BorderType {
+interface TempTablesManager {
+	Tables: QueryTempTables;
+	Таблицы: QueryTempTables;
+	Close(): void;
+	Закрыть(): void;
 }
-interface Border {
-	BorderType: ControlBorderType;
-	ТипРамки: ControlBorderType;
-	Width: number;
-	Толщина: number;
-	Type: BorderType;
-	Вид: BorderType;
+declare type МенеджерВременныхТаблиц = TempTablesManager;
+interface RequiredDataRelevance {
 }
-declare type Рамка = Border;
-interface GeographicalSchemaTitleArea {
+interface QueryParameterDescription {
+	Name: string;
+	Имя: string;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+}
+interface QueryParametersDescription {
+	Count(): number;
+	Количество(): number;
+	Find(... params): QueryParameterDescription;
+	Найти(... params): QueryParameterDescription;
+}
+interface Query {
 	Text: string;
 	Текст: string;
-	Font: Font;
-	Шрифт: Font;
-	TextColor: Color;
-	ЦветТекста: Color;
-	Align: HorizontalAlign;
-	Выравнивание: HorizontalAlign;
-	Border: Border;
-	Рамка: Border;
-	BorderColor: Color;
-	ЦветРамки: Color;
-	Transparent: boolean;
-	ПрозрачныйФон: boolean;
-	Прозрачность: boolean;
-	BackColor: Color;
-	ЦветФона: Color;
+	Parameters: Structure;
+	Параметры: Structure;
+	TempTablesManager: TempTablesManager;
+	МенеджерВременныхТаблиц: TempTablesManager;
+	RequiredDataRelevance: RequiredDataRelevance;
+	ТребуемаяАктуальностьДанных: RequiredDataRelevance;
+	RequiredDataRelevanceTime: number;
+	ТребуемоеВремяАктуальностиДанных: number;
+	Execute(): QueryResult;
+	Выполнить(): QueryResult;
+	SetParameter(... params): void;
+	УстановитьПараметр(... params): void;
+	FindParameters(): QueryParametersDescription;
+	НайтиПараметры(): QueryParametersDescription;
+	ExecuteBatch(): ArrayV8;
+	ВыполнитьПакет(): ArrayV8;
+	ExecuteBatchWithIntermediateData(): ArrayV8;
+	ВыполнитьПакетСПромежуточнымиДанными(): ArrayV8;
 }
-interface GeographicalSchemaLegendItemShowScaleType {
+declare type Запрос = Query;
+interface ReportBuilderSettings {
 }
-interface GeographicalSchemaLegendItem {
-	Series: GeographicalSchemaLayerDataSeries;
-	Серия: GeographicalSchemaLayerDataSeries;
-	SampleText: string;
-	ТекстОбразца: string;
-	SampleFont: Font;
-	ШрифтОбразца: Font;
-	SampleColor: Color;
-	ЦветОбразца: Color;
-	LabelText: string;
-	ТекстПодписи: string;
-	Picture: Picture;
-	Картинка: Picture;
-	ShowScale: GeographicalSchemaLegendItemShowScaleType;
-	ОтображатьШкалу: GeographicalSchemaLegendItemShowScaleType;
+interface ReportBuilder {
+	Text: string;
+	Текст: string;
+	Filter: Filter;
+	Отбор: Filter;
+	AvailableFields: CustomFields;
+	ДоступныеПоля: CustomFields;
+	RowDimensions: ReportBuilderDimensions;
+	ИзмеренияСтроки: ReportBuilderDimensions;
+	ColumnDimensions: ReportBuilderDimensions;
+	ИзмеренияКолонки: ReportBuilderDimensions;
+	PutDetailRecords: boolean;
+	ВыводитьДетальныеЗаписи: boolean;
+	AutoDetailRecords: boolean;
+	АвтоДетальныеЗаписи: boolean;
+	DetailRecordsTemplate: string | SpreadsheetDocument;
+	МакетДетальныхЗаписей: string | SpreadsheetDocument;
+	PutReportHeader: boolean;
+	ВыводитьЗаголовокОтчета: boolean;
+	ReportHeaderTemplate: string | SpreadsheetDocument;
+	МакетЗаголовкаОтчета: string | SpreadsheetDocument;
+	PutReportFooter: boolean;
+	ВыводитьПодвалОтчета: boolean;
+	ReportFooterTemplate: string | SpreadsheetDocument;
+	МакетПодвалаОтчета: string | SpreadsheetDocument;
+	PutTableHeader: boolean;
+	ВыводитьШапкуТаблицы: boolean;
+	TableHeaderTemplate: string | SpreadsheetDocument;
+	МакетШапкиТаблицы: string | SpreadsheetDocument;
+	PutTableFooter: boolean;
+	ВыводитьПодвалТаблицы: boolean;
+	TableFooterTemplate: string | SpreadsheetDocument;
+	МакетПодвалаТаблицы: string | SpreadsheetDocument;
+	Order: Order;
+	Порядок: Order;
+	DetailFillType: ReportBuilderDetailsFillType;
+	ЗаполнениеРасшифровки: ReportBuilderDetailsFillType;
+	PutOveralls: boolean;
+	ВыводитьОбщиеИтоги: boolean;
+	OverallsTemplate: string | SpreadsheetDocument;
+	МакетОбщихИтогов: string | SpreadsheetDocument;
+	Parameters: Structure;
+	Параметры: Structure;
+	Template: SpreadsheetDocument;
+	Макет: SpreadsheetDocument;
+	Result: QueryResult;
+	Результат: QueryResult;
+	SelectedFields: ReportBuilderFields;
+	ВыбранныеПоля: ReportBuilderFields;
+	DimensionsPlacementOnRows: DimensionPlacementType;
+	РазмещениеИзмеренийВСтроках: DimensionPlacementType;
+	DimensionAttributePlacementInRows: DimensionAttributePlacementType;
+	РазмещениеРеквизитовИзмеренийВСтроках: DimensionAttributePlacementType;
+	DimensionsPlacementOnColumns: DimensionPlacementType;
+	РазмещениеИзмеренийВКолонках: DimensionPlacementType;
+	DimensionAttributePlacementInColumns: DimensionAttributePlacementType;
+	РазмещениеРеквизитовИзмеренийВКолонках: DimensionAttributePlacementType;
+	AppearanceTemplate: SpreadsheetDocument;
+	МакетОформления: SpreadsheetDocument;
+	TotalsPlacementOnRows: TotalPlacementType;
+	РазмещениеИтоговВСтроках: TotalPlacementType;
+	TotalsPlacementOnColumns: TotalPlacementType;
+	РазмещениеИтоговВКолонках: TotalPlacementType;
+	HeaderText: string;
+	ТекстЗаголовка: string;
+	ShowStatus: boolean;
+	ОтображатьСостояние: boolean;
+	ProcessUserInterruption: boolean;
+	ОбрабатыватьПрерываниеПользователя: boolean;
+	ConditionalAppearance: ConditionalAppearance;
+	УсловноеОформление: ConditionalAppearance;
+	DataSource: DataSourceDescription;
+	ИсточникДанных: DataSourceDescription;
+	PresentationAdding: PresentationAdditionType;
+	ДобавлениеПредставлений: PresentationAdditionType;
+	GetQuery(): Query;
+	ПолучитьЗапрос(): Query;
+	Put(... params): void;
+	Вывести(... params): void;
+	Execute(): void;
+	Выполнить(): void;
+	InitDetails(... params): void;
+	НастроитьРасшифровку(... params): void;
+	GetSettings(... params): ReportBuilderSettings;
+	ПолучитьНастройки(... params): ReportBuilderSettings;
+	SetSettings(... params): void;
+	УстановитьНастройки(... params): void;
+	FillSettings(): void;
+	ЗаполнитьНастройки(): void;
+	ApplyAppearanceTemplate(): void;
+	ОформитьМакет(): void;
 }
-interface GeographicalSchemaLegendItems {
+declare type ПостроительОтчета = ReportBuilder;
+interface FixedArray {
 	Count(): number;
 	Количество(): number;
-	Get(... params): GeographicalSchemaLegendItem;
-	Получить(... params): GeographicalSchemaLegendItem;
-	Add(): GeographicalSchemaLegendItem;
-	Добавить(): GeographicalSchemaLegendItem;
+	UBound(): number;
+	ВГраница(): number;
+	Get(... params);
+	Получить(... params);
+	Find(... params): number;
+	Найти(... params): number;
+}
+declare type ФиксированныйМассив = FixedArray;
+interface PivotTableField {
+	Name: string;
+	Имя: string;
+	OpenLevelCount: number;
+	КоличествоОткрытыхУровней: number;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	Dimension: boolean;
+	Измерение: boolean;
+	Resource: boolean;
+	Ресурс: boolean;
+	Attribute: boolean;
+	Реквизит: boolean;
+	Attributes: FixedArray;
+	Реквизиты: FixedArray;
+	LevelCount(): number;
+	КоличествоУровней(): number;
+}
+interface PivotTableFieldCollection {
+	Count(): number;
+	Количество(): number;
+	Add(... params): PivotTableField | PivotTableFieldCollection;
+	Добавить(... params): PivotTableField | PivotTableFieldCollection;
+	Insert(... params): PivotTableField | PivotTableFieldCollection;
+	Вставить(... params): PivotTableField | PivotTableFieldCollection;
 	Delete(... params): void;
 	Удалить(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): PivotTableField | PivotTableFieldCollection;
+	Найти(... params): PivotTableField | PivotTableFieldCollection;
 	Clear(): void;
 	Очистить(): void;
 	Move(... params): void;
 	Сдвинуть(... params): void;
+	Get(... params): PivotTableField | PivotTableFieldCollection;
+	Получить(... params): PivotTableField | PivotTableFieldCollection;
+}
+interface PivotTableRowTotalPosition {
+}
+interface PivotTableColumnTotalPosition {
+}
+interface PivotTableLinesShowType {
+}
+interface PivotTable {
+	DataSource: ReportBuilder | QueryResult;
+	ИсточникДанных: ReportBuilder | QueryResult;
+	RowHeaderArea: SpreadsheetDocumentRange;
+	ОбластьЗаголовковСтрок: SpreadsheetDocumentRange;
+	ColumnsHeadersArea: SpreadsheetDocumentRange;
+	ОбластьЗаголовковКолонок: SpreadsheetDocumentRange;
+	DataArea: SpreadsheetDocumentRange;
+	ОбластьДанных: SpreadsheetDocumentRange;
+	Columns: PivotTableFieldCollection;
+	Колонки: PivotTableFieldCollection;
+	Rows: PivotTableFieldCollection;
+	Строки: PivotTableFieldCollection;
+	Data: PivotTableFieldCollection;
+	Данные: PivotTableFieldCollection;
+	ShowFields: boolean;
+	ОтображатьПоля: boolean;
+	AutoFixation: boolean;
+	АвтоФиксация: boolean;
+	Fields: PivotTableFieldCollection;
+	Поля: PivotTableFieldCollection;
+	Attributes: PivotTableFieldCollection;
+	Реквизиты: PivotTableFieldCollection;
+	RefreshEnabled: boolean;
+	Обновление: boolean;
+	RowTotalPosition: PivotTableRowTotalPosition;
+	ПоложениеИтоговСтрок: PivotTableRowTotalPosition;
+	ColumnsTotalsPosition: PivotTableColumnTotalPosition;
+	ПоложениеИтоговКолонок: PivotTableColumnTotalPosition;
+	ShowTotalLabels: boolean;
+	ОтображатьПодписиИтогов: boolean;
+	AppearanceTemplate: SpreadsheetDocument;
+	МакетОформления: SpreadsheetDocument;
+	DimensionAttributePlacementInRows: DimensionAttributePlacementType;
+	РазмещениеРеквизитовИзмеренийВСтроках: DimensionAttributePlacementType;
+	DimensionAttributePlacementInColumns: DimensionAttributePlacementType;
+	РазмещениеРеквизитовИзмеренийВКолонках: DimensionAttributePlacementType;
+	DimensionsPlacementOnRows: DimensionPlacementType;
+	РазмещениеИзмеренийВСтроках: DimensionPlacementType;
+	DimensionsPlacementOnColumns: DimensionPlacementType;
+	РазмещениеИзмеренийВКолонках: DimensionPlacementType;
+	ShowLines: PivotTableLinesShowType;
+	ОтображатьЛинии: PivotTableLinesShowType;
+	GetValues(... params): Structure;
+	ПолучитьЗначения(... params): Structure;
+	Refresh(): void;
+	Обновить(): void;
+}
+interface EmbeddedTableCollection {
+	Add(... params): PivotTable;
+	Добавить(... params): PivotTable;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
 	IndexOf(... params): number;
 	Индекс(... params): number;
+	Find(... params): PivotTable;
+	Найти(... params): PivotTable;
+	Get(... params): PivotTable;
+	Получить(... params): PivotTable;
 }
-interface GeographicalSchemaLegendArea {
-	Font: Font;
-	Шрифт: Font;
-	Color: Color;
-	Цвет: Color;
-	Border: Border;
-	Рамка: Border;
-	BorderColor: Color;
-	ЦветРамки: Color;
-	Transparent: boolean;
-	ПрозрачныйФон: boolean;
-	Прозрачность: boolean;
-	BackColor: Color;
-	ЦветФона: Color;
-	DrawingScale: boolean;
-	МасштабнаяЛинейка: boolean;
-	Items: GeographicalSchemaLegendItems;
-	Элементы: GeographicalSchemaLegendItems;
-}
-interface GeographicalSchemaPlotArea {
-	Border: Border;
-	Рамка: Border;
-	BorderColor: Color;
-	ЦветРамки: Color;
-	Transparent: boolean;
-	ПрозрачныйФон: boolean;
-	Прозрачность: boolean;
-	BackColor: Color;
-	ЦветФона: Color;
-}
-interface GeographicalSchemaProjection {
+interface SpreadsheetDocumentSelectedAreas {
+	Add(... params): void;
+	Добавить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params);
+	Получить(... params);
+	Move(... params);
+	Сдвинуть(... params);
+	Insert(... params): void;
+	Вставить(... params): void;
 }
 interface UseOutput {
 }
-interface GeographicalSchema {
-	PrinterName: string;
-	ИмяПринтера: string;
-	Copies: number;
-	КоличествоЭкземпляров: number;
+interface PrintAccuracy {
+}
+interface DuplexPrintingType {
+}
+interface PagePlacementAlternation {
+}
+interface TextDirection {
+}
+interface SpreadsheetDocument {
+	TableWidth: number;
+	ШиринаТаблицы: number;
+	TableHeight: number;
+	ВысотаТаблицы: number;
+	ReadOnly: boolean;
+	ТолькоПросмотр: boolean;
+	Protection: boolean;
+	Защита: boolean;
+	CurrentArea: SpreadsheetDocumentRange;
+	ТекущаяОбласть: SpreadsheetDocumentRange;
+	ShowGrid: boolean;
+	ОтображатьСетку: boolean;
+	ShowHeaders: boolean;
+	ОтображатьЗаголовки: boolean;
+	FixedTop: number;
+	ФиксацияСверху: number;
+	FixedLeft: number;
+	ФиксацияСлева: number;
+	PrintParametersKey: string;
+	КлючПараметровПечати: string;
+	PrintParametersName: string;
+	ИмяПараметровПечати: string;
+	WindowOptionsKey: string;
+	КлючСохраненияПоложенияОкна: string;
+	WindowOptionsName: string;
+	ИмяСохраненияПоложенияОкна: string;
+	BlackAndWhiteView: boolean;
+	ЧерноБелыйПросмотр: boolean;
+	StepDirection: SpreadsheetDocumentStepDirectionType;
+	НаправлениеПерехода: SpreadsheetDocumentStepDirectionType;
+	BackgroundPicture: Picture;
+	ФоноваяКартинка: Picture;
+	TotalsRight: boolean;
+	ИтогиСправа: boolean;
+	TotalsBelow: boolean;
+	ИтогиСнизу: boolean;
+	FixedBackground: boolean;
+	ФиксированныйФон: boolean;
+	Drawings: SpreadsheetDocumentDrawingCollection;
+	Рисунки: SpreadsheetDocumentDrawingCollection;
+	Parameters: SpreadsheetDocumentTemplateParameters;
+	Параметры: SpreadsheetDocumentTemplateParameters;
+	Areas: SpreadsheetDocumentAreaCollection;
+	Области: SpreadsheetDocumentAreaCollection;
+	GroupBackColor: Color;
+	ЦветФонаГруппировки: Color;
+	GroupTextColor: Color;
+	ЦветТекстаГруппировки: Color;
+	HeaderBackColor: Color;
+	ЦветФонаЗаголовков: Color;
+	HeaderTextColor: Color;
+	ЦветТекстаЗаголовков: Color;
+	SaveViewProperties: boolean;
+	СохранятьСвойстваОтображения: boolean;
 	PageOrientation: PageOrientation;
 	ОриентацияСтраницы: PageOrientation;
+	PrintScale: number;
+	МасштабПечати: number;
 	Collate: boolean;
 	РазборПоКопиям: boolean;
-	BlackAndWhite: boolean;
-	ЧерноБелаяПечать: boolean;
 	LeftMargin: number;
 	ПолеСлева: number;
 	RightMargin: number;
@@ -3297,224 +1618,338 @@ interface GeographicalSchema {
 	ПолеСверху: number;
 	BottomMargin: number;
 	ПолеСнизу: number;
-	Layers: GeographicalSchemaLayers;
-	Слои: GeographicalSchemaLayers;
-	RefreshEnabled: boolean;
-	Обновление: boolean;
-	BoundaryBox: GeographicalSchemaRectangle;
-	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
-	TitleArea: GeographicalSchemaTitleArea;
-	ОбластьЗаголовка: GeographicalSchemaTitleArea;
-	LegendArea: GeographicalSchemaLegendArea;
-	ОбластьЛегенды: GeographicalSchemaLegendArea;
-	PlotArea: GeographicalSchemaPlotArea;
-	ОбластьПостроения: GeographicalSchemaPlotArea;
-	LatitudeShift: number;
-	СмещениеШироты: number;
-	LongitudeShift: number;
-	СмещениеДолготы: number;
-	Projection: GeographicalSchemaProjection;
-	Проекция: GeographicalSchemaProjection;
-	ShowLegend: boolean;
-	ОтображатьЛегенду: boolean;
-	ShowTitle: boolean;
-	ОтображатьЗаголовок: boolean;
+	HeaderSize: number;
+	РазмерКолонтитулаСверху: number;
+	FooterSize: number;
+	РазмерКолонтитулаСнизу: number;
+	FitToPage: boolean;
+	АвтоМасштаб: boolean;
+	BlackAndWhite: boolean;
+	ЧерноБелаяПечать: boolean;
+	PrinterName: string;
+	ИмяПринтера: string;
+	PerPage: number;
+	ЭкземпляровНаСтранице: number;
+	Copies: number;
+	КоличествоЭкземпляров: number;
+	RepeatOnRowPrint: SpreadsheetDocumentRange;
+	ПовторятьПриПечатиСтроки: SpreadsheetDocumentRange;
+	RepeatOnColumnPrint: SpreadsheetDocumentRange;
+	ПовторятьПриПечатиКолонки: SpreadsheetDocumentRange;
+	PrintArea: SpreadsheetDocumentRange;
+	ОбластьПечати: SpreadsheetDocumentRange;
+	Header: SpreadsheetDocumentHeaderFooter;
+	ВерхнийКолонтитул: SpreadsheetDocumentHeaderFooter;
+	Footer: SpreadsheetDocumentHeaderFooter;
+	НижнийКолонтитул: SpreadsheetDocumentHeaderFooter;
+	EmbeddedTables: EmbeddedTableCollection;
+	ВстроенныеТаблицы: EmbeddedTableCollection;
+	LanguageCode: string;
+	КодЯзыка: string;
+	ShowGroups: boolean;
+	ОтображатьГруппировки: boolean;
+	SelectedAreas: SpreadsheetDocumentSelectedAreas;
+	ВыделенныеОбласти: SpreadsheetDocumentSelectedAreas;
 	Output: UseOutput;
 	Вывод: UseOutput;
 	UsedFileName: string;
 	ИспользуемоеИмяФайла: string;
-	Print(... params): void;
-	Напечатать(... params): void;
-	Write(... params): void;
-	Записать(... params): void;
+	PageSize: string;
+	РазмерСтраницы: string;
+	PageWidth: number;
+	ШиринаСтраницы: number;
+	PageHeight: number;
+	ВысотаСтраницы: number;
+	PrintAccuracy: PrintAccuracy;
+	ТочностьПечати: PrintAccuracy;
+	DuplexPrinting: DuplexPrintingType;
+	ДвусторонняяПечать: DuplexPrintingType;
+	PagePlacementAlternation: PagePlacementAlternation;
+	ЧередованиеРасположенияСтраниц: PagePlacementAlternation;
+	Template: boolean;
+	Макет: boolean;
+	FirstPageNumber: number;
+	НомерПервойСтраницы: number;
+	TextDirection: TextDirection;
+	НаправлениеТекста: TextDirection;
 	Read(... params): void;
 	Прочитать(... params): void;
+	Write(... params): void;
+	Записать(... params): void;
+	Print(... params): void;
+	Напечатать(... params): void;
 	Clear(): void;
 	Очистить(): void;
 	Show(... params): void;
 	Показать(... params): void;
-	FindByLocation(... params): ArrayV8;
-	НайтиПоРасположению(... params): ArrayV8;
-	CheckByLocation(... params): boolean;
-	ПроверитьПоРасположению(... params): boolean;
-	SetPropertyForObjects(... params): void;
-	УстановитьСвойствоОбъектов(... params): void;
-	ClipOffByObject(... params): void;
-	ОтсечьПоОбъекту(... params): void;
-	GetPicture(... params): Picture;
-	ПолучитьКартинку(... params): Picture;
-	Put(... params): void;
-	Вывести(... params): void;
+	Hide(): void;
+	Скрыть(): void;
+	Put(... params);
+	Вывести(... params);
+	Join(... params);
+	Присоединить(... params);
+	PutVerticalPageBreak(): void;
+	ВывестиВертикальныйРазделительСтраниц(): void;
+	PutHorizontalPageBreak(): void;
+	ВывестиГоризонтальныйРазделительСтраниц(): void;
+	CheckPut(... params): boolean;
+	ПроверитьВывод(... params): boolean;
+	CheckAttachment(... params): boolean;
+	ПроверитьПрисоединение(... params): boolean;
+	Area(... params): SpreadsheetDocumentRange;
+	Область(... params): SpreadsheetDocumentRange;
+	StartRowGroup(... params): void;
+	НачатьГруппуСтрок(... params): void;
+	EndRowGroup(): void;
+	ЗакончитьГруппуСтрок(): void;
+	StartColumnGroup(... params): void;
+	НачатьГруппуКолонок(... params): void;
+	EndColumnGroup(): void;
+	ЗакончитьГруппуКолонок(): void;
+	FindText(... params): SpreadsheetDocumentRange;
+	НайтиТекст(... params): SpreadsheetDocumentRange;
+	FindValue(... params): SpreadsheetDocumentRange;
+	НайтиЗначение(... params): SpreadsheetDocumentRange;
+	InsertArea(... params): void;
+	ВставитьОбласть(... params): void;
+	DeleteArea(... params): void;
+	УдалитьОбласть(... params): void;
+	GetArea(... params): SpreadsheetDocument;
+	ПолучитьОбласть(... params): SpreadsheetDocument;
+	StartRowAutoGrouping(): void;
+	НачатьАвтогруппировкуСтрок(): void;
+	EndRowAutoGrouping(): void;
+	ЗакончитьАвтогруппировкуСтрок(): void;
+	StartColumnAutoGrouping(): void;
+	НачатьАвтогруппировкуКолонок(): void;
+	EndColumnAutoGrouping(): void;
+	ЗакончитьАвтогруппировкуКолонок(): void;
+	RowGroupLevelCount(): number;
+	КоличествоУровнейГруппировокСтрок(): number;
+	ColumnGroupLevelCount(): number;
+	КоличествоУровнейГруппировокКолонок(): number;
+	ShowRowGroupLevel(... params): void;
+	ПоказатьУровеньГруппировокСтрок(... params): void;
+	ShowColumnGroupLevel(... params): void;
+	ПоказатьУровеньГруппировокКолонок(... params): void;
+	PageCount(): number;
+	КоличествоСтраниц(): number;
+	BeginWriting(... params): void;
+	НачатьЗапись(... params): void;
+	GetDataAreaHorizontalSize(): number;
+	ПолучитьРазмерОбластиДанныхПоГоризонтали(): number;
+	GetDataAreaVerticalSize(): number;
+	ПолучитьРазмерОбластиДанныхПоВертикали(): number;
+	GetCompactDocument(... params): SpreadsheetDocument;
+	ПолучитьКомпактныйДокумент(... params): SpreadsheetDocument;
+	SetHorizontalStretch(... params): void;
+	УстановитьРастягиваниеПоГоризонтали(... params): void;
+	ConvertToCompactDocument(... params): void;
+	ПреобразоватьВКомпактныйДокумент(... params): void;
+	RevertToDefaultDocument(): void;
+	ОтменитьПреобразованиеДокумента(): void;
+	CalculateHeaderSize(): number;
+	РассчитатьРазмерКолонтитулаСверху(): number;
+	CalculateFooterSize(): number;
+	РассчитатьРазмерКолонтитулаСнизу(): number;
+	GetPrinterTopMarginSize(): number;
+	ПолучитьРазмерПоляПринтераСверху(): number;
+	GetPrinterRightMarginSize(): number;
+	ПолучитьРазмерПоляПринтераСправа(): number;
+	GetPrinterBottomMarginSize(): number;
+	ПолучитьРазмерПоляПринтераСнизу(): number;
+	GetPrinterLeftMarginSize(): number;
+	ПолучитьРазмерПоляПринтераСлева(): number;
 }
-declare type ГеографическаяСхема = GeographicalSchema;
-interface DataCompositionParameter {
+declare type ТабличныйДокумент = SpreadsheetDocument;
+interface FormDataStructure {
+	Property(... params): boolean;
+	Свойство(... params): boolean;
 }
-declare type ПараметрКомпоновкиДанных = DataCompositionParameter;
-interface DataCompositionField {
+interface FormGroupType {
 }
-declare type ПолеКомпоновкиДанных = DataCompositionField;
-interface DataCompositionTypeLink {
-	Field: DataCompositionField;
-	Поле: DataCompositionField;
-	LinkItem: number;
-	ЭлементСвязи: number;
+interface FormDecorationType {
 }
-declare type СвязьПоТипуКомпоновкиДанных = DataCompositionTypeLink;
-interface FoldersAndItemsUse {
+interface Key {
 }
-interface DataCompositionParameterUse {
+interface Shortcut {
+	Key: Key;
+	Клавиша: Key;
+	Alt: boolean;
+	Ctrl: boolean;
+	Shift: boolean;
 }
-interface DataCompositionChoiceParameterLink {
+declare type СочетаниеКлавиш = Shortcut;
+interface ToolTipRepresentation {
+}
+interface ItemHorizontalLocation {
+}
+interface ItemVerticalAlign {
+}
+interface DisplayImportance {
+}
+interface OnMainServerUnavalableBehavior {
+}
+interface FormDecoration {
 	Name: string;
 	Имя: string;
-	Field: DataCompositionField;
-	Поле: DataCompositionField;
-	ValueChange;
-	ИзменениеЗначения;
-}
-interface DataCompositionChoiceParameterLinks {
-	Add(): DataCompositionChoiceParameterLink;
-	Добавить(): DataCompositionChoiceParameterLink;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): DataCompositionChoiceParameterLink;
-	Найти(... params): DataCompositionChoiceParameterLink;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionChoiceParameterLink;
-	Вставить(... params): DataCompositionChoiceParameterLink;
-	Get(... params): DataCompositionChoiceParameterLink;
-	Получить(... params): DataCompositionChoiceParameterLink;
-}
-interface DataCompositionChoiceParameter {
-	Name: string;
-	Имя: string;
-	Value: DataCompositionField;
-	Значение: DataCompositionField;
-}
-interface DataCompositionAvailableParameter {
-	Parameter: DataCompositionParameter;
-	Параметр: DataCompositionParameter;
-	Title: string;
-	Заголовок: string;
-	AvailableValues: ValueList;
-	ДоступныеЗначения: ValueList;
+	Type: FormDecorationType;
+	Вид: FormDecorationType;
 	Visible: boolean;
 	Видимость: boolean;
-	SubParameters: DataCompositionAvailableParameterCollection;
-	ВложенныеПараметры: DataCompositionAvailableParameterCollection;
-	Mask: string;
-	Маска: string;
-	EditFormat: string;
-	ФорматРедактирования: string;
-	ChoiceForm: string;
-	ФормаВыбора: string;
-	TypeLink: DataCompositionTypeLink;
-	СвязьПоТипу: DataCompositionTypeLink;
-	QuickChoice: boolean;
-	БыстрыйВыбор: boolean;
-	ChoiceFoldersAndItems: FoldersAndItemsUse;
-	ВыборГруппИЭлементов: FoldersAndItemsUse;
-	ValueListAllowed: boolean;
-	ДоступенСписокЗначений: boolean;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	DenyIncompleteValues: boolean;
-	ЗапрещатьНезаполненныеЗначения: boolean;
-	Use: DataCompositionParameterUse;
-	Использование: DataCompositionParameterUse;
-	Type: TypeDescription;
-	Тип: TypeDescription;
-	GetChoiceParameterLinks(): DataCompositionChoiceParameterLinks;
-	ПолучитьСвязиПараметровВыбора(): DataCompositionChoiceParameterLinks;
-	GetChoiceParameters(): DataCompositionChoiceParameter;
-	ПолучитьПараметрыВыбора(): DataCompositionChoiceParameter;
+	Title: FormattedString | string;
+	Заголовок: FormattedString | string;
+	ToolTip: string;
+	Подсказка: string;
+	Enabled: boolean;
+	Доступность: boolean;
+	HorizontalStretch: boolean;
+	РастягиватьПоГоризонтали: boolean;
+	VerticalStretch: boolean;
+	РастягиватьПоВертикали: boolean;
+	Width: number;
+	Ширина: number;
+	Height: number;
+	Высота: number;
+	AutoMaxWidth: boolean;
+	АвтоМаксимальнаяШирина: boolean;
+	MaxWidth: number;
+	МаксимальнаяШирина: number;
+	AutoMaxHeight: boolean;
+	АвтоМаксимальнаяВысота: boolean;
+	MaxHeight: number;
+	МаксимальнаяВысота: number;
+	TextColor: Color;
+	ЦветТекста: Color;
+	Font: Font;
+	Шрифт: Font;
+	Shortcut: Shortcut;
+	СочетаниеКлавиш: Shortcut;
+	ContextMenu: FormGroup;
+	КонтекстноеМеню: FormGroup;
+	Parent: FormGroup | ClientApplicationForm;
+	Родитель: FormGroup | ClientApplicationForm;
+	SkipOnInput: boolean;
+	ПропускатьПриВводе: boolean;
+	ToolTipRepresentation: ToolTipRepresentation;
+	ОтображениеПодсказки: ToolTipRepresentation;
+	ExtendedToolTip: FormDecoration;
+	РасширеннаяПодсказка: FormDecoration;
+	HorizontalAlignInGroup: ItemHorizontalLocation;
+	ГоризонтальноеПоложениеВГруппе: ItemHorizontalLocation;
+	VerticalAlignInGroup: ItemVerticalAlign;
+	ВертикальноеПоложениеВГруппе: ItemVerticalAlign;
+	DisplayImportance: DisplayImportance;
+	ВажностьПриОтображении: DisplayImportance;
+	OnMainServerUnavalableBehavior: OnMainServerUnavalableBehavior;
+	ПоведениеПриНедоступностиОсновногоСервера: OnMainServerUnavalableBehavior;
+	GetAction(... params);
+	ПолучитьДействие(... params);
+	SetAction(... params): void;
+	УстановитьДействие(... params): void;
 }
-interface DataCompositionAvailableParameterCollection {
+interface TableRepresentation {
+}
+interface FormItemTitleLocation {
+}
+interface FormItemCommandBarLabelLocation {
+}
+interface TableHeightControlVariant {
+}
+interface TableRowInputMode {
+}
+interface TableSelectionMode {
+}
+interface TableRowSelectionMode {
+}
+interface ScrollBarUse {
+}
+interface SearchInTableOnInput {
+}
+interface InitialListView {
+}
+interface InitialTreeView {
+}
+interface FormDataCollectionItem {
+	GetID();
+	ПолучитьИдентификатор();
+	Property(... params): boolean;
+	Свойство(... params): boolean;
+}
+interface FormDataTreeItemCollection {
 	Count(): number;
 	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): DataCompositionAvailableParameter;
-	Найти(... params): DataCompositionAvailableParameter;
-	Get(... params): DataCompositionAvailableParameter;
-	Получить(... params): DataCompositionAvailableParameter;
-}
-interface DataCompositionAvailableParameters {
-	Items: DataCompositionAvailableParameterCollection;
-	Элементы: DataCompositionAvailableParameterCollection;
-	FindParameter(... params): DataCompositionAvailableParameter;
-	НайтиПараметр(... params): DataCompositionAvailableParameter;
-}
-interface DataCompositionParameterValue {
-	Use: boolean;
-	Использование: boolean;
-	Parameter: DataCompositionParameter;
-	Параметр: DataCompositionParameter;
-	Value;
-	Значение;
-	NestedParameterValues: DataCompositionParameterValueCollection;
-	ЗначенияВложенныхПараметров: DataCompositionParameterValueCollection;
-	Parent: DataCompositionParameter;
-	Родитель: DataCompositionParameter;
-}
-interface DataCompositionSettingsItemViewMode {
-}
-interface DataCompositionSettingsParameterValue {
-	Use: boolean;
-	Использование: boolean;
-	Parameter: DataCompositionParameter;
-	Параметр: DataCompositionParameter;
-	Value;
-	Значение;
-	NestedParameterValues: DataCompositionParameterValueCollection;
-	ЗначенияВложенныхПараметров: DataCompositionParameterValueCollection;
-	Parent: DataCompositionParameter;
-	Родитель: DataCompositionParameter;
-	UserSettingID: string;
-	ИдентификаторПользовательскойНастройки: string;
-	UserSettingPresentation: string;
-	ПредставлениеПользовательскойНастройки: string;
-	ViewMode: DataCompositionSettingsItemViewMode;
-	РежимОтображения: DataCompositionSettingsItemViewMode;
-}
-interface DataCompositionParameterValueCollection {
-	Add(): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
-	Добавить(): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Add(): FormDataTreeItem;
+	Добавить(): FormDataTreeItem;
+	Insert(... params): FormDataTreeItem;
+	Вставить(... params): FormDataTreeItem;
 	Delete(... params): void;
 	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
 	IndexOf(... params): number;
 	Индекс(... params): number;
-	Find(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
-	Найти(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Clear(): void;
+	Очистить(): void;
 	Move(... params): void;
 	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
-	Вставить(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
-	Get(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
-	Получить(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Get(... params): FormDataTreeItem;
+	Получить(... params): FormDataTreeItem;
 }
-interface DataCompositionAppearanceTemplate {
-	AvailableParameters: DataCompositionAvailableParameters;
-	ДоступныеПараметры: DataCompositionAvailableParameters;
-	Items: DataCompositionParameterValueCollection;
-	Элементы: DataCompositionParameterValueCollection;
-	FindParameterValue(... params): DataCompositionParameterValue;
-	НайтиЗначениеПараметра(... params): DataCompositionParameterValue;
-	SetParameterValue(... params): void;
-	УстановитьЗначениеПараметра(... params): void;
+interface FormDataTreeItem {
+	GetID(): number;
+	ПолучитьИдентификатор(): number;
+	GetItems(): FormDataTreeItemCollection;
+	ПолучитьЭлементы(): FormDataTreeItemCollection;
+	GetParent(): FormDataTreeItem;
+	ПолучитьРодителя(): FormDataTreeItem;
+	Property(... params): boolean;
+	Свойство(... params): boolean;
 }
-declare type МакетОформленияКомпоновкиДанных = DataCompositionAppearanceTemplate;
+interface FormItemAdditionType {
+}
+interface FormItemAddition {
+	Name: string;
+	Имя: string;
+	Type: FormItemAdditionType;
+	Вид: FormItemAdditionType;
+	Visible: boolean;
+	Видимость: boolean;
+	Title: string;
+	Заголовок: string;
+	ToolTip: string;
+	Подсказка: string;
+	Enabled: boolean;
+	Доступность: boolean;
+	ContextMenu: FormGroup;
+	КонтекстноеМеню: FormGroup;
+	Parent: FormGroup | ClientApplicationForm;
+	Родитель: FormGroup | ClientApplicationForm;
+	ToolTipRepresentation: ToolTipRepresentation;
+	ОтображениеПодсказки: ToolTipRepresentation;
+	ExtendedToolTip: FormDecoration;
+	РасширеннаяПодсказка: FormDecoration;
+	ChildItems: FormItems;
+	ПодчиненныеЭлементы: FormItems;
+	HorizontalAlignInGroup: ItemHorizontalLocation;
+	ГоризонтальноеПоложениеВГруппе: ItemHorizontalLocation;
+	VerticalAlignInGroup: ItemVerticalAlign;
+	ВертикальноеПоложениеВГруппе: ItemVerticalAlign;
+	DisplayImportance: DisplayImportance;
+	ВажностьПриОтображении: DisplayImportance;
+}
+interface SearchStringLocation {
+}
+interface ViewStatusLocation {
+}
+interface SearchControlLocation {
+}
+interface RefreshRequestMethod {
+}
+interface TableCurrentRowUse {
+}
+interface TableBehaviorOnHorizontalCompression {
+}
+interface FileDragMode {
+}
 interface DataCompositionSchemaDataSource {
 	Name: string;
 	Имя: string;
@@ -3623,6 +2058,9 @@ interface DataCompositionOrderExpressions {
 	Get(... params): DataCompositionOrderExpression;
 	Получить(... params): DataCompositionOrderExpression;
 }
+interface DataCompositionField {
+}
+declare type ПолеКомпоновкиДанных = DataCompositionField;
 interface DataCompositionAvailableField {
 	Title: string;
 	Заголовок: string;
@@ -3642,6 +2080,49 @@ interface DataCompositionAvailableField {
 	ТипЗначения: TypeDescription;
 	Type: TypeDescription;
 	Тип: TypeDescription;
+}
+interface DataCompositionTypeLink {
+	Field: DataCompositionField;
+	Поле: DataCompositionField;
+	LinkItem: number;
+	ЭлементСвязи: number;
+}
+declare type СвязьПоТипуКомпоновкиДанных = DataCompositionTypeLink;
+interface FoldersAndItemsUse {
+}
+interface DataCompositionChoiceParameterLink {
+	Name: string;
+	Имя: string;
+	Field: DataCompositionField;
+	Поле: DataCompositionField;
+	ValueChange;
+	ИзменениеЗначения;
+}
+interface DataCompositionChoiceParameterLinks {
+	Add(): DataCompositionChoiceParameterLink;
+	Добавить(): DataCompositionChoiceParameterLink;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): DataCompositionChoiceParameterLink;
+	Найти(... params): DataCompositionChoiceParameterLink;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionChoiceParameterLink;
+	Вставить(... params): DataCompositionChoiceParameterLink;
+	Get(... params): DataCompositionChoiceParameterLink;
+	Получить(... params): DataCompositionChoiceParameterLink;
+}
+interface DataCompositionChoiceParameter {
+	Name: string;
+	Имя: string;
+	Value: DataCompositionField;
+	Значение: DataCompositionField;
 }
 interface DataCompositionFilterAvailableField {
 	Title: string;
@@ -3704,6 +2185,117 @@ interface DataCompositionAvailableFields {
 	ПолучитьИдентификаторПоОбъекту(... params): DataCompositionID;
 	GetObjectByID(... params): DataCompositionAvailableField | DataCompositionFilterAvailableField;
 	ПолучитьОбъектПоИдентификатору(... params): DataCompositionAvailableField | DataCompositionFilterAvailableField;
+}
+interface DataCompositionParameter {
+}
+declare type ПараметрКомпоновкиДанных = DataCompositionParameter;
+interface DataCompositionParameterUse {
+}
+interface DataCompositionAvailableParameter {
+	Parameter: DataCompositionParameter;
+	Параметр: DataCompositionParameter;
+	Title: string;
+	Заголовок: string;
+	AvailableValues: ValueList;
+	ДоступныеЗначения: ValueList;
+	Visible: boolean;
+	Видимость: boolean;
+	SubParameters: DataCompositionAvailableParameterCollection;
+	ВложенныеПараметры: DataCompositionAvailableParameterCollection;
+	Mask: string;
+	Маска: string;
+	EditFormat: string;
+	ФорматРедактирования: string;
+	ChoiceForm: string;
+	ФормаВыбора: string;
+	TypeLink: DataCompositionTypeLink;
+	СвязьПоТипу: DataCompositionTypeLink;
+	QuickChoice: boolean;
+	БыстрыйВыбор: boolean;
+	ChoiceFoldersAndItems: FoldersAndItemsUse;
+	ВыборГруппИЭлементов: FoldersAndItemsUse;
+	ValueListAllowed: boolean;
+	ДоступенСписокЗначений: boolean;
+	ValueType: TypeDescription;
+	ТипЗначения: TypeDescription;
+	DenyIncompleteValues: boolean;
+	ЗапрещатьНезаполненныеЗначения: boolean;
+	Use: DataCompositionParameterUse;
+	Использование: DataCompositionParameterUse;
+	Type: TypeDescription;
+	Тип: TypeDescription;
+	GetChoiceParameterLinks(): DataCompositionChoiceParameterLinks;
+	ПолучитьСвязиПараметровВыбора(): DataCompositionChoiceParameterLinks;
+	GetChoiceParameters(): DataCompositionChoiceParameter;
+	ПолучитьПараметрыВыбора(): DataCompositionChoiceParameter;
+}
+interface DataCompositionAvailableParameterCollection {
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): DataCompositionAvailableParameter;
+	Найти(... params): DataCompositionAvailableParameter;
+	Get(... params): DataCompositionAvailableParameter;
+	Получить(... params): DataCompositionAvailableParameter;
+}
+interface DataCompositionAvailableParameters {
+	Items: DataCompositionAvailableParameterCollection;
+	Элементы: DataCompositionAvailableParameterCollection;
+	FindParameter(... params): DataCompositionAvailableParameter;
+	НайтиПараметр(... params): DataCompositionAvailableParameter;
+}
+interface DataCompositionParameterValue {
+	Use: boolean;
+	Использование: boolean;
+	Parameter: DataCompositionParameter;
+	Параметр: DataCompositionParameter;
+	Value;
+	Значение;
+	NestedParameterValues: DataCompositionParameterValueCollection;
+	ЗначенияВложенныхПараметров: DataCompositionParameterValueCollection;
+	Parent: DataCompositionParameter;
+	Родитель: DataCompositionParameter;
+}
+interface DataCompositionSettingsItemViewMode {
+}
+interface DataCompositionSettingsParameterValue {
+	Use: boolean;
+	Использование: boolean;
+	Parameter: DataCompositionParameter;
+	Параметр: DataCompositionParameter;
+	Value;
+	Значение;
+	NestedParameterValues: DataCompositionParameterValueCollection;
+	ЗначенияВложенныхПараметров: DataCompositionParameterValueCollection;
+	Parent: DataCompositionParameter;
+	Родитель: DataCompositionParameter;
+	UserSettingID: string;
+	ИдентификаторПользовательскойНастройки: string;
+	UserSettingPresentation: string;
+	ПредставлениеПользовательскойНастройки: string;
+	ViewMode: DataCompositionSettingsItemViewMode;
+	РежимОтображения: DataCompositionSettingsItemViewMode;
+}
+interface DataCompositionParameterValueCollection {
+	Add(): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Добавить(): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Найти(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Вставить(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Get(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
+	Получить(... params): DataCompositionParameterValue | DataCompositionSettingsParameterValue;
 }
 interface DataCompositionAppearance {
 	ParameterAvailableFields: DataCompositionAvailableFields;
@@ -5118,1906 +3710,6 @@ interface DataCompositionSchema {
 	ВариантыНастроек: DataCompositionSettingsVariants;
 }
 declare type СхемаКомпоновкиДанных = DataCompositionSchema;
-interface SpreadsheetDocumentDetailUse {
-}
-interface VerticalAlign {
-}
-interface SpreadsheetDocumentTextPlacementType {
-}
-interface SpreadsheetDocumentPatternType {
-}
-interface Line {
-	LineType;
-	ТипЛинии;
-	Width: number;
-	Толщина: number;
-	Gap: boolean;
-	Отступ: boolean;
-}
-declare type Линия = Line;
-interface SpreadsheetDocumentDrawingType {
-}
-interface PictureSize {
-}
-interface SpreadsheetDocumentAreaFillType {
-}
-interface SpreadsheetDocumentDrawing {
-	Text: string;
-	Текст: string;
-	Details;
-	Расшифровка;
-	VerticalAlign: VerticalAlign;
-	ВертикальноеПоложение: VerticalAlign;
-	HorizontalAlign: HorizontalAlign;
-	ГоризонтальноеПоложение: HorizontalAlign;
-	Print: boolean;
-	ВыводитьНаПечать: boolean;
-	BackColor: Color;
-	ЦветФона: Color;
-	TextColor: Color;
-	ЦветТекста: Color;
-	Pattern: SpreadsheetDocumentPatternType;
-	Узор: SpreadsheetDocumentPatternType;
-	PatternColor: Color;
-	ЦветУзора: Color;
-	Line: Line;
-	Линия: Line;
-	LineColor: Color;
-	ЦветЛинии: Color;
-	Font: Font;
-	Шрифт: Font;
-	DrawingType: SpreadsheetDocumentDrawingType;
-	ТипРисунка: SpreadsheetDocumentDrawingType;
-	TextPlacement: SpreadsheetDocumentTextPlacementType;
-	РазмещениеТекста: SpreadsheetDocumentTextPlacementType;
-	MarkNegatives: boolean;
-	ВыделятьОтрицательные: boolean;
-	TextOrientation: number;
-	ОриентацияТекста: number;
-	AutoSize: boolean;
-	АвтоРазмер: boolean;
-	Protection: boolean;
-	Защита: boolean;
-	Object;
-	Объект;
-	HyperLink: boolean;
-	ГиперСсылка: boolean;
-	Picture: Picture;
-	Картинка: Picture;
-	PictureSize: PictureSize;
-	РазмерКартинки: PictureSize;
-	Name: string;
-	Имя: string;
-	LeftBorder: boolean;
-	ГраницаСлева: boolean;
-	TopBorder: boolean;
-	ГраницаСверху: boolean;
-	RightBorder: boolean;
-	ГраницаСправа: boolean;
-	BottomBorder: boolean;
-	ГраницаСнизу: boolean;
-	Value;
-	Значение;
-	ContainsValue: boolean;
-	СодержитЗначение: boolean;
-	Control;
-	ЭлементУправления;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	Format: string;
-	Формат: string;
-	Left: number;
-	Лево: number;
-	Top: number;
-	Верх: number;
-	Width: number;
-	Ширина: number;
-	Height: number;
-	Высота: number;
-	AutoMarkIncomplete: boolean;
-	АвтоОтметкаНезаполненного: boolean;
-	MarkIncomplete: boolean;
-	ОтметкаНезаполненного: boolean;
-	Indent: number;
-	Отступ: number;
-	FillType: SpreadsheetDocumentAreaFillType;
-	Заполнение: SpreadsheetDocumentAreaFillType;
-	Parameter: string;
-	Параметр: string;
-	DetailsParameter: string;
-	ПараметрРасшифровки: string;
-	EditFormat: string;
-	ФорматРедактирования: string;
-	Mask: string;
-	Маска: string;
-	Place(... params): void;
-	Расположить(... params): void;
-	SetControl(... params): void;
-	УстановитьЭлементУправления(... params): void;
-	GetSelectedItems(): ArrayV8;
-	ПолучитьВыделенныеЭлементы(): ArrayV8;
-	SetSelectedItems(... params): void;
-	УстановитьВыделенныеЭлементы(... params): void;
-}
-interface SpreadsheetDocumentCellAreaType {
-}
-interface TextPositionRelativeToPicture {
-}
-interface SpreadsheetDocumentRange {
-	Text: string;
-	Текст: string;
-	Details;
-	Расшифровка;
-	DetailsUse: SpreadsheetDocumentDetailUse;
-	ИспользованиеРасшифровки: SpreadsheetDocumentDetailUse;
-	Font: Font;
-	Шрифт: Font;
-	VerticalAlign: VerticalAlign;
-	ВертикальноеПоложение: VerticalAlign;
-	HorizontalAlign: HorizontalAlign;
-	ГоризонтальноеПоложение: HorizontalAlign;
-	BySelectedColumns: boolean;
-	ПоВыделеннымКолонкам: boolean;
-	TextPlacement: SpreadsheetDocumentTextPlacementType;
-	РазмещениеТекста: SpreadsheetDocumentTextPlacementType;
-	MarkNegatives: boolean;
-	ВыделятьОтрицательные: boolean;
-	BackColor: Color;
-	ЦветФона: Color;
-	BorderColor: Color;
-	ЦветРамки: Color;
-	TextColor: Color;
-	ЦветТекста: Color;
-	RowHeight: number;
-	ВысотаСтроки: number;
-	AutoRowHeight: boolean;
-	АвтоВысотаСтроки: boolean;
-	ColumnWidth: number;
-	ШиринаКолонки: number;
-	Protection: boolean;
-	Защита: boolean;
-	TextOrientation: number;
-	ОриентацияТекста: number;
-	Pattern: SpreadsheetDocumentPatternType;
-	Узор: SpreadsheetDocumentPatternType;
-	PatternColor: Color;
-	ЦветУзора: Color;
-	Visible: boolean;
-	Видимость: boolean;
-	Comment: SpreadsheetDocumentDrawing;
-	Примечание: SpreadsheetDocumentDrawing;
-	Name: string;
-	Имя: string;
-	Value;
-	Значение;
-	ContainsValue: boolean;
-	СодержитЗначение: boolean;
-	Control;
-	ЭлементУправления;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	StayWithNext: boolean;
-	ВместеСоСледующим: boolean;
-	PageTop: boolean;
-	НачалоСтраницы: boolean;
-	PageBottom: boolean;
-	КонецСтраницы: boolean;
-	Format: string;
-	Формат: string;
-	LeftBorder: Line;
-	ГраницаСлева: Line;
-	TopBorder: Line;
-	ГраницаСверху: Line;
-	RightBorder: Line;
-	ГраницаСправа: Line;
-	BottomBorder: Line;
-	ГраницаСнизу: Line;
-	Hyperlink: boolean;
-	Гиперссылка: boolean;
-	AreaType: SpreadsheetDocumentCellAreaType;
-	ТипОбласти: SpreadsheetDocumentCellAreaType;
-	Left: number;
-	Лево: number;
-	Right: number;
-	Право: number;
-	Top: number;
-	Верх: number;
-	Bottom: number;
-	Низ: number;
-	AutoMarkIncomplete: boolean;
-	АвтоОтметкаНезаполненного: boolean;
-	MarkIncomplete: boolean;
-	ОтметкаНезаполненного: boolean;
-	Indent: number;
-	Отступ: number;
-	AutoIndent: number;
-	АвтоОтступ: number;
-	FillType: SpreadsheetDocumentAreaFillType;
-	Заполнение: SpreadsheetDocumentAreaFillType;
-	Parameter: string;
-	Параметр: string;
-	DetailsParameter: string;
-	ПараметрРасшифровки: string;
-	PictureParameter: string;
-	ПараметрКартинки: string;
-	EditFormat: string;
-	ФорматРедактирования: string;
-	ColumnSizeChangeMode: boolean;
-	РежимИзмененияРазмераКолонки: boolean;
-	Mask: string;
-	Маска: string;
-	Picture: Picture;
-	Картинка: Picture;
-	PictureSize: PictureSize;
-	РазмерКартинки: PictureSize;
-	PictureHorizontalAlign: HorizontalAlign;
-	ГоризонтальноеПоложениеКартинки: HorizontalAlign;
-	PictureVerticalAlign: VerticalAlign;
-	ВертикальноеПоложениеКартинки: VerticalAlign;
-	TextPositionRelativeToPicture: TextPositionRelativeToPicture;
-	ПоложениеТекстаОтносительноКартинки: TextPositionRelativeToPicture;
-	HorizontalStretch: boolean;
-	РастягиватьПоГоризонтали: boolean;
-	WidthWeightFactor: number;
-	ВесовойКоэффициентШирины: number;
-	Merge(): void;
-	Объединить(): void;
-	UndoMerge(): void;
-	Разъединить(): void;
-	Clear(... params): void;
-	Очистить(... params): void;
-	Group(... params): void;
-	Сгруппировать(... params): void;
-	Ungroup(): void;
-	Разгруппировать(): void;
-	Outline(... params): void;
-	Обвести(... params): void;
-	SetControl(... params): void;
-	УстановитьЭлементУправления(... params): void;
-	CreateFormatOfRows(): void;
-	СоздатьФорматСтрок(): void;
-}
-interface SpreadsheetDocumentStepDirectionType {
-}
-interface SpreadsheetDocumentDrawingCollection {
-	Add(... params): SpreadsheetDocumentDrawing;
-	Добавить(... params): SpreadsheetDocumentDrawing;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Get(... params): SpreadsheetDocumentDrawing;
-	Получить(... params): SpreadsheetDocumentDrawing;
-}
-interface SpreadsheetDocumentTemplateParameters {
-	Count(): number;
-	Количество(): number;
-	Fill(... params): void;
-	Заполнить(... params): void;
-	Get(... params);
-	Получить(... params);
-	Set(... params): void;
-	Установить(... params): void;
-}
-interface SpreadsheetDocumentAreaCollection {
-	Count();
-	Количество();
-	IndexOf(... params);
-	Индекс(... params);
-	Find(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
-	Найти(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
-	Get(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
-	Получить(... params): SpreadsheetDocumentDrawing | SpreadsheetDocumentRange;
-}
-interface SpreadsheetDocumentHeaderFooter {
-	LeftText: FormattedString | string;
-	ТекстСлева: FormattedString | string;
-	RightText: FormattedString | string;
-	ТекстСправа: FormattedString | string;
-	CenterText: FormattedString | string;
-	ТекстВЦентре: FormattedString | string;
-	Font: Font;
-	Шрифт: Font;
-	VerticalAlign: VerticalAlign;
-	ВертикальноеПоложение: VerticalAlign;
-	StartPage: number;
-	НачальнаяСтраница: number;
-	Enabled: number;
-	Выводить: number;
-}
-interface ReportBuilderDimension {
-	Template: SpreadsheetDocument;
-	Макет: SpreadsheetDocument;
-	HierarchyTemplate: SpreadsheetDocument;
-	МакетИерархии: SpreadsheetDocument;
-	LevelTemplates: ArrayV8;
-	МакетыУровней: ArrayV8;
-	LevelFooterTemplates;
-	МакетыПодваловУровней;
-	FooterTemplate;
-	МакетПодвала;
-	HierarchyFooterTemplate;
-	МакетПодвалаИерархии;
-	Name;
-	Имя;
-	DimensionType;
-	ТипИзмерения;
-	DataPath;
-	ПутьКДанным;
-	Presentation;
-	Представление;
-}
-interface ReportBuilderDimensions {
-	Add(... params): ReportBuilderDimension;
-	Добавить(... params): ReportBuilderDimension;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): ReportBuilderDimension;
-	Найти(... params): ReportBuilderDimension;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): ReportBuilderDimension;
-	Вставить(... params): ReportBuilderDimension;
-	Get(... params): ReportBuilderDimension;
-	Получить(... params): ReportBuilderDimension;
-}
-interface SortDirection {
-}
-interface OrderingItem {
-	Data: string;
-	Данные: string;
-	Presentation: string;
-	Представление: string;
-	Direction: SortDirection;
-	Направление: SortDirection;
-	DataPath;
-	ПутьКДанным;
-	Name: string;
-	Имя: string;
-}
-interface Order {
-	Clear(): void;
-	Очистить(): void;
-	Set(... params): void;
-	Установить(... params): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Get(... params): OrderingItem;
-	Получить(... params): OrderingItem;
-	Add(... params): void;
-	Добавить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	SetAvailableFields(... params): void;
-	УстановитьДоступныеПоля(... params): void;
-	GetAvailableFields(): CustomFields;
-	ПолучитьДоступныеПоля(): CustomFields;
-	Find(... params): OrderingItem;
-	Найти(... params): OrderingItem;
-}
-interface ReportBuilderDetailsFillType {
-}
-interface QueryResultColumn {
-	Name: string;
-	Имя: string;
-	Width: number;
-	Ширина: number;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-}
-interface QueryResultColumnsCollection {
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): QueryResultColumn;
-	Найти(... params): QueryResultColumn;
-	Get(... params): QueryResultColumn;
-	Получить(... params): QueryResultColumn;
-}
-interface QueryRecordType {
-}
-interface QueryResultSelection {
-	Next();
-	Следующий();
-	Select(... params): QueryResultSelection;
-	Выбрать(... params): QueryResultSelection;
-	Group(): string;
-	Группировка(): string;
-	RecordType(): QueryRecordType;
-	ТипЗаписи(): QueryRecordType;
-	Level(): number;
-	Уровень(): number;
-	NextByFieldValue(... params): boolean;
-	СледующийПоЗначениюПоля(... params): boolean;
-	FindNext(... params): boolean;
-	НайтиСледующий(... params): boolean;
-	Count(): number;
-	Количество(): number;
-	Reset();
-	Сбросить();
-	Get(... params);
-	Получить(... params);
-	Owner(): QueryResult;
-	Владелец(): QueryResult;
-}
-interface ValueTreeColumn {
-	Name: string;
-	Имя: string;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	Title: string;
-	Заголовок: string;
-	Width: number;
-	Ширина: number;
-}
-interface ValueTreeColumnCollection {
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Insert(... params): ValueTreeColumn;
-	Вставить(... params): ValueTreeColumn;
-	Add(... params): ValueTreeColumn;
-	Добавить(... params): ValueTreeColumn;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Find(... params): ValueTreeColumn;
-	Найти(... params): ValueTreeColumn;
-	Get(... params): ValueTreeColumn;
-	Получить(... params): ValueTreeColumn;
-}
-interface ValueTreeRow {
-	Parent: ValueTreeRow;
-	Родитель: ValueTreeRow;
-	Rows: ValueTreeRowCollection;
-	Строки: ValueTreeRowCollection;
-	Get(... params);
-	Получить(... params);
-	Set(... params): void;
-	Установить(... params): void;
-	Level(): number;
-	Уровень(): number;
-	Owner();
-	Владелец();
-}
-interface ValueTreeRowCollection {
-	Parent: ValueTreeRow;
-	Родитель: ValueTreeRow;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Add(): ValueTreeRow;
-	Добавить(): ValueTreeRow;
-	Insert(... params): ValueTreeRow;
-	Вставить(... params): ValueTreeRow;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Find(... params): ValueTreeRow;
-	Найти(... params): ValueTreeRow;
-	FindRows(... params): ArrayV8;
-	НайтиСтроки(... params): ArrayV8;
-	Total(... params): number;
-	Итог(... params): number;
-	Sort(... params): void;
-	Сортировать(... params): void;
-	LoadColumn(... params): void;
-	ЗагрузитьКолонку(... params): void;
-	UnloadColumn(... params): ArrayV8;
-	ВыгрузитьКолонку(... params): ArrayV8;
-	Get(... params): ValueTreeRow;
-	Получить(... params): ValueTreeRow;
-}
-interface ValueTree {
-	Columns: ValueTreeColumnCollection;
-	Колонки: ValueTreeColumnCollection;
-	Rows: ValueTreeRowCollection;
-	Строки: ValueTreeRowCollection;
-	Copy(): ValueTree;
-	Скопировать(): ValueTree;
-	ChooseRow(... params): ValueTreeRow;
-	ВыбратьСтроку(... params): ValueTreeRow;
-}
-declare type ДеревоЗначений = ValueTree;
-interface QueryResult {
-	Columns: QueryResultColumnsCollection;
-	Колонки: QueryResultColumnsCollection;
-	DataIsRelevant;
-	ДанныеАктуальны;
-	DataRelevanceTime;
-	ВремяАктуальностиДанных;
-	DatabaseCopy;
-	КопияБазыДанных;
-	Select(... params): QueryResultSelection;
-	Выбрать(... params): QueryResultSelection;
-	Unload(... params): ValueTable | ValueTree;
-	Выгрузить(... params): ValueTable | ValueTree;
-	IsEmpty(): boolean;
-	Пустой(): boolean;
-}
-interface ReportBuilderField {
-	Name: string;
-	Имя: string;
-	DataPath: string;
-	ПутьКДанным: string;
-	Presentation: string;
-	Представление: string;
-}
-interface ReportBuilderFields {
-	Add(... params): ReportBuilderField;
-	Добавить(... params): ReportBuilderField;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): ReportBuilderField;
-	Найти(... params): ReportBuilderField;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): ReportBuilderField;
-	Вставить(... params): ReportBuilderField;
-	Get(... params): ReportBuilderField;
-	Получить(... params): ReportBuilderField;
-}
-interface DimensionPlacementType {
-}
-interface DimensionAttributePlacementType {
-}
-interface TotalPlacementType {
-}
-interface AppearanceAreaType {
-}
-interface AppearanceAreaItem {
-	DataPath: string;
-	ПутьКДанным: string;
-	Title: string;
-	Заголовок: string;
-	AreaType: AppearanceAreaType;
-	ТипОбласти: AppearanceAreaType;
-}
-interface AppearanceArea {
-	Count(): number;
-	Количество(): number;
-	Add(... params): AppearanceAreaItem;
-	Добавить(... params): AppearanceAreaItem;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	GetAvailableFields(): CustomFields;
-	ПолучитьДоступныеПоля(): CustomFields;
-	SetAvailableFields(... params): void;
-	УстановитьДоступныеПоля(... params): void;
-}
-declare type ОбластьОформления = AppearanceArea;
-interface AppearanceSetting {
-}
-declare type НастройкаОформления = AppearanceSetting;
-interface ConditionalAppearanceItem {
-	Use: boolean;
-	Использование: boolean;
-	Name: string;
-	Имя: string;
-	Title: string;
-	Заголовок: string;
-	Area: AppearanceArea;
-	Область: AppearanceArea;
-	Filter: Filter;
-	Отбор: Filter;
-	Appearance: AppearanceSetting;
-	Оформление: AppearanceSetting;
-}
-interface ConditionalAppearance {
-	Count(): number;
-	Количество(): number;
-	Get(... params): ConditionalAppearanceItem;
-	Получить(... params): ConditionalAppearanceItem;
-	Add(... params): ConditionalAppearanceItem;
-	Добавить(... params): ConditionalAppearanceItem;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Insert(... params): ConditionalAppearanceItem;
-	Вставить(... params): ConditionalAppearanceItem;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	SetAvailableFields(... params): void;
-	УстановитьДоступныеПоля(... params): void;
-	GetAvailableFields(): AppearanceArea;
-	ПолучитьДоступныеПоля(): AppearanceArea;
-}
-declare type УсловноеОформление = ConditionalAppearance;
-interface DataSourceDescriptionColumn {
-	Dimension: boolean;
-	Измерение: boolean;
-	Field: boolean;
-	Поле: boolean;
-	Order: boolean;
-	Порядок: boolean;
-	Filter: boolean;
-	Отбор: boolean;
-	Total: string;
-	Итог: string;
-	Name: string;
-	Имя: string;
-	DataPath: string;
-	ПутьКДанным: string;
-}
-interface DataSourceDescriptionColumns {
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Get(... params): DataSourceDescriptionColumn;
-	Получить(... params): DataSourceDescriptionColumn;
-}
-interface DataSourceDescription {
-	DataSource;
-	ИсточникДанных;
-	Columns: DataSourceDescriptionColumns;
-	Колонки: DataSourceDescriptionColumns;
-}
-declare type ОписаниеИсточникаДанных = DataSourceDescription;
-interface PresentationAdditionType {
-}
-interface QueryTempTableColumn {
-	Name: string;
-	Имя: string;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-}
-interface QueryTempTableColumns {
-	Count(): number;
-	Количество(): number;
-	Find(... params): QueryTempTableColumn;
-	Найти(... params): QueryTempTableColumn;
-	Get(... params): QueryTempTableColumn;
-	Получить(... params): QueryTempTableColumn;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-}
-interface QueryTempTable {
-	FullName: string;
-	ПолноеИмя: string;
-	Columns: QueryTempTableColumns;
-	Колонки: QueryTempTableColumns;
-	GetData(): QueryResult;
-	ПолучитьДанные(): QueryResult;
-}
-interface QueryTempTables {
-	Count(): number;
-	Количество(): number;
-	Find(... params): QueryTempTable;
-	Найти(... params): QueryTempTable;
-	Get(... params): QueryTempTable;
-	Получить(... params): QueryTempTable;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-}
-interface TempTablesManager {
-	Tables: QueryTempTables;
-	Таблицы: QueryTempTables;
-	Close(): void;
-	Закрыть(): void;
-}
-declare type МенеджерВременныхТаблиц = TempTablesManager;
-interface RequiredDataRelevance {
-}
-interface QueryParameterDescription {
-	Name: string;
-	Имя: string;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-}
-interface QueryParametersDescription {
-	Count(): number;
-	Количество(): number;
-	Find(... params): QueryParameterDescription;
-	Найти(... params): QueryParameterDescription;
-}
-interface Query {
-	Text: string;
-	Текст: string;
-	Parameters: Structure;
-	Параметры: Structure;
-	TempTablesManager: TempTablesManager;
-	МенеджерВременныхТаблиц: TempTablesManager;
-	RequiredDataRelevance: RequiredDataRelevance;
-	ТребуемаяАктуальностьДанных: RequiredDataRelevance;
-	RequiredDataRelevanceTime: number;
-	ТребуемоеВремяАктуальностиДанных: number;
-	Execute(): QueryResult;
-	Выполнить(): QueryResult;
-	SetParameter(... params): void;
-	УстановитьПараметр(... params): void;
-	FindParameters(): QueryParametersDescription;
-	НайтиПараметры(): QueryParametersDescription;
-	ExecuteBatch(): ArrayV8;
-	ВыполнитьПакет(): ArrayV8;
-	ExecuteBatchWithIntermediateData(): ArrayV8;
-	ВыполнитьПакетСПромежуточнымиДанными(): ArrayV8;
-}
-declare type Запрос = Query;
-interface ReportBuilderSettings {
-}
-interface ReportBuilder {
-	Text: string;
-	Текст: string;
-	Filter: Filter;
-	Отбор: Filter;
-	AvailableFields: CustomFields;
-	ДоступныеПоля: CustomFields;
-	RowDimensions: ReportBuilderDimensions;
-	ИзмеренияСтроки: ReportBuilderDimensions;
-	ColumnDimensions: ReportBuilderDimensions;
-	ИзмеренияКолонки: ReportBuilderDimensions;
-	PutDetailRecords: boolean;
-	ВыводитьДетальныеЗаписи: boolean;
-	AutoDetailRecords: boolean;
-	АвтоДетальныеЗаписи: boolean;
-	DetailRecordsTemplate: string | SpreadsheetDocument;
-	МакетДетальныхЗаписей: string | SpreadsheetDocument;
-	PutReportHeader: boolean;
-	ВыводитьЗаголовокОтчета: boolean;
-	ReportHeaderTemplate: string | SpreadsheetDocument;
-	МакетЗаголовкаОтчета: string | SpreadsheetDocument;
-	PutReportFooter: boolean;
-	ВыводитьПодвалОтчета: boolean;
-	ReportFooterTemplate: string | SpreadsheetDocument;
-	МакетПодвалаОтчета: string | SpreadsheetDocument;
-	PutTableHeader: boolean;
-	ВыводитьШапкуТаблицы: boolean;
-	TableHeaderTemplate: string | SpreadsheetDocument;
-	МакетШапкиТаблицы: string | SpreadsheetDocument;
-	PutTableFooter: boolean;
-	ВыводитьПодвалТаблицы: boolean;
-	TableFooterTemplate: string | SpreadsheetDocument;
-	МакетПодвалаТаблицы: string | SpreadsheetDocument;
-	Order: Order;
-	Порядок: Order;
-	DetailFillType: ReportBuilderDetailsFillType;
-	ЗаполнениеРасшифровки: ReportBuilderDetailsFillType;
-	PutOveralls: boolean;
-	ВыводитьОбщиеИтоги: boolean;
-	OverallsTemplate: string | SpreadsheetDocument;
-	МакетОбщихИтогов: string | SpreadsheetDocument;
-	Parameters: Structure;
-	Параметры: Structure;
-	Template: SpreadsheetDocument;
-	Макет: SpreadsheetDocument;
-	Result: QueryResult;
-	Результат: QueryResult;
-	SelectedFields: ReportBuilderFields;
-	ВыбранныеПоля: ReportBuilderFields;
-	DimensionsPlacementOnRows: DimensionPlacementType;
-	РазмещениеИзмеренийВСтроках: DimensionPlacementType;
-	DimensionAttributePlacementInRows: DimensionAttributePlacementType;
-	РазмещениеРеквизитовИзмеренийВСтроках: DimensionAttributePlacementType;
-	DimensionsPlacementOnColumns: DimensionPlacementType;
-	РазмещениеИзмеренийВКолонках: DimensionPlacementType;
-	DimensionAttributePlacementInColumns: DimensionAttributePlacementType;
-	РазмещениеРеквизитовИзмеренийВКолонках: DimensionAttributePlacementType;
-	AppearanceTemplate: SpreadsheetDocument;
-	МакетОформления: SpreadsheetDocument;
-	TotalsPlacementOnRows: TotalPlacementType;
-	РазмещениеИтоговВСтроках: TotalPlacementType;
-	TotalsPlacementOnColumns: TotalPlacementType;
-	РазмещениеИтоговВКолонках: TotalPlacementType;
-	HeaderText: string;
-	ТекстЗаголовка: string;
-	ShowStatus: boolean;
-	ОтображатьСостояние: boolean;
-	ProcessUserInterruption: boolean;
-	ОбрабатыватьПрерываниеПользователя: boolean;
-	ConditionalAppearance: ConditionalAppearance;
-	УсловноеОформление: ConditionalAppearance;
-	DataSource: DataSourceDescription;
-	ИсточникДанных: DataSourceDescription;
-	PresentationAdding: PresentationAdditionType;
-	ДобавлениеПредставлений: PresentationAdditionType;
-	GetQuery(): Query;
-	ПолучитьЗапрос(): Query;
-	Put(... params): void;
-	Вывести(... params): void;
-	Execute(): void;
-	Выполнить(): void;
-	InitDetails(... params): void;
-	НастроитьРасшифровку(... params): void;
-	GetSettings(... params): ReportBuilderSettings;
-	ПолучитьНастройки(... params): ReportBuilderSettings;
-	SetSettings(... params): void;
-	УстановитьНастройки(... params): void;
-	FillSettings(): void;
-	ЗаполнитьНастройки(): void;
-	ApplyAppearanceTemplate(): void;
-	ОформитьМакет(): void;
-}
-declare type ПостроительОтчета = ReportBuilder;
-interface PivotTableField {
-	Name: string;
-	Имя: string;
-	OpenLevelCount: number;
-	КоличествоОткрытыхУровней: number;
-	ValueType: TypeDescription;
-	ТипЗначения: TypeDescription;
-	Dimension: boolean;
-	Измерение: boolean;
-	Resource: boolean;
-	Ресурс: boolean;
-	Attribute: boolean;
-	Реквизит: boolean;
-	Attributes: FixedArray;
-	Реквизиты: FixedArray;
-	LevelCount(): number;
-	КоличествоУровней(): number;
-}
-interface PivotTableFieldCollection {
-	Count(): number;
-	Количество(): number;
-	Add(... params): PivotTableField | PivotTableFieldCollection;
-	Добавить(... params): PivotTableField | PivotTableFieldCollection;
-	Insert(... params): PivotTableField | PivotTableFieldCollection;
-	Вставить(... params): PivotTableField | PivotTableFieldCollection;
-	Delete(... params): void;
-	Удалить(... params): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): PivotTableField | PivotTableFieldCollection;
-	Найти(... params): PivotTableField | PivotTableFieldCollection;
-	Clear(): void;
-	Очистить(): void;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Get(... params): PivotTableField | PivotTableFieldCollection;
-	Получить(... params): PivotTableField | PivotTableFieldCollection;
-}
-interface PivotTableRowTotalPosition {
-}
-interface PivotTableColumnTotalPosition {
-}
-interface PivotTableLinesShowType {
-}
-interface PivotTable {
-	DataSource: ReportBuilder | QueryResult;
-	ИсточникДанных: ReportBuilder | QueryResult;
-	RowHeaderArea: SpreadsheetDocumentRange;
-	ОбластьЗаголовковСтрок: SpreadsheetDocumentRange;
-	ColumnsHeadersArea: SpreadsheetDocumentRange;
-	ОбластьЗаголовковКолонок: SpreadsheetDocumentRange;
-	DataArea: SpreadsheetDocumentRange;
-	ОбластьДанных: SpreadsheetDocumentRange;
-	Columns: PivotTableFieldCollection;
-	Колонки: PivotTableFieldCollection;
-	Rows: PivotTableFieldCollection;
-	Строки: PivotTableFieldCollection;
-	Data: PivotTableFieldCollection;
-	Данные: PivotTableFieldCollection;
-	ShowFields: boolean;
-	ОтображатьПоля: boolean;
-	AutoFixation: boolean;
-	АвтоФиксация: boolean;
-	Fields: PivotTableFieldCollection;
-	Поля: PivotTableFieldCollection;
-	Attributes: PivotTableFieldCollection;
-	Реквизиты: PivotTableFieldCollection;
-	RefreshEnabled: boolean;
-	Обновление: boolean;
-	RowTotalPosition: PivotTableRowTotalPosition;
-	ПоложениеИтоговСтрок: PivotTableRowTotalPosition;
-	ColumnsTotalsPosition: PivotTableColumnTotalPosition;
-	ПоложениеИтоговКолонок: PivotTableColumnTotalPosition;
-	ShowTotalLabels: boolean;
-	ОтображатьПодписиИтогов: boolean;
-	AppearanceTemplate: SpreadsheetDocument;
-	МакетОформления: SpreadsheetDocument;
-	DimensionAttributePlacementInRows: DimensionAttributePlacementType;
-	РазмещениеРеквизитовИзмеренийВСтроках: DimensionAttributePlacementType;
-	DimensionAttributePlacementInColumns: DimensionAttributePlacementType;
-	РазмещениеРеквизитовИзмеренийВКолонках: DimensionAttributePlacementType;
-	DimensionsPlacementOnRows: DimensionPlacementType;
-	РазмещениеИзмеренийВСтроках: DimensionPlacementType;
-	DimensionsPlacementOnColumns: DimensionPlacementType;
-	РазмещениеИзмеренийВКолонках: DimensionPlacementType;
-	ShowLines: PivotTableLinesShowType;
-	ОтображатьЛинии: PivotTableLinesShowType;
-	GetValues(... params): Structure;
-	ПолучитьЗначения(... params): Structure;
-	Refresh(): void;
-	Обновить(): void;
-}
-interface EmbeddedTableCollection {
-	Add(... params): PivotTable;
-	Добавить(... params): PivotTable;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): PivotTable;
-	Найти(... params): PivotTable;
-	Get(... params): PivotTable;
-	Получить(... params): PivotTable;
-}
-interface SpreadsheetDocumentSelectedAreas {
-	Add(... params): void;
-	Добавить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Get(... params);
-	Получить(... params);
-	Move(... params);
-	Сдвинуть(... params);
-	Insert(... params): void;
-	Вставить(... params): void;
-}
-interface PrintAccuracy {
-}
-interface DuplexPrintingType {
-}
-interface PagePlacementAlternation {
-}
-interface TextDirection {
-}
-interface SpreadsheetDocument {
-	TableWidth: number;
-	ШиринаТаблицы: number;
-	TableHeight: number;
-	ВысотаТаблицы: number;
-	ReadOnly: boolean;
-	ТолькоПросмотр: boolean;
-	Protection: boolean;
-	Защита: boolean;
-	CurrentArea: SpreadsheetDocumentRange;
-	ТекущаяОбласть: SpreadsheetDocumentRange;
-	ShowGrid: boolean;
-	ОтображатьСетку: boolean;
-	ShowHeaders: boolean;
-	ОтображатьЗаголовки: boolean;
-	FixedTop: number;
-	ФиксацияСверху: number;
-	FixedLeft: number;
-	ФиксацияСлева: number;
-	PrintParametersKey: string;
-	КлючПараметровПечати: string;
-	PrintParametersName: string;
-	ИмяПараметровПечати: string;
-	WindowOptionsKey: string;
-	КлючСохраненияПоложенияОкна: string;
-	WindowOptionsName: string;
-	ИмяСохраненияПоложенияОкна: string;
-	BlackAndWhiteView: boolean;
-	ЧерноБелыйПросмотр: boolean;
-	StepDirection: SpreadsheetDocumentStepDirectionType;
-	НаправлениеПерехода: SpreadsheetDocumentStepDirectionType;
-	BackgroundPicture: Picture;
-	ФоноваяКартинка: Picture;
-	TotalsRight: boolean;
-	ИтогиСправа: boolean;
-	TotalsBelow: boolean;
-	ИтогиСнизу: boolean;
-	FixedBackground: boolean;
-	ФиксированныйФон: boolean;
-	Drawings: SpreadsheetDocumentDrawingCollection;
-	Рисунки: SpreadsheetDocumentDrawingCollection;
-	Parameters: SpreadsheetDocumentTemplateParameters;
-	Параметры: SpreadsheetDocumentTemplateParameters;
-	Areas: SpreadsheetDocumentAreaCollection;
-	Области: SpreadsheetDocumentAreaCollection;
-	GroupBackColor: Color;
-	ЦветФонаГруппировки: Color;
-	GroupTextColor: Color;
-	ЦветТекстаГруппировки: Color;
-	HeaderBackColor: Color;
-	ЦветФонаЗаголовков: Color;
-	HeaderTextColor: Color;
-	ЦветТекстаЗаголовков: Color;
-	SaveViewProperties: boolean;
-	СохранятьСвойстваОтображения: boolean;
-	PageOrientation: PageOrientation;
-	ОриентацияСтраницы: PageOrientation;
-	PrintScale: number;
-	МасштабПечати: number;
-	Collate: boolean;
-	РазборПоКопиям: boolean;
-	LeftMargin: number;
-	ПолеСлева: number;
-	RightMargin: number;
-	ПолеСправа: number;
-	TopMargin: number;
-	ПолеСверху: number;
-	BottomMargin: number;
-	ПолеСнизу: number;
-	HeaderSize: number;
-	РазмерКолонтитулаСверху: number;
-	FooterSize: number;
-	РазмерКолонтитулаСнизу: number;
-	FitToPage: boolean;
-	АвтоМасштаб: boolean;
-	BlackAndWhite: boolean;
-	ЧерноБелаяПечать: boolean;
-	PrinterName: string;
-	ИмяПринтера: string;
-	PerPage: number;
-	ЭкземпляровНаСтранице: number;
-	Copies: number;
-	КоличествоЭкземпляров: number;
-	RepeatOnRowPrint: SpreadsheetDocumentRange;
-	ПовторятьПриПечатиСтроки: SpreadsheetDocumentRange;
-	RepeatOnColumnPrint: SpreadsheetDocumentRange;
-	ПовторятьПриПечатиКолонки: SpreadsheetDocumentRange;
-	PrintArea: SpreadsheetDocumentRange;
-	ОбластьПечати: SpreadsheetDocumentRange;
-	Header: SpreadsheetDocumentHeaderFooter;
-	ВерхнийКолонтитул: SpreadsheetDocumentHeaderFooter;
-	Footer: SpreadsheetDocumentHeaderFooter;
-	НижнийКолонтитул: SpreadsheetDocumentHeaderFooter;
-	EmbeddedTables: EmbeddedTableCollection;
-	ВстроенныеТаблицы: EmbeddedTableCollection;
-	LanguageCode: string;
-	КодЯзыка: string;
-	ShowGroups: boolean;
-	ОтображатьГруппировки: boolean;
-	SelectedAreas: SpreadsheetDocumentSelectedAreas;
-	ВыделенныеОбласти: SpreadsheetDocumentSelectedAreas;
-	Output: UseOutput;
-	Вывод: UseOutput;
-	UsedFileName: string;
-	ИспользуемоеИмяФайла: string;
-	PageSize: string;
-	РазмерСтраницы: string;
-	PageWidth: number;
-	ШиринаСтраницы: number;
-	PageHeight: number;
-	ВысотаСтраницы: number;
-	PrintAccuracy: PrintAccuracy;
-	ТочностьПечати: PrintAccuracy;
-	DuplexPrinting: DuplexPrintingType;
-	ДвусторонняяПечать: DuplexPrintingType;
-	PagePlacementAlternation: PagePlacementAlternation;
-	ЧередованиеРасположенияСтраниц: PagePlacementAlternation;
-	Template: boolean;
-	Макет: boolean;
-	FirstPageNumber: number;
-	НомерПервойСтраницы: number;
-	TextDirection: TextDirection;
-	НаправлениеТекста: TextDirection;
-	Read(... params): void;
-	Прочитать(... params): void;
-	Write(... params): void;
-	Записать(... params): void;
-	Print(... params): void;
-	Напечатать(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Show(... params): void;
-	Показать(... params): void;
-	Hide(): void;
-	Скрыть(): void;
-	Put(... params);
-	Вывести(... params);
-	Join(... params);
-	Присоединить(... params);
-	PutVerticalPageBreak(): void;
-	ВывестиВертикальныйРазделительСтраниц(): void;
-	PutHorizontalPageBreak(): void;
-	ВывестиГоризонтальныйРазделительСтраниц(): void;
-	CheckPut(... params): boolean;
-	ПроверитьВывод(... params): boolean;
-	CheckAttachment(... params): boolean;
-	ПроверитьПрисоединение(... params): boolean;
-	Area(... params): SpreadsheetDocumentRange;
-	Область(... params): SpreadsheetDocumentRange;
-	StartRowGroup(... params): void;
-	НачатьГруппуСтрок(... params): void;
-	EndRowGroup(): void;
-	ЗакончитьГруппуСтрок(): void;
-	StartColumnGroup(... params): void;
-	НачатьГруппуКолонок(... params): void;
-	EndColumnGroup(): void;
-	ЗакончитьГруппуКолонок(): void;
-	FindText(... params): SpreadsheetDocumentRange;
-	НайтиТекст(... params): SpreadsheetDocumentRange;
-	FindValue(... params): SpreadsheetDocumentRange;
-	НайтиЗначение(... params): SpreadsheetDocumentRange;
-	InsertArea(... params): void;
-	ВставитьОбласть(... params): void;
-	DeleteArea(... params): void;
-	УдалитьОбласть(... params): void;
-	GetArea(... params): SpreadsheetDocument;
-	ПолучитьОбласть(... params): SpreadsheetDocument;
-	StartRowAutoGrouping(): void;
-	НачатьАвтогруппировкуСтрок(): void;
-	EndRowAutoGrouping(): void;
-	ЗакончитьАвтогруппировкуСтрок(): void;
-	StartColumnAutoGrouping(): void;
-	НачатьАвтогруппировкуКолонок(): void;
-	EndColumnAutoGrouping(): void;
-	ЗакончитьАвтогруппировкуКолонок(): void;
-	RowGroupLevelCount(): number;
-	КоличествоУровнейГруппировокСтрок(): number;
-	ColumnGroupLevelCount(): number;
-	КоличествоУровнейГруппировокКолонок(): number;
-	ShowRowGroupLevel(... params): void;
-	ПоказатьУровеньГруппировокСтрок(... params): void;
-	ShowColumnGroupLevel(... params): void;
-	ПоказатьУровеньГруппировокКолонок(... params): void;
-	PageCount(): number;
-	КоличествоСтраниц(): number;
-	BeginWriting(... params): void;
-	НачатьЗапись(... params): void;
-	GetDataAreaHorizontalSize(): number;
-	ПолучитьРазмерОбластиДанныхПоГоризонтали(): number;
-	GetDataAreaVerticalSize(): number;
-	ПолучитьРазмерОбластиДанныхПоВертикали(): number;
-	GetCompactDocument(... params): SpreadsheetDocument;
-	ПолучитьКомпактныйДокумент(... params): SpreadsheetDocument;
-	SetHorizontalStretch(... params): void;
-	УстановитьРастягиваниеПоГоризонтали(... params): void;
-	ConvertToCompactDocument(... params): void;
-	ПреобразоватьВКомпактныйДокумент(... params): void;
-	RevertToDefaultDocument(): void;
-	ОтменитьПреобразованиеДокумента(): void;
-	CalculateHeaderSize(): number;
-	РассчитатьРазмерКолонтитулаСверху(): number;
-	CalculateFooterSize(): number;
-	РассчитатьРазмерКолонтитулаСнизу(): number;
-	GetPrinterTopMarginSize(): number;
-	ПолучитьРазмерПоляПринтераСверху(): number;
-	GetPrinterRightMarginSize(): number;
-	ПолучитьРазмерПоляПринтераСправа(): number;
-	GetPrinterBottomMarginSize(): number;
-	ПолучитьРазмерПоляПринтераСнизу(): number;
-	GetPrinterLeftMarginSize(): number;
-	ПолучитьРазмерПоляПринтераСлева(): number;
-}
-declare type ТабличныйДокумент = SpreadsheetDocument;
-interface HTMLDocumentShell {
-	Get();
-	Получить();
-	GetText();
-	ПолучитьТекст();
-	GetHTMLDocument();
-	ПолучитьДокументHTML();
-	GetCOMObject();
-	ПолучитьCOMОбъект();
-}
-interface TextDocumentTemplateParameters {
-	Count(): number;
-	Количество(): number;
-	Fill(... params): void;
-	Заполнить(... params): void;
-	Get(... params);
-	Получить(... params);
-	Set(... params): void;
-	Установить(... params): void;
-}
-interface TextDocument {
-	ReadOnly: boolean;
-	ТолькоПросмотр: boolean;
-	TemplateLanguageCode: string;
-	КодЯзыкаМакета: string;
-	Parameters: TextDocumentTemplateParameters;
-	Параметры: TextDocumentTemplateParameters;
-	LineSeparator: string;
-	РазделительСтрок: string;
-	Output: UseOutput;
-	Вывод: UseOutput;
-	UsedFileName: string;
-	ИспользуемоеИмяФайла: string;
-	LineCount(): number;
-	КоличествоСтрок(): number;
-	GetLine(... params): string;
-	ПолучитьСтроку(... params): string;
-	Read(... params): void;
-	Прочитать(... params): void;
-	InsertLine(... params): void;
-	ВставитьСтроку(... params): void;
-	AddLine(... params): void;
-	ДобавитьСтроку(... params): void;
-	ReplaceLine(... params): void;
-	ЗаменитьСтроку(... params): void;
-	DeleteLine(... params): void;
-	УдалитьСтроку(... params): void;
-	Show(... params): void;
-	Показать(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	SetFileType(... params): void;
-	УстановитьТипФайла(... params): void;
-	Write(... params): void;
-	Записать(... params): void;
-	GetText(): string;
-	ПолучитьТекст(): string;
-	SetText(... params): void;
-	УстановитьТекст(... params): void;
-	GetArea(... params): TextDocument;
-	ПолучитьОбласть(... params): TextDocument;
-	Put(... params): void;
-	Вывести(... params): void;
-	BeginReading(... params): void;
-	НачатьЧтение(... params): void;
-	BeginWriting(... params): void;
-	НачатьЗапись(... params): void;
-}
-declare type ТекстовыйДокумент = TextDocument;
-interface ConnectionStopRequest {
-	StopConnection: boolean;
-	НеобходимоЗавершить: boolean;
-	DisconnectionTime: Date;
-	ПринудительноеЗавершение: Date;
-}
-declare type НеобходимостьЗавершенияСоединения = ConnectionStopRequest;
-interface EventLogEventUse {
-	Use;
-	Использование;
-	UseDescription;
-	ОписаниеИспользования;
-}
-declare type ИспользованиеСобытияЖурналаРегистрации = EventLogEventUse;
-interface DataBaseConfigurationUpdate {
-	State: EnumDataBaseConfigurationUpdateState;
-	Состояние: EnumDataBaseConfigurationUpdateState;
-	Suspended: boolean;
-	Приостановлено: boolean;
-	CompletedWithError;
-	ЗавершеноСОшибкой;
-	ProcessingPercent: number;
-	ПроцентОбработки: number;
-	ExecutionInformation;
-	ИнформацияОВыполнении;
-}
-declare var Metadata;
-declare var Метаданные;
-declare var PictureLib: PictureLib;
-declare var БиблиотекаКартинок: PictureLib;
-declare var FilterCriteria;
-declare var КритерииОтбора;
-declare var ExchangePlans;
-declare var ПланыОбмена;
-declare var SessionParameters;
-declare var ПараметрыСеанса;
-declare var EventLogLevel: EnumEventLogLevel;
-declare var УровеньЖурналаРегистрации: EnumEventLogLevel;
-declare var EventLogEntryTransactionMode: EnumEventLogEntryTransactionMode;
-declare var РежимТранзакцииЗаписиЖурналаРегистрации: EnumEventLogEntryTransactionMode;
-declare var EventLogEntryTransactionStatus: EnumEventLogEntryTransactionStatus;
-declare var СтатусТранзакцииЗаписиЖурналаРегистрации: EnumEventLogEntryTransactionStatus;
-declare var AutoChangeRecord: EnumAutoChangeRecord;
-declare var АвтоРегистрацияИзменений: EnumAutoChangeRecord;
-declare var AllowedMessageNo: EnumAllowedMessageNo;
-declare var ДопустимыйНомерСообщения: EnumAllowedMessageNo;
-declare var InfoBaseUsers: InfoBaseUsersManager;
-declare var ПользователиИнформационнойБазы: InfoBaseUsersManager;
-declare var SecondAuthenticationFactorSettingsTemplates: SecondAuthenticationFactorSettingsTemplatesManager;
-declare var ШаблоныНастроекВторогоФактораАутентификации: SecondAuthenticationFactorSettingsTemplatesManager;
-declare var DataItemSend: EnumDataItemSend;
-declare var ОтправкаЭлементаДанных: EnumDataItemSend;
-declare var DataItemReceive: EnumDataItemReceive;
-declare var ПолучениеЭлементаДанных: EnumDataItemReceive;
-declare var StyleColors: StyleColors;
-declare var ЦветаСтиля: StyleColors;
-declare var StyleFonts: StyleFonts;
-declare var ШрифтыСтиля: StyleFonts;
-declare var StyleBorders: StyleBorders;
-declare var РамкиСтиля: StyleBorders;
-declare var WSReferences;
-declare var WSСсылки;
-declare var FullTextSearchMode: EnumFullTextSearchMode;
-declare var РежимПолнотекстовогоПоиска: EnumFullTextSearchMode;
-declare var FullTextSearch: FullTextSearchManager;
-declare var ПолнотекстовыйПоиск: FullTextSearchManager;
-declare var FullTextSearchRepresentationType: EnumFullTextSearchRepresentationType;
-declare var ВидОтображенияПолнотекстовогоПоиска: EnumFullTextSearchRepresentationType;
-declare var FullTextSearchMetadataUse: EnumFullTextSearchMetadataUse;
-declare var ИспользованиеМетаданныхПолнотекстовогоПоиска: EnumFullTextSearchMetadataUse;
-declare var BackgroundJobState: EnumBackgroundJobState;
-declare var СостояниеФоновогоЗадания: EnumBackgroundJobState;
-declare var BackgroundJobs: BackgroundJobsManager;
-declare var ФоновыеЗадания: BackgroundJobsManager;
-declare var ScheduledJobs: ScheduledJobsManager;
-declare var РегламентныеЗадания: ScheduledJobsManager;
-declare var AutonumerationInForm: EnumAutonumerationInForm;
-declare var АвтонумерацияВФорме: EnumAutonumerationInForm;
-declare var SettingsStorages;
-declare var ХранилищаНастроек;
-declare var SystemSettingsStorage: StandardSettingsStorageManager;
-declare var ХранилищеСистемныхНастроек: StandardSettingsStorageManager;
-declare var CommonSettingsStorage: StandardSettingsStorageManager | any;
-declare var ХранилищеОбщихНастроек: StandardSettingsStorageManager | any;
-declare var ReportsUserSettingsStorage: StandardSettingsStorageManager | any;
-declare var ХранилищеПользовательскихНастроекОтчетов: StandardSettingsStorageManager | any;
-declare var ReportsVariantsStorage: StandardSettingsStorageManager | any;
-declare var ХранилищеВариантовОтчетов: StandardSettingsStorageManager | any;
-declare var FormDataSettingsStorage: StandardSettingsStorageManager | any;
-declare var ХранилищеНастроекДанныхФорм: StandardSettingsStorageManager | any;
-declare var StandardCommandsGroup: EnumStandardCommandsGroup;
-declare var СтандартнаяГруппаКоманд: EnumStandardCommandsGroup;
-declare var DataBaseConfigurationUpdateExecutionInformationItemType: EnumDataBaseConfigurationUpdateExecutionInformationItemType;
-declare var ТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных: EnumDataBaseConfigurationUpdateExecutionInformationItemType;
-declare var DataBaseConfigurationUpdateState: EnumDataBaseConfigurationUpdateState;
-declare var СостояниеОбновленияКонфигурацииБазыДанных: EnumDataBaseConfigurationUpdateState;
-declare var ConfigurationExtensions: ConfigurationExtensionsManager;
-declare var РасширенияКонфигурации: ConfigurationExtensionsManager;
-declare var ConfigurationExtensionsSource: EnumConfigurationExtensionsSource;
-declare var ИсточникРасширенийКонфигурации: EnumConfigurationExtensionsSource;
-declare var ConfigurationExtensionApplicationIssueSeverity: EnumConfigurationExtensionApplicationIssueSeverity;
-declare var ВажностьПроблемыПримененияРасширенияКонфигурации: EnumConfigurationExtensionApplicationIssueSeverity;
-declare var ConfigurationExtensionScope: EnumConfigurationExtensionScope;
-declare var ОбластьДействияРасширенияКонфигурации: EnumConfigurationExtensionScope;
-declare var SecondAuthenticationFactorSettingsProcessingType;
-declare var ТипОбработкиНастроекВторогоФактораАутентификации;
-declare var CompositeWordsSeparationMode: EnumCompositeWordsSeparationMode;
-declare var РежимРазделенияСоставныхСлов: EnumCompositeWordsSeparationMode;
-declare var AuthenticationLock: InfoBaseUserAuthenticationLockManager;
-declare var БлокировкаАутентификации: InfoBaseUserAuthenticationLockManager;
-declare var AdditionalAuthenticationSettings: AdditionalAuthenticationSettingsManager;
-declare var ДополнительныеНастройкиАутентификации: AdditionalAuthenticationSettingsManager;
-declare var InfoBaseUserPasswordRecoveryMethod: EnumInfoBaseUserPasswordRecoveryMethod;
-declare var СпособВосстановленияПароляПользователяИнформационнойБазы: EnumInfoBaseUserPasswordRecoveryMethod;
-declare var DynamicListsUserSettingsStorage: StandardSettingsStorageManager;
-declare var ХранилищеПользовательскихНастроекДинамическихСписков: StandardSettingsStorageManager;
-declare var DatabaseCopies: DatabaseCopiesManager;
-declare var КопииБазыДанных: DatabaseCopiesManager;
-declare var DatabaseCopyReplicationType: EnumDatabaseCopyReplicationType;
-declare var ТипРепликацииКопииБазыДанных: EnumDatabaseCopyReplicationType;
-declare var DatabaseCopyDBMSType: EnumDatabaseCopyDBMSType;
-declare var ТипСУБДКопииБазыДанных: EnumDatabaseCopyDBMSType;
-declare function BeginTransaction(... params): void;
-declare function НачатьТранзакцию(... params): void;
-declare function CommitTransaction(): void;
-declare function ЗафиксироватьТранзакцию(): void;
-declare function RollbackTransaction(): void;
-declare function ОтменитьТранзакцию(): void;
-declare function TransactionActive(): boolean;
-declare function ТранзакцияАктивна(): boolean;
-declare function Message(... params): void;
-declare function Сообщить(... params): void;
-declare function FindMarkedForDeletion(... params): ArrayV8;
-declare function НайтиПомеченныеНаУдаление(... params): ArrayV8;
-declare function FindByRef(... params): ValueTable;
-declare function НайтиПоСсылкам(... params): ValueTable;
-declare function DeleteObjects(... params): number;
-declare function УдалитьОбъекты(... params): number;
-declare function AccessRight(... params): boolean;
-declare function ПравоДоступа(... params): boolean;
-declare function IsInRole(... params): boolean;
-declare function РольДоступна(... params): boolean;
-declare function SetExclusiveMode(... params): void;
-declare function УстановитьМонопольныйРежим(... params): void;
-declare function ExclusiveMode(): boolean;
-declare function МонопольныйРежим(): boolean;
-declare function NStr(... params): string;
-declare function НСтр(... params): string;
-declare function GetRealTimeTimestamp(): Date;
-declare function ПолучитьОперативнуюОтметкуВремени(): Date;
-declare function WriteLogEvent(... params): void;
-declare function ЗаписьЖурналаРегистрации(... params): void;
-declare function CurrentLanguage(): string | MetadataObject;
-declare function ТекущийЯзык(): string | MetadataObject;
-declare function ValueToStringInternal(... params): string;
-declare function ЗначениеВСтрокуВнутр(... params): string;
-declare function ValueFromStringInternal(... params);
-declare function ЗначениеИзСтрокиВнутр(... params);
-declare function ValueToFile(... params): boolean;
-declare function ЗначениеВФайл(... params): boolean;
-declare function ValueFromFile(... params);
-declare function ЗначениеИзФайла(... params);
-declare function ComputerName(): string;
-declare function ИмяКомпьютера(): string;
-declare function UserName(): string;
-declare function ИмяПользователя(): string;
-declare function UserFullName(): string;
-declare function ПолноеИмяПользователя(): string;
-declare function BinDir(): string;
-declare function КаталогПрограммы(): string;
-declare function TempFilesDir(): string;
-declare function КаталогВременныхФайлов(): string;
-declare function BeginGettingTempFilesDir(... params): void;
-declare function НачатьПолучениеКаталогаВременныхФайлов(... params): void;
-declare function CurrentLocaleCode(): string;
-declare function ТекущийКодЛокализации(): string;
-declare function InfoBaseLocaleCode(): string;
-declare function КодЛокализацииИнформационнойБазы(): string;
-declare function LocaleCode();
-declare function КодЛокализации();
-declare function InfoBaseConnectionString(): string;
-declare function СтрокаСоединенияИнформационнойБазы(): string;
-declare function AccessParameters(... params): AccessParameters;
-declare function ПараметрыДоступа(... params): AccessParameters;
-declare function UnloadEventLog(... params): void;
-declare function ВыгрузитьЖурналРегистрации(... params): void;
-declare function CopyEventLog(... params): void;
-declare function СкопироватьЖурналРегистрации(... params): void;
-declare function ClearEventLog(... params): void;
-declare function ОчиститьЖурналРегистрации(... params): void;
-declare function ApplicationPresentation(... params): string;
-declare function ПредставлениеПриложения(... params): string;
-declare function GetInfoBaseConnections(): ArrayV8;
-declare function ПолучитьСоединенияИнформационнойБазы(): ArrayV8;
-declare function GetInfoBaseSessions(): ArrayV8;
-declare function ПолучитьСеансыИнформационнойБазы(): ArrayV8;
-declare function GetCurrentInfoBaseSession(): InfoBaseSession;
-declare function ПолучитьТекущийСеансИнформационнойБазы(): InfoBaseSession;
-declare function InfoBaseConnectionNumber(): number;
-declare function НомерСоединенияИнформационнойБазы(): number;
-declare function InfoBaseSessionNumber(): number;
-declare function НомерСеансаИнформационнойБазы(): number;
-declare function EventLogEventPresentation(... params): string;
-declare function ПредставлениеСобытияЖурналаРегистрации(... params): string;
-declare function GetEventLogUsing(): ArrayV8;
-declare function ПолучитьИспользованиеЖурналаРегистрации(): ArrayV8;
-declare function SetEventLogUsing(... params): void;
-declare function УстановитьИспользованиеЖурналаРегистрации(... params): void;
-declare function ConfigurationChanged(): boolean;
-declare function КонфигурацияИзменена(): boolean;
-declare function DataBaseConfigurationChangedDynamically(): boolean;
-declare function КонфигурацияБазыДанныхИзмененаДинамически(): boolean;
-declare function GetDBStorageStructureInfo(... params): ValueTable;
-declare function ПолучитьСтруктуруХраненияБазыДанных(... params): ValueTable;
-declare function SetLockWaitTime(... params): void;
-declare function УстановитьВремяОжиданияБлокировкиДанных(... params): void;
-declare function GetLockWaitTime(): number;
-declare function ПолучитьВремяОжиданияБлокировкиДанных(): number;
-declare function SetUserPasswordMinLength(... params): void;
-declare function УстановитьМинимальнуюДлинуПаролейПользователей(... params): void;
-declare function GetUserPasswordMinLength(): number;
-declare function ПолучитьМинимальнуюДлинуПаролейПользователей(): number;
-declare function SetUserPasswordStrengthCheck(... params): void;
-declare function УстановитьПроверкуСложностиПаролейПользователей(... params): void;
-declare function GetUserPasswordStrengthCheck(): boolean;
-declare function ПолучитьПроверкуСложностиПаролейПользователей(): boolean;
-declare function CurrentSystemLanguage(): string;
-declare function ТекущийЯзыкСистемы(): string;
-declare function GetConnectionsLock(): ConnectionsLock;
-declare function ПолучитьБлокировкуУстановкиСоединений(): ConnectionsLock;
-declare function GetSessionsLock(): SessionsLock;
-declare function ПолучитьБлокировкуСеансов(): SessionsLock;
-declare function SetConnectionsLock(... params): void;
-declare function УстановитьБлокировкуУстановкиСоединений(... params): void;
-declare function SetSessionsLock(... params): void;
-declare function УстановитьБлокировкуСеансов(... params): void;
-declare function BriefErrorDescription(... params): string;
-declare function КраткоеПредставлениеОшибки(... params): string;
-declare function DetailErrorDescription(... params): string;
-declare function ПодробноеПредставлениеОшибки(... params): string;
-declare function GetCommonTemplate(... params): ActiveDocumentShell | BinaryData | GeographicalSchema | DataCompositionAppearanceTemplate | DataCompositionSchema | SpreadsheetDocument | HTMLDocumentShell | TextDocument;
-declare function ПолучитьОбщийМакет(... params): ActiveDocumentShell | BinaryData | GeographicalSchema | DataCompositionAppearanceTemplate | DataCompositionSchema | SpreadsheetDocument | HTMLDocumentShell | TextDocument;
-declare function RefreshObjectsNumbering(... params): void;
-declare function ОбновитьНумерациюОбъектов(... params): void;
-declare function ConnectionStopRequest(): ConnectionStopRequest;
-declare function НеобходимостьЗавершенияСоединения(): ConnectionStopRequest;
-declare function SetPrivilegedMode(... params): void;
-declare function УстановитьПривилегированныйРежим(... params): void;
-declare function PrivilegedMode();
-declare function ПривилегированныйРежим();
-declare function LockDataForEdit(... params): void;
-declare function ЗаблокироватьДанныеДляРедактирования(... params): void;
-declare function UnlockDataForEdit(... params): void;
-declare function РазблокироватьДанныеДляРедактирования(... params): void;
-declare function RefreshReusableValues(): void;
-declare function ОбновитьПовторноИспользуемыеЗначения(): void;
-declare function GetEventLogFilterValues(... params);
-declare function ПолучитьЗначенияОтбораЖурналаРегистрации(... params);
-declare function SetSafeMode(... params): void;
-declare function УстановитьБезопасныйРежим(... params): void;
-declare function SafeMode(): boolean;
-declare function БезопасныйРежим(): boolean;
-declare function SetInfoBaseTimeZone(... params): void;
-declare function УстановитьЧасовойПоясИнформационнойБазы(... params): void;
-declare function GetInfoBaseTimeZone(): string;
-declare function ПолучитьЧасовойПоясИнформационнойБазы(): string;
-declare function SetSessionTimeZone(... params): void;
-declare function УстановитьЧасовойПоясСеанса(... params): void;
-declare function SessionTimeZone(): string;
-declare function ЧасовойПоясСеанса(): string;
-declare function CurrentSessionDate(): Date;
-declare function ТекущаяДатаСеанса(): Date;
-declare function GetUserMessages(... params): FixedArray;
-declare function ПолучитьСообщенияПользователю(... params): FixedArray;
-declare function DaylightTimeOffset(... params): number;
-declare function СмещениеЛетнегоВремени(... params): number;
-declare function CurrentUniversalDate(): Date;
-declare function ТекущаяУниверсальнаяДата(): Date;
-declare function ToLocalTime(... params): Date;
-declare function МестноеВремя(... params): Date;
-declare function ToUniversalTime(... params): Date;
-declare function УниверсальноеВремя(... params): Date;
-declare function TimeZone(): string;
-declare function ЧасовойПояс(): string;
-declare function GetAvailableTimeZones(): ArrayV8;
-declare function ПолучитьДопустимыеЧасовыеПояса(): ArrayV8;
-declare function TimeZonePresentation(... params): string;
-declare function ПредставлениеЧасовогоПояса(... params): string;
-declare function GetAvailableLocaleCodes(): ArrayV8;
-declare function ПолучитьДопустимыеКодыЛокализации(): ArrayV8;
-declare function LocaleCodePresentation(... params): string;
-declare function ПредставлениеКодаЛокализации(... params): string;
-declare function StandardTimeOffset(... params): number;
-declare function СмещениеСтандартногоВремени(... params): number;
-declare function CurrentRunMode();
-declare function ТекущийРежимЗапуска();
-declare function GetTempFileName(... params): string;
-declare function ПолучитьИмяВременногоФайла(... params): string;
-declare function SetEventLogEventUse(... params): void;
-declare function УстановитьИспользованиеСобытияЖурналаРегистрации(... params): void;
-declare function GetEventLogEventUse(... params): EventLogEventUse;
-declare function ПолучитьИспользованиеСобытияЖурналаРегистрации(... params): EventLogEventUse;
-declare function RightPresentation(... params): string;
-declare function ПредставлениеПрава(... params): string;
-declare function VerifyAccessRights(... params): void;
-declare function ВыполнитьПроверкуПравДоступа(... params): void;
-declare function GetDataBaseConfigurationUpdate(): DataBaseConfigurationUpdate;
-declare function ПолучитьОбновлениеКонфигурацииБазыДанных(): DataBaseConfigurationUpdate;
-declare function EraseInfoBaseData(): void;
-declare function УдалитьДанныеИнформационнойБазы(): void;
-declare function GetDatabaseDataSize(... params);
-declare function ПолучитьРазмерДанныхБазыДанных(... params);
-declare function SetDataSeparationSafeMode(... params): void;
-declare function УстановитьБезопасныйРежимРазделенияДанных(... params): void;
-declare function DataSeparationSafeMode(... params): boolean;
-declare function БезопасныйРежимРазделенияДанных(... params): boolean;
-declare function InitializePredefinedData(): void;
-declare function ИнициализироватьПредопределенныеДанные(): void;
-declare function ClientApplicationBaseFontCurrentVariant();
-declare function ТекущийВариантОсновногоШрифтаКлиентскогоПриложения();
-declare function ClientApplicationInterfaceCurrentVariant();
-declare function ТекущийВариантИнтерфейсаКлиентскогоПриложения();
-declare function SetInfoBasePredefinedDataUpdate(... params): void;
-declare function УстановитьОбновлениеПредопределенныхДанныхИнформационнойБазы(... params): void;
-declare function GetInfoBasePredefinedData();
-declare function ПолучитьОбновлениеПредопределенныхДанныхИнформационнойБазы();
-declare function SetPassiveSessionHibernateTime(... params): void;
-declare function УстановитьВремяЗасыпанияПассивногоСеанса(... params): void;
-declare function GetPassiveSessionHibernateTime(): number;
-declare function ПолучитьВремяЗасыпанияПассивногоСеанса(): number;
-declare function SetHibernateSessionTerminateTime(... params): void;
-declare function УстановитьВремяЗавершенияСпящегоСеанса(... params): void;
-declare function GetHibernateSessionTerminateTime(): number;
-declare function ПолучитьВремяЗавершенияСпящегоСеанса(): number;
-declare function GetConfigurationID(): string;
-declare function ПолучитьИдентификаторКонфигурации(): string;
-declare function GetLicensingClientName(): string;
-declare function ПолучитьИмяКлиентаЛицензирования(): string;
-declare function SetLicensingClientParameters(... params): void;
-declare function УстановитьНастройкиКлиентаЛицензирования(... params): void;
-declare function GetLicensingClientAdditionalParameter(): string;
-declare function ПолучитьДополнительныйПараметрКлиентаЛицензирования(): string;
-declare function CheckScriptCircularRefs(... params): ValueTable;
-declare function ПроверитьЦиклическиеСсылкиВстроенногоЯзыка(... params): ValueTable;
-declare function GetExternalResourcesMode(): string;
-declare function ПолучитьРежимВнешнихРесурсов(): string;
-declare function SetInfoBaseBeginningOfCentury(... params): void;
-declare function УстановитьНачалоСтолетияИнформационнойБазы(... params): void;
-declare function GetInfoBaseBeginningOfCentury(): number;
-declare function ПолучитьНачалоСтолетияИнформационнойБазы(): number;
-declare function SessionBeginningOfCentury(): number;
-declare function НачалоСтолетияСеанса(): number;
-declare function SetSafeModeDisabled(... params): void;
-declare function УстановитьОтключениеБезопасногоРежима(... params): void;
-declare function GetSafeModeDisabled();
-declare function ПолучитьОтключениеБезопасногоРежима();
-interface InterfaceControlItem {
-	Visible: boolean;
-	Видимость: boolean;
-	Switchable: boolean;
-	Переключаемый: boolean;
-}
-interface InterfaceControlItemCollection {
-	Count(): number;
-	Количество(): number;
-	SwitchInterface(... params): void;
-	ПереключитьИнтерфейс(... params): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): InterfaceControlItem;
-	Найти(... params): InterfaceControlItem;
-	Get(... params): InterfaceControlItem;
-	Получить(... params): InterfaceControlItem;
-}
-interface EnumWorkingDateMode {
-	UseCurrentDate;
-	ИспользоватьТекущуюДату;
-	Assign;
-	Назначать;
-}
-declare type ПеречислениеРежимРабочейДаты = EnumWorkingDateMode;
-interface Style {
-}
-interface StyleLib {
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Get(... params): Style;
-	Получить(... params): Style;
-}
-interface EnumIntervalBoundVariant {
-	WithoutRestriction;
-	БезОграничения;
-	WorkingDate;
-	РабочаяДата;
-	BeforeAfter;
-	Смещение;
-	Week;
-	Неделя;
-	Month;
-	Месяц;
-	Quarter;
-	Квартал;
-	Year;
-	Год;
-	SpecificDate;
-	КонкретнаяДата;
-}
-declare type ПеречислениеВариантГраницыИнтервала = EnumIntervalBoundVariant;
-interface EnumPeriodVariant {
-	Year;
-	Год;
-	Quarter;
-	Квартал;
-	QuarterFromBegOfYear;
-	КварталСНачалаГода;
-	Month;
-	Месяц;
-	MonthFromBegOfQuarter;
-	МесяцСНачалаКвартала;
-	MonthFromBegOfYear;
-	МесяцСНачалаГода;
-	Day;
-	День;
-	DayFromBegOfMonth;
-	ДеньСНачалаМесяца;
-	DayFromBegOfQuarter;
-	ДеньСНачалаКвартала;
-	DayFromBegOfYear;
-	ДеньСНачалаГода;
-	AnyInterval;
-	ПроизвольныйИнтервал;
-}
-declare type ПеречислениеВариантПериода = EnumPeriodVariant;
-interface EnumPeriodSettingsVariant {
-	Period;
-	Период;
-	Interval;
-	Интервал;
-}
-declare type ПеречислениеВариантНастройкиПериода = EnumPeriodSettingsVariant;
-interface EnumNewRowShowCheckVariant {
-	DontCheck;
-	НеПроверять;
-	FilterMismatchMessage;
-	СообщатьОНесоответствииОтбору;
-}
-declare type ПеречислениеВариантПроверкиОтображенияНовойСтроки = EnumNewRowShowCheckVariant;
-interface DialogReturnCode {
-}
-interface FormDataStructure {
-	Property(... params): boolean;
-	Свойство(... params): boolean;
-}
-interface FormGroupType {
-}
-interface FormDecorationType {
-}
-interface Key {
-}
-interface Shortcut {
-	Key: Key;
-	Клавиша: Key;
-	Alt: boolean;
-	Ctrl: boolean;
-	Shift: boolean;
-}
-declare type СочетаниеКлавиш = Shortcut;
-interface ToolTipRepresentation {
-}
-interface ItemHorizontalLocation {
-}
-interface ItemVerticalAlign {
-}
-interface DisplayImportance {
-}
-interface OnMainServerUnavalableBehavior {
-}
-interface FormDecoration {
-	Name: string;
-	Имя: string;
-	Type: FormDecorationType;
-	Вид: FormDecorationType;
-	Visible: boolean;
-	Видимость: boolean;
-	Title: FormattedString | string;
-	Заголовок: FormattedString | string;
-	ToolTip: string;
-	Подсказка: string;
-	Enabled: boolean;
-	Доступность: boolean;
-	HorizontalStretch: boolean;
-	РастягиватьПоГоризонтали: boolean;
-	VerticalStretch: boolean;
-	РастягиватьПоВертикали: boolean;
-	Width: number;
-	Ширина: number;
-	Height: number;
-	Высота: number;
-	AutoMaxWidth: boolean;
-	АвтоМаксимальнаяШирина: boolean;
-	MaxWidth: number;
-	МаксимальнаяШирина: number;
-	AutoMaxHeight: boolean;
-	АвтоМаксимальнаяВысота: boolean;
-	MaxHeight: number;
-	МаксимальнаяВысота: number;
-	TextColor: Color;
-	ЦветТекста: Color;
-	Font: Font;
-	Шрифт: Font;
-	Shortcut: Shortcut;
-	СочетаниеКлавиш: Shortcut;
-	ContextMenu: FormGroup;
-	КонтекстноеМеню: FormGroup;
-	Parent: FormGroup | ClientApplicationForm;
-	Родитель: FormGroup | ClientApplicationForm;
-	SkipOnInput: boolean;
-	ПропускатьПриВводе: boolean;
-	ToolTipRepresentation: ToolTipRepresentation;
-	ОтображениеПодсказки: ToolTipRepresentation;
-	ExtendedToolTip: FormDecoration;
-	РасширеннаяПодсказка: FormDecoration;
-	HorizontalAlignInGroup: ItemHorizontalLocation;
-	ГоризонтальноеПоложениеВГруппе: ItemHorizontalLocation;
-	VerticalAlignInGroup: ItemVerticalAlign;
-	ВертикальноеПоложениеВГруппе: ItemVerticalAlign;
-	DisplayImportance: DisplayImportance;
-	ВажностьПриОтображении: DisplayImportance;
-	OnMainServerUnavalableBehavior: OnMainServerUnavalableBehavior;
-	ПоведениеПриНедоступностиОсновногоСервера: OnMainServerUnavalableBehavior;
-	GetAction(... params);
-	ПолучитьДействие(... params);
-	SetAction(... params): void;
-	УстановитьДействие(... params): void;
-}
-interface TableRepresentation {
-}
-interface FormItemTitleLocation {
-}
-interface FormItemCommandBarLabelLocation {
-}
-interface TableHeightControlVariant {
-}
-interface TableRowInputMode {
-}
-interface TableSelectionMode {
-}
-interface TableRowSelectionMode {
-}
-interface ScrollBarUse {
-}
-interface SearchInTableOnInput {
-}
-interface InitialListView {
-}
-interface InitialTreeView {
-}
-interface FormDataCollectionItem {
-	GetID();
-	ПолучитьИдентификатор();
-	Property(... params): boolean;
-	Свойство(... params): boolean;
-}
-interface FormDataTreeItemCollection {
-	Count(): number;
-	Количество(): number;
-	Add(): FormDataTreeItem;
-	Добавить(): FormDataTreeItem;
-	Insert(... params): FormDataTreeItem;
-	Вставить(... params): FormDataTreeItem;
-	Delete(... params): void;
-	Удалить(... params): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Clear(): void;
-	Очистить(): void;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Get(... params): FormDataTreeItem;
-	Получить(... params): FormDataTreeItem;
-}
-interface FormDataTreeItem {
-	GetID(): number;
-	ПолучитьИдентификатор(): number;
-	GetItems(): FormDataTreeItemCollection;
-	ПолучитьЭлементы(): FormDataTreeItemCollection;
-	GetParent(): FormDataTreeItem;
-	ПолучитьРодителя(): FormDataTreeItem;
-	Property(... params): boolean;
-	Свойство(... params): boolean;
-}
-interface FormItemAdditionType {
-}
-interface FormItemAddition {
-	Name: string;
-	Имя: string;
-	Type: FormItemAdditionType;
-	Вид: FormItemAdditionType;
-	Visible: boolean;
-	Видимость: boolean;
-	Title: string;
-	Заголовок: string;
-	ToolTip: string;
-	Подсказка: string;
-	Enabled: boolean;
-	Доступность: boolean;
-	ContextMenu: FormGroup;
-	КонтекстноеМеню: FormGroup;
-	Parent: FormGroup | ClientApplicationForm;
-	Родитель: FormGroup | ClientApplicationForm;
-	ToolTipRepresentation: ToolTipRepresentation;
-	ОтображениеПодсказки: ToolTipRepresentation;
-	ExtendedToolTip: FormDecoration;
-	РасширеннаяПодсказка: FormDecoration;
-	ChildItems: FormItems;
-	ПодчиненныеЭлементы: FormItems;
-	HorizontalAlignInGroup: ItemHorizontalLocation;
-	ГоризонтальноеПоложениеВГруппе: ItemHorizontalLocation;
-	VerticalAlignInGroup: ItemVerticalAlign;
-	ВертикальноеПоложениеВГруппе: ItemVerticalAlign;
-	DisplayImportance: DisplayImportance;
-	ВажностьПриОтображении: DisplayImportance;
-}
-interface SearchStringLocation {
-}
-interface ViewStatusLocation {
-}
-interface SearchControlLocation {
-}
-interface RefreshRequestMethod {
-}
-interface TableCurrentRowUse {
-}
-interface TableBehaviorOnHorizontalCompression {
-}
-interface FileDragMode {
-}
 interface FormTable {
 	Name: string;
 	Имя: string;
@@ -7526,6 +4218,9 @@ interface FormCommands {
 	Delete(... params): void;
 	Удалить(... params): void;
 }
+interface UUID {
+}
+declare type УникальныйИдентификатор = UUID;
 interface NotifyDescription {
 	ProcedureName;
 	ИмяПроцедуры;
@@ -8060,6 +4755,15 @@ interface EnumCommandBarButtonType {
 	Подменю;
 }
 declare type ПеречислениеТипКнопкиКоманднойПанели = EnumCommandBarButtonType;
+interface EnumInitialListView {
+	Beginning;
+	Начало;
+	End;
+	Конец;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеНачальноеОтображениеСписка = EnumInitialListView;
 interface EnumWindowStateVariant {
 	Normal;
 	Обычное;
@@ -8280,6 +4984,2625 @@ declare var DragAction: EnumDragAction;
 declare var ДействиеПеретаскивания: EnumDragAction;
 declare var QuestionDialogMode: EnumQuestionDialogMode;
 declare var РежимДиалогаВопрос: EnumQuestionDialogMode;
+interface EnumFormItemTitleLocation {
+	None;
+	Нет;
+	Auto;
+	Авто;
+	Left;
+	Лево;
+	Top;
+	Верх;
+	Right;
+	Право;
+	Bottom;
+	Низ;
+}
+declare type ПеречислениеПоложениеЗаголовкаЭлементаФормы = EnumFormItemTitleLocation;
+interface EnumFormItemCommandBarLabelLocation {
+	None;
+	Нет;
+	Auto;
+	Авто;
+	Top;
+	Верх;
+	Bottom;
+	Низ;
+}
+declare type ПеречислениеПоложениеКоманднойПанелиЭлементаФормы = EnumFormItemCommandBarLabelLocation;
+interface EnumFormCommandBarLabelLocation {
+	None;
+	Нет;
+	Auto;
+	Авто;
+	Top;
+	Верх;
+	Bottom;
+	Низ;
+}
+declare type ПеречислениеПоложениеКоманднойПанелиФормы = EnumFormCommandBarLabelLocation;
+interface EnumIncompleteChoiceMode {
+	OnEnterPressed;
+	ПриНажатииEnter;
+	OnActivate;
+	ПриАктивизации;
+}
+declare type ПеречислениеРежимВыбораНезаполненного = EnumIncompleteChoiceMode;
+interface EnumSelectionShowMode {
+	WhenActive;
+	ПриАктивности;
+	Always;
+	Всегда;
+	DontShow;
+	НеОтображать;
+	WhenMultipleCellsSelected;
+	ПриВыделенииНесколькихЯчеек;
+	WhenMultipleCellsSelectedWhenActive;
+	ПриВыделенииНесколькихЯчеекПриАктивности;
+}
+declare type ПеречислениеРежимОтображенияВыделения = EnumSelectionShowMode;
+interface EnumItemHorizontalLocation {
+	Left;
+	Лево;
+	Center;
+	Центр;
+	Right;
+	Право;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеГоризонтальноеПоложениеЭлемента = EnumItemHorizontalLocation;
+interface EnumItemVerticalAlign {
+	Top;
+	Верх;
+	Center;
+	Центр;
+	Bottom;
+	Низ;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеВертикальноеПоложениеЭлемента = EnumItemVerticalAlign;
+interface EnumColumnsGroup {
+	Horizontal;
+	Горизонтальная;
+	Vertical;
+	Вертикальная;
+	InCell;
+	ВЯчейке;
+}
+declare type ПеречислениеГруппировкаКолонок = EnumColumnsGroup;
+interface EnumChildFormItemsGroup {
+	AlwaysHorizontal;
+	ГоризонтальнаяВсегда;
+	Vertical;
+	Вертикальная;
+	HorizontalIfPossible;
+	ГоризонтальнаяЕслиВозможно;
+	Horizontal;
+	Горизонтальная;
+}
+declare type ПеречислениеГруппировкаПодчиненныхЭлементовФормы = EnumChildFormItemsGroup;
+interface EnumItemsAndTitlesAlignVariant {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	ItemsLeftTitlesLeft;
+	ЭлементыЛевоЗаголовкиЛево;
+	ItemsRightTitlesLeft;
+	ЭлементыПравоЗаголовкиЛево;
+	ItemsLeftTitlesRight;
+	ЭлементыЛевоЗаголовкиПраво;
+	ItemsRightTitlesRight;
+	ЭлементыПравоЗаголовкиПраво;
+	ItemsAutoTitlesLeft;
+	ЭлементыАвтоЗаголовкиЛево;
+}
+declare type ПеречислениеВариантВыравниванияЭлементовИЗаголовков = EnumItemsAndTitlesAlignVariant;
+interface EnumFormItemSpacing {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	Half;
+	Половинный;
+	Single;
+	Одинарный;
+	OneAndHalf;
+	Полуторный;
+	Double;
+	Двойной;
+}
+declare type ПеречислениеИнтервалМеждуЭлементамиФормы = EnumFormItemSpacing;
+interface EnumFixingInTable {
+	None;
+	Нет;
+	Left;
+	Лево;
+	Right;
+	Право;
+}
+declare type ПеречислениеФиксацияВТаблице = EnumFixingInTable;
+interface EnumTableHeightControlVariant {
+	Auto;
+	Авто;
+	UseHeightInFormRows;
+	ВСтрокахФормы;
+	UseHeightInTableRows;
+	ВСтрокахТаблицы;
+	UseContentHeight;
+	ПоСодержимому;
+}
+declare type ПеречислениеВариантУправленияВысотойТаблицы = EnumTableHeightControlVariant;
+interface EnumChildFormItemsWidth {
+	Auto;
+	Авто;
+	Equal;
+	Одинаковая;
+	LeftWide;
+	ЛевыйШирокий;
+	LeftWidest;
+	ЛевыйОченьШирокий;
+	LeftNarrow;
+	ЛевыйУзкий;
+	LeftNarrowest;
+	ЛевыйОченьУзкий;
+}
+declare type ПеречислениеШиринаПодчиненныхЭлементовФормы = EnumChildFormItemsWidth;
+interface EnumUsualGroupRepresentation {
+	None;
+	Нет;
+	StrongSeparation;
+	СильноеВыделение;
+	WeakSeparation;
+	СлабоеВыделение;
+	NormalSeparation;
+	ОбычноеВыделение;
+}
+declare type ПеречислениеОтображениеОбычнойГруппы = EnumUsualGroupRepresentation;
+interface EnumUsualGroupBehavior {
+	Usual;
+	Обычное;
+	Collapsible;
+	Свертываемая;
+	PopUp;
+	Всплывающая;
+}
+declare type ПеречислениеПоведениеОбычнойГруппы = EnumUsualGroupBehavior;
+interface EnumUsualGroupControlRepresentation {
+	TitleHyperlink;
+	ГиперссылкаЗаголовка;
+	Picture;
+	Картинка;
+}
+declare type ПеречислениеОтображениеУправленияОбычнойГруппы = EnumUsualGroupControlRepresentation;
+interface EnumThroughAlign {
+	Use;
+	Использовать;
+	DontUse;
+	НеИспользовать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеСквозноеВыравнивание = EnumThroughAlign;
+interface EnumFormButtonType {
+	CommandBarButton;
+	КнопкаКоманднойПанели;
+	UsualButton;
+	ОбычнаяКнопка;
+	Hyperlink;
+	Гиперссылка;
+	CommandBarHyperlink;
+	ГиперссылкаКоманднойПанели;
+}
+declare type ПеречислениеВидКнопкиФормы = EnumFormButtonType;
+interface EnumCheckBoxType {
+	Auto;
+	Авто;
+	CheckBox;
+	Флажок;
+	Tumbler;
+	Тумблер;
+	Switch;
+	Выключатель;
+}
+declare type ПеречислениеВидФлажка = EnumCheckBoxType;
+interface EnumRadioButtonType {
+	Auto;
+	Авто;
+	RadioButton;
+	Переключатель;
+	Tumbler;
+	Тумблер;
+}
+declare type ПеречислениеВидПереключателя = EnumRadioButtonType;
+interface EnumFormFieldType {
+	LabelField;
+	ПолеНадписи;
+	InputField;
+	ПолеВвода;
+	CheckBoxField;
+	ПолеФлажка;
+	PictureField;
+	ПолеКартинки;
+	RadioButtonField;
+	ПолеПереключателя;
+	SpreadsheetDocumentField;
+	ПолеТабличногоДокумента;
+	TextDocumentField;
+	ПолеТекстовогоДокумента;
+	FormattedDocumentField;
+	ПолеФорматированногоДокумента;
+	PlannerField;
+	ПолеПланировщика;
+	CalendarField;
+	ПолеКалендаря;
+	PeriodField;
+	ПолеПериода;
+	ProgressBarField;
+	ПолеИндикатора;
+	TrackBarField;
+	ПолеПолосыРегулирования;
+	ChartField;
+	ПолеДиаграммы;
+	GanttChartField;
+	ПолеДиаграммыГанта;
+	DendrogramField;
+	ПолеДендрограммы;
+	GraphicalSchemaField;
+	ПолеГрафическойСхемы;
+	HTMLDocumentField;
+	ПолеHTMLДокумента;
+	GeographicalSchemaField;
+	ПолеГеографическойСхемы;
+}
+declare type ПеречислениеВидПоляФормы = EnumFormFieldType;
+interface EnumFormDecorationType {
+	Label;
+	Надпись;
+	Picture;
+	Картинка;
+}
+declare type ПеречислениеВидДекорацииФормы = EnumFormDecorationType;
+interface EnumFormGroupType {
+	CommandBar;
+	КоманднаяПанель;
+	Popup;
+	Подменю;
+	ColumnGroup;
+	ГруппаКолонок;
+	Pages;
+	Страницы;
+	Page;
+	Страница;
+	UsualGroup;
+	ОбычнаяГруппа;
+	ButtonGroup;
+	ГруппаКнопок;
+	ContextMenu;
+	КонтекстноеМеню;
+}
+declare type ПеречислениеВидГруппыФормы = EnumFormGroupType;
+interface EnumTableRepresentation {
+	List;
+	Список;
+	HierarchicalList;
+	ИерархическийСписок;
+	Tree;
+	Дерево;
+}
+declare type ПеречислениеОтображениеТаблицы = EnumTableRepresentation;
+interface EnumTableRowInputMode {
+	EndOfList;
+	ВКонецСписка;
+	EndOfWindow;
+	ВКонецОкна;
+	AfterCurrentRow;
+	ПослеТекущейСтроки;
+	BeforeCurrentRow;
+	ПередТекущейСтрокой;
+}
+declare type ПеречислениеРежимВводаСтрокТаблицы = EnumTableRowInputMode;
+interface EnumTableSelectionMode {
+	SingleRow;
+	Одиночный;
+	MultiRow;
+	Множественный;
+}
+declare type ПеречислениеРежимВыделенияТаблицы = EnumTableSelectionMode;
+interface EnumTableRowSelectionMode {
+	Cell;
+	Ячейка;
+	Row;
+	Строка;
+}
+declare type ПеречислениеРежимВыделенияСтрокиТаблицы = EnumTableRowSelectionMode;
+interface EnumScrollBarUse {
+	DontUse;
+	НеИспользовать;
+	UseAlways;
+	ИспользоватьВсегда;
+	AutoUse;
+	ИспользоватьАвтоматически;
+}
+declare type ПеречислениеИспользованиеПолосыПрокрутки = EnumScrollBarUse;
+interface EnumSearchInTableOnInput {
+	Use;
+	Использовать;
+	DontUse;
+	НеИспользовать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеПоискВТаблицеПриВводе = EnumSearchInTableOnInput;
+interface EnumToolTipRepresentation {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	Balloon;
+	Всплывающая;
+	Button;
+	Кнопка;
+	ShowAuto;
+	ОтображатьАвто;
+	ShowTop;
+	ОтображатьСверху;
+	ShowLeft;
+	ОтображатьСлева;
+	ShowBottom;
+	ОтображатьСнизу;
+	ShowRight;
+	ОтображатьСправа;
+}
+declare type ПеречислениеОтображениеПодсказки = EnumToolTipRepresentation;
+interface EnumInitialTreeView {
+	NoExpand;
+	НеРаскрывать;
+	ExpandTopLevel;
+	РаскрыватьВерхнийУровень;
+	ExpandAllLevels;
+	РаскрыватьВсеУровни;
+}
+declare type ПеречислениеНачальноеОтображениеДерева = EnumInitialTreeView;
+interface EnumFoldersAndItems {
+	Items;
+	Элементы;
+	Folders;
+	Группы;
+	FoldersAndItems;
+	ГруппыИЭлементы;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеГруппыИЭлементы = EnumFoldersAndItems;
+interface EnumEnterKeyBehaviorType {
+	DefaultButton;
+	КнопкаПоУмолчанию;
+	ControlNavigation;
+	ПереходПоЭлементамФормы;
+}
+declare type ПеречислениеТипПоведенияКлавишиEnter = EnumEnterKeyBehaviorType;
+interface EnumColumnEditMode {
+	Directly;
+	Непосредственно;
+	Enter;
+	Вход;
+	EnterOnInput;
+	ВходПриВводе;
+}
+declare type ПеречислениеРежимРедактированияКолонки = EnumColumnEditMode;
+interface UserWorkHistoryManager {
+	Get(): ArrayV8;
+	Получить(): ArrayV8;
+	Add(... params): void;
+	Добавить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	ClearAll(): void;
+	ОчиститьВсе(): void;
+}
+interface EnumReportFormType {
+	Main;
+	Основная;
+	Settings;
+	Настройка;
+	Variant;
+	Вариант;
+}
+declare type ПеречислениеТипФормыОтчета = EnumReportFormType;
+interface EnumViewScalingMode {
+	Auto;
+	Авто;
+	Normal;
+	Обычный;
+	Large;
+	Крупный;
+}
+declare type ПеречислениеРежимМасштабированияПросмотра = EnumViewScalingMode;
+interface EnumDateSelectionMode {
+	Single;
+	Одиночный;
+	Multiple;
+	Множественный;
+	Interval;
+	Интервал;
+}
+declare type ПеречислениеРежимВыделенияДаты = EnumDateSelectionMode;
+interface EnumFormItemOrientation {
+	Horizontal;
+	Горизонтально;
+	Vertical;
+	Вертикально;
+}
+declare type ПеречислениеОриентацияЭлементаФормы = EnumFormItemOrientation;
+interface EnumProgressBarSmoothingMode {
+	Smooth;
+	Плавный;
+	Broken;
+	Прерывистый;
+	BrokenTilt;
+	ПрерывистыйНаклонный;
+}
+declare type ПеречислениеРежимСглаживанияИндикатора = EnumProgressBarSmoothingMode;
+interface EnumTrackBarMarkingAppearance {
+	DontShow;
+	НеОтображать;
+	TopLeft;
+	СверхуИлиСлева;
+	BottomRight;
+	СнизуИлиСправа;
+	BothSides;
+	СОбоихСторон;
+}
+declare type ПеречислениеОтображениеРазметкиПолосыРегулирования = EnumTrackBarMarkingAppearance;
+interface EnumFormPagesRepresentation {
+	None;
+	Нет;
+	TabsOnTop;
+	ЗакладкиСверху;
+	TabsOnBottom;
+	ЗакладкиСнизу;
+	TabsOnLeftHorizontal;
+	ЗакладкиСлеваГоризонтально;
+	TabsOnRightHorizontal;
+	ЗакладкиСправаГоризонтально;
+	Swipe;
+	Пролистывание;
+}
+declare type ПеречислениеОтображениеСтраницФормы = EnumFormPagesRepresentation;
+interface EnumWarningOnEditRepresentation {
+	Show;
+	Отображать;
+	DontShow;
+	НеОтображать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеОтображениеПредупрежденияПриРедактировании = EnumWarningOnEditRepresentation;
+interface EnumVerticalFormScroll {
+	Auto;
+	Авто;
+	Use;
+	Использовать;
+	UseIfNecessary;
+	ИспользоватьПриНеобходимости;
+	UseWithoutStretch;
+	ИспользоватьБезРастягивания;
+}
+declare type ПеречислениеВертикальнаяПрокруткаФормы = EnumVerticalFormScroll;
+interface EnumFormItemAdditionType {
+	SearchStringRepresentation;
+	ОтображениеСтрокиПоиска;
+	ViewStatusRepresentation;
+	ОтображениеСостоянияПросмотра;
+	SearchControl;
+	УправлениеПоиском;
+}
+declare type ПеречислениеВидДополненияЭлементаФормы = EnumFormItemAdditionType;
+interface EnumSaveFormDataInSettings {
+	DontUse;
+	НеИспользовать;
+	UseList;
+	ИспользоватьСписок;
+}
+declare type ПеречислениеСохранениеДанныхФормыВНастройках = EnumSaveFormDataInSettings;
+interface EnumAutoSaveFormDataInSettings {
+	DontUse;
+	НеИспользовать;
+	Use;
+	Использовать;
+}
+declare type ПеречислениеАвтоматическоеСохранениеДанныхФормыВНастройках = EnumAutoSaveFormDataInSettings;
+interface EnumFormWindowOpeningMode {
+	Independent;
+	Независимый;
+	LockOwnerWindow;
+	БлокироватьОкноВладельца;
+	LockWholeInterface;
+	БлокироватьВесьИнтерфейс;
+}
+declare type ПеречислениеРежимОткрытияОкнаФормы = EnumFormWindowOpeningMode;
+interface EnumClientRunMode {
+	ManagedApplication;
+	УправляемоеПриложение;
+	OrdinaryApplication;
+	ОбычноеПриложение;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеРежимЗапускаКлиентскогоПриложения = EnumClientRunMode;
+interface EnumCommandGroupCategory {
+	NavigationPanel;
+	ПанельНавигации;
+	FormNavigationPanel;
+	ПанельНавигацииФормы;
+	ActionsPanel;
+	ПанельДействий;
+	FormCommandBar;
+	КоманднаяПанельФормы;
+}
+declare type ПеречислениеКатегорияГруппыКоманд = EnumCommandGroupCategory;
+interface EnumCommandParameterUseMode {
+	Single;
+	Одиночный;
+	Multiple;
+	Множественный;
+}
+declare type ПеречислениеРежимИспользованияПараметраКоманды = EnumCommandParameterUseMode;
+interface EnumAdditionalShowMode {
+	DontUse;
+	НеИспользовать;
+	Irrelevance;
+	Неактуальность;
+}
+declare type ПеречислениеДополнительныйРежимОтображения = EnumAdditionalShowMode;
+interface EnumEditTextUpdate {
+	Auto;
+	Авто;
+	DontUse;
+	НеИспользовать;
+	OnValueChange;
+	ПриИзмененииЗначения;
+	Always;
+	Всегда;
+}
+declare type ПеречислениеОбновлениеТекстаРедактирования = EnumEditTextUpdate;
+interface EnumApplicationFormsOpenningMode {
+	SingleWindows;
+	ОтдельныеОкна;
+	Tabs;
+	Закладки;
+}
+declare type ПеречислениеРежимОткрытияФормПриложения = EnumApplicationFormsOpenningMode;
+interface EnumSectionsPanelRepresentation {
+	Picture;
+	Картинка;
+	PictureAndText;
+	КартинкаИТекст;
+	Text;
+	Текст;
+	PictureOnTopAndText;
+	КартинкаСверхуИТекст;
+	PictureOnLeftAndText;
+	КартинкаСлеваИТекст;
+}
+declare type ПеречислениеОтображениеПанелиРазделов = EnumSectionsPanelRepresentation;
+interface EnumChoiceHistoryOnInput {
+	Auto;
+	Авто;
+	DontUse;
+	НеИспользовать;
+}
+declare type ПеречислениеИсторияВыбораПриВводе = EnumChoiceHistoryOnInput;
+interface EnumButtonGroupRepresentation {
+	Auto;
+	Авто;
+	Usual;
+	Обычное;
+	Compact;
+	Компактное;
+}
+declare type ПеречислениеОтображениеГруппыКнопок = EnumButtonGroupRepresentation;
+interface EnumButtonShape {
+	Auto;
+	Авто;
+	Usual;
+	Обычная;
+	Oval;
+	Овал;
+}
+declare type ПеречислениеФигураКнопки = EnumButtonShape;
+interface EnumButtonShapeRepresentation {
+	Auto;
+	Авто;
+	Always;
+	Всегда;
+	WhenActive;
+	ПриАктивности;
+	None;
+	Нет;
+}
+declare type ПеречислениеОтображениеФигурыКнопки = EnumButtonShapeRepresentation;
+interface EnumButtonRepresentation {
+	Text;
+	Текст;
+	Picture;
+	Картинка;
+	PictureAndText;
+	КартинкаИТекст;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеОтображениеКнопки = EnumButtonRepresentation;
+interface EnumSearchStringModeOnInputByString {
+	Begin;
+	Начало;
+	AnyPart;
+	ЛюбаяЧасть;
+}
+declare type ПеречислениеСпособПоискаСтрокиПриВводеПоСтроке = EnumSearchStringModeOnInputByString;
+interface EnumFullTextSearchOnInputByString {
+	Use;
+	Использовать;
+	DontUse;
+	НеИспользовать;
+}
+declare type ПеречислениеПолнотекстовыйПоискПриВводеПоСтроке = EnumFullTextSearchOnInputByString;
+interface EnumChoiceDataGetModeOnInputByString {
+	Directly;
+	Непосредственно;
+	Background;
+	Фоновый;
+}
+declare type ПеречислениеРежимПолученияДанныхВыбораПриВводеПоСтроке = EnumChoiceDataGetModeOnInputByString;
+interface EnumChoiceButtonRepresentation {
+	Auto;
+	Авто;
+	ShowInDropList;
+	ОтображатьВВыпадающемСписке;
+	ShowInDropListAndInInputField;
+	ОтображатьВВыпадающемСпискеИВПолеВвода;
+	ShowInInputField;
+	ОтображатьВПолеВвода;
+}
+declare type ПеречислениеОтображениеКнопкиВыбора = EnumChoiceButtonRepresentation;
+interface EnumSearchStringLocation {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	CommandBar;
+	КоманднаяПанель;
+	Top;
+	Верх;
+	Bottom;
+	Низ;
+	FormCaption;
+	ЗаголовокФормы;
+	PullFromTop;
+	ПотянутьСверху;
+}
+declare type ПеречислениеПоложениеСтрокиПоиска = EnumSearchStringLocation;
+interface EnumViewStatusLocation {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	Top;
+	Верх;
+	Bottom;
+	Низ;
+}
+declare type ПеречислениеПоложениеСостоянияПросмотра = EnumViewStatusLocation;
+interface EnumSearchControlLocation {
+	Auto;
+	Авто;
+	None;
+	Нет;
+	CommandBar;
+	КоманднаяПанель;
+}
+declare type ПеречислениеПоложениеУправленияПоиском = EnumSearchControlLocation;
+interface EnumFormButtonPictureLocation {
+	Auto;
+	Авто;
+	Left;
+	Лево;
+	Right;
+	Право;
+}
+declare type ПеречислениеПоложениеКартинкиКнопкиФормы = EnumFormButtonPictureLocation;
+interface EnumButtonLocationInCommandBar {
+	Auto;
+	Авто;
+	InAdditionalSubmenu;
+	ВДополнительномПодменю;
+	InCommandBar;
+	ВКоманднойПанели;
+	InCommandBarAndInAdditionalSubmenu;
+	ВКоманднойПанелиИВДополнительномПодменю;
+}
+declare type ПеречислениеПоложениеКнопкиВКоманднойПанели = EnumButtonLocationInCommandBar;
+interface EnumFormConversationsRepresentation {
+	Auto;
+	Авто;
+	Show;
+	Отображать;
+	DontShow;
+	НеОтображать;
+}
+declare type ПеречислениеОтображениеОбсужденийФормы = EnumFormConversationsRepresentation;
+interface MainClientApplicationWindowMode {
+}
+interface ClientApplicationBaseFontVariant {
+}
+interface ClientApplicationInterfaceVariant {
+}
+interface ClientApplication {
+	SetMainWindowMode(... params): void;
+	УстановитьРежимОсновногоОкна(... params): void;
+	GetMainWindowMode(): MainClientApplicationWindowMode;
+	ПолучитьРежимОсновногоОкна(): MainClientApplicationWindowMode;
+	SetShortCaption(... params): void;
+	УстановитьКраткийЗаголовок(... params): void;
+	GetShortCaption(): string;
+	ПолучитьКраткийЗаголовок(): string;
+	SetCaption(... params): void;
+	УстановитьЗаголовок(... params): void;
+	GetCaption(): string;
+	ПолучитьЗаголовок(): string;
+	CurrentBaseFontVariant(): ClientApplicationBaseFontVariant;
+	ТекущийВариантОсновногоШрифта(): ClientApplicationBaseFontVariant;
+	CurrentInterfaceVariant(): ClientApplicationInterfaceVariant;
+	ТекущийВариантИнтерфейса(): ClientApplicationInterfaceVariant;
+	GetOSCaptionRepresentation();
+	ПолучитьОтображениеЗаголовкаОС();
+	SetOSCaptionRepresentation(... params): void;
+	УстановитьОтображениеЗаголовкаОС(... params): void;
+}
+declare type КлиентскоеПриложение = ClientApplication;
+interface EnumStandardGlobalSearchType {
+	UserWorkFavorites;
+	ИзбранноеРаботыПользователя;
+	UserWorkHistory;
+	ИсторияРаботыПользователя;
+	FunctionsMenu;
+	МенюФункций;
+	CollaborationSystemConversations;
+	ОбсужденияСистемыВзаимодействия;
+	CollaborationSystemMessages;
+	СообщенияСистемыВзаимодействия;
+	Data;
+	Данные;
+	Expression;
+	Выражение;
+	URL;
+	НавигационнаяСсылка;
+	Help;
+	Справка;
+	FunctionsForTechnicalSpecialist;
+	ФункцииДляТехническогоСпециалиста;
+	GlobalStandardCommands;
+	ГлобальныеСтандартныеКоманды;
+}
+declare type ПеречислениеСтандартныйВидГлобальногоПоиска = EnumStandardGlobalSearchType;
+interface EnumUsedServer {
+	Standalone;
+	Автономный;
+	Main;
+	Основной;
+}
+declare type ПеречислениеИспользуемыйСервер = EnumUsedServer;
+interface EnumDrawingSelectionShowMode {
+	Show;
+	Отображать;
+	DontShow;
+	НеОтображать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеРежимОтображенияВыделенияРисунков = EnumDrawingSelectionShowMode;
+interface EnumErrorMessageDisplayVariant {
+	Auto;
+	Авто;
+	ErrorMessageForUser;
+	СообщениеОбОшибкеДляПользователя;
+	BriefErrorDescription;
+	КраткоеПредставлениеОшибки;
+	DetailErrorDescription;
+	ПодробноеПредставлениеОшибки;
+}
+declare type ПеречислениеВариантОтображенияСообщенияОбОшибке = EnumErrorMessageDisplayVariant;
+interface EnumErrorReportingMode {
+	Auto;
+	Авто;
+	DontSend;
+	НеОтправлять;
+	AskUser;
+	СпрашиватьПользователя;
+	Send;
+	Отправлять;
+}
+declare type ПеречислениеРежимОтправкиИнформацииОбОшибке = EnumErrorReportingMode;
+interface ErrorMessageDisplayVariant {
+}
+interface ErrorReportingMode {
+}
+interface ErrorMessageTexts {
+	RestartNotRequiredErrorText: FormattedString | string;
+	ТекстДляОшибкиНеТребующейПерезапуск: FormattedString | string;
+	RestartRequiredErrorText: FormattedString | string;
+	ТекстДляОшибкиТребующейПерезапуск: FormattedString | string;
+}
+declare type ТекстыСообщенияОбОшибке = ErrorMessageTexts;
+interface ErrorMessagesTexts {
+	Count(): number;
+	Количество(): number;
+	Insert(... params): void;
+	Вставить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params): ErrorMessageTexts;
+	Получить(... params): ErrorMessageTexts;
+}
+declare type ТекстыСообщенийОбОшибках = ErrorMessagesTexts;
+interface ErrorProcessingSettings {
+	MessageDisplayVariant: ErrorMessageDisplayVariant;
+	ВариантОтображенияСообщения: ErrorMessageDisplayVariant;
+	ErrorRegistrationServiceURL: string;
+	АдресСервисаРегистрацииОшибок: string;
+	SendReport: ErrorReportingMode;
+	ОтправлятьОчет: ErrorReportingMode;
+	SendCrashReport: ErrorReportingMode;
+	ОтправлятьОтчетОбАварийномЗавершении: ErrorReportingMode;
+	IncludeUserNameInReport: ErrorReportingMode;
+	ВключатьИмяПользователяВОтчет: ErrorReportingMode;
+	IncludeSystemInfoInReport: ErrorReportingMode;
+	ВключатьИнформациюОСистемеВОтчет: ErrorReportingMode;
+	IncludeWindowsPictureInReport: ErrorReportingMode;
+	ВключатьСнимокОконВОтчет: ErrorReportingMode;
+	IncludeDetailErrorDescriptionInReport: ErrorReportingMode;
+	ВключатьПодробныйТекстОшибкиВОтчет: ErrorReportingMode;
+	IncludeInfobaseInformationInReport: ErrorReportingMode;
+	ВключатьСведенияОбИнформационнойБазеВОтчет: ErrorReportingMode;
+	AdditionalReportInformation: string;
+	ДополнительнаяИнформацияОтчета: string;
+	SendCrashReportToPlatformErrorRegistrationService: ErrorReportingMode;
+	ОтправлятьОтчетОбАварийномЗавершенииВСервисРегистрацииОшибокПлатформы: ErrorReportingMode;
+	ErrorMessageTexts: ErrorMessagesTexts;
+	ТекстыСообщенийОбОшибках: ErrorMessagesTexts;
+}
+declare type НастройкиОбработкиОшибок = ErrorProcessingSettings;
+interface ErrorCategory {
+}
+interface ErrorProcessingManager {
+	GetCommonSettings(): ErrorProcessingSettings;
+	ПолучитьОбщиеНастройки(): ErrorProcessingSettings;
+	GetUserSettings(... params): ErrorProcessingSettings;
+	ПолучитьНастройкиПользователя(... params): ErrorProcessingSettings;
+	SetCommonSettings(... params): void;
+	УстановитьОбщиеНастройки(... params): void;
+	SetUserSettings(... params): void;
+	УстановитьНастройкиПользователя(... params): void;
+	ErrorCategoryForUser(... params): ErrorCategory;
+	КатегорияОшибкиДляПользователя(... params): ErrorCategory;
+	ErrorMessageForUser(... params): FormattedString;
+	СообщениеОбОшибкеДляПользователя(... params): FormattedString;
+	ErrorDescriptionForUser(... params): FormattedString;
+	ПредставлениеОшибкиДляПользователя(... params): FormattedString;
+	BriefErrorDescription(... params): string;
+	КраткоеПредставлениеОшибки(... params): string;
+	DetailErrorDescription(... params): string;
+	ПодробноеПредставлениеОшибки(... params): string;
+	ShowErrorInfo(... params): void;
+	ПоказатьИнформациюОбОшибке(... params): void;
+}
+declare type МенеджерОбработкиОшибок = ErrorProcessingManager;
+declare var FormItemTitleLocation: EnumFormItemTitleLocation;
+declare var ПоложениеЗаголовкаЭлементаФормы: EnumFormItemTitleLocation;
+declare var FormItemCommandBarLabelLocation: EnumFormItemCommandBarLabelLocation;
+declare var ПоложениеКоманднойПанелиЭлементаФормы: EnumFormItemCommandBarLabelLocation;
+declare var FormCommandBarLabelLocation: EnumFormCommandBarLabelLocation;
+declare var ПоложениеКоманднойПанелиФормы: EnumFormCommandBarLabelLocation;
+declare var IncompleteChoiceMode: EnumIncompleteChoiceMode;
+declare var РежимВыбораНезаполненного: EnumIncompleteChoiceMode;
+declare var SelectionShowMode: EnumSelectionShowMode;
+declare var РежимОтображенияВыделения: EnumSelectionShowMode;
+declare var ItemHorizontalLocation: EnumItemHorizontalLocation;
+declare var ГоризонтальноеПоложениеЭлемента: EnumItemHorizontalLocation;
+declare var ItemVerticalAlign: EnumItemVerticalAlign;
+declare var ВертикальноеПоложениеЭлемента: EnumItemVerticalAlign;
+declare var ColumnsGroup: EnumColumnsGroup;
+declare var ГруппировкаКолонок: EnumColumnsGroup;
+declare var ChildFormItemsGroup: EnumChildFormItemsGroup;
+declare var ГруппировкаПодчиненныхЭлементовФормы: EnumChildFormItemsGroup;
+declare var ItemsAndTitlesAlignVariant: EnumItemsAndTitlesAlignVariant;
+declare var ВариантВыравниванияЭлементовИЗаголовков: EnumItemsAndTitlesAlignVariant;
+declare var FormItemSpacing: EnumFormItemSpacing;
+declare var ИнтервалМеждуЭлементамиФормы: EnumFormItemSpacing;
+declare var FixingInTable: EnumFixingInTable;
+declare var ФиксацияВТаблице: EnumFixingInTable;
+declare var TableHeightControlVariant: EnumTableHeightControlVariant;
+declare var ВариантУправленияВысотойТаблицы: EnumTableHeightControlVariant;
+declare var ChildFormItemsWidth: EnumChildFormItemsWidth;
+declare var ШиринаПодчиненныхЭлементовФормы: EnumChildFormItemsWidth;
+declare var UsualGroupRepresentation: EnumUsualGroupRepresentation;
+declare var ОтображениеОбычнойГруппы: EnumUsualGroupRepresentation;
+declare var UsualGroupBehavior: EnumUsualGroupBehavior;
+declare var ПоведениеОбычнойГруппы: EnumUsualGroupBehavior;
+declare var UsualGroupControlRepresentation: EnumUsualGroupControlRepresentation;
+declare var ОтображениеУправленияОбычнойГруппы: EnumUsualGroupControlRepresentation;
+declare var ThroughAlign: EnumThroughAlign;
+declare var СквозноеВыравнивание: EnumThroughAlign;
+declare var FormButtonType: EnumFormButtonType;
+declare var ВидКнопкиФормы: EnumFormButtonType;
+declare var CheckBoxType: EnumCheckBoxType;
+declare var ВидФлажка: EnumCheckBoxType;
+declare var RadioButtonType: EnumRadioButtonType;
+declare var ВидПереключателя: EnumRadioButtonType;
+declare var FormFieldType: EnumFormFieldType;
+declare var ВидПоляФормы: EnumFormFieldType;
+declare var FormDecorationType: EnumFormDecorationType;
+declare var ВидДекорацииФормы: EnumFormDecorationType;
+declare var FormGroupType: EnumFormGroupType;
+declare var ВидГруппыФормы: EnumFormGroupType;
+declare var TableRepresentation: EnumTableRepresentation;
+declare var ОтображениеТаблицы: EnumTableRepresentation;
+declare var TableRowInputMode: EnumTableRowInputMode;
+declare var РежимВводаСтрокТаблицы: EnumTableRowInputMode;
+declare var TableSelectionMode: EnumTableSelectionMode;
+declare var РежимВыделенияТаблицы: EnumTableSelectionMode;
+declare var TableRowSelectionMode: EnumTableRowSelectionMode;
+declare var РежимВыделенияСтрокиТаблицы: EnumTableRowSelectionMode;
+declare var ScrollBarUse: EnumScrollBarUse;
+declare var ИспользованиеПолосыПрокрутки: EnumScrollBarUse;
+declare var SearchInTableOnInput: EnumSearchInTableOnInput;
+declare var ПоискВТаблицеПриВводе: EnumSearchInTableOnInput;
+declare var ToolTipRepresentation: EnumToolTipRepresentation;
+declare var ОтображениеПодсказки: EnumToolTipRepresentation;
+declare var InitialListView: EnumInitialListView;
+declare var НачальноеОтображениеСписка: EnumInitialListView;
+declare var InitialTreeView: EnumInitialTreeView;
+declare var НачальноеОтображениеДерева: EnumInitialTreeView;
+declare var FoldersAndItems: EnumFoldersAndItems;
+declare var ГруппыИЭлементы: EnumFoldersAndItems;
+declare var EnterKeyBehaviorType: EnumEnterKeyBehaviorType;
+declare var ТипПоведенияКлавишиEnter: EnumEnterKeyBehaviorType;
+declare var ColumnEditMode: EnumColumnEditMode;
+declare var РежимРедактированияКолонки: EnumColumnEditMode;
+declare var UserWorkHistory: UserWorkHistoryManager;
+declare var ИсторияРаботыПользователя: UserWorkHistoryManager;
+declare var ReportFormType: EnumReportFormType;
+declare var ТипФормыОтчета: EnumReportFormType;
+declare var ViewScalingMode: EnumViewScalingMode;
+declare var РежимМасштабированияПросмотра: EnumViewScalingMode;
+declare var DateSelectionMode: EnumDateSelectionMode;
+declare var РежимВыделенияДаты: EnumDateSelectionMode;
+declare var FormItemOrientation: EnumFormItemOrientation;
+declare var ОриентацияЭлементаФормы: EnumFormItemOrientation;
+declare var ProgressBarSmoothingMode: EnumProgressBarSmoothingMode;
+declare var РежимСглаживанияИндикатора: EnumProgressBarSmoothingMode;
+declare var TrackBarMarkingAppearance: EnumTrackBarMarkingAppearance;
+declare var ОтображениеРазметкиПолосыРегулирования: EnumTrackBarMarkingAppearance;
+declare var URLPresentation;
+declare var ПредставлениеНавигационнойСсылки;
+declare var FormPagesRepresentation: EnumFormPagesRepresentation;
+declare var ОтображениеСтраницФормы: EnumFormPagesRepresentation;
+declare var WarningOnEditRepresentation: EnumWarningOnEditRepresentation;
+declare var ОтображениеПредупрежденияПриРедактировании: EnumWarningOnEditRepresentation;
+declare var VerticalFormScroll: EnumVerticalFormScroll;
+declare var ВертикальнаяПрокруткаФормы: EnumVerticalFormScroll;
+declare var FormItemAdditionType: EnumFormItemAdditionType;
+declare var ВидДополненияЭлементаФормы: EnumFormItemAdditionType;
+declare var SaveFormDataInSettings: EnumSaveFormDataInSettings;
+declare var СохранениеДанныхФормыВНастройках: EnumSaveFormDataInSettings;
+declare var AutoSaveFormDataInSettings: EnumAutoSaveFormDataInSettings;
+declare var АвтоматическоеСохранениеДанныхФормыВНастройках: EnumAutoSaveFormDataInSettings;
+declare var FormWindowOpeningMode: EnumFormWindowOpeningMode;
+declare var РежимОткрытияОкнаФормы: EnumFormWindowOpeningMode;
+declare var ClientRunMode: EnumClientRunMode;
+declare var РежимЗапускаКлиентскогоПриложения: EnumClientRunMode;
+declare var CommandGroupCategory: EnumCommandGroupCategory;
+declare var КатегорияГруппыКоманд: EnumCommandGroupCategory;
+declare var CommandParameterUseMode: EnumCommandParameterUseMode;
+declare var РежимИспользованияПараметраКоманды: EnumCommandParameterUseMode;
+declare var AdditionalShowMode: EnumAdditionalShowMode;
+declare var ДополнительныйРежимОтображения: EnumAdditionalShowMode;
+declare var EditTextUpdate: EnumEditTextUpdate;
+declare var ОбновлениеТекстаРедактирования: EnumEditTextUpdate;
+declare var ApplicationFormsOpenningMode: EnumApplicationFormsOpenningMode;
+declare var РежимОткрытияФормПриложения: EnumApplicationFormsOpenningMode;
+declare var SectionsPanelRepresentation: EnumSectionsPanelRepresentation;
+declare var ОтображениеПанелиРазделов: EnumSectionsPanelRepresentation;
+declare var ChoiceHistoryOnInput: EnumChoiceHistoryOnInput;
+declare var ИсторияВыбораПриВводе: EnumChoiceHistoryOnInput;
+declare var ButtonGroupRepresentation: EnumButtonGroupRepresentation;
+declare var ОтображениеГруппыКнопок: EnumButtonGroupRepresentation;
+declare var ButtonShape: EnumButtonShape;
+declare var ФигураКнопки: EnumButtonShape;
+declare var ButtonShapeRepresentation: EnumButtonShapeRepresentation;
+declare var ОтображениеФигурыКнопки: EnumButtonShapeRepresentation;
+declare var ButtonRepresentation: EnumButtonRepresentation;
+declare var ОтображениеКнопки: EnumButtonRepresentation;
+declare var SearchStringModeOnInputByString: EnumSearchStringModeOnInputByString;
+declare var СпособПоискаСтрокиПриВводеПоСтроке: EnumSearchStringModeOnInputByString;
+declare var FullTextSearchOnInputByString: EnumFullTextSearchOnInputByString;
+declare var ПолнотекстовыйПоискПриВводеПоСтроке: EnumFullTextSearchOnInputByString;
+declare var ChoiceDataGetModeOnInputByString: EnumChoiceDataGetModeOnInputByString;
+declare var РежимПолученияДанныхВыбораПриВводеПоСтроке: EnumChoiceDataGetModeOnInputByString;
+declare var ChoiceButtonRepresentation: EnumChoiceButtonRepresentation;
+declare var ОтображениеКнопкиВыбора: EnumChoiceButtonRepresentation;
+declare var SearchStringLocation: EnumSearchStringLocation;
+declare var ПоложениеСтрокиПоиска: EnumSearchStringLocation;
+declare var ViewStatusLocation: EnumViewStatusLocation;
+declare var ПоложениеСостоянияПросмотра: EnumViewStatusLocation;
+declare var SearchControlLocation: EnumSearchControlLocation;
+declare var ПоложениеУправленияПоиском: EnumSearchControlLocation;
+declare var FormButtonPictureLocation: EnumFormButtonPictureLocation;
+declare var ПоложениеКартинкиКнопкиФормы: EnumFormButtonPictureLocation;
+declare var ButtonLocationInCommandBar: EnumButtonLocationInCommandBar;
+declare var ПоложениеКнопкиВКоманднойПанели: EnumButtonLocationInCommandBar;
+declare var FormConversationsRepresentation: EnumFormConversationsRepresentation;
+declare var ОтображениеОбсужденийФормы: EnumFormConversationsRepresentation;
+declare var ClientApplication: ClientApplication;
+declare var КлиентскоеПриложение: ClientApplication;
+declare var StandardGlobalSearchType: EnumStandardGlobalSearchType;
+declare var СтандартныйВидГлобальногоПоиска: EnumStandardGlobalSearchType;
+declare var UsedServer: EnumUsedServer;
+declare var ИспользуемыйСервер: EnumUsedServer;
+declare var DrawingSelectionShowMode: EnumDrawingSelectionShowMode;
+declare var РежимОтображенияВыделенияРисунков: EnumDrawingSelectionShowMode;
+declare var ErrorMessageDisplayVariant: EnumErrorMessageDisplayVariant;
+declare var ВариантОтображенияСообщенияОбОшибке: EnumErrorMessageDisplayVariant;
+declare var ErrorReportingMode: EnumErrorReportingMode;
+declare var РежимОтправкиИнформацииОбОшибке: EnumErrorReportingMode;
+declare var ErrorProcessing: ErrorProcessingManager;
+declare var ОбработкаОшибок: ErrorProcessingManager;
+declare function CopyFormData(... params): boolean;
+declare function КопироватьДанныеФормы(... params): boolean;
+declare function IsTempStorageURL(... params): boolean;
+declare function ЭтоАдресВременногоХранилища(... params): boolean;
+declare function GetInfoBaseURL(): string;
+declare function ПолучитьНавигационнуюСсылкуИнформационнойБазы(): string;
+declare function GetClientDisplaysInformation(): FixedArray;
+declare function ПолучитьИнформациюЭкрановКлиента(): FixedArray;
+declare function GetAllFilesMask();
+declare function ПолучитьМаскуВсеФайлы();
+declare function GetPathSeparator();
+declare function ПолучитьРазделительПути();
+interface EnumXBaseEncoding {
+	ANSI;
+	OEM;
+}
+declare type ПеречислениеКодировкаXBase = EnumXBaseEncoding;
+interface EnumInternetMailTextType {
+	HTML;
+	PlainText;
+	ПростойТекст;
+	RichText;
+	РазмеченныйТекст;
+}
+declare type ПеречислениеТипТекстаПочтовогоСообщения = EnumInternetMailTextType;
+interface EnumInternetMailTextProcessing {
+	Process;
+	Обрабатывать;
+	DontProcess;
+	НеОбрабатывать;
+}
+declare type ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения = EnumInternetMailTextProcessing;
+interface EnumInternetMailMessageImportance {
+	Highest;
+	Наивысшая;
+	High;
+	Высокая;
+	Normal;
+	Обычная;
+	Low;
+	Низкая;
+	Lowest;
+	Наименьшая;
+}
+declare type ПеречислениеВажностьИнтернетПочтовогоСообщения = EnumInternetMailMessageImportance;
+interface EnumInternetMailAttachmentEncodingMode {
+	MIME;
+	UUEncode;
+}
+declare type ПеречислениеСпособКодированияИнтернетПочтовогоВложения = EnumInternetMailAttachmentEncodingMode;
+interface EnumInternetMailMessageNonASCIISymbolsEncodingMode {
+	None;
+	БезКодирования;
+	MIME;
+	QuotedPrintable;
+}
+declare type ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения = EnumInternetMailMessageNonASCIISymbolsEncodingMode;
+interface EnumSMTPAuthenticationMode {
+	None;
+	БезАутентификации;
+	Default;
+	ПоУмолчанию;
+	Plain;
+	Login;
+	CramMD5;
+}
+declare type ПеречислениеСпособSMTPАутентификации = EnumSMTPAuthenticationMode;
+interface EnumPOP3AuthenticationMode {
+	General;
+	Обычная;
+	APOP;
+	CramMD5;
+}
+declare type ПеречислениеСпособPOP3Аутентификации = EnumPOP3AuthenticationMode;
+interface EnumInternetMailProtocol {
+	POP3;
+	IMAP;
+	SMTP;
+}
+declare type ПеречислениеПротоколИнтернетПочты = EnumInternetMailProtocol;
+interface EnumZIPCompressionMethod {
+	Copy;
+	Копирование;
+	Deflate;
+	Сжатие;
+	BZIP2;
+}
+declare type ПеречислениеМетодСжатияZIP = EnumZIPCompressionMethod;
+interface EnumZIPCompressionLevel {
+	Minimum;
+	Минимальный;
+	Optimal;
+	Оптимальный;
+	Maximum;
+	Максимальный;
+}
+declare type ПеречислениеУровеньСжатияZIP = EnumZIPCompressionLevel;
+interface EnumZIPEncryptionMethod {
+	Zip20;
+	AES128;
+	AES192;
+	AES256;
+}
+declare type ПеречислениеМетодШифрованияZIP = EnumZIPEncryptionMethod;
+interface EnumZIPStorePathMode {
+	StoreFullPath;
+	СохранятьПолныеПути;
+	StoreRelativePath;
+	СохранятьОтносительныеПути;
+	DontStorePath;
+	НеСохранятьПути;
+}
+declare type ПеречислениеРежимСохраненияПутейZIP = EnumZIPStorePathMode;
+interface EnumZIPSubDirProcessingMode {
+	ProcessRecursively;
+	ОбрабатыватьРекурсивно;
+	DontProcess;
+	НеОбрабатывать;
+}
+declare type ПеречислениеРежимОбработкиПодкаталоговZIP = EnumZIPSubDirProcessingMode;
+interface EnumZIPRestoreFilePathsMode {
+	Restore;
+	Восстанавливать;
+	DontRestore;
+	НеВосстанавливать;
+}
+declare type ПеречислениеРежимВосстановленияПутейФайловZIP = EnumZIPRestoreFilePathsMode;
+interface CryptoModuleInformation {
+	Name: string;
+	Имя: string;
+	HashAlgorithms: FixedArray;
+	АлгоритмыХеширования: FixedArray;
+	SignAlgorithms: FixedArray;
+	АлгоритмыПодписи: FixedArray;
+	EncryptAlgorithms: FixedArray;
+	АлгоритмыШифрования: FixedArray;
+}
+interface CryptoToolsManager {
+	GetCryptoModuleInformation(... params): CryptoModuleInformation;
+	ПолучитьИнформациюМодуляКриптографии(... params): CryptoModuleInformation;
+	BeginGettingCryptoModuleInformation(... params): void;
+	НачатьПолучениеИнформацииМодуляКриптографии(... params): void;
+}
+interface EnumInternetMailMessageParseStatus {
+	ErrorsNotDetected;
+	ОшибокНеОбнаружено;
+	ErrorsDetected;
+	ОбнаруженыОшибки;
+}
+declare type ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения = EnumInternetMailMessageParseStatus;
+interface DeliverableNotificationSendManager {
+	Send(... params): void;
+	Отправить(... params): void;
+	GetExcludedRecipients(... params): ArrayV8;
+	ПолучитьИсключенныхПолучателей(... params): ArrayV8;
+	GetAccessToken(... params): string;
+	ПолучитьМаркерДоступа(... params): string;
+}
+interface EnumDeliverableNotificationSubscriberType {
+	APNS;
+	GCM;
+	WNS;
+	FCM;
+}
+declare type ПеречислениеТипПодписчикаДоставляемыхУведомлений = EnumDeliverableNotificationSubscriberType;
+interface EnumSoundAlert {
+	None;
+	Нет;
+	Default;
+	ПоУмолчанию;
+}
+declare type ПеречислениеЗвуковоеОповещение = EnumSoundAlert;
+interface EnumInAppPurchaseService {
+	GooglePlayInAppBilling;
+	AppleInAppPurchase;
+	WindowsInAppPurchase;
+}
+declare type ПеречислениеСервисВстроенныхПокупок = EnumInAppPurchaseService;
+interface InAppPurchasesValidationManager {
+	ValidateInAppPurchaseReceipt(... params): boolean;
+	ПроверитьКвитанциюВстроеннойПокупки(... params): boolean;
+	ValidateInAppPurchaseReceiptAtMobileDevice(... params): boolean;
+	ПроверитьКвитанциюВстроеннойПокупкиНаМобильномУстройстве(... params): boolean;
+}
+interface EnumFileNamesEncodingInZipFile {
+	Auto;
+	Авто;
+	OSEncodingWithUTF8;
+	КодировкаОСДополнительноUTF8;
+	UTF8;
+}
+declare type ПеречислениеКодировкаИменФайловВZipФайле = EnumFileNamesEncodingInZipFile;
+interface EnumDeliverableNotificationSendErrorType {
+	AuthenticationDataError;
+	ОшибкаДанныхАутентификации;
+	NotificationBodyError;
+	ОшибкаТелаУведомления;
+	NotificationsLimitExceeded;
+	ПревышенЛимитОтправкиУведомлений;
+	SubscriberIDError;
+	ОшибкаИдентификатораПодписчика;
+	DeliverableNotificationServiceConnectionError;
+	ОшибкаПодключенияКСервисуДоставляемыхУведомлений;
+	DeliverableNotificationServiceError;
+	ОшибкаСервисаДоставляемыхУведомлений;
+	UnknownError;
+	НеизвестнаяОшибка;
+}
+declare type ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления = EnumDeliverableNotificationSendErrorType;
+interface EnumUseInternetMailTokenAuthentication {
+	DontUse;
+	НеИспользовать;
+	Use;
+	Использовать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену = EnumUseInternetMailTokenAuthentication;
+declare var XBaseEncoding: EnumXBaseEncoding;
+declare var КодировкаXBase: EnumXBaseEncoding;
+declare var InternetMailTextType: EnumInternetMailTextType;
+declare var ТипТекстаПочтовогоСообщения: EnumInternetMailTextType;
+declare var InternetMailTextProcessing: EnumInternetMailTextProcessing;
+declare var ОбработкаТекстаИнтернетПочтовогоСообщения: EnumInternetMailTextProcessing;
+declare var InternetMailMessageImportance: EnumInternetMailMessageImportance;
+declare var ВажностьИнтернетПочтовогоСообщения: EnumInternetMailMessageImportance;
+declare var InternetMailAttachmentEncodingMode: EnumInternetMailAttachmentEncodingMode;
+declare var СпособКодированияИнтернетПочтовогоВложения: EnumInternetMailAttachmentEncodingMode;
+declare var InternetMailMessageNonASCIISymbolsEncodingMode: EnumInternetMailMessageNonASCIISymbolsEncodingMode;
+declare var СпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения: EnumInternetMailMessageNonASCIISymbolsEncodingMode;
+declare var SMTPAuthenticationMode: EnumSMTPAuthenticationMode;
+declare var СпособSMTPАутентификации: EnumSMTPAuthenticationMode;
+declare var POP3AuthenticationMode: EnumPOP3AuthenticationMode;
+declare var СпособPOP3Аутентификации: EnumPOP3AuthenticationMode;
+declare var InternetMailProtocol: EnumInternetMailProtocol;
+declare var ПротоколИнтернетПочты: EnumInternetMailProtocol;
+declare var ZIPCompressionMethod: EnumZIPCompressionMethod;
+declare var МетодСжатияZIP: EnumZIPCompressionMethod;
+declare var ZIPCompressionLevel: EnumZIPCompressionLevel;
+declare var УровеньСжатияZIP: EnumZIPCompressionLevel;
+declare var ZIPEncryptionMethod: EnumZIPEncryptionMethod;
+declare var МетодШифрованияZIP: EnumZIPEncryptionMethod;
+declare var ZIPStorePathMode: EnumZIPStorePathMode;
+declare var РежимСохраненияПутейZIP: EnumZIPStorePathMode;
+declare var ZIPSubDirProcessingMode: EnumZIPSubDirProcessingMode;
+declare var РежимОбработкиПодкаталоговZIP: EnumZIPSubDirProcessingMode;
+declare var ZIPRestoreFilePathsMode: EnumZIPRestoreFilePathsMode;
+declare var РежимВосстановленияПутейФайловZIP: EnumZIPRestoreFilePathsMode;
+declare var CryptoTools: CryptoToolsManager;
+declare var СредстваКриптографии: CryptoToolsManager;
+declare var InternetMailMessageParseStatus: EnumInternetMailMessageParseStatus;
+declare var СтатусРазбораИнтернетПочтовогоСообщения: EnumInternetMailMessageParseStatus;
+declare var DeliverableNotificationSend: DeliverableNotificationSendManager;
+declare var ОтправкаДоставляемыхУведомлений: DeliverableNotificationSendManager;
+declare var DeliverableNotificationSubscriberType: EnumDeliverableNotificationSubscriberType;
+declare var ТипПодписчикаДоставляемыхУведомлений: EnumDeliverableNotificationSubscriberType;
+declare var SoundAlert: EnumSoundAlert;
+declare var ЗвуковоеОповещение: EnumSoundAlert;
+declare var InAppPurchaseService: EnumInAppPurchaseService;
+declare var СервисВстроенныхПокупок: EnumInAppPurchaseService;
+declare var InAppPurchasesValidation: InAppPurchasesValidationManager;
+declare var ПроверкаВстроенныхПокупок: InAppPurchasesValidationManager;
+declare var FileNamesEncodingInZipFile: EnumFileNamesEncodingInZipFile;
+declare var КодировкаИменФайловВZipФайле: EnumFileNamesEncodingInZipFile;
+declare var DeliverableNotificationSendErrorType: EnumDeliverableNotificationSendErrorType;
+declare var ТипОшибкиОтправкиДоставляемогоУведомления: EnumDeliverableNotificationSendErrorType;
+declare var UseInternetMailTokenAuthentication: EnumUseInternetMailTokenAuthentication;
+declare var ИспользованиеАутентификацииИнтернетПочтыПоТокену: EnumUseInternetMailTokenAuthentication;
+declare function NumberInWords(... params): string;
+declare function ЧислоПрописью(... params): string;
+declare function PeriodPresentation(... params): string;
+declare function ПредставлениеПериода(... params): string;
+declare function FileCopy(... params): void;
+declare function КопироватьФайл(... params): void;
+declare function MoveFile(... params): void;
+declare function ПереместитьФайл(... params): void;
+declare function DeleteFiles(... params): void;
+declare function УдалитьФайлы(... params): void;
+declare function FindFiles(... params): ArrayV8;
+declare function НайтиФайлы(... params): ArrayV8;
+declare function CreateDirectory(... params): void;
+declare function СоздатьКаталог(... params): void;
+declare function GetCOMObject(... params);
+declare function ПолучитьCOMОбъект(... params);
+declare function SplitFile(... params): ArrayV8;
+declare function РазделитьФайл(... params): ArrayV8;
+declare function MergeFiles(... params): void;
+declare function ОбъединитьФайлы(... params): void;
+declare function RunApp(... params): void;
+declare function ЗапуститьПриложение(... params): void;
+declare function CurrentUniversalDateInMilliseconds();
+declare function ТекущаяУниверсальнаяДатаВМиллисекундах();
+declare function BeginCopyingFile(... params): void;
+declare function НачатьКопированиеФайла(... params): void;
+declare function BeginMovingFile(... params): void;
+declare function НачатьПеремещениеФайла(... params): void;
+declare function BeginDeletingFiles(... params): void;
+declare function НачатьУдалениеФайлов(... params): void;
+declare function BeginFindingFiles(... params): void;
+declare function НачатьПоискФайлов(... params): void;
+declare function BeginCreatingDirectory(... params): void;
+declare function НачатьСозданиеКаталога(... params): void;
+declare function BeginRunningApplication(... params): void;
+declare function НачатьЗапускПриложения(... params): void;
+declare function StringWithNumber(... params): string;
+declare function СтрокаСЧислом(... params): string;
+interface EnumVerticalAlign {
+	Top;
+	Верх;
+	Center;
+	Центр;
+	Bottom;
+	Низ;
+}
+declare type ПеречислениеВертикальноеПоложение = EnumVerticalAlign;
+interface EnumHorizontalAlign {
+	Left;
+	Лево;
+	Center;
+	Центр;
+	Right;
+	Право;
+	Justify;
+	ПоШирине;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеГоризонтальноеПоложение = EnumHorizontalAlign;
+interface EnumPageOrientation {
+	Portrait;
+	Портрет;
+	Landscape;
+	Ландшафт;
+}
+declare type ПеречислениеОриентацияСтраницы = EnumPageOrientation;
+interface EnumPictureSize {
+	RealSize;
+	РеальныйРазмер;
+	Stretch;
+	Растянуть;
+	Proportionally;
+	Пропорционально;
+	Tile;
+	Черепица;
+	AutoSize;
+	АвтоРазмер;
+	RealSizeIgnoreScale;
+	РеальныйРазмерБезУчетаМасштаба;
+	AutoSizeIgnoreScale;
+	АвтоРазмерБезУчетаМасштаба;
+}
+declare type ПеречислениеРазмерКартинки = EnumPictureSize;
+interface EnumPictureFormat {
+	UnknownFormat;
+	НеизвестныйФормат;
+	BMP;
+	GIF;
+	Icon;
+	JPEG;
+	PNG;
+	TIFF;
+	EMF;
+	WMF;
+	SVG;
+}
+declare type ПеречислениеФорматКартинки = EnumPictureFormat;
+interface EnumAllowedLength {
+	Fixed;
+	Фиксированная;
+	Variable;
+	Переменная;
+}
+declare type ПеречислениеДопустимаяДлина = EnumAllowedLength;
+interface EnumAllowedSign {
+	Any;
+	Любой;
+	Nonnegative;
+	Неотрицательный;
+}
+declare type ПеречислениеДопустимыйЗнак = EnumAllowedSign;
+interface EnumDateFractions {
+	Date;
+	Дата;
+	Time;
+	Время;
+	DateTime;
+	ДатаВремя;
+}
+declare type ПеречислениеЧастиДаты = EnumDateFractions;
+interface EnumRoundMode {
+	Round15as10;
+	Окр15как10;
+	Round15as20;
+	Окр15как20;
+}
+declare type ПеречислениеРежимОкругления = EnumRoundMode;
+interface Chars {
+	CR;
+	ВК;
+	LF;
+	ПС;
+	FF;
+	ПФ;
+	Tab;
+	Таб;
+	VTab;
+	ВТаб;
+	NBSp;
+	НПП;
+}
+interface EnumSortDirection {
+	Asc;
+	Возр;
+	Desc;
+	Убыв;
+}
+declare type ПеречислениеНаправлениеСортировки = EnumSortDirection;
+interface EnumTextEncoding {
+	UTF16;
+	UTF8;
+	ANSI;
+	OEM;
+	System;
+	Системная;
+}
+declare type ПеречислениеКодировкаТекста = EnumTextEncoding;
+interface EnumUseOutput {
+	Auto;
+	Авто;
+	Enable;
+	Разрешить;
+	Disable;
+	Запретить;
+}
+declare type ПеречислениеИспользованиеВывода = EnumUseOutput;
+interface EnumPrintDialogUseMode {
+	Use;
+	Использовать;
+	DontUse;
+	НеИспользовать;
+}
+declare type ПеречислениеРежимИспользованияДиалогаПечати = EnumPrintDialogUseMode;
+interface EnumFontType {
+	Absolute;
+	Абсолютный;
+	StyleItem;
+	ЭлементСтиля;
+	WindowsFont;
+	WindowsШрифт;
+	AutoFont;
+	АвтоШрифт;
+}
+declare type ПеречислениеВидШрифта = EnumFontType;
+interface EnumBorderType {
+	Absolute;
+	Абсолютная;
+	StyleItem;
+	ЭлементСтиля;
+}
+declare type ПеречислениеВидРамки = EnumBorderType;
+interface EnumControlBorderType {
+	WithoutBorder;
+	БезРамки;
+	Double;
+	Двойная;
+	Single;
+	Одинарная;
+	Embossed;
+	Выпуклая;
+	Indented;
+	Вдавленная;
+	Underline;
+	Подчеркивание;
+	DoubleUnderline;
+	ДвойноеПодчеркивание;
+	Rounded;
+	Скругленная;
+	Overline;
+	ЧертаСверху;
+}
+declare type ПеречислениеТипРамкиЭлементаУправления = EnumControlBorderType;
+interface WebColors {
+	White: Color;
+	Белый: Color;
+	Snow: Color;
+	Белоснежный: Color;
+	HoneyDew: Color;
+	Роса: Color;
+	MintCream: Color;
+	МятныйКрем: Color;
+	Azure: Color;
+	Лазурный: Color;
+	AliceBlue: Color;
+	АкварельноСиний: Color;
+	GhostWhite: Color;
+	ПризрачноБелый: Color;
+	WhiteSmoke: Color;
+	ДымчатоБелый: Color;
+	SeaShell: Color;
+	Перламутровый: Color;
+	Beige: Color;
+	Бежевый: Color;
+	OldLace: Color;
+	СтароеКружево: Color;
+	Cream: Color;
+	Кремовый: Color;
+	FloralWhite: Color;
+	ЦветокБелый: Color;
+	Ivory: Color;
+	СлоноваяКость: Color;
+	AntiqueWhite: Color;
+	АнтикБелый: Color;
+	Linen: Color;
+	Льняной: Color;
+	LavenderBlush: Color;
+	ГолубойСКраснымОттенком: Color;
+	MistyRose: Color;
+	ТусклоРозовый: Color;
+	Gainsboro: Color;
+	СеребристоСерый: Color;
+	LightGray: Color;
+	СветлоСерый: Color;
+	Silver: Color;
+	Серебряный: Color;
+	DarkGray: Color;
+	ТемноСерый: Color;
+	MediumGray: Color;
+	НейтральноСерый: Color;
+	Gray: Color;
+	Серый: Color;
+	DimGray: Color;
+	ТусклоСерый: Color;
+	LightSlateGray: Color;
+	СветлоГрифельноСерый: Color;
+	SlateGray: Color;
+	ГрифельноСерый: Color;
+	DarkSlateGray: Color;
+	ТемноГрифельноСерый: Color;
+	Black: Color;
+	Черный: Color;
+	IndianRed: Color;
+	Киноварь: Color;
+	LightCoral: Color;
+	СветлоКоралловый: Color;
+	Salmon: Color;
+	Лосось: Color;
+	DarkSalmon: Color;
+	ЛососьТемный: Color;
+	LightSalmon: Color;
+	ЛососьСветлый: Color;
+	Crimson: Color;
+	Малиновый: Color;
+	Red: Color;
+	Красный: Color;
+	FireBrick: Color;
+	Кирпичный: Color;
+	DarkRed: Color;
+	ТемноКрасный: Color;
+	Pink: Color;
+	Розовый: Color;
+	LightPink: Color;
+	СветлоРозовый: Color;
+	HotPink: Color;
+	ТеплоРозовый: Color;
+	DeepPink: Color;
+	НасыщенноРозовый: Color;
+	MediumVioletRed: Color;
+	НейтральноФиолетовоКрасный: Color;
+	VioletRed: Color;
+	КрасноФиолетовый: Color;
+	PaleVioletRed: Color;
+	БледноКрасноФиолетовый: Color;
+	Coral: Color;
+	Коралловый: Color;
+	Tomato: Color;
+	Томатный: Color;
+	OrangeRed: Color;
+	ОранжевоКрасный: Color;
+	DarkOrange: Color;
+	ТемноОранжевый: Color;
+	Orange: Color;
+	Оранжевый: Color;
+	Gold: Color;
+	Золотой: Color;
+	Yellow: Color;
+	Желтый: Color;
+	LightYellow: Color;
+	СветлоЖелтый: Color;
+	LemonChiffon: Color;
+	Лимонный: Color;
+	LightGoldenRodYellow: Color;
+	СветлоЖелтыйЗолотистый: Color;
+	PapayaWhip: Color;
+	ТопленоеМолоко: Color;
+	Moccasin: Color;
+	ЗамшаСветлый: Color;
+	PeachPuff: Color;
+	Персиковый: Color;
+	PaleGoldenrod: Color;
+	БледноЗолотистый: Color;
+	Khaki: Color;
+	Хаки: Color;
+	DarkKhaki: Color;
+	ХакиТемный: Color;
+	Lavender: Color;
+	БледноЛиловый: Color;
+	Thistle: Color;
+	БледноСиреневый: Color;
+	Plum: Color;
+	Сливовый: Color;
+	Violet: Color;
+	Фиолетовый: Color;
+	Orchid: Color;
+	Орхидея: Color;
+	Fuchsia: Color;
+	Фуксия: Color;
+	Magenta: Color;
+	Фуксин: Color;
+	MediumOrchid: Color;
+	ОрхидеяНейтральный: Color;
+	MediumPurple: Color;
+	НейтральноПурпурный: Color;
+	BlueViolet: Color;
+	СинеФиолетовый: Color;
+	DarkViolet: Color;
+	ТемноФиолетовый: Color;
+	DarkOrchid: Color;
+	ОрхидеяТемный: Color;
+	DarkMagenta: Color;
+	ФуксинТемный: Color;
+	Purple: Color;
+	Пурпурный: Color;
+	Indigo: Color;
+	Индиго: Color;
+	LightSlateBlue: Color;
+	СветлоГрифельноСиний: Color;
+	SlateBlue: Color;
+	ГрифельноСиний: Color;
+	DarkSlateBlue: Color;
+	ТемноГрифельноСиний: Color;
+	MediumSlateBlue: Color;
+	НейтральноГрифельноСиний: Color;
+	GreenYellow: Color;
+	ЗеленоЖелтый: Color;
+	Chartreuse: Color;
+	ЗеленоватоЖелтый: Color;
+	LawnGreen: Color;
+	ЗеленаяЛужайка: Color;
+	Lime: Color;
+	ЗеленоватоЛимонный: Color;
+	LimeGreen: Color;
+	ЛимонноЗеленый: Color;
+	PaleGreen: Color;
+	БледноЗеленый: Color;
+	LightGreen: Color;
+	СветлоЗеленый: Color;
+	MediumSpringGreen: Color;
+	НейтральноВесеннеЗеленый: Color;
+	SpringGreen: Color;
+	ВесеннеЗеленый: Color;
+	MediumSeaGreen: Color;
+	ЦветМорскойВолныНейтральный: Color;
+	Seagreen: Color;
+	ЦветМорскойВолны: Color;
+	ForestGreen: Color;
+	ЗеленыйЛес: Color;
+	Green: Color;
+	Зеленый: Color;
+	MediumGreen: Color;
+	НейтральноЗеленый: Color;
+	DarkGreen: Color;
+	ТемноЗеленый: Color;
+	YellowGreen: Color;
+	ЖелтоЗеленый: Color;
+	Olivedrab: Color;
+	ТусклоОливковый: Color;
+	Olive: Color;
+	Оливковый: Color;
+	DarkOliveGreen: Color;
+	ТемноОливковоЗеленый: Color;
+	MediumAquaMarine: Color;
+	НейтральноАквамариновый: Color;
+	DarkSeaGreen: Color;
+	ЦветМорскойВолныТемный: Color;
+	LightSeaGreen: Color;
+	ЦветМорскойВолныСветлый: Color;
+	DarkCyan: Color;
+	ЦианТемный: Color;
+	Teal: Color;
+	ЦианНейтральный: Color;
+	Aqua: Color;
+	ЦианАкварельный: Color;
+	Cyan: Color;
+	Циан: Color;
+	LightCyan: Color;
+	ЦианСветлый: Color;
+	PaleTurquoise: Color;
+	БледноБирюзовый: Color;
+	Aquamarine: Color;
+	Аквамарин: Color;
+	Turquoise: Color;
+	Бирюзовый: Color;
+	MediumTurquoise: Color;
+	НейтральноБирюзовый: Color;
+	DarkTurquoise: Color;
+	ТемноБирюзовый: Color;
+	CadetBlue: Color;
+	СероСиний: Color;
+	SteelBlue: Color;
+	СинийСоСтальнымОттенком: Color;
+	LightSteelBlue: Color;
+	ГолубойСоСтальнымОттенком: Color;
+	PowderBlue: Color;
+	СинийСПороховымОттенком: Color;
+	LightBlue: Color;
+	Голубой: Color;
+	SkyBlue: Color;
+	НебесноГолубой: Color;
+	LightSkyBlue: Color;
+	СветлоНебесноГолубой: Color;
+	DeepSkyBlue: Color;
+	НасыщенноНебесноГолубой: Color;
+	DodgerBlue: Color;
+	СинеСерый: Color;
+	CornFlowerBlue: Color;
+	Васильковый: Color;
+	RoyalBlue: Color;
+	КоролевскиГолубой: Color;
+	Blue: Color;
+	Синий: Color;
+	MediumBlue: Color;
+	НейтральноСиний: Color;
+	DarkBlue: Color;
+	ТемноСиний: Color;
+	Navy: Color;
+	Ультрамарин: Color;
+	MidnightBlue: Color;
+	ПолночноСиний: Color;
+	CornSilk: Color;
+	ШелковыйОттенок: Color;
+	BlanchedAlmond: Color;
+	БледноМиндальный: Color;
+	Bisque: Color;
+	СветлоКоричневый: Color;
+	NavajoWhite: Color;
+	НавахоБелый: Color;
+	Wheat: Color;
+	Пшеничный: Color;
+	BurlyWood: Color;
+	Древесный: Color;
+	Tan: Color;
+	РыжеватоКоричневый: Color;
+	RosyBrown: Color;
+	РозовоКоричневый: Color;
+	SandyBrown: Color;
+	ПесочноКоричневый: Color;
+	LightGoldenRod: Color;
+	СветлоЗолотистый: Color;
+	Goldenrod: Color;
+	Золотистый: Color;
+	DarkGoldenRod: Color;
+	ТемноЗолотистый: Color;
+	Peru: Color;
+	НейтральноКоричневый: Color;
+	Chocolate: Color;
+	Шоколадный: Color;
+	SaddleBrown: Color;
+	КожаноКоричневый: Color;
+	Sienna: Color;
+	Охра: Color;
+	Brown: Color;
+	Коричневый: Color;
+	Maroon: Color;
+	ТемноБордовый: Color;
+}
+interface WindowsColors {
+	ScrollBar: Color;
+	ПолосаПрокрутки: Color;
+	Desktop: Color;
+	РабочийСтол: Color;
+	ActiveTitleBar: Color;
+	ЗаголовокАктивногоОкна: Color;
+	InactiveTitleBar: Color;
+	ЗаголовокНеактивногоОкна: Color;
+	MenuBar: Color;
+	СтрокаМеню: Color;
+	WindowBackground: Color;
+	ФонОкна: Color;
+	WindowFrame: Color;
+	РамкаОкна: Color;
+	MenuItemText: Color;
+	ТекстПунктаМеню: Color;
+	WindowText: Color;
+	ТекстОкна: Color;
+	ActiveTitleBarText: Color;
+	ТекстЗаголовкаАктивногоОкна: Color;
+	ActiveBorder: Color;
+	ГраницаАктивногоОкна: Color;
+	InactiveBorder: Color;
+	ГраницаНеактивногоОкна: Color;
+	ApplicationWorkspace: Color;
+	РабочаяОбластьПриложения: Color;
+	Highlight: Color;
+	Подсвеченный: Color;
+	HighlightText: Color;
+	ТекстПодсвеченный: Color;
+	ButtonFace: Color;
+	Кнопка: Color;
+	ButtonShadow: Color;
+	ТеньКнопки: Color;
+	DisabledText: Color;
+	ТекстНедоступный: Color;
+	ButtonText: Color;
+	ТекстКнопки: Color;
+	InactiveTitleBarText: Color;
+	ТекстЗаголовкаНеактивногоОкна: Color;
+	ButtonHighlight: Color;
+	КнопкаПодсвеченная: Color;
+	ButtonDarkShadow: Color;
+	ТеньКнопкиТемная: Color;
+	ButtonLightShadow: Color;
+	ТеньКнопкиСветлая: Color;
+	ToolTipText: Color;
+	ТекстПодсказки: Color;
+	ToolTip: Color;
+	Подсказка: Color;
+	HotLight: Color;
+	GradientActiveCaption: Color;
+	ЗаголовокАктивногоОкнаГрадиент: Color;
+	GradientInactiveCaption: Color;
+	ЗаголовокНеактивногоОкнаГрадиент: Color;
+	MiddleGradientActiveCaption: Color;
+	ЗаголовокАктивногоОкнаГрадиентСредний: Color;
+	MiddleGradientInactiveCaption: Color;
+	ЗаголовокНеактивногоОкнаГрадиентСредний: Color;
+}
+interface EnumColorType {
+	Absolute;
+	Абсолютный;
+	StyleItem;
+	ЭлементСтиля;
+	WebColor;
+	WebЦвет;
+	WindowsColor;
+	WindowsЦвет;
+	AutoColor;
+	АвтоЦвет;
+}
+declare type ПеречислениеВидЦвета = EnumColorType;
+interface WindowsFonts {
+	DefaultGUIFont: Font;
+	ШрифтДиалоговИМеню: Font;
+	OEMFixedFont: Font;
+	OEMШрифтМоноширинный: Font;
+	ANSIFixedFont: Font;
+	ANSIШрифтМоноширинный: Font;
+	ANSIVariableFont: Font;
+	ANSIШрифтПропорциональный: Font;
+	SystemFont: Font;
+	СистемныйШрифт: Font;
+}
+interface EnumPictureType {
+	Empty;
+	Пустая;
+	FromLib;
+	ИзБиблиотеки;
+	Absolute;
+	Абсолютная;
+}
+declare type ПеречислениеВидКартинки = EnumPictureType;
+interface EnumFillChecking {
+	DontCheck;
+	НеПроверять;
+	ShowError;
+	ВыдаватьОшибку;
+}
+declare type ПеречислениеПроверкаЗаполнения = EnumFillChecking;
+interface EnumStandardBeginningDateVariant {
+	Custom;
+	ПроизвольнаяДата;
+	BeginningOfThisDay;
+	НачалоЭтогоДня;
+	BeginningOfThisWeek;
+	НачалоЭтойНедели;
+	BeginningOfThisTenDays;
+	НачалоЭтойДекады;
+	BeginningOfThisMonth;
+	НачалоЭтогоМесяца;
+	BeginningOfThisQuarter;
+	НачалоЭтогоКвартала;
+	BeginningOfThisHalfYear;
+	НачалоЭтогоПолугодия;
+	BeginningOfThisYear;
+	НачалоЭтогоГода;
+	BeginningOfLastDay;
+	НачалоПрошлогоДня;
+	BeginningOfLastWeek;
+	НачалоПрошлойНедели;
+	BeginningOfLastTenDays;
+	НачалоПрошлойДекады;
+	BeginningOfLastMonth;
+	НачалоПрошлогоМесяца;
+	BeginningOfLastQuarter;
+	НачалоПрошлогоКвартала;
+	BeginningOfLastHalfYear;
+	НачалоПрошлогоПолугодия;
+	BeginningOfLastYear;
+	НачалоПрошлогоГода;
+	BeginningOfNextDay;
+	НачалоСледующегоДня;
+	BeginningOfNextWeek;
+	НачалоСледующейНедели;
+	BeginningOfNextTenDays;
+	НачалоСледующейДекады;
+	BeginningOfNextMonth;
+	НачалоСледующегоМесяца;
+	BeginningOfNextQuarter;
+	НачалоСледующегоКвартала;
+	BeginningOfNextHalfYear;
+	НачалоСледующегоПолугодия;
+	BeginningOfNextYear;
+	НачалоСледующегоГода;
+}
+declare type ПеречислениеВариантСтандартнойДатыНачала = EnumStandardBeginningDateVariant;
+interface EnumStandardPeriodVariant {
+	Custom;
+	ПроизвольныйПериод;
+	Today;
+	Сегодня;
+	ThisWeek;
+	ЭтаНеделя;
+	ThisTenDays;
+	ЭтаДекада;
+	ThisMonth;
+	ЭтотМесяц;
+	ThisQuarter;
+	ЭтотКвартал;
+	ThisHalfYear;
+	ЭтоПолугодие;
+	ThisYear;
+	ЭтотГод;
+	FromBeginningOfThisWeek;
+	СНачалаЭтойНедели;
+	FromBeginningOfThisTenDays;
+	СНачалаЭтойДекады;
+	FromBeginningOfThisMonth;
+	СНачалаЭтогоМесяца;
+	FromBeginningOfThisQuarter;
+	СНачалаЭтогоКвартала;
+	FromBeginningOfThisHalfYear;
+	СНачалаЭтогоПолугодия;
+	FromBeginningOfThisYear;
+	СНачалаЭтогоГода;
+	Yesterday;
+	Вчера;
+	LastWeek;
+	ПрошлаяНеделя;
+	LastTenDays;
+	ПрошлаяДекада;
+	LastMonth;
+	ПрошлыйМесяц;
+	LastQuarter;
+	ПрошлыйКвартал;
+	LastHalfYear;
+	ПрошлоеПолугодие;
+	LastYear;
+	ПрошлыйГод;
+	LastWeekTillSameWeekDay;
+	ПрошлаяНеделяДоТакогоЖеДняНедели;
+	LastTenDaysTillSameDayNumber;
+	ПрошлаяДекадаДоТакогоЖеНомераДня;
+	LastMonthTillSameDate;
+	ПрошлыйМесяцДоТакойЖеДаты;
+	LastQuarterTillSameDate;
+	ПрошлыйКварталДоТакойЖеДаты;
+	LastHalfYearTillSameDate;
+	ПрошлоеПолугодиеДоТакойЖеДаты;
+	LastYearTillSameDate;
+	ПрошлыйГодДоТакойЖеДаты;
+	Tomorrow;
+	Завтра;
+	NextWeek;
+	СледующаяНеделя;
+	NextTenDays;
+	СледующаяДекада;
+	NextMonth;
+	СледующийМесяц;
+	NextQuarter;
+	СледующийКвартал;
+	NextHalfYear;
+	СледующееПолугодие;
+	NextYear;
+	СледующийГод;
+	NextWeekTillSameWeekDay;
+	СледующаяНеделяДоТакогоЖеДняНедели;
+	NextTenDaysTillSameDayNumber;
+	СледующаяДекадаДоТакогоЖеНомераДня;
+	NextMonthTillSameDate;
+	СледующийМесяцДоТакойЖеДаты;
+	NextQuarterTillSameDate;
+	СледующийКварталДоТакойЖеДаты;
+	NextHalfYearTillSameDate;
+	СледующееПолугодиеДоТакойЖеДаты;
+	NextYearTillSameDate;
+	СледующийГодДоТакойЖеДаты;
+	TillEndOfThisWeek;
+	ДоКонцаЭтойНедели;
+	TillEndOfThisTenDays;
+	ДоКонцаЭтойДекады;
+	TillEndOfThisMonth;
+	ДоКонцаЭтогоМесяца;
+	TillEndOfThisQuarter;
+	ДоКонцаЭтогоКвартала;
+	TillEndOfThisHalfYear;
+	ДоКонцаЭтогоПолугодия;
+	TillEndOfThisYear;
+	ДоКонцаЭтогоГода;
+	Last7Days;
+	Последние7Дней;
+	Next7Days;
+	Следующие7Дней;
+	Month;
+	Месяц;
+}
+declare type ПеречислениеВариантСтандартногоПериода = EnumStandardPeriodVariant;
+interface EnumPlatformType {
+	Windows_x86;
+	Windows_x86_64;
+	Linux_x86;
+	Linux_x86_64;
+	MacOS_x86;
+	MacOS_x86_64;
+}
+declare type ПеречислениеТипПлатформы = EnumPlatformType;
+interface EnumSizeChangeMode {
+	Normal;
+	Обычный;
+	QuickChange;
+	БыстроеИзменение;
+}
+declare type ПеречислениеРежимИзмененияРазмера = EnumSizeChangeMode;
+interface EnumDuplexPrintingType {
+	None;
+	Нет;
+	FlipPagesLeft;
+	ПереворотВлево;
+	FlipPagesUp;
+	ПереворотВверх;
+	UsePrinterSettings;
+	ИспользоватьНастройкиПринтера;
+}
+declare type ПеречислениеТипДвустороннейПечати = EnumDuplexPrintingType;
+interface EnumPagePlacementAlternation {
+	Auto;
+	Авто;
+	DontUse;
+	НеИспользовать;
+	MirrorOnLeft;
+	ЗеркальноСлева;
+	MirrorOnTop;
+	ЗеркальноСверху;
+}
+declare type ПеречислениеЧередованиеРасположенияСтраниц = EnumPagePlacementAlternation;
+interface EnumTextPositionRelativeToPicture {
+	Left;
+	Слева;
+	Right;
+	Справа;
+	Top;
+	Сверху;
+	Bottom;
+	Снизу;
+	OnTop;
+	Поверх;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеПоложениеТекстаОтносительноКартинки = EnumTextPositionRelativeToPicture;
+interface EnumMainClientApplicationWindowMode {
+	Normal;
+	Обычный;
+	Workplace;
+	РабочееМесто;
+	EmbeddedWorkplace;
+	ВстроенноеРабочееМесто;
+	FullscreenWorkplace;
+	ПолноэкранноеРабочееМесто;
+	Kiosk;
+	Киоск;
+}
+declare type ПеречислениеРежимОсновногоОкнаКлиентскогоПриложения = EnumMainClientApplicationWindowMode;
+interface EnumFileDragMode {
+	AsFile;
+	КакФайл;
+	AsFileRef;
+	КакСсылкаНаФайл;
+}
+declare type ПеречислениеСпособПеретаскиванияФайлов = EnumFileDragMode;
+interface EnumRepresentableDocumentBatchFileType {
+	DOCX;
+	HTML4;
+	HTML5;
+	ODS;
+	PDF;
+	TXT;
+	XLS;
+	XLSX;
+}
+declare type ПеречислениеТипФайлаПакетаОтображаемыхДокументов = EnumRepresentableDocumentBatchFileType;
+interface EnumErrorCategory {
+	AccessViolation;
+	НарушениеПравДоступа;
+	LocalFileAccessError;
+	ОшибкаДоступаКЛокальномуФайлу;
+	NetworkError;
+	ОшибкаСети;
+	PrinterError;
+	ОшибкаРаботыСПринтером;
+	ScriptCompileError;
+	ОшибкаКомпиляцииВстроенногоЯзыка;
+	ScriptRuntimeError;
+	ОшибкаВоВремяВыполненияВстроенногоЯзыка;
+	ScriptUseError;
+	ОшибкаИспользованияВстроенногоЯзыка;
+	ExceptionRaisedFromScript;
+	ИсключениеВызванноеИзВстроенногоЯзыка;
+	CollaborationSystemError;
+	ОшибкаСистемыВзаимодействия;
+	DataCompositionSettingsError;
+	ОшибкаНастроекКомпоновкиДанных;
+	SessionError;
+	ОшибкаСеанса;
+	StoredDataError;
+	ОшибкаХранимыхДанных;
+	FullTextSearchError;
+	ОшибкаПолнотекстовогоПоиска;
+	ExternalDataSourceError;
+	ОшибкаВнешнегоИсточникаДанных;
+	GotoURLError;
+	ОшибкаПереходаПоНавигационнойСсылке;
+	OtherError;
+	ПрочаяОшибка;
+	AllErrors;
+	ВсеОшибки;
+}
+declare type ПеречислениеКатегорияОшибки = EnumErrorCategory;
+interface EnumTextDirection {
+	LeftToRight;
+	СлеваНаправо;
+	RightToLeft;
+	СправаНалево;
+}
+declare type ПеречислениеНаправлениеТекста = EnumTextDirection;
+interface EnumSearchDirection {
+	FromBegin;
+	СНачала;
+	FromEnd;
+	СКонца;
+}
+declare type ПеречислениеНаправлениеПоиска = EnumSearchDirection;
+declare var VerticalAlign: EnumVerticalAlign;
+declare var ВертикальноеПоложение: EnumVerticalAlign;
+declare var HorizontalAlign: EnumHorizontalAlign;
+declare var ГоризонтальноеПоложение: EnumHorizontalAlign;
+declare var PageOrientation: EnumPageOrientation;
+declare var ОриентацияСтраницы: EnumPageOrientation;
+declare var PictureSize: EnumPictureSize;
+declare var РазмерКартинки: EnumPictureSize;
+declare var PictureFormat: EnumPictureFormat;
+declare var ФорматКартинки: EnumPictureFormat;
+declare var AllowedLength: EnumAllowedLength;
+declare var ДопустимаяДлина: EnumAllowedLength;
+declare var AllowedSign: EnumAllowedSign;
+declare var ДопустимыйЗнак: EnumAllowedSign;
+declare var DateFractions: EnumDateFractions;
+declare var ЧастиДаты: EnumDateFractions;
+declare var RoundMode: EnumRoundMode;
+declare var РежимОкругления: EnumRoundMode;
+declare var Chars: Chars;
+declare var Символы: Chars;
+declare var SortDirection: EnumSortDirection;
+declare var НаправлениеСортировки: EnumSortDirection;
+declare var TextEncoding: EnumTextEncoding;
+declare var КодировкаТекста: EnumTextEncoding;
+declare var UseOutput: EnumUseOutput;
+declare var ИспользованиеВывода: EnumUseOutput;
+declare var PrintDialogUseMode: EnumPrintDialogUseMode;
+declare var РежимИспользованияДиалогаПечати: EnumPrintDialogUseMode;
+declare var FontType: EnumFontType;
+declare var ВидШрифта: EnumFontType;
+declare var BorderType: EnumBorderType;
+declare var ВидРамки: EnumBorderType;
+declare var ControlBorderType: EnumControlBorderType;
+declare var ТипРамкиЭлементаУправления: EnumControlBorderType;
+declare var WebColors: WebColors;
+declare var WebЦвета: WebColors;
+declare var WindowsColors: WindowsColors;
+declare var WindowsЦвета: WindowsColors;
+declare var ColorType: EnumColorType;
+declare var ВидЦвета: EnumColorType;
+declare var WindowsFonts: WindowsFonts;
+declare var WindowsШрифты: WindowsFonts;
+declare var PictureType: EnumPictureType;
+declare var ВидКартинки: EnumPictureType;
+declare var FillChecking: EnumFillChecking;
+declare var ПроверкаЗаполнения: EnumFillChecking;
+declare var StandardBeginningDateVariant: EnumStandardBeginningDateVariant;
+declare var ВариантСтандартнойДатыНачала: EnumStandardBeginningDateVariant;
+declare var StandardPeriodVariant: EnumStandardPeriodVariant;
+declare var ВариантСтандартногоПериода: EnumStandardPeriodVariant;
+declare var PlatformType: EnumPlatformType;
+declare var ТипПлатформы: EnumPlatformType;
+declare var SizeChangeMode: EnumSizeChangeMode;
+declare var РежимИзмененияРазмера: EnumSizeChangeMode;
+declare var Key: EnumKey;
+declare var Клавиша: EnumKey;
+declare var DuplexPrintingType: EnumDuplexPrintingType;
+declare var ТипДвустороннейПечати: EnumDuplexPrintingType;
+declare var PagePlacementAlternation: EnumPagePlacementAlternation;
+declare var ЧередованиеРасположенияСтраниц: EnumPagePlacementAlternation;
+declare var TextPositionRelativeToPicture: EnumTextPositionRelativeToPicture;
+declare var ПоложениеТекстаОтносительноКартинки: EnumTextPositionRelativeToPicture;
+declare var MainClientApplicationWindowMode: EnumMainClientApplicationWindowMode;
+declare var РежимОсновногоОкнаКлиентскогоПриложения: EnumMainClientApplicationWindowMode;
+declare var FileDragMode: EnumFileDragMode;
+declare var СпособПеретаскиванияФайлов: EnumFileDragMode;
+declare var RepresentableDocumentBatchFileType: EnumRepresentableDocumentBatchFileType;
+declare var ТипФайлаПакетаОтображаемыхДокументов: EnumRepresentableDocumentBatchFileType;
+declare var ErrorCategory: EnumErrorCategory;
+declare var КатегорияОшибки: EnumErrorCategory;
+declare var TextDirection: EnumTextDirection;
+declare var НаправлениеТекста: EnumTextDirection;
+declare var SearchDirection: EnumSearchDirection;
+declare var НаправлениеПоиска: EnumSearchDirection;
+declare function FillPropertyValues(... params): void;
+declare function ЗаполнитьЗначенияСвойств(... params): void;
+declare function Base64Value(... params);
+declare function Base64Значение(... params);
+declare function Base64String(... params);
+declare function Base64Строка(... params);
+declare function ValueIsFilled(... params): boolean;
+declare function ЗначениеЗаполнено(... params): boolean;
+declare function StrFindAndHighlightByAppearance(... params): FormattedString;
+declare function СтрНайтиИВыделитьОформлением(... params): FormattedString;
+declare function StrFind(... params): number;
+declare function СтрНайти(... params): number;
+declare function StrTemplate(... params): string;
+declare function СтрШаблон(... params): string;
+declare function StrCompare(... params): number;
+declare function СтрСравнить(... params): number;
+declare function StrStartsWith(... params): boolean;
+declare function СтрНачинаетсяС(... params): boolean;
+declare function StrEndsWith(... params): boolean;
+declare function СтрЗаканчиваетсяНа(... params): boolean;
+declare function StrSplit(... params): ArrayV8;
+declare function СтрРазделить(... params): ArrayV8;
+declare function StrConcat(... params): string;
+declare function СтрСоединить(... params): string;
+interface EnumDynamicListKeyType {
+	Auto;
+	Авто;
+	FieldValue;
+	ЗначениеПоля;
+	RowKey;
+	КлючСтроки;
+	RowNumber;
+	НомерСтроки;
+}
+declare type ПеречислениеВидКлючаДинамическогоСписка = EnumDynamicListKeyType;
+interface EnumCollaborationSystemNotificationRepresentation {
+	Normal;
+	Обычное;
+	DontDisturb;
+	НеБеспокоить;
+}
+declare type ПеречислениеОтображениеОповещенийСистемыВзаимодействия = EnumCollaborationSystemNotificationRepresentation;
+declare var DynamicListKeyType: EnumDynamicListKeyType;
+declare var ВидКлючаДинамическогоСписка: EnumDynamicListKeyType;
+declare var CollaborationSystemNotificationRepresentation: EnumCollaborationSystemNotificationRepresentation;
+declare var ОтображениеОповещенийСистемыВзаимодействия: EnumCollaborationSystemNotificationRepresentation;
+declare function ValueToFormData(... params): void;
+declare function ЗначениеВДанныеФормы(... params): void;
+declare function FormDataToValue(... params);
+declare function ДанныеФормыВЗначение(... params);
+declare function GetFunctionalOption(... params);
+declare function ПолучитьФункциональнуюОпцию(... params);
+declare function PutToTempStorage(... params);
+declare function ПоместитьВоВременноеХранилище(... params);
+declare function GetFromTempStorage(... params);
+declare function ПолучитьИзВременногоХранилища(... params);
+declare function DeleteFromTempStorage(... params): void;
+declare function УдалитьИзВременногоХранилища(... params): void;
+declare function PredefinedValue(... params);
+declare function ПредопределенноеЗначение(... params);
+declare function GetPredefinedValueFullName(... params);
+declare function ПолучитьПолноеИмяПредопределенногоЗначения(... params);
+declare function GetURL(... params);
+declare function ПолучитьНавигационнуюСсылку(... params);
+declare function GetChoiceData(... params);
+declare function ПолучитьДанныеВыбора(... params);
+declare function GetClientConnectionSpeed();
+declare function ПолучитьСкоростьКлиентскогоСоединения();
+declare function GetClientAllFilesMask();
+declare function ПолучитьМаскуВсеФайлыКлиента();
+declare function GetClientPathSeparator();
+declare function ПолучитьРазделительПутиКлиента();
+declare function SetObjectAndFormAttributeConformity(... params): void;
+declare function УстановитьСоответствиеОбъектаИРеквизитаФормы(... params): void;
+declare function GetObjectAndFormAttributeConformity(... params): string;
+declare function ПолучитьСоответствиеОбъектаИРеквизитаФормы(... params): string;
+declare function SetObjectAndFormConformity(... params): void;
+declare function УстановитьСоответствиеОбъектаИФормы(... params): void;
+declare function GetObjectAndFormConformity(... params);
+declare function ПолучитьСоответствиеОбъектаИФормы(... params);
+declare function GetURLsPresentations(... params);
+declare function ПолучитьПредставленияНавигационныхСсылок(... params);
+declare function ConnectExternalDataSource(... params): void;
+declare function УстановитьСоединениеСВнешнимИсточникомДанных(... params): void;
+declare function DisconnectExternalDataSource(... params): void;
+declare function РазорватьСоединениеСВнешнимИсточникомДанных(... params): void;
+interface EnumWindowOpenVariant {
+	SingleWindow;
+	ОтдельноеОкно;
+}
+declare type ПеречислениеВариантОткрытияОкна = EnumWindowOpenVariant;
+interface EnumClientApplicationAgentState {
+	Connected;
+	Подключен;
+	Disconnected;
+	Отключен;
+	NotStarted;
+	НеЗапущен;
+}
+declare type ПеречислениеСостояниеАгентаКлиентскогоПриложения = EnumClientApplicationAgentState;
+interface ClientApplicationAgentManager {
+	BeginConnect(): void;
+	НачатьПодключение(): void;
+	BeginDisconnect(): void;
+	НачатьОтключение(): void;
+	BeginInstallation(): void;
+	НачатьУстановку(): void;
+	AttachStateChangeHandler(... params): void;
+	ПодключитьОбработчикИзмененияСостояния(... params): void;
+	DetachStateChangeHandler(... params): void;
+	ОтключитьОбработчикИзмененияСостояния(... params): void;
+	GetApplicationDescription(): string;
+	ПолучитьНаименованиеПриложения(): string;
+	SetApplicationDescription(... params): void;
+	УстановитьНаименованиеПриложения(... params): void;
+	IsVersionActual(): boolean;
+	ВерсияАктуальна(): boolean;
+	GetCurrentState(): EnumClientApplicationAgentState;
+	ПолучитьТекущееСостояние(): EnumClientApplicationAgentState;
+}
+interface ExternalSiteWindowManager {
+	Enabled: boolean;
+	Доступно: boolean;
+	AttachMessageHandler(... params): void;
+	ПодключитьОбработчикСообщений(... params): void;
+	DetachMessageHandler(... params): void;
+	ОтключитьОбработчикСообщений(... params): void;
+	PostMessage(... params): void;
+	ОтправитьСообщение(... params): void;
+}
+interface GlobalSearchPlanItem {
+	SearchType;
+	ВидПоиска;
+	ProcedureName;
+	ИмяПроцедуры;
+	Module;
+	Модуль;
+	AtServer;
+	НаСервере;
+	Background;
+	Фоновый;
+	Order;
+	Порядок;
+	AdditionalParameters;
+	ДополнительныеПараметры;
+}
+declare type ЭлементПланаГлобальногоПоиска = GlobalSearchPlanItem;
+interface GlobalSearchPlan {
+	Insert(... params): void;
+	Вставить(... params): void;
+	Add(... params): void;
+	Добавить(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Find(... params): GlobalSearchPlanItem;
+	Найти(... params): GlobalSearchPlanItem;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params): GlobalSearchPlanItem;
+	Получить(... params): GlobalSearchPlanItem;
+	Delete(... params): void;
+	Удалить(... params): void;
+}
+declare type ПланГлобальногоПоиска = GlobalSearchPlan;
+interface GlobalSearchManager {
+	SetPlan(... params): void;
+	УстановитьПлан(... params): void;
+	GetPlan(): GlobalSearchPlan;
+	ПолучитьПлан(): GlobalSearchPlan;
+	SetDescription(... params): void;
+	УстановитьОписание(... params): void;
+	GetDescription(): FormattedString | string;
+	ПолучитьОписание(): FormattedString | string;
+	BeginSearch(... params): void;
+	НачатьПоиск(... params): void;
+	SetInputHint(... params): void;
+	УстановитьПодсказкуВвода(... params): void;
+	GetInputHint();
+	ПолучитьПодсказкуВвода();
+}
+interface ClientApplicationWindow {
+	Caption: string;
+	Заголовок: string;
+	IsMain: boolean;
+	Основное: boolean;
+	HomePage: boolean;
+	НачальнаяСтраница: boolean;
+	Content: FixedArray;
+	Содержимое: FixedArray;
+	GetContent();
+	ПолучитьСодержимое();
+	GetURL(): string;
+	ПолучитьНавигационнуюСсылку(): string;
+	Activate(): void;
+	Активизировать(): void;
+}
+declare type ОкноКлиентскогоПриложения = ClientApplicationWindow;
+interface ClientApplicationWindows {
+	Count(): number;
+	Количество(): number;
+	Get(... params): ClientApplicationWindow;
+	Получить(... params): ClientApplicationWindow;
+}
+declare type ОкнаКлиентскогоПриложения = ClientApplicationWindows;
+declare var WindowOpenVariant: EnumWindowOpenVariant;
+declare var ВариантОткрытияОкна: EnumWindowOpenVariant;
+declare var ClientApplicationAgent: ClientApplicationAgentManager;
+declare var АгентКлиентскогоПриложения: ClientApplicationAgentManager;
+declare var ExternalSiteWindow: ExternalSiteWindowManager;
+declare var ОкноВнешнегоСайта: ExternalSiteWindowManager;
+declare var GlobalSearch: GlobalSearchManager;
+declare var ГлобальныйПоиск: GlobalSearchManager;
+declare function GetApplicationCaption();
+declare function ПолучитьЗаголовокПриложения();
+declare function SetApplicationCaption(... params): void;
+declare function УстановитьЗаголовокПриложения(... params): void;
+declare function ShowUserNotification(... params): void;
+declare function ПоказатьОповещениеПользователя(... params): void;
+declare function GetFile(... params);
+declare function ПолучитьФайл(... params);
+declare function PutFile(... params);
+declare function ПоместитьФайл(... params);
+declare function BeginPutFile(... params): void;
+declare function НачатьПомещениеФайла(... params): void;
+declare function GetInterfaceFunctionalOption(... params);
+declare function ПолучитьФункциональнуюОпциюИнтерфейса(... params);
+declare function SetInterfaceFunctionalOptionParameters(... params): void;
+declare function УстановитьПараметрыФункциональныхОпцийИнтерфейса(... params): void;
+declare function GetInterfaceFunctionalOptionParameters();
+declare function ПолучитьПараметрыФункциональныхОпцийИнтерфейса();
+declare function RefreshInterface(): void;
+declare function ОбновитьИнтерфейс(): void;
+declare function GetWindows(): ClientApplicationWindows;
+declare function ПолучитьОкна(): ClientApplicationWindows;
+declare function SetShortApplicationCaption(... params): void;
+declare function УстановитьКраткийЗаголовокПриложения(... params): void;
+declare function GetShortApplicationCaption();
+declare function ПолучитьКраткийЗаголовокПриложения();
+declare function ActiveWindow(): ClientApplicationWindow;
+declare function АктивноеОкно(): ClientApplicationWindow;
+declare function GotoURL(... params): void;
+declare function ПерейтиПоНавигационнойСсылке(... params): void;
+declare function FindWindowByURL(... params): ClientApplicationWindow;
+declare function НайтиОкноПоНавигационнойСсылке(... params): ClientApplicationWindow;
+declare function ExecuteNotifyProcessing(... params);
+declare function ВыполнитьОбработкуОповещения(... params);
+declare function System(... params): void;
+declare function КомандаСистемы(... params): void;
+declare function NotifyChanged(... params): void;
+declare function ОповеститьОбИзменении(... params): void;
+declare function AttachFileSystemExtension();
+declare function ПодключитьРасширениеРаботыСФайлами();
+declare function BeginAttachingFileSystemExtension(... params): void;
+declare function НачатьПодключениеРасширенияРаботыСФайлами(... params): void;
+declare function InstallFileSystemExtension(): void;
+declare function УстановитьРасширениеРаботыСФайлами(): void;
+declare function BeginInstallFileSystemExtension(... params): void;
+declare function НачатьУстановкуРасширенияРаботыСФайлами(... params): void;
+declare function GetFiles(... params);
+declare function ПолучитьФайлы(... params);
+declare function PutFiles(... params);
+declare function ПоместитьФайлы(... params);
+declare function BeginGettingFiles(... params): void;
+declare function НачатьПолучениеФайлов(... params): void;
+declare function BeginPuttingFiles(... params): void;
+declare function НачатьПомещениеФайлов(... params): void;
+declare function InstallAddIn(... params): void;
+declare function УстановитьВнешнююКомпоненту(... params): void;
+declare function BeginInstallAddIn(... params): void;
+declare function НачатьУстановкуВнешнейКомпоненты(... params): void;
+declare function RequestUserPermission(... params);
+declare function ЗапроситьРазрешениеПользователя(... params);
+declare function BeginRequestingUserPermission(... params): void;
+declare function НачатьЗапросРазрешенияПользователя(... params): void;
+declare function GetClientApplicationCaption();
+declare function ПолучитьЗаголовокКлиентскогоПриложения();
+declare function SetClientApplicationCaption(... params): void;
+declare function УстановитьЗаголовокКлиентскогоПриложения(... params): void;
+declare function BeginPutFileToServer(... params): void;
+declare function НачатьПомещениеФайлаНаСервер(... params): void;
+declare function BeginPutFilesToServer(... params): void;
+declare function НачатьПомещениеФайловНаСервер(... params): void;
+declare function BeginGetFileFromServer(... params): void;
+declare function НачатьПолучениеФайлаССервера(... params): void;
+declare function BeginGetFilesFromServer(... params): void;
+declare function НачатьПолучениеФайловССервера(... params): void;
+interface EnumFileDialogMode {
+	Open;
+	Открытие;
+	Save;
+	Сохранение;
+	ChooseDirectory;
+	ВыборКаталога;
+}
+declare type ПеречислениеРежимДиалогаВыбораФайла = EnumFileDialogMode;
+declare var FileDialogMode: EnumFileDialogMode;
+declare var РежимДиалогаВыбораФайла: EnumFileDialogMode;
+declare function InstallCryptoExtension(): void;
+declare function УстановитьРасширениеРаботыСКриптографией(): void;
+declare function BeginInstallCryptoExtension(... params): void;
+declare function НачатьУстановкуРасширенияРаботыСКриптографией(... params): void;
+declare function AttachCryptoExtension(): boolean;
+declare function ПодключитьРасширениеРаботыСКриптографией(): boolean;
+declare function BeginAttachingCryptoExtension(... params): void;
+declare function НачатьПодключениеРасширенияРаботыСКриптографией(... params): void;
 interface EnumXMLNodeType {
 	None;
 	Ничего;
@@ -8822,6 +8145,1605 @@ declare function CanReadXML(... params): boolean;
 declare function ВозможностьЧтенияXML(... params): boolean;
 declare function FindDisallowedXMLCharacters(... params);
 declare function НайтиНедопустимыеСимволыXML(... params);
+interface EnumFileCompareMethod {
+	TextDocument;
+	ТекстовыйДокумент;
+	SpreadsheetDocument;
+	ТабличныйДокумент;
+	Binary;
+	Двоичное;
+}
+declare type ПеречислениеСпособСравненияФайлов = EnumFileCompareMethod;
+declare var FileCompareMethod: EnumFileCompareMethod;
+declare var СпособСравненияФайлов: EnumFileCompareMethod;
+interface PictureLib {
+}
+interface EnumEventLogLevel {
+	Note;
+	Примечание;
+	Information;
+	Информация;
+	Warning;
+	Предупреждение;
+	Error;
+	Ошибка;
+}
+declare type ПеречислениеУровеньЖурналаРегистрации = EnumEventLogLevel;
+interface EnumEventLogEntryTransactionMode {
+	Transactional;
+	Транзакционная;
+	Independent;
+	Независимая;
+}
+declare type ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации = EnumEventLogEntryTransactionMode;
+interface EnumEventLogEntryTransactionStatus {
+	Unfinished;
+	НеЗавершена;
+	Committed;
+	Зафиксирована;
+	RolledBack;
+	Отменена;
+	NotApplicable;
+	НетТранзакции;
+}
+declare type ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации = EnumEventLogEntryTransactionStatus;
+interface EnumAutoChangeRecord {
+	Deny;
+	Запретить;
+	Allow;
+	Разрешить;
+}
+declare type ПеречислениеАвтоРегистрацияИзменений = EnumAutoChangeRecord;
+interface EnumAllowedMessageNo {
+	Any;
+	Любой;
+	Next;
+	Очередной;
+	Greater;
+	Больший;
+}
+declare type ПеречислениеДопустимыйНомерСообщения = EnumAllowedMessageNo;
+interface UserRoles {
+	Add(... params): void;
+	Добавить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Contains(... params): boolean;
+	Содержит(... params): boolean;
+}
+interface MetadataObject {
+	Parent();
+	Родитель();
+	Presentation();
+	Представление();
+	FullName();
+	ПолноеИмя();
+	ConfigurationExtension();
+	РасширениеКонфигурации();
+	ChangedByConfigurationExtensions();
+	ЕстьИзмененияРасширениямиКонфигурации();
+	GetPredefinedNames();
+	ПолучитьИменаПредопределенных();
+}
+interface ClientRunMode {
+}
+interface UnsafeOperationProtectionDescription {
+	UnsafeOperationWarnings: boolean;
+	ПредупреждатьОбОпасныхДействиях: boolean;
+}
+declare type ОписаниеЗащитыОтОпасныхДействий = UnsafeOperationProtectionDescription;
+interface SecondAuthenticationFactorSettingsProcessingType {
+}
+interface InfoBaseUser {
+	UUID: UUID;
+	УникальныйИдентификатор: UUID;
+	Name: string;
+	Имя: string;
+	FullName: string;
+	ПолноеИмя: string;
+	StandardAuthentication: boolean;
+	АутентификацияСтандартная: boolean;
+	Password: string;
+	Пароль: string;
+	ShowInList: boolean;
+	ПоказыватьВСпискеВыбора: boolean;
+	OSAuthentication: boolean;
+	АутентификацияОС: boolean;
+	OSUser: string;
+	ПользовательОС: string;
+	Roles: UserRoles;
+	Роли: UserRoles;
+	DefaultInterface: MetadataObject;
+	ОсновнойИнтерфейс: MetadataObject;
+	Language: MetadataObject;
+	Язык: MetadataObject;
+	PasswordIsSet: boolean;
+	ПарольУстановлен: boolean;
+	CannotChangePassword;
+	ЗапрещеноИзменятьПароль;
+	RunMode: ClientRunMode;
+	РежимЗапуска: ClientRunMode;
+	StoredPasswordValue: string;
+	СохраняемоеЗначениеПароля: string;
+	DataSeparation;
+	РазделениеДанных;
+	OpenIDAuthentication: boolean;
+	АутентификацияOpenID: boolean;
+	UnsafeOperationProtection: UnsafeOperationProtectionDescription;
+	ЗащитаОтОпасныхДействий: UnsafeOperationProtectionDescription;
+	SecondAuthenticationFactorSettings;
+	НастройкиВторогоФактораАутентификации;
+	SecondAuthenticationFactorSettingsProcessing: SecondAuthenticationFactorSettingsProcessingType;
+	ОбработкаНастроекВторогоФактораАутентификации: SecondAuthenticationFactorSettingsProcessingType;
+	Write(): void;
+	Записать(): void;
+	Delete(): void;
+	Удалить(): void;
+}
+interface InfoBaseUsersManager {
+	CreateUser(): InfoBaseUser;
+	СоздатьПользователя(): InfoBaseUser;
+	GetUsers(): ArrayV8;
+	ПолучитьПользователей(): ArrayV8;
+	FindByName(... params): InfoBaseUser;
+	НайтиПоИмени(... params): InfoBaseUser;
+	FindByUUID(... params): InfoBaseUser;
+	НайтиПоУникальномуИдентификатору(... params): InfoBaseUser;
+	CurrentUser(): InfoBaseUser;
+	ТекущийПользователь(): InfoBaseUser;
+}
+interface Map {
+	Count(): number;
+	Количество(): number;
+	Insert(... params): void;
+	Вставить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params);
+	Получить(... params);
+}
+declare type Соответствие = Map;
+interface HTTPRequest {
+	ResourceAddress: string;
+	АдресРесурса: string;
+	Headers: Map;
+	Заголовки: Map;
+	SetBodyFromString(... params): void;
+	УстановитьТелоИзСтроки(... params): void;
+	SetBodyFromBinaryData(... params): void;
+	УстановитьТелоИзДвоичныхДанных(... params): void;
+	SetBodyFileName(... params): void;
+	УстановитьИмяФайлаТела(... params): void;
+	GetBodyAsString(): string;
+	ПолучитьТелоКакСтроку(): string;
+	GetBodyAsBinaryData(): BinaryData;
+	ПолучитьТелоКакДвоичныеДанные(): BinaryData;
+	GetBodyFileName(): string;
+	ПолучитьИмяФайлаТела(): string;
+	GetBodyAsStream(): Stream;
+	ПолучитьТелоКакПоток(): Stream;
+}
+declare type HTTPЗапрос = HTTPRequest;
+interface SecondAuthenticationFactorSettingTemplate {
+	Name: string;
+	Имя: string;
+	AuthenticationHTTPRequest: HTTPRequest;
+	HTTPЗапросНаАутентификацию: HTTPRequest;
+	AuthenticationHTTPRequestMethod: string;
+	МетодHTTPЗапросаНаАутентификацию: string;
+	AuthenticationResultVerificationHTTPRequest: HTTPRequest;
+	HTTPЗапросНаПроверкуРезультатаАутентификации: HTTPRequest;
+	AuthenticationResultVerificationHTTPRequestMethod: string;
+	МетодHTTPЗапросаНаПроверкуРезультатаАутентификации: string;
+	Write(): void;
+	Записать(): void;
+	Delete(): void;
+	Удалить(): void;
+}
+interface SecondAuthenticationFactorSettingsTemplatesManager {
+	FindByName(... params): SecondAuthenticationFactorSettingTemplate;
+	НайтиПоИмени(... params): SecondAuthenticationFactorSettingTemplate;
+	CreateTemplate(): SecondAuthenticationFactorSettingTemplate;
+	СоздатьШаблон(): SecondAuthenticationFactorSettingTemplate;
+	GetTemplates(): ArrayV8;
+	ПолучитьШаблоны(): ArrayV8;
+}
+interface EnumDataItemSend {
+	Auto;
+	Авто;
+	Delete;
+	Удалить;
+	Ignore;
+	Игнорировать;
+}
+declare type ПеречислениеОтправкаЭлементаДанных = EnumDataItemSend;
+interface EnumDataItemReceive {
+	Auto;
+	Авто;
+	Accept;
+	Принять;
+	Ignore;
+	Игнорировать;
+}
+declare type ПеречислениеПолучениеЭлементаДанных = EnumDataItemReceive;
+interface StyleColors {
+}
+interface StyleFonts {
+}
+interface StyleBorders {
+}
+interface EnumFullTextSearchMode {
+	Disable;
+	Запретить;
+	Enable;
+	Разрешить;
+}
+declare type ПеречислениеРежимПолнотекстовогоПоиска = EnumFullTextSearchMode;
+interface FullTextSearchMode {
+}
+interface FullTextSearchMetadataUse {
+}
+interface FullTextSearchList {
+	SearchString: string;
+	СтрокаПоиска: string;
+	GetDescription: boolean;
+	ПолучатьОписание: boolean;
+	GetPresentation: boolean;
+	ПолучатьПредставление: boolean;
+	PortionSize: number;
+	РазмерПорции: number;
+	SearchArea;
+	ОбластьПоиска;
+	FuzzinessThreshold: number;
+	ПорогНечеткости: number;
+	MetadataUse: FullTextSearchMetadataUse;
+	ИспользованиеМетаданных: FullTextSearchMetadataUse;
+	StartPosition();
+	НачальнаяПозиция();
+	TooManyResults();
+	СлишкомМногоРезультатов();
+	FirstPart(): void;
+	ПерваяЧасть(): void;
+	NextPart(... params): void;
+	СледующаяЧасть(... params): void;
+	PreviousPart(... params): void;
+	ПредыдущаяЧасть(... params): void;
+	TotalCount();
+	ПолноеКоличество();
+	Count();
+	Количество();
+	Get(... params);
+	Получить(... params);
+	GetRepresentation(... params);
+	ПолучитьОтображение(... params);
+}
+interface CompositeWordsSeparationMode {
+}
+interface FullTextSearchManager {
+	GetFullTextSearchMode(): FullTextSearchMode;
+	ПолучитьРежимПолнотекстовогоПоиска(): FullTextSearchMode;
+	SetFullTextSearchMode(... params): void;
+	УстановитьРежимПолнотекстовогоПоиска(... params): void;
+	UpdateIndex(... params): void;
+	ОбновитьИндекс(... params): void;
+	ClearIndex(): void;
+	ОчиститьИндекс(): void;
+	CheckIndex();
+	ПроверитьИндекс();
+	CreateList(... params): FullTextSearchList;
+	СоздатьСписок(... params): FullTextSearchList;
+	IndexUpdateComplete(): boolean;
+	ОбновлениеИндексаЗавершено(): boolean;
+	UpdateDate(): Date;
+	ДатаАктуальности(): Date;
+	IndexTrue(): boolean;
+	ИндексАктуален(): boolean;
+	GetMaxIndexedDataSize(): number;
+	ПолучитьМаксимальныйРазмерИндексируемыхДанных(): number;
+	SetMaxIndexedDataSize(... params): void;
+	УстановитьМаксимальныйРазмерИндексируемыхДанных(... params): void;
+	GetIndexingJobsCount();
+	ПолучитьКоличествоЗаданийИндексирования();
+	SetIndexingJobsCount(... params): void;
+	УстановитьКоличествоЗаданийИндексирования(... params): void;
+	SetCompositeWordsSeparationMode(... params): void;
+	УстановитьРежимРазделенияСоставныхСлов(... params): void;
+	GetCompositeWordsSeparationMode(): CompositeWordsSeparationMode;
+	ПолучитьРежимРазделенияСоставныхСлов(): CompositeWordsSeparationMode;
+}
+interface EnumFullTextSearchRepresentationType {
+	HTMLText;
+	HTMLТекст;
+	XML;
+}
+declare type ПеречислениеВидОтображенияПолнотекстовогоПоиска = EnumFullTextSearchRepresentationType;
+interface EnumFullTextSearchMetadataUse {
+	Use;
+	Использовать;
+	DontUse;
+	НеИспользовать;
+}
+declare type ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска = EnumFullTextSearchMetadataUse;
+interface EnumBackgroundJobState {
+	Active;
+	Активно;
+	Completed;
+	Завершено;
+	Failed;
+	ЗавершеноАварийно;
+	Canceled;
+	Отменено;
+}
+declare type ПеречислениеСостояниеФоновогоЗадания = EnumBackgroundJobState;
+interface JobSchedule {
+	BeginDate: Date;
+	ДатаНачала: Date;
+	EndDate: Date;
+	ДатаКонца: Date;
+	BeginTime: Date;
+	ВремяНачала: Date;
+	EndTime: Date;
+	ВремяКонца: Date;
+	CompletionTime: Date;
+	ВремяЗавершения: Date;
+	CompletionInterval: number;
+	ИнтервалЗавершения: number;
+	RepeatPeriodInDay: number;
+	ПериодПовтораВТечениеДня: number;
+	RepeatPause: number;
+	ПаузаПовтора: number;
+	WeekDays: ArrayV8;
+	ДниНедели: ArrayV8;
+	WeekDayInMonth: number;
+	ДеньНеделиВМесяце: number;
+	DayInMonth: number;
+	ДеньВМесяце: number;
+	Months: ArrayV8;
+	Месяцы: ArrayV8;
+	WeeksPeriod: number;
+	ПериодНедель: number;
+	DaysRepeatPeriod: number;
+	ПериодПовтораДней: number;
+	DetailedDailySchedules: ArrayV8;
+	ДетальныеРасписанияДня: ArrayV8;
+	ExecutionRequired(... params): boolean;
+	ТребуетсяВыполнение(... params): boolean;
+}
+declare type РасписаниеРегламентногоЗадания = JobSchedule;
+interface ScheduledJob {
+	UUID: UUID;
+	УникальныйИдентификатор: UUID;
+	Description: string;
+	Наименование: string;
+	Key: string;
+	Ключ: string;
+	Metadata: MetadataObject;
+	Метаданные: MetadataObject;
+	Predefined: boolean;
+	Предопределенное: boolean;
+	Parameters: ArrayV8;
+	Параметры: ArrayV8;
+	UserName: string;
+	ИмяПользователя: string;
+	Schedule: JobSchedule;
+	Расписание: JobSchedule;
+	Use: boolean;
+	Использование: boolean;
+	RestartCountOnFailure: number;
+	КоличествоПовторовПриАварийномЗавершении: number;
+	RestartIntervalOnFailure: number;
+	ИнтервалПовтораПриАварийномЗавершении: number;
+	LastJob: BackgroundJob;
+	ПоследнееЗадание: BackgroundJob;
+	DataSeparation: Structure;
+	РазделениеДанных: Structure;
+	Write(): void;
+	Записать(): void;
+	Delete(): void;
+	Удалить(): void;
+}
+interface BackgroundJobState {
+}
+interface ErrorInfo {
+	Description;
+	Описание;
+	ModuleName;
+	ИмяМодуля;
+	LineNumber;
+	НомерСтроки;
+	SourceLine;
+	ИсходнаяСтрока;
+	Cause;
+	Причина;
+	IsErrorOfCategory(... params);
+	ЯвляетсяОшибкойКатегории(... params);
+}
+interface BackgroundJob {
+	UUID: UUID;
+	УникальныйИдентификатор: UUID;
+	Description: string;
+	Наименование: string;
+	Key: string;
+	Ключ: string;
+	ScheduledJob: ScheduledJob;
+	РегламентноеЗадание: ScheduledJob;
+	MethodName: string;
+	ИмяМетода: string;
+	State: BackgroundJobState;
+	Состояние: BackgroundJobState;
+	Location: string;
+	Расположение: string;
+	Begin: Date;
+	Начало: Date;
+	End: Date;
+	Конец: Date;
+	ErrorInfo: ErrorInfo;
+	ИнформацияОбОшибке: ErrorInfo;
+	DataSeparation: Structure;
+	РазделениеДанных: Structure;
+	Cancel(): void;
+	Отменить(): void;
+	WaitForCompletion(... params): void;
+	ОжидатьЗавершения(... params): void;
+	WaitForExecutionCompletion(... params);
+	ОжидатьЗавершенияВыполнения(... params);
+	GetUserMessages(... params): FixedArray;
+	ПолучитьСообщенияПользователю(... params): FixedArray;
+}
+interface BackgroundJobsManager {
+	FindByUUID(... params): BackgroundJob;
+	НайтиПоУникальномуИдентификатору(... params): BackgroundJob;
+	GetBackgroundJobs(... params): ArrayV8;
+	ПолучитьФоновыеЗадания(... params): ArrayV8;
+	Execute(... params): BackgroundJob;
+	Выполнить(... params): BackgroundJob;
+	WaitForCompletion(... params): void;
+	ОжидатьЗавершения(... params): void;
+	WaitForExecutionCompletion(... params);
+	ОжидатьЗавершенияВыполнения(... params);
+}
+interface ScheduledJobsManager {
+	FindByUUID(... params): ScheduledJob;
+	НайтиПоУникальномуИдентификатору(... params): ScheduledJob;
+	FindPredefined(... params): ScheduledJob;
+	НайтиПредопределенное(... params): ScheduledJob;
+	GetScheduledJobs(... params): ArrayV8;
+	ПолучитьРегламентныеЗадания(... params): ArrayV8;
+	CreateScheduledJob(... params): ScheduledJob;
+	СоздатьРегламентноеЗадание(... params): ScheduledJob;
+}
+interface EnumAutonumerationInForm {
+	Auto;
+	Авто;
+	DontUse;
+	НеИспользовать;
+}
+declare type ПеречислениеАвтонумерацияВФорме = EnumAutonumerationInForm;
+interface SettingsDescription {
+	ObjectKey;
+	КлючОбъекта;
+	SettingsKey;
+	КлючНастроек;
+	User: string;
+	Пользователь: string;
+	Presentation: string;
+	Представление: string;
+	AdditionalProperties: Structure;
+	ДополнительныеСвойства: Structure;
+}
+declare type ОписаниеНастроек = SettingsDescription;
+interface StandardSettingsStorageSelection {
+	ObjectKey;
+	КлючОбъекта;
+	SettingsKey;
+	КлючНастроек;
+	User;
+	Пользователь;
+	Presentation;
+	Представление;
+	Settings;
+	Настройки;
+	Next();
+	Следующий();
+}
+interface StandardSettingsStorageManager {
+	Load(... params);
+	Загрузить(... params);
+	Save(... params): void;
+	Сохранить(... params): void;
+	GetList(... params): ValueList;
+	ПолучитьСписок(... params): ValueList;
+	Delete(... params): void;
+	Удалить(... params): void;
+	GetDescription(... params): SettingsDescription;
+	ПолучитьОписание(... params): SettingsDescription;
+	SetDescription(... params): string;
+	УстановитьОписание(... params): string;
+	Select(... params): StandardSettingsStorageSelection;
+	Выбрать(... params): StandardSettingsStorageSelection;
+}
+interface EnumStandardCommandsGroup {
+	NavigationPanelImportant;
+	ПанельНавигацииВажное;
+	NavigationPanelOrdinary;
+	ПанельНавигацииОбычное;
+	NavigationPanelSeeAlso;
+	ПанельНавигацииСмТакже;
+	ActionsPanelCreate;
+	ПанельДействийСоздать;
+	ActionsPanelReports;
+	ПанельДействийОтчеты;
+	ActionsPanelTools;
+	ПанельДействийСервис;
+	FormNavigationPanelImportant;
+	ПанельНавигацииФормыВажное;
+	FormNavigationPanelGoTo;
+	ПанельНавигацииФормыПерейти;
+	FormNavigationPanelSeeAlso;
+	ПанельНавигацииФормыСмТакже;
+	FormCommandBarImportant;
+	КоманднаяПанельФормыВажное;
+	FormCommandBarCreateBasedOn;
+	КоманднаяПанельФормыСоздатьНаОсновании;
+}
+declare type ПеречислениеСтандартнаяГруппаКоманд = EnumStandardCommandsGroup;
+interface EnumDataBaseConfigurationUpdateExecutionInformationItemType {
+	Information;
+	Информация;
+	Warning;
+	Предупреждение;
+	Error;
+	Ошибка;
+}
+declare type ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных = EnumDataBaseConfigurationUpdateExecutionInformationItemType;
+interface EnumDataBaseConfigurationUpdateState {
+	NotActive;
+	Неактивно;
+	ProcessingInProgress;
+	ВыполняетсяОбработка;
+	RefreshInProgress;
+	ВыполняетсяАктуализация;
+}
+declare type ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных = EnumDataBaseConfigurationUpdateState;
+interface ConfigurationExtensionPurpose {
+}
+interface EnumConfigurationExtensionScope {
+	InfoBase;
+	ИнформационнаяБаза;
+	DataSeparation;
+	РазделениеДанных;
+}
+declare type ПеречислениеОбластьДействияРасширенияКонфигурации = EnumConfigurationExtensionScope;
+interface ConfigurationExtension {
+	UUID: UUID;
+	УникальныйИдентификатор: UUID;
+	Name: string;
+	Имя: string;
+	HashSum: string;
+	ХешСумма: string;
+	Version;
+	Версия;
+	SafeMode: boolean | string;
+	БезопасныйРежим: boolean | string;
+	Synonym: string;
+	Синоним: string;
+	UnsafeOperationProtection: UnsafeOperationProtectionDescription;
+	ЗащитаОтОпасныхДействий: UnsafeOperationProtectionDescription;
+	Purpose: ConfigurationExtensionPurpose;
+	Назначение: ConfigurationExtensionPurpose;
+	MasterNode;
+	ГлавныйУзел;
+	UsedInDistributedInfoBase: boolean;
+	ИспользуетсяВРаспределеннойИнформационнойБазе: boolean;
+	Scope: EnumConfigurationExtensionScope;
+	ОбластьДействия: EnumConfigurationExtensionScope;
+	Active: boolean;
+	Активно: boolean;
+	DefaultRoles;
+	ОсновныеРоли;
+	UseDefaultRolesForAllUsers;
+	ИспользоватьОсновныеРолиДляВсехПользователей;
+	Write(... params): void;
+	Записать(... params): void;
+	Delete(): void;
+	Удалить(): void;
+	GetData(): BinaryData;
+	ПолучитьДанные(): BinaryData;
+	CheckCanApply(... params): ArrayV8;
+	ПроверитьВозможностьПрименения(... params): ArrayV8;
+	ModifiesDataStructure(): boolean;
+	ИзменяетСтруктуруДанных(): boolean;
+}
+interface ConfigurationExtensionsManager {
+	Create(): ConfigurationExtension;
+	Создать(): ConfigurationExtension;
+	Get(... params): ArrayV8;
+	Получить(... params): ArrayV8;
+	ExecuteBackgroundJobWithDatabaseExtensions(... params): BackgroundJob;
+	ВыполнитьФоновоеЗаданиеСРасширениямиБазыДанных(... params): BackgroundJob;
+	CheckCanApplyAll(): ArrayV8;
+	ПроверитьВозможностьПримененияВсех(): ArrayV8;
+	GetSessionApplicationIssuesInformation(): ArrayV8;
+	ПолучитьИнформациюОПроблемахПримененияВСеансе(): ArrayV8;
+	ExecuteBackgroundJobWithoutExtensions(... params): BackgroundJob;
+	ВыполнитьФоновоеЗаданиеБезРасширений(... params): BackgroundJob;
+}
+interface EnumConfigurationExtensionsSource {
+	Database;
+	БазаДанных;
+	SessionApplied;
+	СеансАктивные;
+	SessionDisabled;
+	СеансОтключенные;
+}
+declare type ПеречислениеИсточникРасширенийКонфигурации = EnumConfigurationExtensionsSource;
+interface EnumConfigurationExtensionApplicationIssueSeverity {
+	Critical;
+	Критичная;
+	Moderate;
+	Обычная;
+	Low;
+	Низкая;
+}
+declare type ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации = EnumConfigurationExtensionApplicationIssueSeverity;
+interface EnumCompositeWordsSeparationMode {
+	DontUse;
+	НеИспользовать;
+	Use;
+	Использовать;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеРежимРазделенияСоставныхСлов = EnumCompositeWordsSeparationMode;
+interface InfoBaseUserAuthenticationLockSettings {
+	MaxUnsuccessfulAttemptsCount: number;
+	МаксимальноеКоличествоНеуспешныхПопыток: number;
+	LockDuration: number;
+	ДлительностьБлокировки: number;
+	UserNameAdditionCodes: string;
+	КодыДополненияИмениПользователя: string;
+}
+declare type НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы = InfoBaseUserAuthenticationLockSettings;
+interface InfoBaseUserAuthenticationLockManager {
+	GetSettings(): InfoBaseUserAuthenticationLockSettings;
+	ПолучитьНастройки(): InfoBaseUserAuthenticationLockSettings;
+	SetSettings(... params): void;
+	УстановитьНастройки(... params): void;
+	GetLocks(... params): ArrayV8;
+	ПолучитьБлокировки(... params): ArrayV8;
+}
+interface DatabaseCopyReplicationType {
+}
+interface DatabaseCopyDBMSType {
+}
+interface DatabaseCopyContentItemFieldUse {
+}
+interface DatabaseCopyContentItemField {
+	Name: string;
+	Имя: string;
+	Use: DatabaseCopyContentItemFieldUse;
+	Использование: DatabaseCopyContentItemFieldUse;
+	Fields: DatabaseCopyContentItemFields;
+	Поля: DatabaseCopyContentItemFields;
+	GetCurrentUse(): boolean;
+	ПолучитьТекущееИспользование(): boolean;
+}
+interface DatabaseCopyContentItemFields {
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Find(... params): DatabaseCopyContentItemField;
+	Найти(... params): DatabaseCopyContentItemField;
+	Get(... params): DatabaseCopyContentItemField;
+	Получить(... params): DatabaseCopyContentItemField;
+}
+interface DatabaseCopyContentItem {
+	Metadata;
+	Метаданные;
+	Filter: Filter;
+	Отбор: Filter;
+	Fields: DatabaseCopyContentItemFields;
+	Поля: DatabaseCopyContentItemFields;
+	TabularSectionsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеТабличныхЧастей: DatabaseCopyContentItemFieldUse;
+	ValueStoragesUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеХранилищЗначений: DatabaseCopyContentItemFieldUse;
+	UnlimitedLengthStringsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеСтрокНеограниченнойДлины: DatabaseCopyContentItemFieldUse;
+	OtherFieldsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеПрочихПолей: DatabaseCopyContentItemFieldUse;
+}
+interface DatabaseCopyContent {
+	Insert(... params): DatabaseCopyContentItem;
+	Вставить(... params): DatabaseCopyContentItem;
+	Add(... params): DatabaseCopyContentItem;
+	Добавить(... params): DatabaseCopyContentItem;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Find(... params): DatabaseCopyContentItem;
+	Найти(... params): DatabaseCopyContentItem;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params): DatabaseCopyContentItem;
+	Получить(... params): DatabaseCopyContentItem;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+}
+interface DatabaseCopyManager {
+	Name: string;
+	Имя: string;
+	UseEmbeddedDataAccelerator;
+	ИспользоватьВстроенныйДатаАкселератор;
+	ReplicationType: DatabaseCopyReplicationType;
+	ТипРепликации: DatabaseCopyReplicationType;
+	DBMSType: DatabaseCopyDBMSType;
+	ТипСУБД: DatabaseCopyDBMSType;
+	DatabaseServer: string;
+	СерверБазыДанных: string;
+	Database: string;
+	БазаДанных: string;
+	DatabaseUser: string;
+	ПользовательБазыДанных: string;
+	DatabaseUserPassword: string;
+	ПарольПользователяБазыДанных: string;
+	CreateDatabase;
+	СоздатьБазуДанных;
+	Content: DatabaseCopyContent;
+	Состав: DatabaseCopyContent;
+	TabularSectionsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеТабличныхЧастей: DatabaseCopyContentItemFieldUse;
+	ValueStoragesUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеХранилищЗначений: DatabaseCopyContentItemFieldUse;
+	UnlimitedLengthStringsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеСтрокНеограниченнойДлины: DatabaseCopyContentItemFieldUse;
+	OtherFieldsUse: DatabaseCopyContentItemFieldUse;
+	ИспользованиеПрочихПолей: DatabaseCopyContentItemFieldUse;
+	Write(): void;
+	Записать(): void;
+	GetDataUpdateTime(): Date;
+	ПолучитьВремяОбновленияДанных(): Date;
+}
+interface DatabaseCopiesManager {
+	Add(... params): DatabaseCopyManager;
+	Добавить(... params): DatabaseCopyManager;
+	Count(): number;
+	Количество(): number;
+	Find(... params): DatabaseCopyManager;
+	Найти(... params): DatabaseCopyManager;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Update(... params): void;
+	Обновить(... params): void;
+}
+interface EnumDatabaseCopyReplicationType {
+	Standard;
+	Стандартная;
+	External;
+	Внешняя;
+}
+declare type ПеречислениеТипРепликацииКопииБазыДанных = EnumDatabaseCopyReplicationType;
+interface EnumDatabaseCopyDBMSType {
+	MSSQLServer;
+	PostgreSQL;
+	OracleDatabase;
+}
+declare type ПеречислениеТипСУБДКопииБазыДанных = EnumDatabaseCopyDBMSType;
+interface AccessParameters {
+	Accessibility: boolean;
+	Доступность: boolean;
+	RestrictionByCondition: boolean;
+	ОграничениеУсловием: boolean;
+}
+interface InfoBaseSession {
+	User: InfoBaseUser;
+	Пользователь: InfoBaseUser;
+	ApplicationName: string;
+	ИмяПриложения: string;
+	ComputerName: string;
+	ИмяКомпьютера: string;
+	ClientIPAddress;
+	IPАдресКлиента;
+	SessionStarted: Date;
+	НачалоСеанса: Date;
+	ConnectionNumber: number;
+	НомерСоединения: number;
+	SessionNumber: number;
+	НомерСеанса: number;
+	GetBackgroundJob(): BackgroundJob;
+	ПолучитьФоновоеЗадание(): BackgroundJob;
+}
+interface ConnectionsLock {
+	Use: boolean;
+	Установлена: boolean;
+	Begin: Date;
+	Начало: Date;
+	End: Date;
+	Конец: Date;
+	Message: string;
+	Сообщение: string;
+	KeyCode: string;
+	КодРазрешения: string;
+	Parameter: string;
+	Параметр: string;
+}
+declare type БлокировкаУстановкиСоединений = ConnectionsLock;
+interface SessionsLock {
+	Use: boolean;
+	Установлена: boolean;
+	Begin: Date;
+	Начало: Date;
+	End: Date;
+	Конец: Date;
+	Message: string;
+	Сообщение: string;
+	KeyCode: string;
+	КодРазрешения: string;
+	Parameter: string;
+	Параметр: string;
+}
+declare type БлокировкаСеансов = SessionsLock;
+interface ActiveDocumentShell {
+	Write(... params): void;
+	Записать(... params): void;
+	Get();
+	Получить();
+}
+interface GeographicalSchemaRectangle {
+	WestBorderLongitude: number;
+	ДолготаЗападнойГраницы: number;
+	EastBorderLongitude: number;
+	ДолготаВосточнойГраницы: number;
+	SouthBorderLatitude: number;
+	ШиротаЮжнойГраницы: number;
+	NorthBorderLatitude: number;
+	ШиротаСевернойГраницы: number;
+}
+interface GeographicalSchemaObject {
+	Details;
+	Расшифровка;
+	ToolTip: string;
+	Подсказка: string;
+	ShowData: boolean;
+	ОтображатьДанные: boolean;
+	Visible: boolean;
+	Видимость: boolean;
+	Value;
+	Значение;
+	Layer: GeographicalSchemaLayer;
+	Слой: GeographicalSchemaLayer;
+	BoundaryBox: GeographicalSchemaRectangle;
+	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
+}
+interface GeographicalSchemaLayerObjects {
+	Count(): number;
+	Количество(): number;
+	Get(... params): GeographicalSchemaObject;
+	Получить(... params): GeographicalSchemaObject;
+	Add(): GeographicalSchemaObject;
+	Добавить(): GeographicalSchemaObject;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+}
+interface GeographicalSchemaLayerSeriesShowMode {
+}
+interface SeriesValuesDrawingMode {
+}
+interface GeographicalSchemaLayerDataSeries {
+	Name: string;
+	Имя: string;
+	Text: string;
+	Текст: string;
+	Format: string;
+	Формат: string;
+	ShowMode: GeographicalSchemaLayerSeriesShowMode;
+	ТипОтображения: GeographicalSchemaLayerSeriesShowMode;
+	ShapeBaseColor: Color;
+	БазовыйЦветФигуры: Color;
+	TextColor: Color;
+	ЦветТекста: Color;
+	TextFont: Font;
+	ШрифтТекста: Font;
+	TextOrientation: number;
+	ОриентацияТекста: number;
+	Value;
+	Значение;
+	SeriesGroupName: string;
+	ИмяГруппыСерий: string;
+	ValuesShowMode: SeriesValuesDrawingMode;
+	РежимОтображенияЗначений: SeriesValuesDrawingMode;
+}
+interface GeographicalSchemaLayerSeries {
+	Count(): number;
+	Количество(): number;
+	Get(... params): GeographicalSchemaLayerDataSeries;
+	Получить(... params): GeographicalSchemaLayerDataSeries;
+	Add(... params): GeographicalSchemaLayerDataSeries;
+	Добавить(... params): GeographicalSchemaLayerDataSeries;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Find(... params): GeographicalSchemaLayerDataSeries;
+	Найти(... params): GeographicalSchemaLayerDataSeries;
+}
+interface GeographicalSchemaDataSourceOrganizationType {
+}
+interface GeographicalSchemaLayerSeriesValue {
+	ToolTip: string;
+	Подсказка: string;
+	Value;
+	Значение;
+	Details;
+	Расшифровка;
+	Object: GeographicalSchemaObject;
+	Объект: GeographicalSchemaObject;
+	Series: GeographicalSchemaLayerDataSeries;
+	Серия: GeographicalSchemaLayerDataSeries;
+}
+interface GeographicalSchemaLayer {
+	Name: string;
+	Имя: string;
+	Text: string;
+	Текст: string;
+	Visible: boolean;
+	Видимость: boolean;
+	EnableChoice;
+	РазрешитьВыбор;
+	Objects: GeographicalSchemaLayerObjects;
+	Объекты: GeographicalSchemaLayerObjects;
+	Series: GeographicalSchemaLayerSeries;
+	Серии: GeographicalSchemaLayerSeries;
+	ScaleRangeBegin: number;
+	НачалоМасштабногоДиапазона: number;
+	ScaleRangeEnd: number;
+	КонецМасштабногоДиапазона: number;
+	ObjectsType;
+	ТипОбъектов;
+	DataSource;
+	ИсточникДанных;
+	DataSourceOrganizationType: GeographicalSchemaDataSourceOrganizationType;
+	ТипОрганизацииИсточникаДанных: GeographicalSchemaDataSourceOrganizationType;
+	BoundaryBox: GeographicalSchemaRectangle;
+	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
+	SetValue(... params): void;
+	УстановитьЗначение(... params): void;
+	GetValue(... params): GeographicalSchemaLayerSeriesValue;
+	ПолучитьЗначение(... params): GeographicalSchemaLayerSeriesValue;
+	FindObject(... params): GeographicalSchemaObject;
+	НайтиОбъект(... params): GeographicalSchemaObject;
+	FindByValue(... params): GeographicalSchemaObject;
+	НайтиПоЗначению(... params): GeographicalSchemaObject;
+	SelectObjects(... params): ArrayV8;
+	ВыбратьОбъекты(... params): ArrayV8;
+}
+interface GeographicalSchemaLayers {
+	Count(): number;
+	Количество(): number;
+	Get(... params): GeographicalSchemaLayer;
+	Получить(... params): GeographicalSchemaLayer;
+	Add(... params): GeographicalSchemaLayer;
+	Добавить(... params): GeographicalSchemaLayer;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Find(... params): GeographicalSchemaLayer;
+	Найти(... params): GeographicalSchemaLayer;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+}
+interface ControlBorderType {
+}
+interface BorderType {
+}
+interface Border {
+	BorderType: ControlBorderType;
+	ТипРамки: ControlBorderType;
+	Width: number;
+	Толщина: number;
+	Type: BorderType;
+	Вид: BorderType;
+}
+declare type Рамка = Border;
+interface GeographicalSchemaTitleArea {
+	Text: string;
+	Текст: string;
+	Font: Font;
+	Шрифт: Font;
+	TextColor: Color;
+	ЦветТекста: Color;
+	Align: HorizontalAlign;
+	Выравнивание: HorizontalAlign;
+	Border: Border;
+	Рамка: Border;
+	BorderColor: Color;
+	ЦветРамки: Color;
+	Transparent: boolean;
+	ПрозрачныйФон: boolean;
+	Прозрачность: boolean;
+	BackColor: Color;
+	ЦветФона: Color;
+}
+interface GeographicalSchemaLegendItemShowScaleType {
+}
+interface GeographicalSchemaLegendItem {
+	Series: GeographicalSchemaLayerDataSeries;
+	Серия: GeographicalSchemaLayerDataSeries;
+	SampleText: string;
+	ТекстОбразца: string;
+	SampleFont: Font;
+	ШрифтОбразца: Font;
+	SampleColor: Color;
+	ЦветОбразца: Color;
+	LabelText: string;
+	ТекстПодписи: string;
+	Picture: Picture;
+	Картинка: Picture;
+	ShowScale: GeographicalSchemaLegendItemShowScaleType;
+	ОтображатьШкалу: GeographicalSchemaLegendItemShowScaleType;
+}
+interface GeographicalSchemaLegendItems {
+	Count(): number;
+	Количество(): number;
+	Get(... params): GeographicalSchemaLegendItem;
+	Получить(... params): GeographicalSchemaLegendItem;
+	Add(): GeographicalSchemaLegendItem;
+	Добавить(): GeographicalSchemaLegendItem;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+}
+interface GeographicalSchemaLegendArea {
+	Font: Font;
+	Шрифт: Font;
+	Color: Color;
+	Цвет: Color;
+	Border: Border;
+	Рамка: Border;
+	BorderColor: Color;
+	ЦветРамки: Color;
+	Transparent: boolean;
+	ПрозрачныйФон: boolean;
+	Прозрачность: boolean;
+	BackColor: Color;
+	ЦветФона: Color;
+	DrawingScale: boolean;
+	МасштабнаяЛинейка: boolean;
+	Items: GeographicalSchemaLegendItems;
+	Элементы: GeographicalSchemaLegendItems;
+}
+interface GeographicalSchemaPlotArea {
+	Border: Border;
+	Рамка: Border;
+	BorderColor: Color;
+	ЦветРамки: Color;
+	Transparent: boolean;
+	ПрозрачныйФон: boolean;
+	Прозрачность: boolean;
+	BackColor: Color;
+	ЦветФона: Color;
+}
+interface GeographicalSchemaProjection {
+}
+interface GeographicalSchema {
+	PrinterName: string;
+	ИмяПринтера: string;
+	Copies: number;
+	КоличествоЭкземпляров: number;
+	PageOrientation: PageOrientation;
+	ОриентацияСтраницы: PageOrientation;
+	Collate: boolean;
+	РазборПоКопиям: boolean;
+	BlackAndWhite: boolean;
+	ЧерноБелаяПечать: boolean;
+	LeftMargin: number;
+	ПолеСлева: number;
+	RightMargin: number;
+	ПолеСправа: number;
+	TopMargin: number;
+	ПолеСверху: number;
+	BottomMargin: number;
+	ПолеСнизу: number;
+	Layers: GeographicalSchemaLayers;
+	Слои: GeographicalSchemaLayers;
+	RefreshEnabled: boolean;
+	Обновление: boolean;
+	BoundaryBox: GeographicalSchemaRectangle;
+	ОграничивающийПрямоугольник: GeographicalSchemaRectangle;
+	TitleArea: GeographicalSchemaTitleArea;
+	ОбластьЗаголовка: GeographicalSchemaTitleArea;
+	LegendArea: GeographicalSchemaLegendArea;
+	ОбластьЛегенды: GeographicalSchemaLegendArea;
+	PlotArea: GeographicalSchemaPlotArea;
+	ОбластьПостроения: GeographicalSchemaPlotArea;
+	LatitudeShift: number;
+	СмещениеШироты: number;
+	LongitudeShift: number;
+	СмещениеДолготы: number;
+	Projection: GeographicalSchemaProjection;
+	Проекция: GeographicalSchemaProjection;
+	ShowLegend: boolean;
+	ОтображатьЛегенду: boolean;
+	ShowTitle: boolean;
+	ОтображатьЗаголовок: boolean;
+	Output: UseOutput;
+	Вывод: UseOutput;
+	UsedFileName: string;
+	ИспользуемоеИмяФайла: string;
+	Print(... params): void;
+	Напечатать(... params): void;
+	Write(... params): void;
+	Записать(... params): void;
+	Read(... params): void;
+	Прочитать(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Show(... params): void;
+	Показать(... params): void;
+	FindByLocation(... params): ArrayV8;
+	НайтиПоРасположению(... params): ArrayV8;
+	CheckByLocation(... params): boolean;
+	ПроверитьПоРасположению(... params): boolean;
+	SetPropertyForObjects(... params): void;
+	УстановитьСвойствоОбъектов(... params): void;
+	ClipOffByObject(... params): void;
+	ОтсечьПоОбъекту(... params): void;
+	GetPicture(... params): Picture;
+	ПолучитьКартинку(... params): Picture;
+	Put(... params): void;
+	Вывести(... params): void;
+}
+declare type ГеографическаяСхема = GeographicalSchema;
+interface DataCompositionAppearanceTemplate {
+	AvailableParameters: DataCompositionAvailableParameters;
+	ДоступныеПараметры: DataCompositionAvailableParameters;
+	Items: DataCompositionParameterValueCollection;
+	Элементы: DataCompositionParameterValueCollection;
+	FindParameterValue(... params): DataCompositionParameterValue;
+	НайтиЗначениеПараметра(... params): DataCompositionParameterValue;
+	SetParameterValue(... params): void;
+	УстановитьЗначениеПараметра(... params): void;
+}
+declare type МакетОформленияКомпоновкиДанных = DataCompositionAppearanceTemplate;
+interface HTMLDocumentShell {
+	Get();
+	Получить();
+	GetText();
+	ПолучитьТекст();
+	GetHTMLDocument();
+	ПолучитьДокументHTML();
+	GetCOMObject();
+	ПолучитьCOMОбъект();
+}
+interface TextDocumentTemplateParameters {
+	Count(): number;
+	Количество(): number;
+	Fill(... params): void;
+	Заполнить(... params): void;
+	Get(... params);
+	Получить(... params);
+	Set(... params): void;
+	Установить(... params): void;
+}
+interface TextDocument {
+	ReadOnly: boolean;
+	ТолькоПросмотр: boolean;
+	TemplateLanguageCode: string;
+	КодЯзыкаМакета: string;
+	Parameters: TextDocumentTemplateParameters;
+	Параметры: TextDocumentTemplateParameters;
+	LineSeparator: string;
+	РазделительСтрок: string;
+	Output: UseOutput;
+	Вывод: UseOutput;
+	UsedFileName: string;
+	ИспользуемоеИмяФайла: string;
+	LineCount(): number;
+	КоличествоСтрок(): number;
+	GetLine(... params): string;
+	ПолучитьСтроку(... params): string;
+	Read(... params): void;
+	Прочитать(... params): void;
+	InsertLine(... params): void;
+	ВставитьСтроку(... params): void;
+	AddLine(... params): void;
+	ДобавитьСтроку(... params): void;
+	ReplaceLine(... params): void;
+	ЗаменитьСтроку(... params): void;
+	DeleteLine(... params): void;
+	УдалитьСтроку(... params): void;
+	Show(... params): void;
+	Показать(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	SetFileType(... params): void;
+	УстановитьТипФайла(... params): void;
+	Write(... params): void;
+	Записать(... params): void;
+	GetText(): string;
+	ПолучитьТекст(): string;
+	SetText(... params): void;
+	УстановитьТекст(... params): void;
+	GetArea(... params): TextDocument;
+	ПолучитьОбласть(... params): TextDocument;
+	Put(... params): void;
+	Вывести(... params): void;
+	BeginReading(... params): void;
+	НачатьЧтение(... params): void;
+	BeginWriting(... params): void;
+	НачатьЗапись(... params): void;
+}
+declare type ТекстовыйДокумент = TextDocument;
+interface ConnectionStopRequest {
+	StopConnection: boolean;
+	НеобходимоЗавершить: boolean;
+	DisconnectionTime: Date;
+	ПринудительноеЗавершение: Date;
+}
+declare type НеобходимостьЗавершенияСоединения = ConnectionStopRequest;
+interface EventLogEventUse {
+	Use;
+	Использование;
+	UseDescription;
+	ОписаниеИспользования;
+}
+declare type ИспользованиеСобытияЖурналаРегистрации = EventLogEventUse;
+interface DataBaseConfigurationUpdate {
+	State: EnumDataBaseConfigurationUpdateState;
+	Состояние: EnumDataBaseConfigurationUpdateState;
+	Suspended: boolean;
+	Приостановлено: boolean;
+	CompletedWithError;
+	ЗавершеноСОшибкой;
+	ProcessingPercent: number;
+	ПроцентОбработки: number;
+	ExecutionInformation;
+	ИнформацияОВыполнении;
+}
+declare var Metadata;
+declare var Метаданные;
+declare var PictureLib: PictureLib;
+declare var БиблиотекаКартинок: PictureLib;
+declare var FilterCriteria;
+declare var КритерииОтбора;
+declare var ExchangePlans;
+declare var ПланыОбмена;
+declare var SessionParameters;
+declare var ПараметрыСеанса;
+declare var EventLogLevel: EnumEventLogLevel;
+declare var УровеньЖурналаРегистрации: EnumEventLogLevel;
+declare var EventLogEntryTransactionMode: EnumEventLogEntryTransactionMode;
+declare var РежимТранзакцииЗаписиЖурналаРегистрации: EnumEventLogEntryTransactionMode;
+declare var EventLogEntryTransactionStatus: EnumEventLogEntryTransactionStatus;
+declare var СтатусТранзакцииЗаписиЖурналаРегистрации: EnumEventLogEntryTransactionStatus;
+declare var AutoChangeRecord: EnumAutoChangeRecord;
+declare var АвтоРегистрацияИзменений: EnumAutoChangeRecord;
+declare var AllowedMessageNo: EnumAllowedMessageNo;
+declare var ДопустимыйНомерСообщения: EnumAllowedMessageNo;
+declare var InfoBaseUsers: InfoBaseUsersManager;
+declare var ПользователиИнформационнойБазы: InfoBaseUsersManager;
+declare var SecondAuthenticationFactorSettingsTemplates: SecondAuthenticationFactorSettingsTemplatesManager;
+declare var ШаблоныНастроекВторогоФактораАутентификации: SecondAuthenticationFactorSettingsTemplatesManager;
+declare var DataItemSend: EnumDataItemSend;
+declare var ОтправкаЭлементаДанных: EnumDataItemSend;
+declare var DataItemReceive: EnumDataItemReceive;
+declare var ПолучениеЭлементаДанных: EnumDataItemReceive;
+declare var StyleColors: StyleColors;
+declare var ЦветаСтиля: StyleColors;
+declare var StyleFonts: StyleFonts;
+declare var ШрифтыСтиля: StyleFonts;
+declare var StyleBorders: StyleBorders;
+declare var РамкиСтиля: StyleBorders;
+declare var WSReferences;
+declare var WSСсылки;
+declare var FullTextSearchMode: EnumFullTextSearchMode;
+declare var РежимПолнотекстовогоПоиска: EnumFullTextSearchMode;
+declare var FullTextSearch: FullTextSearchManager;
+declare var ПолнотекстовыйПоиск: FullTextSearchManager;
+declare var FullTextSearchRepresentationType: EnumFullTextSearchRepresentationType;
+declare var ВидОтображенияПолнотекстовогоПоиска: EnumFullTextSearchRepresentationType;
+declare var FullTextSearchMetadataUse: EnumFullTextSearchMetadataUse;
+declare var ИспользованиеМетаданныхПолнотекстовогоПоиска: EnumFullTextSearchMetadataUse;
+declare var BackgroundJobState: EnumBackgroundJobState;
+declare var СостояниеФоновогоЗадания: EnumBackgroundJobState;
+declare var BackgroundJobs: BackgroundJobsManager;
+declare var ФоновыеЗадания: BackgroundJobsManager;
+declare var ScheduledJobs: ScheduledJobsManager;
+declare var РегламентныеЗадания: ScheduledJobsManager;
+declare var AutonumerationInForm: EnumAutonumerationInForm;
+declare var АвтонумерацияВФорме: EnumAutonumerationInForm;
+declare var SettingsStorages;
+declare var ХранилищаНастроек;
+declare var SystemSettingsStorage: StandardSettingsStorageManager;
+declare var ХранилищеСистемныхНастроек: StandardSettingsStorageManager;
+declare var CommonSettingsStorage: StandardSettingsStorageManager | any;
+declare var ХранилищеОбщихНастроек: StandardSettingsStorageManager | any;
+declare var ReportsUserSettingsStorage: StandardSettingsStorageManager | any;
+declare var ХранилищеПользовательскихНастроекОтчетов: StandardSettingsStorageManager | any;
+declare var ReportsVariantsStorage: StandardSettingsStorageManager | any;
+declare var ХранилищеВариантовОтчетов: StandardSettingsStorageManager | any;
+declare var FormDataSettingsStorage: StandardSettingsStorageManager | any;
+declare var ХранилищеНастроекДанныхФорм: StandardSettingsStorageManager | any;
+declare var StandardCommandsGroup: EnumStandardCommandsGroup;
+declare var СтандартнаяГруппаКоманд: EnumStandardCommandsGroup;
+declare var DataBaseConfigurationUpdateExecutionInformationItemType: EnumDataBaseConfigurationUpdateExecutionInformationItemType;
+declare var ТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных: EnumDataBaseConfigurationUpdateExecutionInformationItemType;
+declare var DataBaseConfigurationUpdateState: EnumDataBaseConfigurationUpdateState;
+declare var СостояниеОбновленияКонфигурацииБазыДанных: EnumDataBaseConfigurationUpdateState;
+declare var ConfigurationExtensions: ConfigurationExtensionsManager;
+declare var РасширенияКонфигурации: ConfigurationExtensionsManager;
+declare var ConfigurationExtensionsSource: EnumConfigurationExtensionsSource;
+declare var ИсточникРасширенийКонфигурации: EnumConfigurationExtensionsSource;
+declare var ConfigurationExtensionApplicationIssueSeverity: EnumConfigurationExtensionApplicationIssueSeverity;
+declare var ВажностьПроблемыПримененияРасширенияКонфигурации: EnumConfigurationExtensionApplicationIssueSeverity;
+declare var ConfigurationExtensionScope: EnumConfigurationExtensionScope;
+declare var ОбластьДействияРасширенияКонфигурации: EnumConfigurationExtensionScope;
+declare var SecondAuthenticationFactorSettingsProcessingType;
+declare var ТипОбработкиНастроекВторогоФактораАутентификации;
+declare var CompositeWordsSeparationMode: EnumCompositeWordsSeparationMode;
+declare var РежимРазделенияСоставныхСлов: EnumCompositeWordsSeparationMode;
+declare var AuthenticationLock: InfoBaseUserAuthenticationLockManager;
+declare var БлокировкаАутентификации: InfoBaseUserAuthenticationLockManager;
+declare var DynamicListsUserSettingsStorage: StandardSettingsStorageManager;
+declare var ХранилищеПользовательскихНастроекДинамическихСписков: StandardSettingsStorageManager;
+declare var DatabaseCopies: DatabaseCopiesManager;
+declare var КопииБазыДанных: DatabaseCopiesManager;
+declare var DatabaseCopyReplicationType: EnumDatabaseCopyReplicationType;
+declare var ТипРепликацииКопииБазыДанных: EnumDatabaseCopyReplicationType;
+declare var DatabaseCopyDBMSType: EnumDatabaseCopyDBMSType;
+declare var ТипСУБДКопииБазыДанных: EnumDatabaseCopyDBMSType;
+declare function BeginTransaction(... params): void;
+declare function НачатьТранзакцию(... params): void;
+declare function CommitTransaction(): void;
+declare function ЗафиксироватьТранзакцию(): void;
+declare function RollbackTransaction(): void;
+declare function ОтменитьТранзакцию(): void;
+declare function TransactionActive(): boolean;
+declare function ТранзакцияАктивна(): boolean;
+declare function Message(... params): void;
+declare function Сообщить(... params): void;
+declare function FindMarkedForDeletion(... params): ArrayV8;
+declare function НайтиПомеченныеНаУдаление(... params): ArrayV8;
+declare function FindByRef(... params): ValueTable;
+declare function НайтиПоСсылкам(... params): ValueTable;
+declare function DeleteObjects(... params): number;
+declare function УдалитьОбъекты(... params): number;
+declare function AccessRight(... params): boolean;
+declare function ПравоДоступа(... params): boolean;
+declare function IsInRole(... params): boolean;
+declare function РольДоступна(... params): boolean;
+declare function SetExclusiveMode(... params): void;
+declare function УстановитьМонопольныйРежим(... params): void;
+declare function ExclusiveMode(): boolean;
+declare function МонопольныйРежим(): boolean;
+declare function NStr(... params): string;
+declare function НСтр(... params): string;
+declare function GetRealTimeTimestamp(): Date;
+declare function ПолучитьОперативнуюОтметкуВремени(): Date;
+declare function WriteLogEvent(... params): void;
+declare function ЗаписьЖурналаРегистрации(... params): void;
+declare function CurrentLanguage(): string | MetadataObject;
+declare function ТекущийЯзык(): string | MetadataObject;
+declare function ValueToStringInternal(... params): string;
+declare function ЗначениеВСтрокуВнутр(... params): string;
+declare function ValueFromStringInternal(... params);
+declare function ЗначениеИзСтрокиВнутр(... params);
+declare function ValueToFile(... params): boolean;
+declare function ЗначениеВФайл(... params): boolean;
+declare function ValueFromFile(... params);
+declare function ЗначениеИзФайла(... params);
+declare function ComputerName(): string;
+declare function ИмяКомпьютера(): string;
+declare function UserName(): string;
+declare function ИмяПользователя(): string;
+declare function UserFullName(): string;
+declare function ПолноеИмяПользователя(): string;
+declare function BinDir(): string;
+declare function КаталогПрограммы(): string;
+declare function TempFilesDir(): string;
+declare function КаталогВременныхФайлов(): string;
+declare function BeginGettingTempFilesDir(... params): void;
+declare function НачатьПолучениеКаталогаВременныхФайлов(... params): void;
+declare function CurrentLocaleCode(): string;
+declare function ТекущийКодЛокализации(): string;
+declare function InfoBaseLocaleCode(): string;
+declare function КодЛокализацииИнформационнойБазы(): string;
+declare function LocaleCode();
+declare function КодЛокализации();
+declare function InfoBaseConnectionString(): string;
+declare function СтрокаСоединенияИнформационнойБазы(): string;
+declare function AccessParameters(... params): AccessParameters;
+declare function ПараметрыДоступа(... params): AccessParameters;
+declare function UnloadEventLog(... params): void;
+declare function ВыгрузитьЖурналРегистрации(... params): void;
+declare function CopyEventLog(... params): void;
+declare function СкопироватьЖурналРегистрации(... params): void;
+declare function ClearEventLog(... params): void;
+declare function ОчиститьЖурналРегистрации(... params): void;
+declare function ApplicationPresentation(... params): string;
+declare function ПредставлениеПриложения(... params): string;
+declare function GetInfoBaseConnections(): ArrayV8;
+declare function ПолучитьСоединенияИнформационнойБазы(): ArrayV8;
+declare function GetInfoBaseSessions(): ArrayV8;
+declare function ПолучитьСеансыИнформационнойБазы(): ArrayV8;
+declare function GetCurrentInfoBaseSession(): InfoBaseSession;
+declare function ПолучитьТекущийСеансИнформационнойБазы(): InfoBaseSession;
+declare function InfoBaseConnectionNumber(): number;
+declare function НомерСоединенияИнформационнойБазы(): number;
+declare function InfoBaseSessionNumber(): number;
+declare function НомерСеансаИнформационнойБазы(): number;
+declare function EventLogEventPresentation(... params): string;
+declare function ПредставлениеСобытияЖурналаРегистрации(... params): string;
+declare function GetEventLogUsing(): ArrayV8;
+declare function ПолучитьИспользованиеЖурналаРегистрации(): ArrayV8;
+declare function SetEventLogUsing(... params): void;
+declare function УстановитьИспользованиеЖурналаРегистрации(... params): void;
+declare function ConfigurationChanged(): boolean;
+declare function КонфигурацияИзменена(): boolean;
+declare function DataBaseConfigurationChangedDynamically(): boolean;
+declare function КонфигурацияБазыДанныхИзмененаДинамически(): boolean;
+declare function GetDBStorageStructureInfo(... params): ValueTable;
+declare function ПолучитьСтруктуруХраненияБазыДанных(... params): ValueTable;
+declare function SetLockWaitTime(... params): void;
+declare function УстановитьВремяОжиданияБлокировкиДанных(... params): void;
+declare function GetLockWaitTime(): number;
+declare function ПолучитьВремяОжиданияБлокировкиДанных(): number;
+declare function SetUserPasswordMinLength(... params): void;
+declare function УстановитьМинимальнуюДлинуПаролейПользователей(... params): void;
+declare function GetUserPasswordMinLength(): number;
+declare function ПолучитьМинимальнуюДлинуПаролейПользователей(): number;
+declare function SetUserPasswordStrengthCheck(... params): void;
+declare function УстановитьПроверкуСложностиПаролейПользователей(... params): void;
+declare function GetUserPasswordStrengthCheck(): boolean;
+declare function ПолучитьПроверкуСложностиПаролейПользователей(): boolean;
+declare function CurrentSystemLanguage(): string;
+declare function ТекущийЯзыкСистемы(): string;
+declare function GetConnectionsLock(): ConnectionsLock;
+declare function ПолучитьБлокировкуУстановкиСоединений(): ConnectionsLock;
+declare function GetSessionsLock(): SessionsLock;
+declare function ПолучитьБлокировкуСеансов(): SessionsLock;
+declare function SetConnectionsLock(... params): void;
+declare function УстановитьБлокировкуУстановкиСоединений(... params): void;
+declare function SetSessionsLock(... params): void;
+declare function УстановитьБлокировкуСеансов(... params): void;
+declare function BriefErrorDescription(... params): string;
+declare function КраткоеПредставлениеОшибки(... params): string;
+declare function DetailErrorDescription(... params): string;
+declare function ПодробноеПредставлениеОшибки(... params): string;
+declare function GetCommonTemplate(... params): ActiveDocumentShell | BinaryData | GeographicalSchema | DataCompositionAppearanceTemplate | DataCompositionSchema | SpreadsheetDocument | HTMLDocumentShell | TextDocument;
+declare function ПолучитьОбщийМакет(... params): ActiveDocumentShell | BinaryData | GeographicalSchema | DataCompositionAppearanceTemplate | DataCompositionSchema | SpreadsheetDocument | HTMLDocumentShell | TextDocument;
+declare function RefreshObjectsNumbering(... params): void;
+declare function ОбновитьНумерациюОбъектов(... params): void;
+declare function ConnectionStopRequest(): ConnectionStopRequest;
+declare function НеобходимостьЗавершенияСоединения(): ConnectionStopRequest;
+declare function SetPrivilegedMode(... params): void;
+declare function УстановитьПривилегированныйРежим(... params): void;
+declare function PrivilegedMode();
+declare function ПривилегированныйРежим();
+declare function LockDataForEdit(... params): void;
+declare function ЗаблокироватьДанныеДляРедактирования(... params): void;
+declare function UnlockDataForEdit(... params): void;
+declare function РазблокироватьДанныеДляРедактирования(... params): void;
+declare function RefreshReusableValues(): void;
+declare function ОбновитьПовторноИспользуемыеЗначения(): void;
+declare function GetEventLogFilterValues(... params);
+declare function ПолучитьЗначенияОтбораЖурналаРегистрации(... params);
+declare function SetSafeMode(... params): void;
+declare function УстановитьБезопасныйРежим(... params): void;
+declare function SafeMode(): boolean;
+declare function БезопасныйРежим(): boolean;
+declare function SetInfoBaseTimeZone(... params): void;
+declare function УстановитьЧасовойПоясИнформационнойБазы(... params): void;
+declare function GetInfoBaseTimeZone(): string;
+declare function ПолучитьЧасовойПоясИнформационнойБазы(): string;
+declare function SetSessionTimeZone(... params): void;
+declare function УстановитьЧасовойПоясСеанса(... params): void;
+declare function SessionTimeZone(): string;
+declare function ЧасовойПоясСеанса(): string;
+declare function CurrentSessionDate(): Date;
+declare function ТекущаяДатаСеанса(): Date;
+declare function GetUserMessages(... params): FixedArray;
+declare function ПолучитьСообщенияПользователю(... params): FixedArray;
+declare function DaylightTimeOffset(... params): number;
+declare function СмещениеЛетнегоВремени(... params): number;
+declare function CurrentUniversalDate(): Date;
+declare function ТекущаяУниверсальнаяДата(): Date;
+declare function ToLocalTime(... params): Date;
+declare function МестноеВремя(... params): Date;
+declare function ToUniversalTime(... params): Date;
+declare function УниверсальноеВремя(... params): Date;
+declare function TimeZone(): string;
+declare function ЧасовойПояс(): string;
+declare function GetAvailableTimeZones(): ArrayV8;
+declare function ПолучитьДопустимыеЧасовыеПояса(): ArrayV8;
+declare function TimeZonePresentation(... params): string;
+declare function ПредставлениеЧасовогоПояса(... params): string;
+declare function GetAvailableLocaleCodes(): ArrayV8;
+declare function ПолучитьДопустимыеКодыЛокализации(): ArrayV8;
+declare function LocaleCodePresentation(... params): string;
+declare function ПредставлениеКодаЛокализации(... params): string;
+declare function StandardTimeOffset(... params): number;
+declare function СмещениеСтандартногоВремени(... params): number;
+declare function CurrentRunMode();
+declare function ТекущийРежимЗапуска();
+declare function GetTempFileName(... params): string;
+declare function ПолучитьИмяВременногоФайла(... params): string;
+declare function SetEventLogEventUse(... params): void;
+declare function УстановитьИспользованиеСобытияЖурналаРегистрации(... params): void;
+declare function GetEventLogEventUse(... params): EventLogEventUse;
+declare function ПолучитьИспользованиеСобытияЖурналаРегистрации(... params): EventLogEventUse;
+declare function RightPresentation(... params): string;
+declare function ПредставлениеПрава(... params): string;
+declare function VerifyAccessRights(... params): void;
+declare function ВыполнитьПроверкуПравДоступа(... params): void;
+declare function GetDataBaseConfigurationUpdate(): DataBaseConfigurationUpdate;
+declare function ПолучитьОбновлениеКонфигурацииБазыДанных(): DataBaseConfigurationUpdate;
+declare function EraseInfoBaseData(): void;
+declare function УдалитьДанныеИнформационнойБазы(): void;
+declare function GetDatabaseDataSize(... params);
+declare function ПолучитьРазмерДанныхБазыДанных(... params);
+declare function SetDataSeparationSafeMode(... params): void;
+declare function УстановитьБезопасныйРежимРазделенияДанных(... params): void;
+declare function DataSeparationSafeMode(... params): boolean;
+declare function БезопасныйРежимРазделенияДанных(... params): boolean;
+declare function InitializePredefinedData(): void;
+declare function ИнициализироватьПредопределенныеДанные(): void;
+declare function ClientApplicationBaseFontCurrentVariant();
+declare function ТекущийВариантОсновногоШрифтаКлиентскогоПриложения();
+declare function ClientApplicationInterfaceCurrentVariant();
+declare function ТекущийВариантИнтерфейсаКлиентскогоПриложения();
+declare function SetInfoBasePredefinedDataUpdate(... params): void;
+declare function УстановитьОбновлениеПредопределенныхДанныхИнформационнойБазы(... params): void;
+declare function GetInfoBasePredefinedData();
+declare function ПолучитьОбновлениеПредопределенныхДанныхИнформационнойБазы();
+declare function SetPassiveSessionHibernateTime(... params): void;
+declare function УстановитьВремяЗасыпанияПассивногоСеанса(... params): void;
+declare function GetPassiveSessionHibernateTime(): number;
+declare function ПолучитьВремяЗасыпанияПассивногоСеанса(): number;
+declare function SetHibernateSessionTerminateTime(... params): void;
+declare function УстановитьВремяЗавершенияСпящегоСеанса(... params): void;
+declare function GetHibernateSessionTerminateTime(): number;
+declare function ПолучитьВремяЗавершенияСпящегоСеанса(): number;
+declare function GetConfigurationID(): string;
+declare function ПолучитьИдентификаторКонфигурации(): string;
+declare function GetLicensingClientName(): string;
+declare function ПолучитьИмяКлиентаЛицензирования(): string;
+declare function SetLicensingClientParameters(... params): void;
+declare function УстановитьНастройкиКлиентаЛицензирования(... params): void;
+declare function GetLicensingClientAdditionalParameter(): string;
+declare function ПолучитьДополнительныйПараметрКлиентаЛицензирования(): string;
+declare function CheckScriptCircularRefs(... params): ValueTable;
+declare function ПроверитьЦиклическиеСсылкиВстроенногоЯзыка(... params): ValueTable;
+declare function GetExternalResourcesMode(): string;
+declare function ПолучитьРежимВнешнихРесурсов(): string;
+declare function SetInfoBaseBeginningOfCentury(... params): void;
+declare function УстановитьНачалоСтолетияИнформационнойБазы(... params): void;
+declare function GetInfoBaseBeginningOfCentury(): number;
+declare function ПолучитьНачалоСтолетияИнформационнойБазы(): number;
+declare function SessionBeginningOfCentury(): number;
+declare function НачалоСтолетияСеанса(): number;
+declare function SetSafeModeDisabled(... params): void;
+declare function УстановитьОтключениеБезопасногоРежима(... params): void;
+declare function GetSafeModeDisabled();
+declare function ПолучитьОтключениеБезопасногоРежима();
 interface EnumXMLForm {
 	Attribute;
 	Атрибут;
@@ -10925,988 +11847,6 @@ declare function ImportXDTOModel(... params): XDTODataObject;
 declare function ИмпортМоделиXDTO(... params): XDTODataObject;
 declare function CreateXDTOFactory(... params): XDTOFactory;
 declare function СоздатьФабрикуXDTO(... params): XDTOFactory;
-interface EnumFileCompareMethod {
-	TextDocument;
-	ТекстовыйДокумент;
-	SpreadsheetDocument;
-	ТабличныйДокумент;
-	Binary;
-	Двоичное;
-}
-declare type ПеречислениеСпособСравненияФайлов = EnumFileCompareMethod;
-declare var FileCompareMethod: EnumFileCompareMethod;
-declare var СпособСравненияФайлов: EnumFileCompareMethod;
-interface EnumFileDialogMode {
-	Open;
-	Открытие;
-	Save;
-	Сохранение;
-	ChooseDirectory;
-	ВыборКаталога;
-}
-declare type ПеречислениеРежимДиалогаВыбораФайла = EnumFileDialogMode;
-declare var FileDialogMode: EnumFileDialogMode;
-declare var РежимДиалогаВыбораФайла: EnumFileDialogMode;
-declare function InstallCryptoExtension(): void;
-declare function УстановитьРасширениеРаботыСКриптографией(): void;
-declare function BeginInstallCryptoExtension(... params): void;
-declare function НачатьУстановкуРасширенияРаботыСКриптографией(... params): void;
-declare function AttachCryptoExtension(): boolean;
-declare function ПодключитьРасширениеРаботыСКриптографией(): boolean;
-declare function BeginAttachingCryptoExtension(... params): void;
-declare function НачатьПодключениеРасширенияРаботыСКриптографией(... params): void;
-interface EnumVerticalAlign {
-	Top;
-	Верх;
-	Center;
-	Центр;
-	Bottom;
-	Низ;
-}
-declare type ПеречислениеВертикальноеПоложение = EnumVerticalAlign;
-interface EnumHorizontalAlign {
-	Left;
-	Лево;
-	Center;
-	Центр;
-	Right;
-	Право;
-	Justify;
-	ПоШирине;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеГоризонтальноеПоложение = EnumHorizontalAlign;
-interface EnumPageOrientation {
-	Portrait;
-	Портрет;
-	Landscape;
-	Ландшафт;
-}
-declare type ПеречислениеОриентацияСтраницы = EnumPageOrientation;
-interface EnumPictureSize {
-	RealSize;
-	РеальныйРазмер;
-	Stretch;
-	Растянуть;
-	Proportionally;
-	Пропорционально;
-	Tile;
-	Черепица;
-	AutoSize;
-	АвтоРазмер;
-	RealSizeIgnoreScale;
-	РеальныйРазмерБезУчетаМасштаба;
-	AutoSizeIgnoreScale;
-	АвтоРазмерБезУчетаМасштаба;
-}
-declare type ПеречислениеРазмерКартинки = EnumPictureSize;
-interface EnumPictureFormat {
-	UnknownFormat;
-	НеизвестныйФормат;
-	BMP;
-	GIF;
-	Icon;
-	JPEG;
-	PNG;
-	TIFF;
-	EMF;
-	WMF;
-	SVG;
-}
-declare type ПеречислениеФорматКартинки = EnumPictureFormat;
-interface EnumAllowedLength {
-	Fixed;
-	Фиксированная;
-	Variable;
-	Переменная;
-}
-declare type ПеречислениеДопустимаяДлина = EnumAllowedLength;
-interface EnumAllowedSign {
-	Any;
-	Любой;
-	Nonnegative;
-	Неотрицательный;
-}
-declare type ПеречислениеДопустимыйЗнак = EnumAllowedSign;
-interface EnumDateFractions {
-	Date;
-	Дата;
-	Time;
-	Время;
-	DateTime;
-	ДатаВремя;
-}
-declare type ПеречислениеЧастиДаты = EnumDateFractions;
-interface EnumRoundMode {
-	Round15as10;
-	Окр15как10;
-	Round15as20;
-	Окр15как20;
-}
-declare type ПеречислениеРежимОкругления = EnumRoundMode;
-interface Chars {
-	CR;
-	ВК;
-	LF;
-	ПС;
-	FF;
-	ПФ;
-	Tab;
-	Таб;
-	VTab;
-	ВТаб;
-	NBSp;
-	НПП;
-}
-interface EnumSortDirection {
-	Asc;
-	Возр;
-	Desc;
-	Убыв;
-}
-declare type ПеречислениеНаправлениеСортировки = EnumSortDirection;
-interface EnumTextEncoding {
-	UTF16;
-	UTF8;
-	ANSI;
-	OEM;
-	System;
-	Системная;
-}
-declare type ПеречислениеКодировкаТекста = EnumTextEncoding;
-interface EnumUseOutput {
-	Auto;
-	Авто;
-	Enable;
-	Разрешить;
-	Disable;
-	Запретить;
-}
-declare type ПеречислениеИспользованиеВывода = EnumUseOutput;
-interface EnumPrintDialogUseMode {
-	Use;
-	Использовать;
-	DontUse;
-	НеИспользовать;
-}
-declare type ПеречислениеРежимИспользованияДиалогаПечати = EnumPrintDialogUseMode;
-interface EnumFontType {
-	Absolute;
-	Абсолютный;
-	StyleItem;
-	ЭлементСтиля;
-	WindowsFont;
-	WindowsШрифт;
-	AutoFont;
-	АвтоШрифт;
-}
-declare type ПеречислениеВидШрифта = EnumFontType;
-interface EnumBorderType {
-	Absolute;
-	Абсолютная;
-	StyleItem;
-	ЭлементСтиля;
-}
-declare type ПеречислениеВидРамки = EnumBorderType;
-interface EnumControlBorderType {
-	WithoutBorder;
-	БезРамки;
-	Double;
-	Двойная;
-	Single;
-	Одинарная;
-	Embossed;
-	Выпуклая;
-	Indented;
-	Вдавленная;
-	Underline;
-	Подчеркивание;
-	DoubleUnderline;
-	ДвойноеПодчеркивание;
-	Rounded;
-	Скругленная;
-	Overline;
-	ЧертаСверху;
-}
-declare type ПеречислениеТипРамкиЭлементаУправления = EnumControlBorderType;
-interface WebColors {
-	White: Color;
-	Белый: Color;
-	Snow: Color;
-	Белоснежный: Color;
-	HoneyDew: Color;
-	Роса: Color;
-	MintCream: Color;
-	МятныйКрем: Color;
-	Azure: Color;
-	Лазурный: Color;
-	AliceBlue: Color;
-	АкварельноСиний: Color;
-	GhostWhite: Color;
-	ПризрачноБелый: Color;
-	WhiteSmoke: Color;
-	ДымчатоБелый: Color;
-	SeaShell: Color;
-	Перламутровый: Color;
-	Beige: Color;
-	Бежевый: Color;
-	OldLace: Color;
-	СтароеКружево: Color;
-	Cream: Color;
-	Кремовый: Color;
-	FloralWhite: Color;
-	ЦветокБелый: Color;
-	Ivory: Color;
-	СлоноваяКость: Color;
-	AntiqueWhite: Color;
-	АнтикБелый: Color;
-	Linen: Color;
-	Льняной: Color;
-	LavenderBlush: Color;
-	ГолубойСКраснымОттенком: Color;
-	MistyRose: Color;
-	ТусклоРозовый: Color;
-	Gainsboro: Color;
-	СеребристоСерый: Color;
-	LightGray: Color;
-	СветлоСерый: Color;
-	Silver: Color;
-	Серебряный: Color;
-	DarkGray: Color;
-	ТемноСерый: Color;
-	MediumGray: Color;
-	НейтральноСерый: Color;
-	Gray: Color;
-	Серый: Color;
-	DimGray: Color;
-	ТусклоСерый: Color;
-	LightSlateGray: Color;
-	СветлоГрифельноСерый: Color;
-	SlateGray: Color;
-	ГрифельноСерый: Color;
-	DarkSlateGray: Color;
-	ТемноГрифельноСерый: Color;
-	Black: Color;
-	Черный: Color;
-	IndianRed: Color;
-	Киноварь: Color;
-	LightCoral: Color;
-	СветлоКоралловый: Color;
-	Salmon: Color;
-	Лосось: Color;
-	DarkSalmon: Color;
-	ЛососьТемный: Color;
-	LightSalmon: Color;
-	ЛососьСветлый: Color;
-	Crimson: Color;
-	Малиновый: Color;
-	Red: Color;
-	Красный: Color;
-	FireBrick: Color;
-	Кирпичный: Color;
-	DarkRed: Color;
-	ТемноКрасный: Color;
-	Pink: Color;
-	Розовый: Color;
-	LightPink: Color;
-	СветлоРозовый: Color;
-	HotPink: Color;
-	ТеплоРозовый: Color;
-	DeepPink: Color;
-	НасыщенноРозовый: Color;
-	MediumVioletRed: Color;
-	НейтральноФиолетовоКрасный: Color;
-	VioletRed: Color;
-	КрасноФиолетовый: Color;
-	PaleVioletRed: Color;
-	БледноКрасноФиолетовый: Color;
-	Coral: Color;
-	Коралловый: Color;
-	Tomato: Color;
-	Томатный: Color;
-	OrangeRed: Color;
-	ОранжевоКрасный: Color;
-	DarkOrange: Color;
-	ТемноОранжевый: Color;
-	Orange: Color;
-	Оранжевый: Color;
-	Gold: Color;
-	Золотой: Color;
-	Yellow: Color;
-	Желтый: Color;
-	LightYellow: Color;
-	СветлоЖелтый: Color;
-	LemonChiffon: Color;
-	Лимонный: Color;
-	LightGoldenRodYellow: Color;
-	СветлоЖелтыйЗолотистый: Color;
-	PapayaWhip: Color;
-	ТопленоеМолоко: Color;
-	Moccasin: Color;
-	ЗамшаСветлый: Color;
-	PeachPuff: Color;
-	Персиковый: Color;
-	PaleGoldenrod: Color;
-	БледноЗолотистый: Color;
-	Khaki: Color;
-	Хаки: Color;
-	DarkKhaki: Color;
-	ХакиТемный: Color;
-	Lavender: Color;
-	БледноЛиловый: Color;
-	Thistle: Color;
-	БледноСиреневый: Color;
-	Plum: Color;
-	Сливовый: Color;
-	Violet: Color;
-	Фиолетовый: Color;
-	Orchid: Color;
-	Орхидея: Color;
-	Fuchsia: Color;
-	Фуксия: Color;
-	Magenta: Color;
-	Фуксин: Color;
-	MediumOrchid: Color;
-	ОрхидеяНейтральный: Color;
-	MediumPurple: Color;
-	НейтральноПурпурный: Color;
-	BlueViolet: Color;
-	СинеФиолетовый: Color;
-	DarkViolet: Color;
-	ТемноФиолетовый: Color;
-	DarkOrchid: Color;
-	ОрхидеяТемный: Color;
-	DarkMagenta: Color;
-	ФуксинТемный: Color;
-	Purple: Color;
-	Пурпурный: Color;
-	Indigo: Color;
-	Индиго: Color;
-	LightSlateBlue: Color;
-	СветлоГрифельноСиний: Color;
-	SlateBlue: Color;
-	ГрифельноСиний: Color;
-	DarkSlateBlue: Color;
-	ТемноГрифельноСиний: Color;
-	MediumSlateBlue: Color;
-	НейтральноГрифельноСиний: Color;
-	GreenYellow: Color;
-	ЗеленоЖелтый: Color;
-	Chartreuse: Color;
-	ЗеленоватоЖелтый: Color;
-	LawnGreen: Color;
-	ЗеленаяЛужайка: Color;
-	Lime: Color;
-	ЗеленоватоЛимонный: Color;
-	LimeGreen: Color;
-	ЛимонноЗеленый: Color;
-	PaleGreen: Color;
-	БледноЗеленый: Color;
-	LightGreen: Color;
-	СветлоЗеленый: Color;
-	MediumSpringGreen: Color;
-	НейтральноВесеннеЗеленый: Color;
-	SpringGreen: Color;
-	ВесеннеЗеленый: Color;
-	MediumSeaGreen: Color;
-	ЦветМорскойВолныНейтральный: Color;
-	Seagreen: Color;
-	ЦветМорскойВолны: Color;
-	ForestGreen: Color;
-	ЗеленыйЛес: Color;
-	Green: Color;
-	Зеленый: Color;
-	MediumGreen: Color;
-	НейтральноЗеленый: Color;
-	DarkGreen: Color;
-	ТемноЗеленый: Color;
-	YellowGreen: Color;
-	ЖелтоЗеленый: Color;
-	Olivedrab: Color;
-	ТусклоОливковый: Color;
-	Olive: Color;
-	Оливковый: Color;
-	DarkOliveGreen: Color;
-	ТемноОливковоЗеленый: Color;
-	MediumAquaMarine: Color;
-	НейтральноАквамариновый: Color;
-	DarkSeaGreen: Color;
-	ЦветМорскойВолныТемный: Color;
-	LightSeaGreen: Color;
-	ЦветМорскойВолныСветлый: Color;
-	DarkCyan: Color;
-	ЦианТемный: Color;
-	Teal: Color;
-	ЦианНейтральный: Color;
-	Aqua: Color;
-	ЦианАкварельный: Color;
-	Cyan: Color;
-	Циан: Color;
-	LightCyan: Color;
-	ЦианСветлый: Color;
-	PaleTurquoise: Color;
-	БледноБирюзовый: Color;
-	Aquamarine: Color;
-	Аквамарин: Color;
-	Turquoise: Color;
-	Бирюзовый: Color;
-	MediumTurquoise: Color;
-	НейтральноБирюзовый: Color;
-	DarkTurquoise: Color;
-	ТемноБирюзовый: Color;
-	CadetBlue: Color;
-	СероСиний: Color;
-	SteelBlue: Color;
-	СинийСоСтальнымОттенком: Color;
-	LightSteelBlue: Color;
-	ГолубойСоСтальнымОттенком: Color;
-	PowderBlue: Color;
-	СинийСПороховымОттенком: Color;
-	LightBlue: Color;
-	Голубой: Color;
-	SkyBlue: Color;
-	НебесноГолубой: Color;
-	LightSkyBlue: Color;
-	СветлоНебесноГолубой: Color;
-	DeepSkyBlue: Color;
-	НасыщенноНебесноГолубой: Color;
-	DodgerBlue: Color;
-	СинеСерый: Color;
-	CornFlowerBlue: Color;
-	Васильковый: Color;
-	RoyalBlue: Color;
-	КоролевскиГолубой: Color;
-	Blue: Color;
-	Синий: Color;
-	MediumBlue: Color;
-	НейтральноСиний: Color;
-	DarkBlue: Color;
-	ТемноСиний: Color;
-	Navy: Color;
-	Ультрамарин: Color;
-	MidnightBlue: Color;
-	ПолночноСиний: Color;
-	CornSilk: Color;
-	ШелковыйОттенок: Color;
-	BlanchedAlmond: Color;
-	БледноМиндальный: Color;
-	Bisque: Color;
-	СветлоКоричневый: Color;
-	NavajoWhite: Color;
-	НавахоБелый: Color;
-	Wheat: Color;
-	Пшеничный: Color;
-	BurlyWood: Color;
-	Древесный: Color;
-	Tan: Color;
-	РыжеватоКоричневый: Color;
-	RosyBrown: Color;
-	РозовоКоричневый: Color;
-	SandyBrown: Color;
-	ПесочноКоричневый: Color;
-	LightGoldenRod: Color;
-	СветлоЗолотистый: Color;
-	Goldenrod: Color;
-	Золотистый: Color;
-	DarkGoldenRod: Color;
-	ТемноЗолотистый: Color;
-	Peru: Color;
-	НейтральноКоричневый: Color;
-	Chocolate: Color;
-	Шоколадный: Color;
-	SaddleBrown: Color;
-	КожаноКоричневый: Color;
-	Sienna: Color;
-	Охра: Color;
-	Brown: Color;
-	Коричневый: Color;
-	Maroon: Color;
-	ТемноБордовый: Color;
-}
-interface WindowsColors {
-	ScrollBar: Color;
-	ПолосаПрокрутки: Color;
-	Desktop: Color;
-	РабочийСтол: Color;
-	ActiveTitleBar: Color;
-	ЗаголовокАктивногоОкна: Color;
-	InactiveTitleBar: Color;
-	ЗаголовокНеактивногоОкна: Color;
-	MenuBar: Color;
-	СтрокаМеню: Color;
-	WindowBackground: Color;
-	ФонОкна: Color;
-	WindowFrame: Color;
-	РамкаОкна: Color;
-	MenuItemText: Color;
-	ТекстПунктаМеню: Color;
-	WindowText: Color;
-	ТекстОкна: Color;
-	ActiveTitleBarText: Color;
-	ТекстЗаголовкаАктивногоОкна: Color;
-	ActiveBorder: Color;
-	ГраницаАктивногоОкна: Color;
-	InactiveBorder: Color;
-	ГраницаНеактивногоОкна: Color;
-	ApplicationWorkspace: Color;
-	РабочаяОбластьПриложения: Color;
-	Highlight: Color;
-	Подсвеченный: Color;
-	HighlightText: Color;
-	ТекстПодсвеченный: Color;
-	ButtonFace: Color;
-	Кнопка: Color;
-	ButtonShadow: Color;
-	ТеньКнопки: Color;
-	DisabledText: Color;
-	ТекстНедоступный: Color;
-	ButtonText: Color;
-	ТекстКнопки: Color;
-	InactiveTitleBarText: Color;
-	ТекстЗаголовкаНеактивногоОкна: Color;
-	ButtonHighlight: Color;
-	КнопкаПодсвеченная: Color;
-	ButtonDarkShadow: Color;
-	ТеньКнопкиТемная: Color;
-	ButtonLightShadow: Color;
-	ТеньКнопкиСветлая: Color;
-	ToolTipText: Color;
-	ТекстПодсказки: Color;
-	ToolTip: Color;
-	Подсказка: Color;
-	HotLight: Color;
-	GradientActiveCaption: Color;
-	ЗаголовокАктивногоОкнаГрадиент: Color;
-	GradientInactiveCaption: Color;
-	ЗаголовокНеактивногоОкнаГрадиент: Color;
-	MiddleGradientActiveCaption: Color;
-	ЗаголовокАктивногоОкнаГрадиентСредний: Color;
-	MiddleGradientInactiveCaption: Color;
-	ЗаголовокНеактивногоОкнаГрадиентСредний: Color;
-}
-interface EnumColorType {
-	Absolute;
-	Абсолютный;
-	StyleItem;
-	ЭлементСтиля;
-	WebColor;
-	WebЦвет;
-	WindowsColor;
-	WindowsЦвет;
-	AutoColor;
-	АвтоЦвет;
-}
-declare type ПеречислениеВидЦвета = EnumColorType;
-interface WindowsFonts {
-	DefaultGUIFont: Font;
-	ШрифтДиалоговИМеню: Font;
-	OEMFixedFont: Font;
-	OEMШрифтМоноширинный: Font;
-	ANSIFixedFont: Font;
-	ANSIШрифтМоноширинный: Font;
-	ANSIVariableFont: Font;
-	ANSIШрифтПропорциональный: Font;
-	SystemFont: Font;
-	СистемныйШрифт: Font;
-}
-interface EnumPictureType {
-	Empty;
-	Пустая;
-	FromLib;
-	ИзБиблиотеки;
-	Absolute;
-	Абсолютная;
-}
-declare type ПеречислениеВидКартинки = EnumPictureType;
-interface EnumFillChecking {
-	DontCheck;
-	НеПроверять;
-	ShowError;
-	ВыдаватьОшибку;
-}
-declare type ПеречислениеПроверкаЗаполнения = EnumFillChecking;
-interface EnumStandardBeginningDateVariant {
-	Custom;
-	ПроизвольнаяДата;
-	BeginningOfThisDay;
-	НачалоЭтогоДня;
-	BeginningOfThisWeek;
-	НачалоЭтойНедели;
-	BeginningOfThisTenDays;
-	НачалоЭтойДекады;
-	BeginningOfThisMonth;
-	НачалоЭтогоМесяца;
-	BeginningOfThisQuarter;
-	НачалоЭтогоКвартала;
-	BeginningOfThisHalfYear;
-	НачалоЭтогоПолугодия;
-	BeginningOfThisYear;
-	НачалоЭтогоГода;
-	BeginningOfLastDay;
-	НачалоПрошлогоДня;
-	BeginningOfLastWeek;
-	НачалоПрошлойНедели;
-	BeginningOfLastTenDays;
-	НачалоПрошлойДекады;
-	BeginningOfLastMonth;
-	НачалоПрошлогоМесяца;
-	BeginningOfLastQuarter;
-	НачалоПрошлогоКвартала;
-	BeginningOfLastHalfYear;
-	НачалоПрошлогоПолугодия;
-	BeginningOfLastYear;
-	НачалоПрошлогоГода;
-	BeginningOfNextDay;
-	НачалоСледующегоДня;
-	BeginningOfNextWeek;
-	НачалоСледующейНедели;
-	BeginningOfNextTenDays;
-	НачалоСледующейДекады;
-	BeginningOfNextMonth;
-	НачалоСледующегоМесяца;
-	BeginningOfNextQuarter;
-	НачалоСледующегоКвартала;
-	BeginningOfNextHalfYear;
-	НачалоСледующегоПолугодия;
-	BeginningOfNextYear;
-	НачалоСледующегоГода;
-}
-declare type ПеречислениеВариантСтандартнойДатыНачала = EnumStandardBeginningDateVariant;
-interface EnumStandardPeriodVariant {
-	Custom;
-	ПроизвольныйПериод;
-	Today;
-	Сегодня;
-	ThisWeek;
-	ЭтаНеделя;
-	ThisTenDays;
-	ЭтаДекада;
-	ThisMonth;
-	ЭтотМесяц;
-	ThisQuarter;
-	ЭтотКвартал;
-	ThisHalfYear;
-	ЭтоПолугодие;
-	ThisYear;
-	ЭтотГод;
-	FromBeginningOfThisWeek;
-	СНачалаЭтойНедели;
-	FromBeginningOfThisTenDays;
-	СНачалаЭтойДекады;
-	FromBeginningOfThisMonth;
-	СНачалаЭтогоМесяца;
-	FromBeginningOfThisQuarter;
-	СНачалаЭтогоКвартала;
-	FromBeginningOfThisHalfYear;
-	СНачалаЭтогоПолугодия;
-	FromBeginningOfThisYear;
-	СНачалаЭтогоГода;
-	Yesterday;
-	Вчера;
-	LastWeek;
-	ПрошлаяНеделя;
-	LastTenDays;
-	ПрошлаяДекада;
-	LastMonth;
-	ПрошлыйМесяц;
-	LastQuarter;
-	ПрошлыйКвартал;
-	LastHalfYear;
-	ПрошлоеПолугодие;
-	LastYear;
-	ПрошлыйГод;
-	LastWeekTillSameWeekDay;
-	ПрошлаяНеделяДоТакогоЖеДняНедели;
-	LastTenDaysTillSameDayNumber;
-	ПрошлаяДекадаДоТакогоЖеНомераДня;
-	LastMonthTillSameDate;
-	ПрошлыйМесяцДоТакойЖеДаты;
-	LastQuarterTillSameDate;
-	ПрошлыйКварталДоТакойЖеДаты;
-	LastHalfYearTillSameDate;
-	ПрошлоеПолугодиеДоТакойЖеДаты;
-	LastYearTillSameDate;
-	ПрошлыйГодДоТакойЖеДаты;
-	Tomorrow;
-	Завтра;
-	NextWeek;
-	СледующаяНеделя;
-	NextTenDays;
-	СледующаяДекада;
-	NextMonth;
-	СледующийМесяц;
-	NextQuarter;
-	СледующийКвартал;
-	NextHalfYear;
-	СледующееПолугодие;
-	NextYear;
-	СледующийГод;
-	NextWeekTillSameWeekDay;
-	СледующаяНеделяДоТакогоЖеДняНедели;
-	NextTenDaysTillSameDayNumber;
-	СледующаяДекадаДоТакогоЖеНомераДня;
-	NextMonthTillSameDate;
-	СледующийМесяцДоТакойЖеДаты;
-	NextQuarterTillSameDate;
-	СледующийКварталДоТакойЖеДаты;
-	NextHalfYearTillSameDate;
-	СледующееПолугодиеДоТакойЖеДаты;
-	NextYearTillSameDate;
-	СледующийГодДоТакойЖеДаты;
-	TillEndOfThisWeek;
-	ДоКонцаЭтойНедели;
-	TillEndOfThisTenDays;
-	ДоКонцаЭтойДекады;
-	TillEndOfThisMonth;
-	ДоКонцаЭтогоМесяца;
-	TillEndOfThisQuarter;
-	ДоКонцаЭтогоКвартала;
-	TillEndOfThisHalfYear;
-	ДоКонцаЭтогоПолугодия;
-	TillEndOfThisYear;
-	ДоКонцаЭтогоГода;
-	Last7Days;
-	Последние7Дней;
-	Next7Days;
-	Следующие7Дней;
-	Month;
-	Месяц;
-}
-declare type ПеречислениеВариантСтандартногоПериода = EnumStandardPeriodVariant;
-interface EnumPlatformType {
-	Windows_x86;
-	Windows_x86_64;
-	Linux_x86;
-	Linux_x86_64;
-	MacOS_x86;
-	MacOS_x86_64;
-}
-declare type ПеречислениеТипПлатформы = EnumPlatformType;
-interface EnumSizeChangeMode {
-	Normal;
-	Обычный;
-	QuickChange;
-	БыстроеИзменение;
-}
-declare type ПеречислениеРежимИзмененияРазмера = EnumSizeChangeMode;
-interface EnumDuplexPrintingType {
-	None;
-	Нет;
-	FlipPagesLeft;
-	ПереворотВлево;
-	FlipPagesUp;
-	ПереворотВверх;
-	UsePrinterSettings;
-	ИспользоватьНастройкиПринтера;
-}
-declare type ПеречислениеТипДвустороннейПечати = EnumDuplexPrintingType;
-interface EnumPagePlacementAlternation {
-	Auto;
-	Авто;
-	DontUse;
-	НеИспользовать;
-	MirrorOnLeft;
-	ЗеркальноСлева;
-	MirrorOnTop;
-	ЗеркальноСверху;
-}
-declare type ПеречислениеЧередованиеРасположенияСтраниц = EnumPagePlacementAlternation;
-interface EnumTextPositionRelativeToPicture {
-	Left;
-	Слева;
-	Right;
-	Справа;
-	Top;
-	Сверху;
-	Bottom;
-	Снизу;
-	OnTop;
-	Поверх;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеПоложениеТекстаОтносительноКартинки = EnumTextPositionRelativeToPicture;
-interface EnumMainClientApplicationWindowMode {
-	Normal;
-	Обычный;
-	Workplace;
-	РабочееМесто;
-	EmbeddedWorkplace;
-	ВстроенноеРабочееМесто;
-	FullscreenWorkplace;
-	ПолноэкранноеРабочееМесто;
-	Kiosk;
-	Киоск;
-}
-declare type ПеречислениеРежимОсновногоОкнаКлиентскогоПриложения = EnumMainClientApplicationWindowMode;
-interface EnumFileDragMode {
-	AsFile;
-	КакФайл;
-	AsFileRef;
-	КакСсылкаНаФайл;
-}
-declare type ПеречислениеСпособПеретаскиванияФайлов = EnumFileDragMode;
-interface EnumRepresentableDocumentBatchFileType {
-	DOCX;
-	HTML4;
-	HTML5;
-	ODS;
-	PDF;
-	TXT;
-	XLS;
-	XLSX;
-}
-declare type ПеречислениеТипФайлаПакетаОтображаемыхДокументов = EnumRepresentableDocumentBatchFileType;
-interface EnumErrorCategory {
-	AccessViolation;
-	НарушениеПравДоступа;
-	LocalFileAccessError;
-	ОшибкаДоступаКЛокальномуФайлу;
-	NetworkError;
-	ОшибкаСети;
-	PrinterError;
-	ОшибкаРаботыСПринтером;
-	ScriptCompileError;
-	ОшибкаКомпиляцииВстроенногоЯзыка;
-	ScriptRuntimeError;
-	ОшибкаВоВремяВыполненияВстроенногоЯзыка;
-	ScriptUseError;
-	ОшибкаИспользованияВстроенногоЯзыка;
-	ExceptionRaisedFromScript;
-	ИсключениеВызванноеИзВстроенногоЯзыка;
-	CollaborationSystemError;
-	ОшибкаСистемыВзаимодействия;
-	DataCompositionSettingsError;
-	ОшибкаНастроекКомпоновкиДанных;
-	SessionError;
-	ОшибкаСеанса;
-	StoredDataError;
-	ОшибкаХранимыхДанных;
-	FullTextSearchError;
-	ОшибкаПолнотекстовогоПоиска;
-	ExternalDataSourceError;
-	ОшибкаВнешнегоИсточникаДанных;
-	GotoURLError;
-	ОшибкаПереходаПоНавигационнойСсылке;
-	OtherError;
-	ПрочаяОшибка;
-	AllErrors;
-	ВсеОшибки;
-}
-declare type ПеречислениеКатегорияОшибки = EnumErrorCategory;
-interface EnumTextDirection {
-	LeftToRight;
-	СлеваНаправо;
-	RightToLeft;
-	СправаНалево;
-}
-declare type ПеречислениеНаправлениеТекста = EnumTextDirection;
-interface EnumSearchDirection {
-	FromBegin;
-	СНачала;
-	FromEnd;
-	СКонца;
-}
-declare type ПеречислениеНаправлениеПоиска = EnumSearchDirection;
-declare var VerticalAlign: EnumVerticalAlign;
-declare var ВертикальноеПоложение: EnumVerticalAlign;
-declare var HorizontalAlign: EnumHorizontalAlign;
-declare var ГоризонтальноеПоложение: EnumHorizontalAlign;
-declare var PageOrientation: EnumPageOrientation;
-declare var ОриентацияСтраницы: EnumPageOrientation;
-declare var PictureSize: EnumPictureSize;
-declare var РазмерКартинки: EnumPictureSize;
-declare var PictureFormat: EnumPictureFormat;
-declare var ФорматКартинки: EnumPictureFormat;
-declare var AllowedLength: EnumAllowedLength;
-declare var ДопустимаяДлина: EnumAllowedLength;
-declare var AllowedSign: EnumAllowedSign;
-declare var ДопустимыйЗнак: EnumAllowedSign;
-declare var DateFractions: EnumDateFractions;
-declare var ЧастиДаты: EnumDateFractions;
-declare var RoundMode: EnumRoundMode;
-declare var РежимОкругления: EnumRoundMode;
-declare var Chars: Chars;
-declare var Символы: Chars;
-declare var SortDirection: EnumSortDirection;
-declare var НаправлениеСортировки: EnumSortDirection;
-declare var TextEncoding: EnumTextEncoding;
-declare var КодировкаТекста: EnumTextEncoding;
-declare var UseOutput: EnumUseOutput;
-declare var ИспользованиеВывода: EnumUseOutput;
-declare var PrintDialogUseMode: EnumPrintDialogUseMode;
-declare var РежимИспользованияДиалогаПечати: EnumPrintDialogUseMode;
-declare var FontType: EnumFontType;
-declare var ВидШрифта: EnumFontType;
-declare var BorderType: EnumBorderType;
-declare var ВидРамки: EnumBorderType;
-declare var ControlBorderType: EnumControlBorderType;
-declare var ТипРамкиЭлементаУправления: EnumControlBorderType;
-declare var WebColors: WebColors;
-declare var WebЦвета: WebColors;
-declare var WindowsColors: WindowsColors;
-declare var WindowsЦвета: WindowsColors;
-declare var ColorType: EnumColorType;
-declare var ВидЦвета: EnumColorType;
-declare var WindowsFonts: WindowsFonts;
-declare var WindowsШрифты: WindowsFonts;
-declare var PictureType: EnumPictureType;
-declare var ВидКартинки: EnumPictureType;
-declare var FillChecking: EnumFillChecking;
-declare var ПроверкаЗаполнения: EnumFillChecking;
-declare var StandardBeginningDateVariant: EnumStandardBeginningDateVariant;
-declare var ВариантСтандартнойДатыНачала: EnumStandardBeginningDateVariant;
-declare var StandardPeriodVariant: EnumStandardPeriodVariant;
-declare var ВариантСтандартногоПериода: EnumStandardPeriodVariant;
-declare var PlatformType: EnumPlatformType;
-declare var ТипПлатформы: EnumPlatformType;
-declare var SizeChangeMode: EnumSizeChangeMode;
-declare var РежимИзмененияРазмера: EnumSizeChangeMode;
-declare var Key: EnumKey;
-declare var Клавиша: EnumKey;
-declare var DuplexPrintingType: EnumDuplexPrintingType;
-declare var ТипДвустороннейПечати: EnumDuplexPrintingType;
-declare var PagePlacementAlternation: EnumPagePlacementAlternation;
-declare var ЧередованиеРасположенияСтраниц: EnumPagePlacementAlternation;
-declare var TextPositionRelativeToPicture: EnumTextPositionRelativeToPicture;
-declare var ПоложениеТекстаОтносительноКартинки: EnumTextPositionRelativeToPicture;
-declare var MainClientApplicationWindowMode: EnumMainClientApplicationWindowMode;
-declare var РежимОсновногоОкнаКлиентскогоПриложения: EnumMainClientApplicationWindowMode;
-declare var FileDragMode: EnumFileDragMode;
-declare var СпособПеретаскиванияФайлов: EnumFileDragMode;
-declare var RepresentableDocumentBatchFileType: EnumRepresentableDocumentBatchFileType;
-declare var ТипФайлаПакетаОтображаемыхДокументов: EnumRepresentableDocumentBatchFileType;
-declare var ErrorCategory: EnumErrorCategory;
-declare var КатегорияОшибки: EnumErrorCategory;
-declare var TextDirection: EnumTextDirection;
-declare var НаправлениеТекста: EnumTextDirection;
-declare var SearchDirection: EnumSearchDirection;
-declare var НаправлениеПоиска: EnumSearchDirection;
-declare function FillPropertyValues(... params): void;
-declare function ЗаполнитьЗначенияСвойств(... params): void;
-declare function Base64Value(... params);
-declare function Base64Значение(... params);
-declare function Base64String(... params);
-declare function Base64Строка(... params);
-declare function ValueIsFilled(... params): boolean;
-declare function ЗначениеЗаполнено(... params): boolean;
-declare function StrFindAndHighlightByAppearance(... params): FormattedString;
-declare function СтрНайтиИВыделитьОформлением(... params): FormattedString;
-declare function StrFind(... params): number;
-declare function СтрНайти(... params): number;
-declare function StrTemplate(... params): string;
-declare function СтрШаблон(... params): string;
-declare function StrCompare(... params): number;
-declare function СтрСравнить(... params): number;
-declare function StrStartsWith(... params): boolean;
-declare function СтрНачинаетсяС(... params): boolean;
-declare function StrEndsWith(... params): boolean;
-declare function СтрЗаканчиваетсяНа(... params): boolean;
-declare function StrSplit(... params): ArrayV8;
-declare function СтрРазделить(... params): ArrayV8;
-declare function StrConcat(... params): string;
-declare function СтрСоединить(... params): string;
 interface WorkingDateMode {
 }
 interface XMLCanonicalizationType {
@@ -16464,8 +16404,6 @@ interface ProcessingPicture {
 	ВыделитьОбласть(... params): void;
 	SetDensity(... params): void;
 	УстановитьПлотность(... params): void;
-	GetPictures(): ArrayV8;
-	ПолучитьКартинки(): ArrayV8;
 }
 declare type ОбрабатываемаяКартинка = ProcessingPicture;
 interface EnumGeographicalSchemaLineType {
@@ -17650,6 +17588,39 @@ interface StandardPeriodEditDialog {
 	Показать(... params): void;
 }
 declare type ДиалогРедактированияСтандартногоПериода = StandardPeriodEditDialog;
+interface XSParticle {
+	ComponentType: XSComponentType;
+	ТипКомпоненты: XSComponentType;
+	Annotation;
+	Аннотация;
+	Container;
+	Контейнер;
+	Components: XSComponentFixedList;
+	Компоненты: XSComponentFixedList;
+	RootContainer;
+	КорневойКонтейнер;
+	Schema: XMLSchema;
+	Схема: XMLSchema;
+	DOMElement: DOMElement;
+	ЭлементDOM: DOMElement;
+	MinOccurs: number;
+	МинимальноВходит: number;
+	MaxOccurs: number;
+	МаксимальноВходит: number;
+	Term;
+	Часть;
+	Contains(... params): boolean;
+	Содержит(... params): boolean;
+	CloneComponent(... params);
+	КлонироватьКомпоненту(... params);
+	UpdateDOMElement(... params): void;
+	ОбновитьЭлементDOM(... params): void;
+	IsEmptiable(): boolean;
+	ДопускаетсяПустой(): boolean;
+	IsSubset(... params): boolean;
+	ЯвляетсяПодмножеством(... params): boolean;
+}
+declare type ФрагментXS = XSParticle;
 interface MemoryStream {
 	CanRead: boolean;
 	ДоступноЧтение: boolean;
@@ -17697,39 +17668,6 @@ interface MemoryStream {
 	ЗакрытьИПолучитьДвоичныеДанные(): BinaryData;
 }
 declare type ПотокВПамяти = MemoryStream;
-interface XSParticle {
-	ComponentType: XSComponentType;
-	ТипКомпоненты: XSComponentType;
-	Annotation;
-	Аннотация;
-	Container;
-	Контейнер;
-	Components: XSComponentFixedList;
-	Компоненты: XSComponentFixedList;
-	RootContainer;
-	КорневойКонтейнер;
-	Schema: XMLSchema;
-	Схема: XMLSchema;
-	DOMElement: DOMElement;
-	ЭлементDOM: DOMElement;
-	MinOccurs: number;
-	МинимальноВходит: number;
-	MaxOccurs: number;
-	МаксимальноВходит: number;
-	Term;
-	Часть;
-	Contains(... params): boolean;
-	Содержит(... params): boolean;
-	CloneComponent(... params);
-	КлонироватьКомпоненту(... params);
-	UpdateDOMElement(... params): void;
-	ОбновитьЭлементDOM(... params): void;
-	IsEmptiable(): boolean;
-	ДопускаетсяПустой(): boolean;
-	IsSubset(... params): boolean;
-	ЯвляетсяПодмножеством(... params): boolean;
-}
-declare type ФрагментXS = XSParticle;
 interface EnumDataCompositionSettingsViewMode {
 	All;
 	Все;
@@ -18271,8 +18209,6 @@ interface EnumClusterizationMethod {
 }
 declare type ПеречислениеМетодКластеризации = EnumClusterizationMethod;
 interface ContactDataURLType {
-}
-interface AudioRecordingFormat {
 }
 interface GanttChartLegendArea {
 	Transparent: boolean;
@@ -25338,15 +25274,6 @@ interface EnumDataCompositionConditionalAppearanceUse {
 	НеИспользовать;
 }
 declare type ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных = EnumDataCompositionConditionalAppearanceUse;
-interface EnumDataChangeType {
-	Create;
-	Добавление;
-	Update;
-	Изменение;
-	Delete;
-	Удаление;
-}
-declare type ПеречислениеВидИзмененияДанных = EnumDataChangeType;
 interface DataCompositionAreaTemplateValueCollectionCells {
 	Add(): DataCompositionAreaTemplateValueCollectionCell;
 	Добавить(): DataCompositionAreaTemplateValueCollectionCell;
@@ -26312,6 +26239,22 @@ interface GeographicalSchemaPolylineObjectSegment {
 	IndexOf(... params): number;
 	Индекс(... params): number;
 }
+interface DataAnalysisNumericValueUseType {
+}
+interface EnumSliceUse {
+	DontUse;
+	НеИспользовать;
+	First;
+	Первые;
+	Last;
+	Последние;
+}
+declare type ПеречислениеИспользованиеСреза = EnumSliceUse;
+interface DataCompositionResourcesAutoPosition {
+}
+interface WindowsCertificationAuthorityCertificates {
+}
+declare type СертификатыУдостоверяющихЦентровWindows = WindowsCertificationAuthorityCertificates;
 interface InternetMailAddress {
 	DisplayName: string;
 	ОтображаемоеИмя: string;
@@ -26693,9 +26636,6 @@ interface MacOSClientCertificate {
 	СпособВыбораСертификатаMacOS: MacOSCertificateSelectMode;
 }
 declare type СертификатКлиентаMacOS = MacOSClientCertificate;
-interface WindowsCertificationAuthorityCertificates {
-}
-declare type СертификатыУдостоверяющихЦентровWindows = WindowsCertificationAuthorityCertificates;
 interface FileCertificationAuthorityCertificates {
 	FileName: string;
 	ИмяФайла: string;
@@ -28583,6 +28523,15 @@ interface FormattedDocumentFileType {
 }
 interface PlannerItemsBehaviorWhenSpaceInsufficient {
 }
+interface EnumDataChangeType {
+	Create;
+	Добавление;
+	Update;
+	Изменение;
+	Delete;
+	Удаление;
+}
+declare type ПеречислениеВидИзмененияДанных = EnumDataChangeType;
 interface ClientApplicationFormScaleVariant {
 }
 interface NumericValueType {
@@ -28698,8 +28647,6 @@ interface EnumDataAnalysisColumnTypeAssociationRules {
 declare type ПеречислениеТипКолонкиАнализаДанныхПоискАссоциаций = EnumDataAnalysisColumnTypeAssociationRules;
 interface DataAnalysisColumnTypeAssociationRules {
 }
-interface AudioRecordingChannelUse {
-}
 interface EnumDataAnalysisColumnTypeSummaryStatistics {
 	NotUsed;
 	НеИспользуемая;
@@ -28795,19 +28742,6 @@ interface InternetMailMessageFlags {
 }
 declare type ФлагиИнтернетПочтовогоСообщения = InternetMailMessageFlags;
 interface AssociationRulesDataSourceType {
-}
-interface DataAnalysisNumericValueUseType {
-}
-interface EnumSliceUse {
-	DontUse;
-	НеИспользовать;
-	First;
-	Первые;
-	Last;
-	Последние;
-}
-declare type ПеречислениеИспользованиеСреза = EnumSliceUse;
-interface DataCompositionResourcesAutoPosition {
 }
 interface DataAnalysisResultTableFillType {
 }
@@ -30150,29 +30084,6 @@ interface EnumAutoCapitalizationOnTextInput {
 	ВсеСимволы;
 }
 declare type ПеречислениеАвтоИзменениеРегистраПриВводеТекста = EnumAutoCapitalizationOnTextInput;
-interface EnumStopMultimediaRecordingButtonPlacement {
-	None;
-	Нет;
-	Left;
-	Лево;
-	LeftTop;
-	ЛевоВерх;
-	LeftBottom;
-	ЛевоНиз;
-	Right;
-	Право;
-	RightTop;
-	ПравоВерх;
-	RightBottom;
-	ПравоНиз;
-	Top;
-	Верх;
-	Bottom;
-	Низ;
-	Auto;
-	Авто;
-}
-declare type ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа = EnumStopMultimediaRecordingButtonPlacement;
 interface EnumAutoCorrectionOnTextInput {
 	Auto;
 	Авто;
@@ -31241,12 +31152,8 @@ interface FormPictureField {
 	РазрешитьПеретаскивание: boolean;
 	FileDragMode: FileDragMode;
 	СпособПеретаскиванияФайлов: FileDragMode;
-	CurrentFrameNumber: number;
-	НомерТекущегоКадра: number;
 	Refresh(): void;
 	Обновить(): void;
-	GetFramesCount(): number;
-	ПолучитьКоличествоКадров(): number;
 }
 interface ViewStatus {
 	Width: number;
@@ -31801,8 +31708,6 @@ interface InformationBaseContext {
 }
 interface StandardCommandsGroup {
 }
-interface StopMultimediaRecordingButtonPlacement {
-}
 interface ConfigurationExtensionScope {
 }
 interface DataExchangeParameters {
@@ -31942,8 +31847,6 @@ interface EventLogAccessDeniedEventUseDescription {
 	ПоляРегистрации;
 }
 declare type ОписаниеИспользованияСобытияОтказВДоступеЖурналаРегистрации = EventLogAccessDeniedEventUseDescription;
-interface InfoBaseUserPasswordRecoveryMethod {
-}
 interface ConfigurationDescription {
 	Name;
 	Имя;
@@ -33753,12 +33656,8 @@ interface MultimediaData {
 interface MultimediaTools {
 	MakePhoto(... params): MultimediaData;
 	СделатьФотоснимок(... params): MultimediaData;
-	MakeAudioRecording(... params): MultimediaData;
-	СделатьАудиозапись(... params): MultimediaData;
-	StartAudioRecording(... params): void;
-	ВключитьАудиозапись(... params): void;
-	StopAudioRecording(): void;
-	ОтключитьАудиозапись(): void;
+	MakeAudioRecording(): MultimediaData;
+	СделатьАудиозапись(): MultimediaData;
 	MakeVideoRecording(... params): MultimediaData;
 	СделатьВидеозапись(... params): MultimediaData;
 	ShowBarcodeScanning(... params): void;
@@ -34841,18 +34740,6 @@ interface PhotoStamp {
 	Текст: string;
 }
 declare type ОтметкаНаФотоснимке = PhotoStamp;
-interface EnumAudioRecordingChannelUse {
-	Mono;
-	Моно;
-	Stereo;
-	Стерео;
-}
-declare type ПеречислениеИспользованиеКаналовАудиозаписи = EnumAudioRecordingChannelUse;
-interface EnumAudioRecordingFormat {
-	Mpeg4AAC;
-	WavPCM16bit;
-}
-declare type ПеречислениеФорматАудиозаписи = EnumAudioRecordingFormat;
 interface EnumCameraLightingType {
 	Disable;
 	Выключена;
@@ -34919,6 +34806,10 @@ interface ApplicationUsageStatisticsManager {
 	ОтправитьСобытие(... params): void;
 	SendScreen(... params): void;
 	ОтправитьЭкран(... params): void;
+	StartVideoRecording(): void;
+	НачатьВидеозапись(): void;
+	StopVideoRecording(): void;
+	ЗавершитьВидеозапись(): void;
 }
 declare type МенеджерСтатистикиИспользованияПриложения = ApplicationUsageStatisticsManager;
 interface SecureStorageManager {
@@ -35217,17 +35108,6 @@ interface EnumBiometricVerificationMethod {
 declare type ПеречислениеСпособБиометрическойПроверки = EnumBiometricVerificationMethod;
 interface BiometricVerificationMethod {
 }
-interface AudioRecordingSettings {
-	AudioRecordingFormat: EnumAudioRecordingFormat;
-	ФорматАудиозаписи: EnumAudioRecordingFormat;
-	AudioRecordingChannelUse: EnumAudioRecordingChannelUse;
-	ИспользованиеКаналовАудиозаписи: EnumAudioRecordingChannelUse;
-	SamplingRate: number;
-	ЧастотаДискретизации: number;
-	EncodingBitRate: number;
-	СкоростьКодирования: number;
-}
-declare type ПараметрыАудиозаписи = AudioRecordingSettings;
 interface EnumAdStatus {
 	NotDownloaded;
 	НеЗагружена;
@@ -35363,54 +35243,128 @@ interface TestedApplication {
 	ОжидатьСостояния(... params): boolean;
 }
 declare type ТестируемоеПриложение = TestedApplication;
-declare function v8New(name:"EnumXBaseEncoding",... params): EnumXBaseEncoding;
-declare function v8New(name:"ПеречислениеКодировкаXBase",... params): ПеречислениеКодировкаXBase;
-declare function v8New(name:"EnumInternetMailTextType",... params): EnumInternetMailTextType;
-declare function v8New(name:"ПеречислениеТипТекстаПочтовогоСообщения",... params): ПеречислениеТипТекстаПочтовогоСообщения;
-declare function v8New(name:"EnumInternetMailTextProcessing",... params): EnumInternetMailTextProcessing;
-declare function v8New(name:"ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения",... params): ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения;
-declare function v8New(name:"EnumInternetMailMessageImportance",... params): EnumInternetMailMessageImportance;
-declare function v8New(name:"ПеречислениеВажностьИнтернетПочтовогоСообщения",... params): ПеречислениеВажностьИнтернетПочтовогоСообщения;
-declare function v8New(name:"EnumInternetMailAttachmentEncodingMode",... params): EnumInternetMailAttachmentEncodingMode;
-declare function v8New(name:"ПеречислениеСпособКодированияИнтернетПочтовогоВложения",... params): ПеречислениеСпособКодированияИнтернетПочтовогоВложения;
-declare function v8New(name:"EnumInternetMailMessageNonASCIISymbolsEncodingMode",... params): EnumInternetMailMessageNonASCIISymbolsEncodingMode;
-declare function v8New(name:"ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения",... params): ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения;
-declare function v8New(name:"EnumSMTPAuthenticationMode",... params): EnumSMTPAuthenticationMode;
-declare function v8New(name:"ПеречислениеСпособSMTPАутентификации",... params): ПеречислениеСпособSMTPАутентификации;
-declare function v8New(name:"EnumPOP3AuthenticationMode",... params): EnumPOP3AuthenticationMode;
-declare function v8New(name:"ПеречислениеСпособPOP3Аутентификации",... params): ПеречислениеСпособPOP3Аутентификации;
-declare function v8New(name:"EnumInternetMailProtocol",... params): EnumInternetMailProtocol;
-declare function v8New(name:"ПеречислениеПротоколИнтернетПочты",... params): ПеречислениеПротоколИнтернетПочты;
-declare function v8New(name:"EnumZIPCompressionMethod",... params): EnumZIPCompressionMethod;
-declare function v8New(name:"ПеречислениеМетодСжатияZIP",... params): ПеречислениеМетодСжатияZIP;
-declare function v8New(name:"EnumZIPCompressionLevel",... params): EnumZIPCompressionLevel;
-declare function v8New(name:"ПеречислениеУровеньСжатияZIP",... params): ПеречислениеУровеньСжатияZIP;
-declare function v8New(name:"EnumZIPEncryptionMethod",... params): EnumZIPEncryptionMethod;
-declare function v8New(name:"ПеречислениеМетодШифрованияZIP",... params): ПеречислениеМетодШифрованияZIP;
-declare function v8New(name:"EnumZIPStorePathMode",... params): EnumZIPStorePathMode;
-declare function v8New(name:"ПеречислениеРежимСохраненияПутейZIP",... params): ПеречислениеРежимСохраненияПутейZIP;
-declare function v8New(name:"EnumZIPSubDirProcessingMode",... params): EnumZIPSubDirProcessingMode;
-declare function v8New(name:"ПеречислениеРежимОбработкиПодкаталоговZIP",... params): ПеречислениеРежимОбработкиПодкаталоговZIP;
-declare function v8New(name:"EnumZIPRestoreFilePathsMode",... params): EnumZIPRestoreFilePathsMode;
-declare function v8New(name:"ПеречислениеРежимВосстановленияПутейФайловZIP",... params): ПеречислениеРежимВосстановленияПутейФайловZIP;
-declare function v8New(name:"FixedArray",... params): FixedArray;
-declare function v8New(name:"ФиксированныйМассив",... params): ФиксированныйМассив;
-declare function v8New(name:"EnumInternetMailMessageParseStatus",... params): EnumInternetMailMessageParseStatus;
-declare function v8New(name:"ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения",... params): ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumWorkingDateMode",... params): EnumWorkingDateMode;
+declare function v8New(name:"ПеречислениеРежимРабочейДаты",... params): ПеречислениеРежимРабочейДаты;
+declare function v8New(name:"EnumIntervalBoundVariant",... params): EnumIntervalBoundVariant;
+declare function v8New(name:"ПеречислениеВариантГраницыИнтервала",... params): ПеречислениеВариантГраницыИнтервала;
+declare function v8New(name:"EnumPeriodVariant",... params): EnumPeriodVariant;
+declare function v8New(name:"ПеречислениеВариантПериода",... params): ПеречислениеВариантПериода;
+declare function v8New(name:"EnumPeriodSettingsVariant",... params): EnumPeriodSettingsVariant;
+declare function v8New(name:"ПеречислениеВариантНастройкиПериода",... params): ПеречислениеВариантНастройкиПериода;
+declare function v8New(name:"EnumNewRowShowCheckVariant",... params): EnumNewRowShowCheckVariant;
+declare function v8New(name:"ПеречислениеВариантПроверкиОтображенияНовойСтроки",... params): ПеречислениеВариантПроверкиОтображенияНовойСтроки;
+declare function v8New(name:"SpreadsheetDocument",... params): SpreadsheetDocument;
+declare function v8New(name:"ТабличныйДокумент",... params): ТабличныйДокумент;
+declare function v8New(name:"Font",... params): Font;
+declare function v8New(name:"Шрифт",... params): Шрифт;
+declare function v8New(name:"Color",... params): Color;
+declare function v8New(name:"Цвет",... params): Цвет;
+declare function v8New(name:"Line",... params): Line;
+declare function v8New(name:"Линия",... params): Линия;
+declare function v8New(name:"Picture",... params): Picture;
+declare function v8New(name:"Картинка",... params): Картинка;
+declare function v8New(name:"BinaryData",... params): BinaryData;
+declare function v8New(name:"ДвоичныеДанные",... params): ДвоичныеДанные;
+declare function v8New(name:"TypeDescription",... params): TypeDescription;
+declare function v8New(name:"ОписаниеТипов",... params): ОписаниеТипов;
+declare function v8New(name:"NumberQualifiers",... params): NumberQualifiers;
+declare function v8New(name:"КвалификаторыЧисла",... params): КвалификаторыЧисла;
+declare function v8New(name:"StringQualifiers",... params): StringQualifiers;
+declare function v8New(name:"КвалификаторыСтроки",... params): КвалификаторыСтроки;
+declare function v8New(name:"DateQualifiers",... params): DateQualifiers;
+declare function v8New(name:"КвалификаторыДаты",... params): КвалификаторыДаты;
+declare function v8New(name:"BinaryDataQualifiers",... params): BinaryDataQualifiers;
+declare function v8New(name:"КвалификаторыДвоичныхДанных",... params): КвалификаторыДвоичныхДанных;
 declare function v8New(name:"ArrayV8",... params): ArrayV8;
 declare function v8New(name:"Массив",... params): Массив;
-declare function v8New(name:"EnumDeliverableNotificationSubscriberType",... params): EnumDeliverableNotificationSubscriberType;
-declare function v8New(name:"ПеречислениеТипПодписчикаДоставляемыхУведомлений",... params): ПеречислениеТипПодписчикаДоставляемыхУведомлений;
-declare function v8New(name:"EnumSoundAlert",... params): EnumSoundAlert;
-declare function v8New(name:"ПеречислениеЗвуковоеОповещение",... params): ПеречислениеЗвуковоеОповещение;
-declare function v8New(name:"EnumInAppPurchaseService",... params): EnumInAppPurchaseService;
-declare function v8New(name:"ПеречислениеСервисВстроенныхПокупок",... params): ПеречислениеСервисВстроенныхПокупок;
-declare function v8New(name:"EnumFileNamesEncodingInZipFile",... params): EnumFileNamesEncodingInZipFile;
-declare function v8New(name:"ПеречислениеКодировкаИменФайловВZipФайле",... params): ПеречислениеКодировкаИменФайловВZipФайле;
-declare function v8New(name:"EnumDeliverableNotificationSendErrorType",... params): EnumDeliverableNotificationSendErrorType;
-declare function v8New(name:"ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления",... params): ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления;
-declare function v8New(name:"EnumUseInternetMailTokenAuthentication",... params): EnumUseInternetMailTokenAuthentication;
-declare function v8New(name:"ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену",... params): ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену;
+declare function v8New(name:"FormattedString",... params): FormattedString;
+declare function v8New(name:"ФорматированнаяСтрока",... params): ФорматированнаяСтрока;
+declare function v8New(name:"ReportBuilder",... params): ReportBuilder;
+declare function v8New(name:"ПостроительОтчета",... params): ПостроительОтчета;
+declare function v8New(name:"ValueList",... params): ValueList;
+declare function v8New(name:"СписокЗначений",... params): СписокЗначений;
+declare function v8New(name:"Structure",... params): Structure;
+declare function v8New(name:"Структура",... params): Структура;
+declare function v8New(name:"ValueTable",... params): ValueTable;
+declare function v8New(name:"ТаблицаЗначений",... params): ТаблицаЗначений;
+declare function v8New(name:"ValueTree",... params): ValueTree;
+declare function v8New(name:"ДеревоЗначений",... params): ДеревоЗначений;
+declare function v8New(name:"ConditionalAppearance",... params): ConditionalAppearance;
+declare function v8New(name:"УсловноеОформление",... params): УсловноеОформление;
+declare function v8New(name:"AppearanceArea",... params): AppearanceArea;
+declare function v8New(name:"ОбластьОформления",... params): ОбластьОформления;
+declare function v8New(name:"AppearanceSetting",... params): AppearanceSetting;
+declare function v8New(name:"НастройкаОформления",... params): НастройкаОформления;
+declare function v8New(name:"DataSourceDescription",... params): DataSourceDescription;
+declare function v8New(name:"ОписаниеИсточникаДанных",... params): ОписаниеИсточникаДанных;
+declare function v8New(name:"Query",... params): Query;
+declare function v8New(name:"Запрос",... params): Запрос;
+declare function v8New(name:"TempTablesManager",... params): TempTablesManager;
+declare function v8New(name:"МенеджерВременныхТаблиц",... params): МенеджерВременныхТаблиц;
+declare function v8New(name:"FixedArray",... params): FixedArray;
+declare function v8New(name:"ФиксированныйМассив",... params): ФиксированныйМассив;
+declare function v8New(name:"Shortcut",... params): Shortcut;
+declare function v8New(name:"СочетаниеКлавиш",... params): СочетаниеКлавиш;
+declare function v8New(name:"DataCompositionSchema",... params): DataCompositionSchema;
+declare function v8New(name:"СхемаКомпоновкиДанных",... params): СхемаКомпоновкиДанных;
+declare function v8New(name:"DataCompositionField",... params): DataCompositionField;
+declare function v8New(name:"ПолеКомпоновкиДанных",... params): ПолеКомпоновкиДанных;
+declare function v8New(name:"DataCompositionTypeLink",... params): DataCompositionTypeLink;
+declare function v8New(name:"СвязьПоТипуКомпоновкиДанных",... params): СвязьПоТипуКомпоновкиДанных;
+declare function v8New(name:"DataCompositionParameter",... params): DataCompositionParameter;
+declare function v8New(name:"ПараметрКомпоновкиДанных",... params): ПараметрКомпоновкиДанных;
+declare function v8New(name:"DataCompositionSettings",... params): DataCompositionSettings;
+declare function v8New(name:"НастройкиКомпоновкиДанных",... params): НастройкиКомпоновкиДанных;
+declare function v8New(name:"DataCompositionFilter",... params): DataCompositionFilter;
+declare function v8New(name:"ОтборКомпоновкиДанных",... params): ОтборКомпоновкиДанных;
+declare function v8New(name:"UUID",... params): UUID;
+declare function v8New(name:"УникальныйИдентификатор",... params): УникальныйИдентификатор;
+declare function v8New(name:"NotifyDescription",... params): NotifyDescription;
+declare function v8New(name:"ОписаниеОповещения",... params): ОписаниеОповещения;
+declare function v8New(name:"EnumButtonPictureLocation",... params): EnumButtonPictureLocation;
+declare function v8New(name:"ПеречислениеПоложениеКартинкиКнопки",... params): ПеречислениеПоложениеКартинкиКнопки;
+declare function v8New(name:"EnumTitleLocation",... params): EnumTitleLocation;
+declare function v8New(name:"ПеречислениеПоложениеЗаголовка",... params): ПеречислениеПоложениеЗаголовка;
+declare function v8New(name:"EnumKey",... params): EnumKey;
+declare function v8New(name:"ПеречислениеКлавиша",... params): ПеречислениеКлавиша;
+declare function v8New(name:"EnumDialogReturnCode",... params): EnumDialogReturnCode;
+declare function v8New(name:"ПеречислениеКодВозвратаДиалога",... params): ПеречислениеКодВозвратаДиалога;
+declare function v8New(name:"EnumCommandBarButtonType",... params): EnumCommandBarButtonType;
+declare function v8New(name:"ПеречислениеТипКнопкиКоманднойПанели",... params): ПеречислениеТипКнопкиКоманднойПанели;
+declare function v8New(name:"EnumInitialListView",... params): EnumInitialListView;
+declare function v8New(name:"ПеречислениеНачальноеОтображениеСписка",... params): ПеречислениеНачальноеОтображениеСписка;
+declare function v8New(name:"EnumWindowStateVariant",... params): EnumWindowStateVariant;
+declare function v8New(name:"ПеречислениеВариантСостоянияОкна",... params): ПеречислениеВариантСостоянияОкна;
+declare function v8New(name:"EnumWindowDockVariant",... params): EnumWindowDockVariant;
+declare function v8New(name:"ПеречислениеВариантПрикрепленияОкна",... params): ПеречислениеВариантПрикрепленияОкна;
+declare function v8New(name:"EnumWindowSizeChange",... params): EnumWindowSizeChange;
+declare function v8New(name:"ПеречислениеИзменениеРазмераОкна",... params): ПеречислениеИзменениеРазмераОкна;
+declare function v8New(name:"EnumScrollingTextMode",... params): EnumScrollingTextMode;
+declare function v8New(name:"ПеречислениеРежимБегущейСтроки",... params): ПеречислениеРежимБегущейСтроки;
+declare function v8New(name:"EnumListEditMode",... params): EnumListEditMode;
+declare function v8New(name:"ПеречислениеСпособРедактированияСписка",... params): ПеречислениеСпособРедактированияСписка;
+declare function v8New(name:"EnumControlEdge",... params): EnumControlEdge;
+declare function v8New(name:"ПеречислениеГраницаЭлементаУправления",... params): ПеречислениеГраницаЭлементаУправления;
+declare function v8New(name:"EnumLabelPictureLocation",... params): EnumLabelPictureLocation;
+declare function v8New(name:"ПеречислениеПоложениеКартинкиНадписи",... params): ПеречислениеПоложениеКартинкиНадписи;
+declare function v8New(name:"EnumPanelPictureLocation",... params): EnumPanelPictureLocation;
+declare function v8New(name:"ПеречислениеПоложениеКартинкиПанели",... params): ПеречислениеПоложениеКартинкиПанели;
+declare function v8New(name:"EnumWindowLocationVariant",... params): EnumWindowLocationVariant;
+declare function v8New(name:"ПеречислениеВариантПоложенияОкна",... params): ПеречислениеВариантПоложенияОкна;
+declare function v8New(name:"EnumControlCollapseMode",... params): EnumControlCollapseMode;
+declare function v8New(name:"ПеречислениеРежимСверткиЭлементаУправления",... params): ПеречислениеРежимСверткиЭлементаУправления;
+declare function v8New(name:"EnumCommandBarButtonOrder",... params): EnumCommandBarButtonOrder;
+declare function v8New(name:"ПеречислениеПорядокКнопокКоманднойПанели",... params): ПеречислениеПорядокКнопокКоманднойПанели;
+declare function v8New(name:"EnumWindowAppearanceModeVariant",... params): EnumWindowAppearanceModeVariant;
+declare function v8New(name:"ПеречислениеВариантСпособаОтображенияОкна",... params): ПеречислениеВариантСпособаОтображенияОкна;
+declare function v8New(name:"EnumWindowAppearanceModeChange",... params): EnumWindowAppearanceModeChange;
+declare function v8New(name:"ПеречислениеИзменениеСпособаОтображенияОкна",... params): ПеречислениеИзменениеСпособаОтображенияОкна;
+declare function v8New(name:"EnumDragAllowedActions",... params): EnumDragAllowedActions;
+declare function v8New(name:"ПеречислениеДопустимыеДействияПеретаскивания",... params): ПеречислениеДопустимыеДействияПеретаскивания;
+declare function v8New(name:"EnumDragAction",... params): EnumDragAction;
+declare function v8New(name:"ПеречислениеДействиеПеретаскивания",... params): ПеречислениеДействиеПеретаскивания;
+declare function v8New(name:"EnumQuestionDialogMode",... params): EnumQuestionDialogMode;
+declare function v8New(name:"ПеречислениеРежимДиалогаВопрос",... params): ПеречислениеРежимДиалогаВопрос;
 declare function v8New(name:"EnumFormItemTitleLocation",... params): EnumFormItemTitleLocation;
 declare function v8New(name:"ПеречислениеПоложениеЗаголовкаЭлементаФормы",... params): ПеречислениеПоложениеЗаголовкаЭлементаФормы;
 declare function v8New(name:"EnumFormItemCommandBarLabelLocation",... params): EnumFormItemCommandBarLabelLocation;
@@ -35473,8 +35427,6 @@ declare function v8New(name:"EnumSearchInTableOnInput",... params): EnumSearchIn
 declare function v8New(name:"ПеречислениеПоискВТаблицеПриВводе",... params): ПеречислениеПоискВТаблицеПриВводе;
 declare function v8New(name:"EnumToolTipRepresentation",... params): EnumToolTipRepresentation;
 declare function v8New(name:"ПеречислениеОтображениеПодсказки",... params): ПеречислениеОтображениеПодсказки;
-declare function v8New(name:"EnumInitialListView",... params): EnumInitialListView;
-declare function v8New(name:"ПеречислениеНачальноеОтображениеСписка",... params): ПеречислениеНачальноеОтображениеСписка;
 declare function v8New(name:"EnumInitialTreeView",... params): EnumInitialTreeView;
 declare function v8New(name:"ПеречислениеНачальноеОтображениеДерева",... params): ПеречислениеНачальноеОтображениеДерева;
 declare function v8New(name:"EnumFoldersAndItems",... params): EnumFoldersAndItems;
@@ -35573,338 +35525,50 @@ declare function v8New(name:"ErrorMessagesTexts",... params): ErrorMessagesTexts
 declare function v8New(name:"ТекстыСообщенийОбОшибках",... params): ТекстыСообщенийОбОшибках;
 declare function v8New(name:"ErrorMessageTexts",... params): ErrorMessageTexts;
 declare function v8New(name:"ТекстыСообщенияОбОшибке",... params): ТекстыСообщенияОбОшибке;
-declare function v8New(name:"FormattedString",... params): FormattedString;
-declare function v8New(name:"ФорматированнаяСтрока",... params): ФорматированнаяСтрока;
-declare function v8New(name:"EnumWindowOpenVariant",... params): EnumWindowOpenVariant;
-declare function v8New(name:"ПеречислениеВариантОткрытияОкна",... params): ПеречислениеВариантОткрытияОкна;
-declare function v8New(name:"EnumClientApplicationAgentState",... params): EnumClientApplicationAgentState;
-declare function v8New(name:"ПеречислениеСостояниеАгентаКлиентскогоПриложения",... params): ПеречислениеСостояниеАгентаКлиентскогоПриложения;
-declare function v8New(name:"GlobalSearchPlan",... params): GlobalSearchPlan;
-declare function v8New(name:"ПланГлобальногоПоиска",... params): ПланГлобальногоПоиска;
-declare function v8New(name:"GlobalSearchPlanItem",... params): GlobalSearchPlanItem;
-declare function v8New(name:"ЭлементПланаГлобальногоПоиска",... params): ЭлементПланаГлобальногоПоиска;
-declare function v8New(name:"ClientApplicationWindows",... params): ClientApplicationWindows;
-declare function v8New(name:"ОкнаКлиентскогоПриложения",... params): ОкнаКлиентскогоПриложения;
-declare function v8New(name:"ClientApplicationWindow",... params): ClientApplicationWindow;
-declare function v8New(name:"ОкноКлиентскогоПриложения",... params): ОкноКлиентскогоПриложения;
-declare function v8New(name:"EnumDynamicListKeyType",... params): EnumDynamicListKeyType;
-declare function v8New(name:"ПеречислениеВидКлючаДинамическогоСписка",... params): ПеречислениеВидКлючаДинамическогоСписка;
-declare function v8New(name:"EnumCollaborationSystemNotificationRepresentation",... params): EnumCollaborationSystemNotificationRepresentation;
-declare function v8New(name:"ПеречислениеОтображениеОповещенийСистемыВзаимодействия",... params): ПеречислениеОтображениеОповещенийСистемыВзаимодействия;
-declare function v8New(name:"EnumEventLogLevel",... params): EnumEventLogLevel;
-declare function v8New(name:"ПеречислениеУровеньЖурналаРегистрации",... params): ПеречислениеУровеньЖурналаРегистрации;
-declare function v8New(name:"EnumEventLogEntryTransactionMode",... params): EnumEventLogEntryTransactionMode;
-declare function v8New(name:"ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации",... params): ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации;
-declare function v8New(name:"EnumEventLogEntryTransactionStatus",... params): EnumEventLogEntryTransactionStatus;
-declare function v8New(name:"ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации",... params): ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации;
-declare function v8New(name:"EnumAutoChangeRecord",... params): EnumAutoChangeRecord;
-declare function v8New(name:"ПеречислениеАвтоРегистрацияИзменений",... params): ПеречислениеАвтоРегистрацияИзменений;
-declare function v8New(name:"EnumAllowedMessageNo",... params): EnumAllowedMessageNo;
-declare function v8New(name:"ПеречислениеДопустимыйНомерСообщения",... params): ПеречислениеДопустимыйНомерСообщения;
-declare function v8New(name:"UUID",... params): UUID;
-declare function v8New(name:"УникальныйИдентификатор",... params): УникальныйИдентификатор;
-declare function v8New(name:"UnsafeOperationProtectionDescription",... params): UnsafeOperationProtectionDescription;
-declare function v8New(name:"ОписаниеЗащитыОтОпасныхДействий",... params): ОписаниеЗащитыОтОпасныхДействий;
-declare function v8New(name:"HTTPRequest",... params): HTTPRequest;
-declare function v8New(name:"HTTPЗапрос",... params): HTTPЗапрос;
-declare function v8New(name:"Map",... params): Map;
-declare function v8New(name:"Соответствие",... params): Соответствие;
-declare function v8New(name:"BinaryData",... params): BinaryData;
-declare function v8New(name:"ДвоичныеДанные",... params): ДвоичныеДанные;
-declare function v8New(name:"EnumDataItemSend",... params): EnumDataItemSend;
-declare function v8New(name:"ПеречислениеОтправкаЭлементаДанных",... params): ПеречислениеОтправкаЭлементаДанных;
-declare function v8New(name:"EnumDataItemReceive",... params): EnumDataItemReceive;
-declare function v8New(name:"ПеречислениеПолучениеЭлементаДанных",... params): ПеречислениеПолучениеЭлементаДанных;
-declare function v8New(name:"EnumFullTextSearchMode",... params): EnumFullTextSearchMode;
-declare function v8New(name:"ПеречислениеРежимПолнотекстовогоПоиска",... params): ПеречислениеРежимПолнотекстовогоПоиска;
-declare function v8New(name:"EnumFullTextSearchRepresentationType",... params): EnumFullTextSearchRepresentationType;
-declare function v8New(name:"ПеречислениеВидОтображенияПолнотекстовогоПоиска",... params): ПеречислениеВидОтображенияПолнотекстовогоПоиска;
-declare function v8New(name:"EnumFullTextSearchMetadataUse",... params): EnumFullTextSearchMetadataUse;
-declare function v8New(name:"ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска",... params): ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска;
-declare function v8New(name:"EnumBackgroundJobState",... params): EnumBackgroundJobState;
-declare function v8New(name:"ПеречислениеСостояниеФоновогоЗадания",... params): ПеречислениеСостояниеФоновогоЗадания;
-declare function v8New(name:"JobSchedule",... params): JobSchedule;
-declare function v8New(name:"РасписаниеРегламентногоЗадания",... params): РасписаниеРегламентногоЗадания;
-declare function v8New(name:"Structure",... params): Structure;
-declare function v8New(name:"Структура",... params): Структура;
-declare function v8New(name:"EnumAutonumerationInForm",... params): EnumAutonumerationInForm;
-declare function v8New(name:"ПеречислениеАвтонумерацияВФорме",... params): ПеречислениеАвтонумерацияВФорме;
-declare function v8New(name:"ValueList",... params): ValueList;
-declare function v8New(name:"СписокЗначений",... params): СписокЗначений;
-declare function v8New(name:"TypeDescription",... params): TypeDescription;
-declare function v8New(name:"ОписаниеТипов",... params): ОписаниеТипов;
-declare function v8New(name:"NumberQualifiers",... params): NumberQualifiers;
-declare function v8New(name:"КвалификаторыЧисла",... params): КвалификаторыЧисла;
-declare function v8New(name:"StringQualifiers",... params): StringQualifiers;
-declare function v8New(name:"КвалификаторыСтроки",... params): КвалификаторыСтроки;
-declare function v8New(name:"DateQualifiers",... params): DateQualifiers;
-declare function v8New(name:"КвалификаторыДаты",... params): КвалификаторыДаты;
-declare function v8New(name:"BinaryDataQualifiers",... params): BinaryDataQualifiers;
-declare function v8New(name:"КвалификаторыДвоичныхДанных",... params): КвалификаторыДвоичныхДанных;
-declare function v8New(name:"Picture",... params): Picture;
-declare function v8New(name:"Картинка",... params): Картинка;
-declare function v8New(name:"SettingsDescription",... params): SettingsDescription;
-declare function v8New(name:"ОписаниеНастроек",... params): ОписаниеНастроек;
-declare function v8New(name:"EnumStandardCommandsGroup",... params): EnumStandardCommandsGroup;
-declare function v8New(name:"ПеречислениеСтандартнаяГруппаКоманд",... params): ПеречислениеСтандартнаяГруппаКоманд;
-declare function v8New(name:"EnumDataBaseConfigurationUpdateExecutionInformationItemType",... params): EnumDataBaseConfigurationUpdateExecutionInformationItemType;
-declare function v8New(name:"ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных",... params): ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных;
-declare function v8New(name:"EnumDataBaseConfigurationUpdateState",... params): EnumDataBaseConfigurationUpdateState;
-declare function v8New(name:"ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных",... params): ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных;
-declare function v8New(name:"EnumConfigurationExtensionScope",... params): EnumConfigurationExtensionScope;
-declare function v8New(name:"ПеречислениеОбластьДействияРасширенияКонфигурации",... params): ПеречислениеОбластьДействияРасширенияКонфигурации;
-declare function v8New(name:"EnumConfigurationExtensionsSource",... params): EnumConfigurationExtensionsSource;
-declare function v8New(name:"ПеречислениеИсточникРасширенийКонфигурации",... params): ПеречислениеИсточникРасширенийКонфигурации;
-declare function v8New(name:"EnumConfigurationExtensionApplicationIssueSeverity",... params): EnumConfigurationExtensionApplicationIssueSeverity;
-declare function v8New(name:"ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации",... params): ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации;
-declare function v8New(name:"EnumCompositeWordsSeparationMode",... params): EnumCompositeWordsSeparationMode;
-declare function v8New(name:"ПеречислениеРежимРазделенияСоставныхСлов",... params): ПеречислениеРежимРазделенияСоставныхСлов;
-declare function v8New(name:"InfoBaseUserAuthenticationLockSettings",... params): InfoBaseUserAuthenticationLockSettings;
-declare function v8New(name:"НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы",... params): НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы;
-declare function v8New(name:"PasswordRecoverySettings",... params): PasswordRecoverySettings;
-declare function v8New(name:"НастройкиВосстановленияПароля",... params): НастройкиВосстановленияПароля;
-declare function v8New(name:"EnumInfoBaseUserPasswordRecoveryMethod",... params): EnumInfoBaseUserPasswordRecoveryMethod;
-declare function v8New(name:"ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы",... params): ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы;
-declare function v8New(name:"EnumDatabaseCopyReplicationType",... params): EnumDatabaseCopyReplicationType;
-declare function v8New(name:"ПеречислениеТипРепликацииКопииБазыДанных",... params): ПеречислениеТипРепликацииКопииБазыДанных;
-declare function v8New(name:"EnumDatabaseCopyDBMSType",... params): EnumDatabaseCopyDBMSType;
-declare function v8New(name:"ПеречислениеТипСУБДКопииБазыДанных",... params): ПеречислениеТипСУБДКопииБазыДанных;
-declare function v8New(name:"ValueTable",... params): ValueTable;
-declare function v8New(name:"ТаблицаЗначений",... params): ТаблицаЗначений;
-declare function v8New(name:"ConnectionsLock",... params): ConnectionsLock;
-declare function v8New(name:"БлокировкаУстановкиСоединений",... params): БлокировкаУстановкиСоединений;
-declare function v8New(name:"SessionsLock",... params): SessionsLock;
-declare function v8New(name:"БлокировкаСеансов",... params): БлокировкаСеансов;
-declare function v8New(name:"GeographicalSchema",... params): GeographicalSchema;
-declare function v8New(name:"ГеографическаяСхема",... params): ГеографическаяСхема;
-declare function v8New(name:"Color",... params): Color;
-declare function v8New(name:"Цвет",... params): Цвет;
-declare function v8New(name:"Font",... params): Font;
-declare function v8New(name:"Шрифт",... params): Шрифт;
-declare function v8New(name:"Border",... params): Border;
-declare function v8New(name:"Рамка",... params): Рамка;
-declare function v8New(name:"DataCompositionAppearanceTemplate",... params): DataCompositionAppearanceTemplate;
-declare function v8New(name:"МакетОформленияКомпоновкиДанных",... params): МакетОформленияКомпоновкиДанных;
-declare function v8New(name:"DataCompositionParameter",... params): DataCompositionParameter;
-declare function v8New(name:"ПараметрКомпоновкиДанных",... params): ПараметрКомпоновкиДанных;
-declare function v8New(name:"DataCompositionTypeLink",... params): DataCompositionTypeLink;
-declare function v8New(name:"СвязьПоТипуКомпоновкиДанных",... params): СвязьПоТипуКомпоновкиДанных;
-declare function v8New(name:"DataCompositionField",... params): DataCompositionField;
-declare function v8New(name:"ПолеКомпоновкиДанных",... params): ПолеКомпоновкиДанных;
-declare function v8New(name:"DataCompositionSchema",... params): DataCompositionSchema;
-declare function v8New(name:"СхемаКомпоновкиДанных",... params): СхемаКомпоновкиДанных;
-declare function v8New(name:"DataCompositionSettings",... params): DataCompositionSettings;
-declare function v8New(name:"НастройкиКомпоновкиДанных",... params): НастройкиКомпоновкиДанных;
-declare function v8New(name:"DataCompositionFilter",... params): DataCompositionFilter;
-declare function v8New(name:"ОтборКомпоновкиДанных",... params): ОтборКомпоновкиДанных;
-declare function v8New(name:"SpreadsheetDocument",... params): SpreadsheetDocument;
-declare function v8New(name:"ТабличныйДокумент",... params): ТабличныйДокумент;
-declare function v8New(name:"Line",... params): Line;
-declare function v8New(name:"Линия",... params): Линия;
-declare function v8New(name:"ReportBuilder",... params): ReportBuilder;
-declare function v8New(name:"ПостроительОтчета",... params): ПостроительОтчета;
-declare function v8New(name:"ValueTree",... params): ValueTree;
-declare function v8New(name:"ДеревоЗначений",... params): ДеревоЗначений;
-declare function v8New(name:"ConditionalAppearance",... params): ConditionalAppearance;
-declare function v8New(name:"УсловноеОформление",... params): УсловноеОформление;
-declare function v8New(name:"AppearanceArea",... params): AppearanceArea;
-declare function v8New(name:"ОбластьОформления",... params): ОбластьОформления;
-declare function v8New(name:"AppearanceSetting",... params): AppearanceSetting;
-declare function v8New(name:"НастройкаОформления",... params): НастройкаОформления;
-declare function v8New(name:"DataSourceDescription",... params): DataSourceDescription;
-declare function v8New(name:"ОписаниеИсточникаДанных",... params): ОписаниеИсточникаДанных;
-declare function v8New(name:"Query",... params): Query;
-declare function v8New(name:"Запрос",... params): Запрос;
-declare function v8New(name:"TempTablesManager",... params): TempTablesManager;
-declare function v8New(name:"МенеджерВременныхТаблиц",... params): МенеджерВременныхТаблиц;
-declare function v8New(name:"TextDocument",... params): TextDocument;
-declare function v8New(name:"ТекстовыйДокумент",... params): ТекстовыйДокумент;
-declare function v8New(name:"ConnectionStopRequest",... params): ConnectionStopRequest;
-declare function v8New(name:"НеобходимостьЗавершенияСоединения",... params): НеобходимостьЗавершенияСоединения;
-declare function v8New(name:"EventLogEventUse",... params): EventLogEventUse;
-declare function v8New(name:"ИспользованиеСобытияЖурналаРегистрации",... params): ИспользованиеСобытияЖурналаРегистрации;
-declare function v8New(name:"EnumWorkingDateMode",... params): EnumWorkingDateMode;
-declare function v8New(name:"ПеречислениеРежимРабочейДаты",... params): ПеречислениеРежимРабочейДаты;
-declare function v8New(name:"EnumIntervalBoundVariant",... params): EnumIntervalBoundVariant;
-declare function v8New(name:"ПеречислениеВариантГраницыИнтервала",... params): ПеречислениеВариантГраницыИнтервала;
-declare function v8New(name:"EnumPeriodVariant",... params): EnumPeriodVariant;
-declare function v8New(name:"ПеречислениеВариантПериода",... params): ПеречислениеВариантПериода;
-declare function v8New(name:"EnumPeriodSettingsVariant",... params): EnumPeriodSettingsVariant;
-declare function v8New(name:"ПеречислениеВариантНастройкиПериода",... params): ПеречислениеВариантНастройкиПериода;
-declare function v8New(name:"EnumNewRowShowCheckVariant",... params): EnumNewRowShowCheckVariant;
-declare function v8New(name:"ПеречислениеВариантПроверкиОтображенияНовойСтроки",... params): ПеречислениеВариантПроверкиОтображенияНовойСтроки;
-declare function v8New(name:"Shortcut",... params): Shortcut;
-declare function v8New(name:"СочетаниеКлавиш",... params): СочетаниеКлавиш;
-declare function v8New(name:"NotifyDescription",... params): NotifyDescription;
-declare function v8New(name:"ОписаниеОповещения",... params): ОписаниеОповещения;
-declare function v8New(name:"EnumButtonPictureLocation",... params): EnumButtonPictureLocation;
-declare function v8New(name:"ПеречислениеПоложениеКартинкиКнопки",... params): ПеречислениеПоложениеКартинкиКнопки;
-declare function v8New(name:"EnumTitleLocation",... params): EnumTitleLocation;
-declare function v8New(name:"ПеречислениеПоложениеЗаголовка",... params): ПеречислениеПоложениеЗаголовка;
-declare function v8New(name:"EnumKey",... params): EnumKey;
-declare function v8New(name:"ПеречислениеКлавиша",... params): ПеречислениеКлавиша;
-declare function v8New(name:"EnumDialogReturnCode",... params): EnumDialogReturnCode;
-declare function v8New(name:"ПеречислениеКодВозвратаДиалога",... params): ПеречислениеКодВозвратаДиалога;
-declare function v8New(name:"EnumCommandBarButtonType",... params): EnumCommandBarButtonType;
-declare function v8New(name:"ПеречислениеТипКнопкиКоманднойПанели",... params): ПеречислениеТипКнопкиКоманднойПанели;
-declare function v8New(name:"EnumWindowStateVariant",... params): EnumWindowStateVariant;
-declare function v8New(name:"ПеречислениеВариантСостоянияОкна",... params): ПеречислениеВариантСостоянияОкна;
-declare function v8New(name:"EnumWindowDockVariant",... params): EnumWindowDockVariant;
-declare function v8New(name:"ПеречислениеВариантПрикрепленияОкна",... params): ПеречислениеВариантПрикрепленияОкна;
-declare function v8New(name:"EnumWindowSizeChange",... params): EnumWindowSizeChange;
-declare function v8New(name:"ПеречислениеИзменениеРазмераОкна",... params): ПеречислениеИзменениеРазмераОкна;
-declare function v8New(name:"EnumScrollingTextMode",... params): EnumScrollingTextMode;
-declare function v8New(name:"ПеречислениеРежимБегущейСтроки",... params): ПеречислениеРежимБегущейСтроки;
-declare function v8New(name:"EnumListEditMode",... params): EnumListEditMode;
-declare function v8New(name:"ПеречислениеСпособРедактированияСписка",... params): ПеречислениеСпособРедактированияСписка;
-declare function v8New(name:"EnumControlEdge",... params): EnumControlEdge;
-declare function v8New(name:"ПеречислениеГраницаЭлементаУправления",... params): ПеречислениеГраницаЭлементаУправления;
-declare function v8New(name:"EnumLabelPictureLocation",... params): EnumLabelPictureLocation;
-declare function v8New(name:"ПеречислениеПоложениеКартинкиНадписи",... params): ПеречислениеПоложениеКартинкиНадписи;
-declare function v8New(name:"EnumPanelPictureLocation",... params): EnumPanelPictureLocation;
-declare function v8New(name:"ПеречислениеПоложениеКартинкиПанели",... params): ПеречислениеПоложениеКартинкиПанели;
-declare function v8New(name:"EnumWindowLocationVariant",... params): EnumWindowLocationVariant;
-declare function v8New(name:"ПеречислениеВариантПоложенияОкна",... params): ПеречислениеВариантПоложенияОкна;
-declare function v8New(name:"EnumControlCollapseMode",... params): EnumControlCollapseMode;
-declare function v8New(name:"ПеречислениеРежимСверткиЭлементаУправления",... params): ПеречислениеРежимСверткиЭлементаУправления;
-declare function v8New(name:"EnumCommandBarButtonOrder",... params): EnumCommandBarButtonOrder;
-declare function v8New(name:"ПеречислениеПорядокКнопокКоманднойПанели",... params): ПеречислениеПорядокКнопокКоманднойПанели;
-declare function v8New(name:"EnumWindowAppearanceModeVariant",... params): EnumWindowAppearanceModeVariant;
-declare function v8New(name:"ПеречислениеВариантСпособаОтображенияОкна",... params): ПеречислениеВариантСпособаОтображенияОкна;
-declare function v8New(name:"EnumWindowAppearanceModeChange",... params): EnumWindowAppearanceModeChange;
-declare function v8New(name:"ПеречислениеИзменениеСпособаОтображенияОкна",... params): ПеречислениеИзменениеСпособаОтображенияОкна;
-declare function v8New(name:"EnumDragAllowedActions",... params): EnumDragAllowedActions;
-declare function v8New(name:"ПеречислениеДопустимыеДействияПеретаскивания",... params): ПеречислениеДопустимыеДействияПеретаскивания;
-declare function v8New(name:"EnumDragAction",... params): EnumDragAction;
-declare function v8New(name:"ПеречислениеДействиеПеретаскивания",... params): ПеречислениеДействиеПеретаскивания;
-declare function v8New(name:"EnumQuestionDialogMode",... params): EnumQuestionDialogMode;
-declare function v8New(name:"ПеречислениеРежимДиалогаВопрос",... params): ПеречислениеРежимДиалогаВопрос;
-declare function v8New(name:"EnumXMLNodeType",... params): EnumXMLNodeType;
-declare function v8New(name:"ПеречислениеТипУзлаXML",... params): ПеречислениеТипУзлаXML;
-declare function v8New(name:"EnumXMLTypeAssignment",... params): EnumXMLTypeAssignment;
-declare function v8New(name:"ПеречислениеНазначениеТипаXML",... params): ПеречислениеНазначениеТипаXML;
-declare function v8New(name:"EnumXMLAttributeType",... params): EnumXMLAttributeType;
-declare function v8New(name:"ПеречислениеТипАтрибутаXML",... params): ПеречислениеТипАтрибутаXML;
-declare function v8New(name:"EnumXMLSpace",... params): EnumXMLSpace;
-declare function v8New(name:"ПеречислениеПробельныеСимволыXML",... params): ПеречислениеПробельныеСимволыXML;
-declare function v8New(name:"EnumXMLValidationType",... params): EnumXMLValidationType;
-declare function v8New(name:"ПеречислениеТипПроверкиXML",... params): ПеречислениеТипПроверкиXML;
-declare function v8New(name:"EnumDOMNodeType",... params): EnumDOMNodeType;
-declare function v8New(name:"ПеречислениеТипУзлаDOM",... params): ПеречислениеТипУзлаDOM;
-declare function v8New(name:"EnumDOMDocumentPosition",... params): EnumDOMDocumentPosition;
-declare function v8New(name:"ПеречислениеПозицияВДокументеDOM",... params): ПеречислениеПозицияВДокументеDOM;
-declare function v8New(name:"EnumDOMBuilderAction",... params): EnumDOMBuilderAction;
-declare function v8New(name:"ПеречислениеДействиеПостроителяDOM",... params): ПеречислениеДействиеПостроителяDOM;
-declare function v8New(name:"EnumDOMNodeFilterParameters",... params): EnumDOMNodeFilterParameters;
-declare function v8New(name:"ПеречислениеПараметрыОтбораУзловDOM",... params): ПеречислениеПараметрыОтбораУзловDOM;
-declare function v8New(name:"EnumXSComponentType",... params): EnumXSComponentType;
-declare function v8New(name:"ПеречислениеТипКомпонентыXS",... params): ПеречислениеТипКомпонентыXS;
-declare function v8New(name:"EnumXSAttributeUseCategory",... params): EnumXSAttributeUseCategory;
-declare function v8New(name:"ПеречислениеКатегорияИспользованияАтрибутаXS",... params): ПеречислениеКатегорияИспользованияАтрибутаXS;
-declare function v8New(name:"EnumXSForm",... params): EnumXSForm;
-declare function v8New(name:"ПеречислениеФормаПредставленияXS",... params): ПеречислениеФормаПредставленияXS;
-declare function v8New(name:"EnumXSConstraint",... params): EnumXSConstraint;
-declare function v8New(name:"ПеречислениеОграничениеЗначенияXS",... params): ПеречислениеОграничениеЗначенияXS;
-declare function v8New(name:"EnumXSDisallowedSubstitutions",... params): EnumXSDisallowedSubstitutions;
-declare function v8New(name:"ПеречислениеНедопустимыеПодстановкиXS",... params): ПеречислениеНедопустимыеПодстановкиXS;
-declare function v8New(name:"EnumXSSubstitutionGroupExclusions",... params): EnumXSSubstitutionGroupExclusions;
-declare function v8New(name:"ПеречислениеИсключенияГруппПодстановкиXS",... params): ПеречислениеИсключенияГруппПодстановкиXS;
-declare function v8New(name:"EnumXSIdentityConstraintCategory",... params): EnumXSIdentityConstraintCategory;
-declare function v8New(name:"ПеречислениеКатегорияОграниченияИдентичностиXS",... params): ПеречислениеКатегорияОграниченияИдентичностиXS;
-declare function v8New(name:"EnumXSXPathVariety",... params): EnumXSXPathVariety;
-declare function v8New(name:"ПеречислениеВариантXPathXS",... params): ПеречислениеВариантXPathXS;
-declare function v8New(name:"EnumXSSimpleFinal",... params): EnumXSSimpleFinal;
-declare function v8New(name:"ПеречислениеЗавершенностьПростогоТипаXS",... params): ПеречислениеЗавершенностьПростогоТипаXS;
-declare function v8New(name:"EnumXSComplexFinal",... params): EnumXSComplexFinal;
-declare function v8New(name:"ПеречислениеЗавершенностьСоставногоТипаXS",... params): ПеречислениеЗавершенностьСоставногоТипаXS;
-declare function v8New(name:"EnumXSSchemaFinal",... params): EnumXSSchemaFinal;
-declare function v8New(name:"ПеречислениеЗавершенностьСхемыXS",... params): ПеречислениеЗавершенностьСхемыXS;
-declare function v8New(name:"EnumXSSimpleTypeVariety",... params): EnumXSSimpleTypeVariety;
-declare function v8New(name:"ПеречислениеВариантПростогоТипаXS",... params): ПеречислениеВариантПростогоТипаXS;
-declare function v8New(name:"EnumXSWhitespaceHandling",... params): EnumXSWhitespaceHandling;
-declare function v8New(name:"ПеречислениеОбработкаПробельныхСимволовXS",... params): ПеречислениеОбработкаПробельныхСимволовXS;
-declare function v8New(name:"EnumXSProcessContents",... params): EnumXSProcessContents;
-declare function v8New(name:"ПеречислениеОбработкаСодержимогоXS",... params): ПеречислениеОбработкаСодержимогоXS;
-declare function v8New(name:"EnumXSNamespaceConstraintCategory",... params): EnumXSNamespaceConstraintCategory;
-declare function v8New(name:"ПеречислениеКатегорияОграниченияПространствИменXS",... params): ПеречислениеКатегорияОграниченияПространствИменXS;
-declare function v8New(name:"EnumXSCompositor",... params): EnumXSCompositor;
-declare function v8New(name:"ПеречислениеВидГруппыМоделиXS",... params): ПеречислениеВидГруппыМоделиXS;
-declare function v8New(name:"EnumXSDerivationMethod",... params): EnumXSDerivationMethod;
-declare function v8New(name:"ПеречислениеМетодНаследованияXS",... params): ПеречислениеМетодНаследованияXS;
-declare function v8New(name:"EnumXSProhibitedSubstitutions",... params): EnumXSProhibitedSubstitutions;
-declare function v8New(name:"ПеречислениеЗапрещенныеПодстановкиXS",... params): ПеречислениеЗапрещенныеПодстановкиXS;
-declare function v8New(name:"EnumXSContentModel",... params): EnumXSContentModel;
-declare function v8New(name:"ПеречислениеМодельСодержимогоXS",... params): ПеречислениеМодельСодержимогоXS;
-declare function v8New(name:"EnumXMLCanonicalizationType",... params): EnumXMLCanonicalizationType;
-declare function v8New(name:"ПеречислениеТипКаноническогоXML",... params): ПеречислениеТипКаноническогоXML;
-declare function v8New(name:"EnumDOMXPathResultType",... params): EnumDOMXPathResultType;
-declare function v8New(name:"ПеречислениеТипРезультатаDOMXPath",... params): ПеречислениеТипРезультатаDOMXPath;
-declare function v8New(name:"EnumHTMLContentCategory",... params): EnumHTMLContentCategory;
-declare function v8New(name:"ПеречислениеКатегорияСодержимогоHTML",... params): ПеречислениеКатегорияСодержимогоHTML;
-declare function v8New(name:"XMLDataType",... params): XMLDataType;
-declare function v8New(name:"ТипДанныхXML",... params): ТипДанныхXML;
-declare function v8New(name:"EnumXMLForm",... params): EnumXMLForm;
-declare function v8New(name:"ПеречислениеФормаXML",... params): ПеречислениеФормаXML;
-declare function v8New(name:"EnumXDTOFacetType",... params): EnumXDTOFacetType;
-declare function v8New(name:"ПеречислениеВидФасетаXDTO",... params): ПеречислениеВидФасетаXDTO;
-declare function v8New(name:"XDTOFactory",... params): XDTOFactory;
-declare function v8New(name:"ФабрикаXDTO",... params): ФабрикаXDTO;
-declare function v8New(name:"XMLSchemaSet",... params): XMLSchemaSet;
-declare function v8New(name:"НаборСхемXML",... params): НаборСхемXML;
-declare function v8New(name:"XMLSchema",... params): XMLSchema;
-declare function v8New(name:"СхемаXML",... params): СхемаXML;
-declare function v8New(name:"DOMDocumentType",... params): DOMDocumentType;
-declare function v8New(name:"ОпределениеТипаДокументаDOM",... params): ОпределениеТипаДокументаDOM;
-declare function v8New(name:"DOMDocument",... params): DOMDocument;
-declare function v8New(name:"ДокументDOM",... params): ДокументDOM;
-declare function v8New(name:"DOMDocumentConfiguration",... params): DOMDocumentConfiguration;
-declare function v8New(name:"КонфигурацияДокументаDOM",... params): КонфигурацияДокументаDOM;
-declare function v8New(name:"DOMNodeIterator",... params): DOMNodeIterator;
-declare function v8New(name:"ИтераторУзловDOM",... params): ИтераторУзловDOM;
-declare function v8New(name:"DOMNodeFilter",... params): DOMNodeFilter;
-declare function v8New(name:"ФильтрУзловDOM",... params): ФильтрУзловDOM;
-declare function v8New(name:"DOMTreeWalker",... params): DOMTreeWalker;
-declare function v8New(name:"ОбходДереваDOM",... params): ОбходДереваDOM;
-declare function v8New(name:"DOMNamespaceResolver",... params): DOMNamespaceResolver;
-declare function v8New(name:"РазыменовательПространствИменDOM",... params): РазыменовательПространствИменDOM;
-declare function v8New(name:"XSSchemaFinalUnion",... params): XSSchemaFinalUnion;
-declare function v8New(name:"ОбъединениеЗавершенностиСхемыXS",... params): ОбъединениеЗавершенностиСхемыXS;
-declare function v8New(name:"XSProhibitedSubstitutionsUnion",... params): XSProhibitedSubstitutionsUnion;
-declare function v8New(name:"ОбъединениеЗапрещенныхПодстановокXS",... params): ОбъединениеЗапрещенныхПодстановокXS;
-declare function v8New(name:"XSSimpleTypeDefinition",... params): XSSimpleTypeDefinition;
-declare function v8New(name:"ОпределениеПростогоТипаXS",... params): ОпределениеПростогоТипаXS;
-declare function v8New(name:"XSAnnotation",... params): XSAnnotation;
-declare function v8New(name:"АннотацияXS",... params): АннотацияXS;
-declare function v8New(name:"XMLExpandedName",... params): XMLExpandedName;
-declare function v8New(name:"РасширенноеИмяXML",... params): РасширенноеИмяXML;
-declare function v8New(name:"XSSimpleFinalUnion",... params): XSSimpleFinalUnion;
-declare function v8New(name:"ОбъединениеЗавершенностиПростогоТипаXS",... params): ОбъединениеЗавершенностиПростогоТипаXS;
-declare function v8New(name:"XSComplexTypeDefinition",... params): XSComplexTypeDefinition;
-declare function v8New(name:"ОпределениеСоставногоТипаXS",... params): ОпределениеСоставногоТипаXS;
-declare function v8New(name:"XSComplexFinalUnion",... params): XSComplexFinalUnion;
-declare function v8New(name:"ОбъединениеЗавершенностиСоставногоТипаXS",... params): ОбъединениеЗавершенностиСоставногоТипаXS;
-declare function v8New(name:"XSWildcard",... params): XSWildcard;
-declare function v8New(name:"МаскаXS",... params): МаскаXS;
-declare function v8New(name:"XSElementDeclaration",... params): XSElementDeclaration;
-declare function v8New(name:"ОбъявлениеЭлементаXS",... params): ОбъявлениеЭлементаXS;
-declare function v8New(name:"XSDisallowedSubstitutionsUnion",... params): XSDisallowedSubstitutionsUnion;
-declare function v8New(name:"ОбъединениеНедопустимыхПодстановкиXS",... params): ОбъединениеНедопустимыхПодстановкиXS;
-declare function v8New(name:"XSSubstitutionGroupExclusionsUnion",... params): XSSubstitutionGroupExclusionsUnion;
-declare function v8New(name:"ОбъединениеИсключенийГруппПодстановкиXS",... params): ОбъединениеИсключенийГруппПодстановкиXS;
-declare function v8New(name:"XSAttributeDeclaration",... params): XSAttributeDeclaration;
-declare function v8New(name:"ОбъявлениеАтрибутаXS",... params): ОбъявлениеАтрибутаXS;
-declare function v8New(name:"XSAttributeGroupDefinition",... params): XSAttributeGroupDefinition;
-declare function v8New(name:"ОпределениеГруппыАтрибутовXS",... params): ОпределениеГруппыАтрибутовXS;
-declare function v8New(name:"XSModelGroupDefinition",... params): XSModelGroupDefinition;
-declare function v8New(name:"ОпределениеГруппыМоделиXS",... params): ОпределениеГруппыМоделиXS;
-declare function v8New(name:"XSModelGroup",... params): XSModelGroup;
-declare function v8New(name:"ГруппаМоделиXS",... params): ГруппаМоделиXS;
-declare function v8New(name:"XDTOSerializer",... params): XDTOSerializer;
-declare function v8New(name:"СериализаторXDTO",... params): СериализаторXDTO;
-declare function v8New(name:"EnumFileCompareMethod",... params): EnumFileCompareMethod;
-declare function v8New(name:"ПеречислениеСпособСравненияФайлов",... params): ПеречислениеСпособСравненияФайлов;
-declare function v8New(name:"EnumFileDialogMode",... params): EnumFileDialogMode;
-declare function v8New(name:"ПеречислениеРежимДиалогаВыбораФайла",... params): ПеречислениеРежимДиалогаВыбораФайла;
+declare function v8New(name:"EnumXBaseEncoding",... params): EnumXBaseEncoding;
+declare function v8New(name:"ПеречислениеКодировкаXBase",... params): ПеречислениеКодировкаXBase;
+declare function v8New(name:"EnumInternetMailTextType",... params): EnumInternetMailTextType;
+declare function v8New(name:"ПеречислениеТипТекстаПочтовогоСообщения",... params): ПеречислениеТипТекстаПочтовогоСообщения;
+declare function v8New(name:"EnumInternetMailTextProcessing",... params): EnumInternetMailTextProcessing;
+declare function v8New(name:"ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения",... params): ПеречислениеОбработкаТекстаИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumInternetMailMessageImportance",... params): EnumInternetMailMessageImportance;
+declare function v8New(name:"ПеречислениеВажностьИнтернетПочтовогоСообщения",... params): ПеречислениеВажностьИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumInternetMailAttachmentEncodingMode",... params): EnumInternetMailAttachmentEncodingMode;
+declare function v8New(name:"ПеречислениеСпособКодированияИнтернетПочтовогоВложения",... params): ПеречислениеСпособКодированияИнтернетПочтовогоВложения;
+declare function v8New(name:"EnumInternetMailMessageNonASCIISymbolsEncodingMode",... params): EnumInternetMailMessageNonASCIISymbolsEncodingMode;
+declare function v8New(name:"ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения",... params): ПеречислениеСпособКодированияНеASCIIСимволовИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumSMTPAuthenticationMode",... params): EnumSMTPAuthenticationMode;
+declare function v8New(name:"ПеречислениеСпособSMTPАутентификации",... params): ПеречислениеСпособSMTPАутентификации;
+declare function v8New(name:"EnumPOP3AuthenticationMode",... params): EnumPOP3AuthenticationMode;
+declare function v8New(name:"ПеречислениеСпособPOP3Аутентификации",... params): ПеречислениеСпособPOP3Аутентификации;
+declare function v8New(name:"EnumInternetMailProtocol",... params): EnumInternetMailProtocol;
+declare function v8New(name:"ПеречислениеПротоколИнтернетПочты",... params): ПеречислениеПротоколИнтернетПочты;
+declare function v8New(name:"EnumZIPCompressionMethod",... params): EnumZIPCompressionMethod;
+declare function v8New(name:"ПеречислениеМетодСжатияZIP",... params): ПеречислениеМетодСжатияZIP;
+declare function v8New(name:"EnumZIPCompressionLevel",... params): EnumZIPCompressionLevel;
+declare function v8New(name:"ПеречислениеУровеньСжатияZIP",... params): ПеречислениеУровеньСжатияZIP;
+declare function v8New(name:"EnumZIPEncryptionMethod",... params): EnumZIPEncryptionMethod;
+declare function v8New(name:"ПеречислениеМетодШифрованияZIP",... params): ПеречислениеМетодШифрованияZIP;
+declare function v8New(name:"EnumZIPStorePathMode",... params): EnumZIPStorePathMode;
+declare function v8New(name:"ПеречислениеРежимСохраненияПутейZIP",... params): ПеречислениеРежимСохраненияПутейZIP;
+declare function v8New(name:"EnumZIPSubDirProcessingMode",... params): EnumZIPSubDirProcessingMode;
+declare function v8New(name:"ПеречислениеРежимОбработкиПодкаталоговZIP",... params): ПеречислениеРежимОбработкиПодкаталоговZIP;
+declare function v8New(name:"EnumZIPRestoreFilePathsMode",... params): EnumZIPRestoreFilePathsMode;
+declare function v8New(name:"ПеречислениеРежимВосстановленияПутейФайловZIP",... params): ПеречислениеРежимВосстановленияПутейФайловZIP;
+declare function v8New(name:"EnumInternetMailMessageParseStatus",... params): EnumInternetMailMessageParseStatus;
+declare function v8New(name:"ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения",... params): ПеречислениеСтатусРазбораИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumDeliverableNotificationSubscriberType",... params): EnumDeliverableNotificationSubscriberType;
+declare function v8New(name:"ПеречислениеТипПодписчикаДоставляемыхУведомлений",... params): ПеречислениеТипПодписчикаДоставляемыхУведомлений;
+declare function v8New(name:"EnumSoundAlert",... params): EnumSoundAlert;
+declare function v8New(name:"ПеречислениеЗвуковоеОповещение",... params): ПеречислениеЗвуковоеОповещение;
+declare function v8New(name:"EnumInAppPurchaseService",... params): EnumInAppPurchaseService;
+declare function v8New(name:"ПеречислениеСервисВстроенныхПокупок",... params): ПеречислениеСервисВстроенныхПокупок;
+declare function v8New(name:"EnumFileNamesEncodingInZipFile",... params): EnumFileNamesEncodingInZipFile;
+declare function v8New(name:"ПеречислениеКодировкаИменФайловВZipФайле",... params): ПеречислениеКодировкаИменФайловВZipФайле;
+declare function v8New(name:"EnumDeliverableNotificationSendErrorType",... params): EnumDeliverableNotificationSendErrorType;
+declare function v8New(name:"ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления",... params): ПеречислениеТипОшибкиОтправкиДоставляемогоУведомления;
+declare function v8New(name:"EnumUseInternetMailTokenAuthentication",... params): EnumUseInternetMailTokenAuthentication;
+declare function v8New(name:"ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену",... params): ПеречислениеИспользованиеАутентификацииИнтернетПочтыПоТокену;
 declare function v8New(name:"EnumVerticalAlign",... params): EnumVerticalAlign;
 declare function v8New(name:"ПеречислениеВертикальноеПоложение",... params): ПеречислениеВертикальноеПоложение;
 declare function v8New(name:"EnumHorizontalAlign",... params): EnumHorizontalAlign;
@@ -35969,6 +35633,218 @@ declare function v8New(name:"EnumTextDirection",... params): EnumTextDirection;
 declare function v8New(name:"ПеречислениеНаправлениеТекста",... params): ПеречислениеНаправлениеТекста;
 declare function v8New(name:"EnumSearchDirection",... params): EnumSearchDirection;
 declare function v8New(name:"ПеречислениеНаправлениеПоиска",... params): ПеречислениеНаправлениеПоиска;
+declare function v8New(name:"EnumDynamicListKeyType",... params): EnumDynamicListKeyType;
+declare function v8New(name:"ПеречислениеВидКлючаДинамическогоСписка",... params): ПеречислениеВидКлючаДинамическогоСписка;
+declare function v8New(name:"EnumCollaborationSystemNotificationRepresentation",... params): EnumCollaborationSystemNotificationRepresentation;
+declare function v8New(name:"ПеречислениеОтображениеОповещенийСистемыВзаимодействия",... params): ПеречислениеОтображениеОповещенийСистемыВзаимодействия;
+declare function v8New(name:"EnumWindowOpenVariant",... params): EnumWindowOpenVariant;
+declare function v8New(name:"ПеречислениеВариантОткрытияОкна",... params): ПеречислениеВариантОткрытияОкна;
+declare function v8New(name:"EnumClientApplicationAgentState",... params): EnumClientApplicationAgentState;
+declare function v8New(name:"ПеречислениеСостояниеАгентаКлиентскогоПриложения",... params): ПеречислениеСостояниеАгентаКлиентскогоПриложения;
+declare function v8New(name:"GlobalSearchPlan",... params): GlobalSearchPlan;
+declare function v8New(name:"ПланГлобальногоПоиска",... params): ПланГлобальногоПоиска;
+declare function v8New(name:"GlobalSearchPlanItem",... params): GlobalSearchPlanItem;
+declare function v8New(name:"ЭлементПланаГлобальногоПоиска",... params): ЭлементПланаГлобальногоПоиска;
+declare function v8New(name:"ClientApplicationWindows",... params): ClientApplicationWindows;
+declare function v8New(name:"ОкнаКлиентскогоПриложения",... params): ОкнаКлиентскогоПриложения;
+declare function v8New(name:"ClientApplicationWindow",... params): ClientApplicationWindow;
+declare function v8New(name:"ОкноКлиентскогоПриложения",... params): ОкноКлиентскогоПриложения;
+declare function v8New(name:"EnumFileDialogMode",... params): EnumFileDialogMode;
+declare function v8New(name:"ПеречислениеРежимДиалогаВыбораФайла",... params): ПеречислениеРежимДиалогаВыбораФайла;
+declare function v8New(name:"EnumXMLNodeType",... params): EnumXMLNodeType;
+declare function v8New(name:"ПеречислениеТипУзлаXML",... params): ПеречислениеТипУзлаXML;
+declare function v8New(name:"EnumXMLTypeAssignment",... params): EnumXMLTypeAssignment;
+declare function v8New(name:"ПеречислениеНазначениеТипаXML",... params): ПеречислениеНазначениеТипаXML;
+declare function v8New(name:"EnumXMLAttributeType",... params): EnumXMLAttributeType;
+declare function v8New(name:"ПеречислениеТипАтрибутаXML",... params): ПеречислениеТипАтрибутаXML;
+declare function v8New(name:"EnumXMLSpace",... params): EnumXMLSpace;
+declare function v8New(name:"ПеречислениеПробельныеСимволыXML",... params): ПеречислениеПробельныеСимволыXML;
+declare function v8New(name:"EnumXMLValidationType",... params): EnumXMLValidationType;
+declare function v8New(name:"ПеречислениеТипПроверкиXML",... params): ПеречислениеТипПроверкиXML;
+declare function v8New(name:"EnumDOMNodeType",... params): EnumDOMNodeType;
+declare function v8New(name:"ПеречислениеТипУзлаDOM",... params): ПеречислениеТипУзлаDOM;
+declare function v8New(name:"EnumDOMDocumentPosition",... params): EnumDOMDocumentPosition;
+declare function v8New(name:"ПеречислениеПозицияВДокументеDOM",... params): ПеречислениеПозицияВДокументеDOM;
+declare function v8New(name:"EnumDOMBuilderAction",... params): EnumDOMBuilderAction;
+declare function v8New(name:"ПеречислениеДействиеПостроителяDOM",... params): ПеречислениеДействиеПостроителяDOM;
+declare function v8New(name:"EnumDOMNodeFilterParameters",... params): EnumDOMNodeFilterParameters;
+declare function v8New(name:"ПеречислениеПараметрыОтбораУзловDOM",... params): ПеречислениеПараметрыОтбораУзловDOM;
+declare function v8New(name:"EnumXSComponentType",... params): EnumXSComponentType;
+declare function v8New(name:"ПеречислениеТипКомпонентыXS",... params): ПеречислениеТипКомпонентыXS;
+declare function v8New(name:"EnumXSAttributeUseCategory",... params): EnumXSAttributeUseCategory;
+declare function v8New(name:"ПеречислениеКатегорияИспользованияАтрибутаXS",... params): ПеречислениеКатегорияИспользованияАтрибутаXS;
+declare function v8New(name:"EnumXSForm",... params): EnumXSForm;
+declare function v8New(name:"ПеречислениеФормаПредставленияXS",... params): ПеречислениеФормаПредставленияXS;
+declare function v8New(name:"EnumXSConstraint",... params): EnumXSConstraint;
+declare function v8New(name:"ПеречислениеОграничениеЗначенияXS",... params): ПеречислениеОграничениеЗначенияXS;
+declare function v8New(name:"EnumXSDisallowedSubstitutions",... params): EnumXSDisallowedSubstitutions;
+declare function v8New(name:"ПеречислениеНедопустимыеПодстановкиXS",... params): ПеречислениеНедопустимыеПодстановкиXS;
+declare function v8New(name:"EnumXSSubstitutionGroupExclusions",... params): EnumXSSubstitutionGroupExclusions;
+declare function v8New(name:"ПеречислениеИсключенияГруппПодстановкиXS",... params): ПеречислениеИсключенияГруппПодстановкиXS;
+declare function v8New(name:"EnumXSIdentityConstraintCategory",... params): EnumXSIdentityConstraintCategory;
+declare function v8New(name:"ПеречислениеКатегорияОграниченияИдентичностиXS",... params): ПеречислениеКатегорияОграниченияИдентичностиXS;
+declare function v8New(name:"EnumXSXPathVariety",... params): EnumXSXPathVariety;
+declare function v8New(name:"ПеречислениеВариантXPathXS",... params): ПеречислениеВариантXPathXS;
+declare function v8New(name:"EnumXSSimpleFinal",... params): EnumXSSimpleFinal;
+declare function v8New(name:"ПеречислениеЗавершенностьПростогоТипаXS",... params): ПеречислениеЗавершенностьПростогоТипаXS;
+declare function v8New(name:"EnumXSComplexFinal",... params): EnumXSComplexFinal;
+declare function v8New(name:"ПеречислениеЗавершенностьСоставногоТипаXS",... params): ПеречислениеЗавершенностьСоставногоТипаXS;
+declare function v8New(name:"EnumXSSchemaFinal",... params): EnumXSSchemaFinal;
+declare function v8New(name:"ПеречислениеЗавершенностьСхемыXS",... params): ПеречислениеЗавершенностьСхемыXS;
+declare function v8New(name:"EnumXSSimpleTypeVariety",... params): EnumXSSimpleTypeVariety;
+declare function v8New(name:"ПеречислениеВариантПростогоТипаXS",... params): ПеречислениеВариантПростогоТипаXS;
+declare function v8New(name:"EnumXSWhitespaceHandling",... params): EnumXSWhitespaceHandling;
+declare function v8New(name:"ПеречислениеОбработкаПробельныхСимволовXS",... params): ПеречислениеОбработкаПробельныхСимволовXS;
+declare function v8New(name:"EnumXSProcessContents",... params): EnumXSProcessContents;
+declare function v8New(name:"ПеречислениеОбработкаСодержимогоXS",... params): ПеречислениеОбработкаСодержимогоXS;
+declare function v8New(name:"EnumXSNamespaceConstraintCategory",... params): EnumXSNamespaceConstraintCategory;
+declare function v8New(name:"ПеречислениеКатегорияОграниченияПространствИменXS",... params): ПеречислениеКатегорияОграниченияПространствИменXS;
+declare function v8New(name:"EnumXSCompositor",... params): EnumXSCompositor;
+declare function v8New(name:"ПеречислениеВидГруппыМоделиXS",... params): ПеречислениеВидГруппыМоделиXS;
+declare function v8New(name:"EnumXSDerivationMethod",... params): EnumXSDerivationMethod;
+declare function v8New(name:"ПеречислениеМетодНаследованияXS",... params): ПеречислениеМетодНаследованияXS;
+declare function v8New(name:"EnumXSProhibitedSubstitutions",... params): EnumXSProhibitedSubstitutions;
+declare function v8New(name:"ПеречислениеЗапрещенныеПодстановкиXS",... params): ПеречислениеЗапрещенныеПодстановкиXS;
+declare function v8New(name:"EnumXSContentModel",... params): EnumXSContentModel;
+declare function v8New(name:"ПеречислениеМодельСодержимогоXS",... params): ПеречислениеМодельСодержимогоXS;
+declare function v8New(name:"EnumXMLCanonicalizationType",... params): EnumXMLCanonicalizationType;
+declare function v8New(name:"ПеречислениеТипКаноническогоXML",... params): ПеречислениеТипКаноническогоXML;
+declare function v8New(name:"EnumDOMXPathResultType",... params): EnumDOMXPathResultType;
+declare function v8New(name:"ПеречислениеТипРезультатаDOMXPath",... params): ПеречислениеТипРезультатаDOMXPath;
+declare function v8New(name:"EnumHTMLContentCategory",... params): EnumHTMLContentCategory;
+declare function v8New(name:"ПеречислениеКатегорияСодержимогоHTML",... params): ПеречислениеКатегорияСодержимогоHTML;
+declare function v8New(name:"XMLDataType",... params): XMLDataType;
+declare function v8New(name:"ТипДанныхXML",... params): ТипДанныхXML;
+declare function v8New(name:"EnumFileCompareMethod",... params): EnumFileCompareMethod;
+declare function v8New(name:"ПеречислениеСпособСравненияФайлов",... params): ПеречислениеСпособСравненияФайлов;
+declare function v8New(name:"EnumEventLogLevel",... params): EnumEventLogLevel;
+declare function v8New(name:"ПеречислениеУровеньЖурналаРегистрации",... params): ПеречислениеУровеньЖурналаРегистрации;
+declare function v8New(name:"EnumEventLogEntryTransactionMode",... params): EnumEventLogEntryTransactionMode;
+declare function v8New(name:"ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации",... params): ПеречислениеРежимТранзакцииЗаписиЖурналаРегистрации;
+declare function v8New(name:"EnumEventLogEntryTransactionStatus",... params): EnumEventLogEntryTransactionStatus;
+declare function v8New(name:"ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации",... params): ПеречислениеСтатусТранзакцииЗаписиЖурналаРегистрации;
+declare function v8New(name:"EnumAutoChangeRecord",... params): EnumAutoChangeRecord;
+declare function v8New(name:"ПеречислениеАвтоРегистрацияИзменений",... params): ПеречислениеАвтоРегистрацияИзменений;
+declare function v8New(name:"EnumAllowedMessageNo",... params): EnumAllowedMessageNo;
+declare function v8New(name:"ПеречислениеДопустимыйНомерСообщения",... params): ПеречислениеДопустимыйНомерСообщения;
+declare function v8New(name:"UnsafeOperationProtectionDescription",... params): UnsafeOperationProtectionDescription;
+declare function v8New(name:"ОписаниеЗащитыОтОпасныхДействий",... params): ОписаниеЗащитыОтОпасныхДействий;
+declare function v8New(name:"HTTPRequest",... params): HTTPRequest;
+declare function v8New(name:"HTTPЗапрос",... params): HTTPЗапрос;
+declare function v8New(name:"Map",... params): Map;
+declare function v8New(name:"Соответствие",... params): Соответствие;
+declare function v8New(name:"EnumDataItemSend",... params): EnumDataItemSend;
+declare function v8New(name:"ПеречислениеОтправкаЭлементаДанных",... params): ПеречислениеОтправкаЭлементаДанных;
+declare function v8New(name:"EnumDataItemReceive",... params): EnumDataItemReceive;
+declare function v8New(name:"ПеречислениеПолучениеЭлементаДанных",... params): ПеречислениеПолучениеЭлементаДанных;
+declare function v8New(name:"EnumFullTextSearchMode",... params): EnumFullTextSearchMode;
+declare function v8New(name:"ПеречислениеРежимПолнотекстовогоПоиска",... params): ПеречислениеРежимПолнотекстовогоПоиска;
+declare function v8New(name:"EnumFullTextSearchRepresentationType",... params): EnumFullTextSearchRepresentationType;
+declare function v8New(name:"ПеречислениеВидОтображенияПолнотекстовогоПоиска",... params): ПеречислениеВидОтображенияПолнотекстовогоПоиска;
+declare function v8New(name:"EnumFullTextSearchMetadataUse",... params): EnumFullTextSearchMetadataUse;
+declare function v8New(name:"ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска",... params): ПеречислениеИспользованиеМетаданныхПолнотекстовогоПоиска;
+declare function v8New(name:"EnumBackgroundJobState",... params): EnumBackgroundJobState;
+declare function v8New(name:"ПеречислениеСостояниеФоновогоЗадания",... params): ПеречислениеСостояниеФоновогоЗадания;
+declare function v8New(name:"JobSchedule",... params): JobSchedule;
+declare function v8New(name:"РасписаниеРегламентногоЗадания",... params): РасписаниеРегламентногоЗадания;
+declare function v8New(name:"EnumAutonumerationInForm",... params): EnumAutonumerationInForm;
+declare function v8New(name:"ПеречислениеАвтонумерацияВФорме",... params): ПеречислениеАвтонумерацияВФорме;
+declare function v8New(name:"SettingsDescription",... params): SettingsDescription;
+declare function v8New(name:"ОписаниеНастроек",... params): ОписаниеНастроек;
+declare function v8New(name:"EnumStandardCommandsGroup",... params): EnumStandardCommandsGroup;
+declare function v8New(name:"ПеречислениеСтандартнаяГруппаКоманд",... params): ПеречислениеСтандартнаяГруппаКоманд;
+declare function v8New(name:"EnumDataBaseConfigurationUpdateExecutionInformationItemType",... params): EnumDataBaseConfigurationUpdateExecutionInformationItemType;
+declare function v8New(name:"ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных",... params): ПеречислениеТипЭлементаИнформацииОВыполненииОбновленияКонфигурацииБазыДанных;
+declare function v8New(name:"EnumDataBaseConfigurationUpdateState",... params): EnumDataBaseConfigurationUpdateState;
+declare function v8New(name:"ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных",... params): ПеречислениеСостояниеОбновленияКонфигурацииБазыДанных;
+declare function v8New(name:"EnumConfigurationExtensionScope",... params): EnumConfigurationExtensionScope;
+declare function v8New(name:"ПеречислениеОбластьДействияРасширенияКонфигурации",... params): ПеречислениеОбластьДействияРасширенияКонфигурации;
+declare function v8New(name:"EnumConfigurationExtensionsSource",... params): EnumConfigurationExtensionsSource;
+declare function v8New(name:"ПеречислениеИсточникРасширенийКонфигурации",... params): ПеречислениеИсточникРасширенийКонфигурации;
+declare function v8New(name:"EnumConfigurationExtensionApplicationIssueSeverity",... params): EnumConfigurationExtensionApplicationIssueSeverity;
+declare function v8New(name:"ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации",... params): ПеречислениеВажностьПроблемыПримененияРасширенияКонфигурации;
+declare function v8New(name:"EnumCompositeWordsSeparationMode",... params): EnumCompositeWordsSeparationMode;
+declare function v8New(name:"ПеречислениеРежимРазделенияСоставныхСлов",... params): ПеречислениеРежимРазделенияСоставныхСлов;
+declare function v8New(name:"InfoBaseUserAuthenticationLockSettings",... params): InfoBaseUserAuthenticationLockSettings;
+declare function v8New(name:"НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы",... params): НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы;
+declare function v8New(name:"EnumDatabaseCopyReplicationType",... params): EnumDatabaseCopyReplicationType;
+declare function v8New(name:"ПеречислениеТипРепликацииКопииБазыДанных",... params): ПеречислениеТипРепликацииКопииБазыДанных;
+declare function v8New(name:"EnumDatabaseCopyDBMSType",... params): EnumDatabaseCopyDBMSType;
+declare function v8New(name:"ПеречислениеТипСУБДКопииБазыДанных",... params): ПеречислениеТипСУБДКопииБазыДанных;
+declare function v8New(name:"ConnectionsLock",... params): ConnectionsLock;
+declare function v8New(name:"БлокировкаУстановкиСоединений",... params): БлокировкаУстановкиСоединений;
+declare function v8New(name:"SessionsLock",... params): SessionsLock;
+declare function v8New(name:"БлокировкаСеансов",... params): БлокировкаСеансов;
+declare function v8New(name:"GeographicalSchema",... params): GeographicalSchema;
+declare function v8New(name:"ГеографическаяСхема",... params): ГеографическаяСхема;
+declare function v8New(name:"Border",... params): Border;
+declare function v8New(name:"Рамка",... params): Рамка;
+declare function v8New(name:"DataCompositionAppearanceTemplate",... params): DataCompositionAppearanceTemplate;
+declare function v8New(name:"МакетОформленияКомпоновкиДанных",... params): МакетОформленияКомпоновкиДанных;
+declare function v8New(name:"TextDocument",... params): TextDocument;
+declare function v8New(name:"ТекстовыйДокумент",... params): ТекстовыйДокумент;
+declare function v8New(name:"ConnectionStopRequest",... params): ConnectionStopRequest;
+declare function v8New(name:"НеобходимостьЗавершенияСоединения",... params): НеобходимостьЗавершенияСоединения;
+declare function v8New(name:"EventLogEventUse",... params): EventLogEventUse;
+declare function v8New(name:"ИспользованиеСобытияЖурналаРегистрации",... params): ИспользованиеСобытияЖурналаРегистрации;
+declare function v8New(name:"EnumXMLForm",... params): EnumXMLForm;
+declare function v8New(name:"ПеречислениеФормаXML",... params): ПеречислениеФормаXML;
+declare function v8New(name:"EnumXDTOFacetType",... params): EnumXDTOFacetType;
+declare function v8New(name:"ПеречислениеВидФасетаXDTO",... params): ПеречислениеВидФасетаXDTO;
+declare function v8New(name:"XDTOFactory",... params): XDTOFactory;
+declare function v8New(name:"ФабрикаXDTO",... params): ФабрикаXDTO;
+declare function v8New(name:"XMLSchemaSet",... params): XMLSchemaSet;
+declare function v8New(name:"НаборСхемXML",... params): НаборСхемXML;
+declare function v8New(name:"XMLSchema",... params): XMLSchema;
+declare function v8New(name:"СхемаXML",... params): СхемаXML;
+declare function v8New(name:"DOMDocumentType",... params): DOMDocumentType;
+declare function v8New(name:"ОпределениеТипаДокументаDOM",... params): ОпределениеТипаДокументаDOM;
+declare function v8New(name:"DOMDocument",... params): DOMDocument;
+declare function v8New(name:"ДокументDOM",... params): ДокументDOM;
+declare function v8New(name:"DOMDocumentConfiguration",... params): DOMDocumentConfiguration;
+declare function v8New(name:"КонфигурацияДокументаDOM",... params): КонфигурацияДокументаDOM;
+declare function v8New(name:"DOMNodeIterator",... params): DOMNodeIterator;
+declare function v8New(name:"ИтераторУзловDOM",... params): ИтераторУзловDOM;
+declare function v8New(name:"DOMNodeFilter",... params): DOMNodeFilter;
+declare function v8New(name:"ФильтрУзловDOM",... params): ФильтрУзловDOM;
+declare function v8New(name:"DOMTreeWalker",... params): DOMTreeWalker;
+declare function v8New(name:"ОбходДереваDOM",... params): ОбходДереваDOM;
+declare function v8New(name:"DOMNamespaceResolver",... params): DOMNamespaceResolver;
+declare function v8New(name:"РазыменовательПространствИменDOM",... params): РазыменовательПространствИменDOM;
+declare function v8New(name:"XSSchemaFinalUnion",... params): XSSchemaFinalUnion;
+declare function v8New(name:"ОбъединениеЗавершенностиСхемыXS",... params): ОбъединениеЗавершенностиСхемыXS;
+declare function v8New(name:"XSProhibitedSubstitutionsUnion",... params): XSProhibitedSubstitutionsUnion;
+declare function v8New(name:"ОбъединениеЗапрещенныхПодстановокXS",... params): ОбъединениеЗапрещенныхПодстановокXS;
+declare function v8New(name:"XSSimpleTypeDefinition",... params): XSSimpleTypeDefinition;
+declare function v8New(name:"ОпределениеПростогоТипаXS",... params): ОпределениеПростогоТипаXS;
+declare function v8New(name:"XSAnnotation",... params): XSAnnotation;
+declare function v8New(name:"АннотацияXS",... params): АннотацияXS;
+declare function v8New(name:"XMLExpandedName",... params): XMLExpandedName;
+declare function v8New(name:"РасширенноеИмяXML",... params): РасширенноеИмяXML;
+declare function v8New(name:"XSSimpleFinalUnion",... params): XSSimpleFinalUnion;
+declare function v8New(name:"ОбъединениеЗавершенностиПростогоТипаXS",... params): ОбъединениеЗавершенностиПростогоТипаXS;
+declare function v8New(name:"XSComplexTypeDefinition",... params): XSComplexTypeDefinition;
+declare function v8New(name:"ОпределениеСоставногоТипаXS",... params): ОпределениеСоставногоТипаXS;
+declare function v8New(name:"XSComplexFinalUnion",... params): XSComplexFinalUnion;
+declare function v8New(name:"ОбъединениеЗавершенностиСоставногоТипаXS",... params): ОбъединениеЗавершенностиСоставногоТипаXS;
+declare function v8New(name:"XSWildcard",... params): XSWildcard;
+declare function v8New(name:"МаскаXS",... params): МаскаXS;
+declare function v8New(name:"XSElementDeclaration",... params): XSElementDeclaration;
+declare function v8New(name:"ОбъявлениеЭлементаXS",... params): ОбъявлениеЭлементаXS;
+declare function v8New(name:"XSDisallowedSubstitutionsUnion",... params): XSDisallowedSubstitutionsUnion;
+declare function v8New(name:"ОбъединениеНедопустимыхПодстановкиXS",... params): ОбъединениеНедопустимыхПодстановкиXS;
+declare function v8New(name:"XSSubstitutionGroupExclusionsUnion",... params): XSSubstitutionGroupExclusionsUnion;
+declare function v8New(name:"ОбъединениеИсключенийГруппПодстановкиXS",... params): ОбъединениеИсключенийГруппПодстановкиXS;
+declare function v8New(name:"XSAttributeDeclaration",... params): XSAttributeDeclaration;
+declare function v8New(name:"ОбъявлениеАтрибутаXS",... params): ОбъявлениеАтрибутаXS;
+declare function v8New(name:"XSAttributeGroupDefinition",... params): XSAttributeGroupDefinition;
+declare function v8New(name:"ОпределениеГруппыАтрибутовXS",... params): ОпределениеГруппыАтрибутовXS;
+declare function v8New(name:"XSModelGroupDefinition",... params): XSModelGroupDefinition;
+declare function v8New(name:"ОпределениеГруппыМоделиXS",... params): ОпределениеГруппыМоделиXS;
+declare function v8New(name:"XSModelGroup",... params): XSModelGroup;
+declare function v8New(name:"ГруппаМоделиXS",... params): ГруппаМоделиXS;
+declare function v8New(name:"XDTOSerializer",... params): XDTOSerializer;
+declare function v8New(name:"СериализаторXDTO",... params): СериализаторXDTO;
 declare function v8New(name:"DataCompositionAreaTemplateValueCollectionCell",... params): DataCompositionAreaTemplateValueCollectionCell;
 declare function v8New(name:"ЯчейкаМакетаКоллекцииЗначенийОбластиКомпоновкиДанных",... params): ЯчейкаМакетаКоллекцииЗначенийОбластиКомпоновкиДанных;
 declare function v8New(name:"XSInclude",... params): XSInclude;
@@ -36197,10 +36073,10 @@ declare function v8New(name:"Splitter",... params): Splitter;
 declare function v8New(name:"Разделитель",... params): Разделитель;
 declare function v8New(name:"StandardPeriodEditDialog",... params): StandardPeriodEditDialog;
 declare function v8New(name:"ДиалогРедактированияСтандартногоПериода",... params): ДиалогРедактированияСтандартногоПериода;
-declare function v8New(name:"MemoryStream",... params): MemoryStream;
-declare function v8New(name:"ПотокВПамяти",... params): ПотокВПамяти;
 declare function v8New(name:"XSParticle",... params): XSParticle;
 declare function v8New(name:"ФрагментXS",... params): ФрагментXS;
+declare function v8New(name:"MemoryStream",... params): MemoryStream;
+declare function v8New(name:"ПотокВПамяти",... params): ПотокВПамяти;
 declare function v8New(name:"EnumDataCompositionSettingsViewMode",... params): EnumDataCompositionSettingsViewMode;
 declare function v8New(name:"ПеречислениеРежимОтображенияНастроекКомпоновкиДанных",... params): ПеречислениеРежимОтображенияНастроекКомпоновкиДанных;
 declare function v8New(name:"EnumChartSeriesGraphicalRepresentationType",... params): EnumChartSeriesGraphicalRepresentationType;
@@ -36503,8 +36379,6 @@ declare function v8New(name:"AdRepresentationManager",... params): AdRepresentat
 declare function v8New(name:"МенеджерОтображенияРекламы",... params): МенеджерОтображенияРекламы;
 declare function v8New(name:"EnumDataCompositionConditionalAppearanceUse",... params): EnumDataCompositionConditionalAppearanceUse;
 declare function v8New(name:"ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных",... params): ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных;
-declare function v8New(name:"EnumDataChangeType",... params): EnumDataChangeType;
-declare function v8New(name:"ПеречислениеВидИзмененияДанных",... params): ПеречислениеВидИзмененияДанных;
 declare function v8New(name:"EnumAccumulationRegisterAggregatePeriodicity",... params): EnumAccumulationRegisterAggregatePeriodicity;
 declare function v8New(name:"ПеречислениеПериодичностьАгрегатаРегистраНакопления",... params): ПеречислениеПериодичностьАгрегатаРегистраНакопления;
 declare function v8New(name:"EnumPDFSignatureType",... params): EnumPDFSignatureType;
@@ -36547,6 +36421,10 @@ declare function v8New(name:"EnumDataCompositionDetailsProcessingAction",... par
 declare function v8New(name:"ПеречислениеДействиеОбработкиРасшифровкиКомпоновкиДанных",... params): ПеречислениеДействиеОбработкиРасшифровкиКомпоновкиДанных;
 declare function v8New(name:"EnumUseSpreadsheetDocumentWidthReduction",... params): EnumUseSpreadsheetDocumentWidthReduction;
 declare function v8New(name:"ПеречислениеИспользованиеШириныСжатияТабличногоДокумента",... params): ПеречислениеИспользованиеШириныСжатияТабличногоДокумента;
+declare function v8New(name:"EnumSliceUse",... params): EnumSliceUse;
+declare function v8New(name:"ПеречислениеИспользованиеСреза",... params): ПеречислениеИспользованиеСреза;
+declare function v8New(name:"WindowsCertificationAuthorityCertificates",... params): WindowsCertificationAuthorityCertificates;
+declare function v8New(name:"СертификатыУдостоверяющихЦентровWindows",... params): СертификатыУдостоверяющихЦентровWindows;
 declare function v8New(name:"InternetMailMessage",... params): InternetMailMessage;
 declare function v8New(name:"ИнтернетПочтовоеСообщение",... params): ИнтернетПочтовоеСообщение;
 declare function v8New(name:"EnumDataAnalysisStandardizationType",... params): EnumDataAnalysisStandardizationType;
@@ -36577,8 +36455,6 @@ declare function v8New(name:"FTPConnection",... params): FTPConnection;
 declare function v8New(name:"FTPСоединение",... params): FTPСоединение;
 declare function v8New(name:"OpenSSLSecureConnection",... params): OpenSSLSecureConnection;
 declare function v8New(name:"ЗащищенноеСоединениеOpenSSL",... params): ЗащищенноеСоединениеOpenSSL;
-declare function v8New(name:"WindowsCertificationAuthorityCertificates",... params): WindowsCertificationAuthorityCertificates;
-declare function v8New(name:"СертификатыУдостоверяющихЦентровWindows",... params): СертификатыУдостоверяющихЦентровWindows;
 declare function v8New(name:"FileCertificationAuthorityCertificates",... params): FileCertificationAuthorityCertificates;
 declare function v8New(name:"СертификатыУдостоверяющихЦентровФайл",... params): СертификатыУдостоверяющихЦентровФайл;
 declare function v8New(name:"FileClientCertificate",... params): FileClientCertificate;
@@ -36777,6 +36653,8 @@ declare function v8New(name:"EnumPDFAttachmentRelationshipType",... params): Enu
 declare function v8New(name:"ПеречислениеТипСвязиВложенияPDF",... params): ПеречислениеТипСвязиВложенияPDF;
 declare function v8New(name:"EnumFormattedDocumentItemType",... params): EnumFormattedDocumentItemType;
 declare function v8New(name:"ПеречислениеТипЭлементаФорматированногоДокумента",... params): ПеречислениеТипЭлементаФорматированногоДокумента;
+declare function v8New(name:"EnumDataChangeType",... params): EnumDataChangeType;
+declare function v8New(name:"ПеречислениеВидИзмененияДанных",... params): ПеречислениеВидИзмененияДанных;
 declare function v8New(name:"EnumClientApplicationBaseFontVariant",... params): EnumClientApplicationBaseFontVariant;
 declare function v8New(name:"ПеречислениеВариантОсновногоШрифтаКлиентскогоПриложения",... params): ПеречислениеВариантОсновногоШрифтаКлиентскогоПриложения;
 declare function v8New(name:"EnumNumericValueType",... params): EnumNumericValueType;
@@ -36811,8 +36689,6 @@ declare function v8New(name:"PointInTime",... params): PointInTime;
 declare function v8New(name:"МоментВремени",... params): МоментВремени;
 declare function v8New(name:"InternetMailMessageFlags",... params): InternetMailMessageFlags;
 declare function v8New(name:"ФлагиИнтернетПочтовогоСообщения",... params): ФлагиИнтернетПочтовогоСообщения;
-declare function v8New(name:"EnumSliceUse",... params): EnumSliceUse;
-declare function v8New(name:"ПеречислениеИспользованиеСреза",... params): ПеречислениеИспользованиеСреза;
 declare function v8New(name:"EnumDataAnalysisTimeIntervalUnitType",... params): EnumDataAnalysisTimeIntervalUnitType;
 declare function v8New(name:"ПеречислениеТипЕдиницыИнтервалаВремениАнализаДанных",... params): ПеречислениеТипЕдиницыИнтервалаВремениАнализаДанных;
 declare function v8New(name:"EnumCalculationRegisterPeriodType",... params): EnumCalculationRegisterPeriodType;
@@ -36951,8 +36827,6 @@ declare function v8New(name:"ClientApplicationInterfaceContentSettingsItem",... 
 declare function v8New(name:"ЭлементНастройкиСоставаИнтерфейсаКлиентскогоПриложения",... params): ЭлементНастройкиСоставаИнтерфейсаКлиентскогоПриложения;
 declare function v8New(name:"EnumAutoCapitalizationOnTextInput",... params): EnumAutoCapitalizationOnTextInput;
 declare function v8New(name:"ПеречислениеАвтоИзменениеРегистраПриВводеТекста",... params): ПеречислениеАвтоИзменениеРегистраПриВводеТекста;
-declare function v8New(name:"EnumStopMultimediaRecordingButtonPlacement",... params): EnumStopMultimediaRecordingButtonPlacement;
-declare function v8New(name:"ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа",... params): ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа;
 declare function v8New(name:"EnumAutoCorrectionOnTextInput",... params): EnumAutoCorrectionOnTextInput;
 declare function v8New(name:"ПеречислениеАвтоИсправлениеПриВводеТекста",... params): ПеречислениеАвтоИсправлениеПриВводеТекста;
 declare function v8New(name:"EnumAutoShowOpenButtonMode",... params): EnumAutoShowOpenButtonMode;
@@ -37193,10 +37067,6 @@ declare function v8New(name:"SMSMessage",... params): SMSMessage;
 declare function v8New(name:"SMSСообщение",... params): SMSСообщение;
 declare function v8New(name:"PhotoStamp",... params): PhotoStamp;
 declare function v8New(name:"ОтметкаНаФотоснимке",... params): ОтметкаНаФотоснимке;
-declare function v8New(name:"EnumAudioRecordingChannelUse",... params): EnumAudioRecordingChannelUse;
-declare function v8New(name:"ПеречислениеИспользованиеКаналовАудиозаписи",... params): ПеречислениеИспользованиеКаналовАудиозаписи;
-declare function v8New(name:"EnumAudioRecordingFormat",... params): EnumAudioRecordingFormat;
-declare function v8New(name:"ПеречислениеФорматАудиозаписи",... params): ПеречислениеФорматАудиозаписи;
 declare function v8New(name:"EnumCameraLightingType",... params): EnumCameraLightingType;
 declare function v8New(name:"ПеречислениеТипПодсветкиКамеры",... params): ПеречислениеТипПодсветкиКамеры;
 declare function v8New(name:"EnumVideoQuality ",... params): EnumVideoQuality ;
@@ -37239,8 +37109,6 @@ declare function v8New(name:"EnumAdditionalUserVerificationMethod",... params): 
 declare function v8New(name:"ПеречислениеСпособДополнительнойПроверкиПользователя",... params): ПеречислениеСпособДополнительнойПроверкиПользователя;
 declare function v8New(name:"EnumBiometricVerificationMethod",... params): EnumBiometricVerificationMethod;
 declare function v8New(name:"ПеречислениеСпособБиометрическойПроверки",... params): ПеречислениеСпособБиометрическойПроверки;
-declare function v8New(name:"AudioRecordingSettings",... params): AudioRecordingSettings;
-declare function v8New(name:"ПараметрыАудиозаписи",... params): ПараметрыАудиозаписи;
 declare function v8New(name:"EnumAdStatus",... params): EnumAdStatus;
 declare function v8New(name:"ПеречислениеСтатусРекламы",... params): ПеречислениеСтатусРекламы;
 declare function v8New(name:"EnumAdBannerRepresentation",... params): EnumAdBannerRepresentation;

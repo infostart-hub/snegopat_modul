@@ -5,7 +5,7 @@
 #pragma once
 #include "../all.h"
 
-Packet TestTestTest("TestTestTest", initTestTestTest, piOnMainEnter);
+//Packet TestTestTest("TestTestTest", initTestTestTest, piOnMainEnter);
 
 void testReadTextFile() {
     v8string textOfFile;

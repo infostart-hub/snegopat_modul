@@ -15,15 +15,20 @@ BuiltinAddin&& builtinAddinsList;
 AddinLoader&& loadersList;
 
 bool initAddins() {
-    //Message("Loaded Snegopat, sizeof(void*)=" + sizeof_ptr, mNone);
-    //MsgBox("Заработало!!!");
-    //return true;
+#if x86 = 0
+    Message("Loaded Snegopat 64", mNone);
+#endif
     if (oneDesigner !is null)
         return true;
     // Создаем корень SnegAPI, а он создаст менеджер аддинов
     Designer();
+#if x86 = 1
     if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
+#else
+    GlobalAddinObject();
+    _dumpV8Api();
+#endif
     return true;
 }
 

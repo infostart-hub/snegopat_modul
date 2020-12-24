@@ -62,11 +62,7 @@ void IProfileService_openTrap(IProfileService& ps) {
     trProfileOpen.swap();
     IProfileSource&& snegopatProfileSource;
     currentProcess().createByClsid(CLSID_FileProfileSrc, IID_IProfileSource, snegopatProfileSource);
-#if test = 1
-    dumpVtable(&&snegopatProfileSource);
-    dumpVtable(getProfileService());
-    dumpVtable(getProfileRoot());
-#endif
+
     CreateDirectory(pathes._data.cstr, 0);
     snegopatProfileSource.init("file://" + pathes._data + "snegopat.pfl");
     getProfileService().attachSource(snegopatProfileSource, gpflSnegopat);
@@ -133,7 +129,7 @@ bool setTextHooks() {
     return true;
 }
 
-uint TxtDoc_createView(IDocument& doc, uint pView) {
+int_ptr TxtDoc_createView(IDocument& doc, int_ptr pView) {
     trTxtEdtDoc_createView.swap();
     IUnknown&& unk;
     doc.createView(unk);
@@ -151,7 +147,7 @@ uint TxtDoc_createView(IDocument& doc, uint pView) {
     }
     if (unk !is null)
         unk.AddRef();
-    mem::dword[pView] = mem::addressOf(unk);
+    mem::int_ptr[pView] = mem::addressOf(unk);
     return pView;
 }
 

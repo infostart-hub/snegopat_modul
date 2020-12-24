@@ -6,19 +6,28 @@
 
 // Объект этого класса будет доступен как свойство develop объекта Designer
 
-void dumpSnegApi() {
+void _dumpSnegApi() {
+    string path = env.dataDir + "snegopat.d.ts";
+    dumpSnegApi(path);
+    Message("SnegAPI сохранён в " + path);
+}
 
+void _dumpV8Api() {
+    string path = env.dataDir + "v8.d.ts";
+    V8Dumper d;
+    d.dump(path);
+    Message("1C API сохранён в " + path);
+    _dumpSnegApi();
 }
 
 class Develop {
     bool cmdTrace = false;
 
     void dumpV8typesToDts() {
-        V8Dumper d;
-        d.dump();
+        _dumpV8Api();
     }
     void dumpSnegApiToDts() {
-        dumpSnegApi();
+        _dumpSnegApi();
     }
 
     string undecorate(const string& mangled) {
@@ -39,16 +48,16 @@ class V8Dumper {
         file.write(str.ptr, str.length);
     }
 
-    void dump() {
+    void dump(const string& path) {
         // Откроем файл для дампа
-        URL url("file://" + myFolder + "v8.d.ts");
+        URL url("file://" + path);
         IFileSystem&& fs = getFSService();
         {
             ExceptionCatcher catcher;
             CppCatch c("class core::Exception", ExceptionHandler(catcher.handle));
             fs.openURL(file, url, fomOut | fomTruncate | fomShareRead);
             if (catcher.hasException) {
-                Print("dont open file");
+                Print("Do not open file " + path);
                 return;
             }
         }
@@ -68,7 +77,6 @@ class V8Dumper {
             getGuidTypeName(ptr.ref);
         // Теперь создадим специализации для v8new
         dumpV8New();
-        dumpSnegApi();
     }
     void dumpContextDef(IContextDef&& ctx, const string& name0, const string& name1) {
         if (!name1.isEmpty() && !allNames.insert(name0))
@@ -220,7 +228,8 @@ class V8Dumper {
                         }
                     }
                 }
-                if (string(",CommonModule,MngSrvDataCompositionAreaTemplateField,ConfigurationMetadataObject,DataCompositionAppearanceTemplateLib,GraphicalSchemaItemSwitchCases,UnknownObject,CommandGroup,Action,").find("," + name0 + ",") != badStrIdx)
+                if (",CommonModule,MngSrvDataCompositionAreaTemplateField,ConfigurationMetadataObject,DataCompositionAppearanceTemplateLib,"
+                    "GraphicalSchemaItemSwitchCases,UnknownObject,CommandGroup,Action,".find("," + name0 + ",") != badStrIdx)
                     &&ctx = null;
                 // Проверим, можно ли создать объект этого типа в Новый
                 bool creatable = false;

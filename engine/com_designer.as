@@ -346,7 +346,7 @@ Designer&& oneDesigner;
 // из других процессов. Чтобы процесс благополучно завершался, немного обманем её, перехватив
 // функцию com_export_count и возвращая из нее 0.
 TrapSwap trComExportCount;
-uint com_export_count() { return 0; }
+int_ptr com_export_count() { return 0; }
 void setTrapOnComExportCount() {
     trComExportCount.setTrapByName(
 #if ver < 8.3
@@ -354,7 +354,12 @@ void setTrapOnComExportCount() {
 #else
         "core83.dll"
 #endif
-        , "?com_exported_count@core@@YAIXZ", 0, com_export_count);
+    #if x86 = 1
+        , "?com_exported_count@core@@YAIXZ",
+    #else
+        , "?com_exported_count@core@@YA_KXZ",
+    #endif
+        0, com_export_count);
 }
 
 

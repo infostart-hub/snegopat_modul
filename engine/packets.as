@@ -26,7 +26,7 @@ class Packet {
     PacketsInitLevel _level;
     InitPacket&& _init;
 
-    Packet(const string& name, InitPacket&& init, PacketsInitLevel level = piOnMainEnter, array<string>&& depends = null) {
+    Packet(const string& name, InitPacket&& init, PacketsInitLevel level/* = piOnMainEnter*/, array<string>&& depends = null) {
         &&next = firstPacket;
         &&firstPacket = this;
         _name = name;

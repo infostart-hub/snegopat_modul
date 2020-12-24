@@ -192,7 +192,7 @@ TrapVirtualStdCall trSendCommand;
 funcdef void FTransmitCommand(ICommandReceiver&, const Command&, bool);
 void transmitCommandTrap(ICommandReceiver& cmdRecv, const CommandRef&& command, bool deactivate) {
     if (oneDesigner._develop.cmdTrace)
-        Message("Команда: группа " + command.ref.id.group + " номер " + command.ref.id.num + " Параметр: " + command.ref.param + " obj=" + command.ref.object);
+        Message("Команда: группа " + string(command.ref.id.group) + " номер " + command.ref.id.num + " Параметр: " + command.ref.param + " obj=" + command.ref.object);
     FTransmitCommand&& original;
     trSendCommand.getOriginal(&&original);
     string eventName = oneDesigner._events._getCmdEventName(command.ref.id.group, command.ref.id.num);

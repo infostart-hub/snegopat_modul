@@ -250,7 +250,7 @@ class IV8Lexer {
                 lexemPos.insert(idxOfReStr, lexNum);
                 if (lex.type == ltName) {
                     string name = lex.text;
-                    int idxOfName;
+                    uint idxOfName;
                     auto find = findNames.find(name);
                     if (find.isEnd()) {
                         idxOfName = names.length;

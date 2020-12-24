@@ -7,7 +7,9 @@
 #pragma once
 #include "../all.h"
 
+#if x86 = 1
 Packet sqlColorsAndGrouping("sqlColorsAndGrouping", initGroupingAndColoring, piOnMainEnter);
+#endif
 
 // Перехватчик функции синтакс-разбора строки текста редактором 1С для
 // текстового расширения "Встроенный язык"

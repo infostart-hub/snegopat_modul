@@ -5,7 +5,10 @@
 #pragma once
 #include "../all.h"
 
+#if x86 = 1
 Packet stdListIntercept("stdListIntercept", hookStdList, piOnMainEnter);
+#endif
+
 string tpstr(const TextPosition& tp) {
     return "[" + tp.line + ", " + tp.col + "]";
 }

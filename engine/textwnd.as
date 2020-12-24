@@ -236,7 +236,7 @@ class TextDocMdInfo {
             } else
                 &&container = getMDObjectWrapper(object).get_container()._container();
         }
-        openedMdObjects.insert(keyForSearchOpenedMD(object, mdPropUuid), this);
+        openedMdObjects.insert(keyForSearchOpenedMD(object, mdPropUuid), &&this);
     }
     void detach() {
         openedMdObjects.remove(keyForSearchOpenedMD(object, mdPropUuid));
@@ -314,11 +314,11 @@ class TextDoc {
                 }
             }
           #else
-            uint mapBegin = mem::int_ptr[st.self + ModuleTxtExtSettingsMap];
-            for (uint node = mem::int_ptr[mapBegin]; node != mapBegin; node = mem::int_ptr[node]) {
-                GuidRef&& pg = toGuid(node + 8);
+            int_ptr mapBegin = mem::int_ptr[st.self + ModuleTxtExtSettingsMap];
+            for (int_ptr node = mem::int_ptr[mapBegin]; node != mapBegin; node = mem::int_ptr[node]) {
+                GuidRef&& pg = toGuid(node + 2 * sizeof_ptr);
                 if (pg.ref == IID_IAssistantData) {
-                    &&data = toIUnknown(mem::int_ptr[node + 24]);
+                    &&data = toIUnknown(mem::int_ptr[node + 2 * sizeof_ptr + 16]);
                     data.AddRef();
                     break;
                 }
@@ -330,7 +330,10 @@ class TextDoc {
                     Print("Bad test IAssistantData");
                 } else
                     &&mdInfo = TextDocMdInfo(data, this);
+            } else {
+                Print("No assistent data");
             }
+
         }
         if (tp !is null)
             tp.setTextDoc(null);
@@ -422,8 +425,8 @@ void DispatchMessagesTrap(MSG& msg, int_ptr p1) {
 }
 
 TrapVirtualStdCall trFrameViewActivate;
-funcdef void FuncTextWnd_Activate(IFramedView&& view, ActivateType action, IFramedView&& otherView);
-void TextWnd_Activate(IFramedView&& view, ActivateType action, IFramedView&& otherView) {
+funcdef void FuncTextWnd_Activate(IFramedView&& view, int_ptr action, IFramedView&& otherView);
+void TextWnd_Activate(IFramedView&& view, int_ptr action, IFramedView&& otherView) {
     if (action == atDeactivate) {
         if (activeTextWnd !is null) {
             activeTextWnd.onDeactivate();
@@ -485,9 +488,22 @@ class TextWnd {
             IFramedView&& fv = ted.unk;
             trFrameViewActivate.setTrap(&&fv, IFramedView_onActivate, TextWnd_Activate);
             // Поставим перехват на детач окна, чтобы освобождать наши ресурсы, связанные с ним
-            trWindowDetach.setTrapByName("wbase83.dll", "?detach@Window@wbase@@QAEXXZ", asCALL_THISCALL, Window_DetachTrap);
+            trWindowDetach.setTrapByName("wbase83.dll",
+            #if x86 = 1
+                "?detach@Window@wbase@@QAEXXZ"
+            #else
+                "?detach@Window@wbase@@QEAAXXZ"
+            #endif
+                , asCALL_THISCALL, Window_DetachTrap);
+                                                        
             // Ставим перехват на роутинг виндовых сообщений для работы контекстной подсказки.
-            trDispatchMsg.setTrapByName("wbase83.dll", "?dispatch_msg@wbase@@YAXABUtagMSG@@PAVIMsgDispHook@1@@Z", asCALL_CDECL, DispatchMessagesTrap);
+            trDispatchMsg.setTrapByName("wbase83.dll",
+            #if x86 = 1
+                "?dispatch_msg@wbase@@YAXABUtagMSG@@PAVIMsgDispHook@1@@Z"
+            #else
+                "?dispatch_msg@wbase@@YAXAEBUtagMSG@@PEAVIMsgDispHook@1@@Z"
+            #endif
+                , asCALL_CDECL, DispatchMessagesTrap);
         }
     #endif
 
@@ -931,8 +947,8 @@ void setSelectionNull_trap(ITextEditor& pEd) {
     notifyChangeSelection(pEd);
 }
 
-funcdef void SCP_func(ITextEditor&, const TextPosition&, bool);
-void setCaretPosition_trap(ITextEditor& pEd, const TextPosition& tp, bool bInScreenCoords) {
+funcdef void SCP_func(ITextEditor&, const TextPosition&, int_ptr);
+void setCaretPosition_trap(ITextEditor& pEd, const TextPosition& tp, int_ptr bInScreenCoords) {
     //Message("Set caret " + tpstr(tp) + " " + bInScreenCoords);
     SCP_func&& orig;
     trSCP.getOriginal(&&orig);
@@ -940,8 +956,8 @@ void setCaretPosition_trap(ITextEditor& pEd, const TextPosition& tp, bool bInScr
     notifyChangeSelection(pEd);
 }
 
-funcdef void SS_func(ITextEditor&, const TextPosition&, const TextPosition&, bool, bool);
-void setSelection_trap(ITextEditor& pEd, const TextPosition& tpStart, const TextPosition& tpStop, bool bCaretToStart, bool bInScreenCoords) {
+funcdef void SS_func(ITextEditor&, const TextPosition&, const TextPosition&, int_ptr, int_ptr);
+void setSelection_trap(ITextEditor& pEd, const TextPosition& tpStart, const TextPosition& tpStop, int_ptr bCaretToStart, int_ptr bInScreenCoords) {
     SS_func&& orig;
     trSS.getOriginal(&&orig);
     orig(pEd, tpStart, tpStop, bCaretToStart, bInScreenCoords);

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "snegopat_modul", "snegopat_modul.vcxproj", "{41B881A6-B806-4451-A27A-3F2A68632DE4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pack_all", "pack_all.vcxproj", "{363AA861-656E-4A55-A94B-FABC518D9C14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,13 @@ Global
 		{41B881A6-B806-4451-A27A-3F2A68632DE4}.Release|x64.Build.0 = Release|x64
 		{41B881A6-B806-4451-A27A-3F2A68632DE4}.Release|x86.ActiveCfg = Release|Win32
 		{41B881A6-B806-4451-A27A-3F2A68632DE4}.Release|x86.Build.0 = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Debug|x64.ActiveCfg = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Debug|x64.Build.0 = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Debug|x86.ActiveCfg = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Debug|x86.Build.0 = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Release|x64.ActiveCfg = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Release|x86.ActiveCfg = Release|Win32
+		{363AA861-656E-4A55-A94B-FABC518D9C14}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

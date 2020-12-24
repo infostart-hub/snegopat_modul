@@ -1,4 +1,4 @@
-//engine: JScript
+﻿//engine: JScript
 //uname: help
 //dname: Справка снегопата
 //debug: no
@@ -184,7 +184,7 @@ class HelpSystem {
         Store.begin();
         this.processFolder(env.pathes.core + "docs\\", "core", "", "Снегопат", this.root);
         this.processFolder(env.pathes.addins, "addins", "docs\\", "Официальный репозитарий", this.root);
-        this.processFolder(env.pathes.custom, "custom", "docs\\", "Пользовательский репозитарий", this.root);
+        //this.processFolder(env.pathes.custom, "custom", "docs\\", "Пользовательский репозитарий", this.root);
         Store.end();
     }
     processFolder(baseFolder: string, typeOfFolder: string, relPath: string, title: string, parent: HelpFolder) {

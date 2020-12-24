@@ -43,7 +43,7 @@ class Pathes {
         _main = myFolder;
         _tmp = env.tempDir;
         _core = myFolder;
-        _addins = myFolder + "addins";
+        _addins = myFolder + "addins\\";
         _tools = myFolder + "tools";
         _data = env.dataDir;
         _help = myFolder + "docs";

@@ -1,5 +1,5 @@
-/*
-* API файл для модуля "snegopat", создан 20.12.2020 18:36
+﻿/*
+* API файл для модуля "snegopat", создан 22.12.2020 09:57
 * Препроцессор:
 * console = 1
 * ver = 8.3.18.0
@@ -182,10 +182,14 @@ enum snegopat__someConstValues {
 	MINMAXINFO_ptMaxPosition_offset = 16,
 	MINMAXINFO_ptMinTrackSize_offset = 24,
 	MINMAXINFO_ptMaxTrackSize_offset = 32,
-	mbp_size = 12,
-	mbp_i1_offset = 0,
-	mbp_i2_offset = 4,
-	mbp_p1_offset = 8,
+	mbp_size = 48,
+	mbp_pNode_offset = 0,
+	mbp_size_offset = 8,
+	mbp_fakeNode_offset = 16,
+	mbp_prev_offset = 24,
+	mbp_next_offset = 32,
+	mbp_i1_offset = 40,
+	mbp_i2_offset = 41,
 	SelectFileName_size = 200,
 	SelectFileName_mode_offset = 0,
 	SelectFileName_flags_offset = 4,
@@ -200,7 +204,7 @@ enum snegopat__someConstValues {
 	CommandID_size = 20,
 	CommandID_group_offset = 0,
 	CommandID_num_offset = 16,
-	Command_size = 28,
+	Command_size = 32,
 	Command_id_offset = 0,
 	Command_param_offset = 20,
 	Command_object_offset = 24,
@@ -275,12 +279,12 @@ enum snegopat__someConstValues {
 	MDProperty_resMod2_offset = 44,
 	MDProperty_resCatID_offset = 48,
 	MDProperty_pIType_offset = 56,
-	FieldInfo_size = 92,
+	FieldInfo_size = 104,
 	FieldInfo_name1_offset = 0,
 	FieldInfo_name2_offset = 28,
 	FieldInfo_description_offset = 56,
-	FieldInfo_typeDomain_offset = 84,
-	FieldInfo_readOnly_offset = 88,
+	FieldInfo_typeDomain_offset = 88,
+	FieldInfo_readOnly_offset = 96,
 	MDEventInfo_size = 56,
 	MDEventInfo_request_offset = 0,
 	MDEventInfo_result_offset = 1,
@@ -396,46 +400,48 @@ enum snegopat__someConstValues {
 	BackColorsItem_start_offset = 0,
 	BackColorsItem_len_offset = 4,
 	BackColorsItem_color_offset = 8,
-	TextPosition_size = 12,
+	TextPosition_size = 16,
 	TextPosition_vtable_offset = 0,
-	TextPosition_line_offset = 4,
-	TextPosition_col_offset = 8,
+	TextPosition_line_offset = 8,
+	TextPosition_col_offset = 12,
 	LocalWString_size = 4,
-	TypeDomainPattern_size = 4,
+	TypeDomainPattern_size = 8,
 	TypeDomainPattern_ptr_offset = 0,
-	TypeContextInfoItem_size = 304,
+	TypeContextInfoItem_size = 336,
 	TypeContextInfoItem_name_offset = 0,
 	TypeContextInfoItem_isMethod_offset = 28,
 	TypeContextInfoItem_haveRetVal_offset = 29,
 	TypeContextInfoItem_params_offset = 32,
 	TypeContextInfoItem_from_offset = 36,
 	TypeContextInfoItem_typeDomain_offset = 40,
-	TypeContextInfoItem_lst_0_offset = 44,
-	TypeContextInfoItem_lst_4_offset = 48,
-	TypeContextInfoItem_flag1_offset = 52,
-	TypeContextInfoItem_flag0_1_offset = 64,
-	TypeContextInfoItem_flag0_2_offset = 68,
-	TypeContextInfoItem_objectId_offset = 72,
-	TypeContextInfoItem_mdPropId_offset = 88,
-	TypeContextInfoItem_isTypeSource_offset = 104,
-	TypeContextInfoItem_providedTypeDomain_offset = 108,
-	TypeContextInfoItem_str1_offset = 112,
-	TypeContextInfoItem_str2_offset = 140,
-	TypeContextInfoItem_byte_0_offset = 168,
-	TypeContextInfoItem_someVector_offset = 176,
+	TypeContextInfoItem_lst_0_offset = 48,
+	TypeContextInfoItem_lst_4_offset = 56,
+	TypeContextInfoItem_flag1_offset = 64,
+	TypeContextInfoItem_ip1_offset = 72,
+	TypeContextInfoItem_ip2_offset = 80,
+	TypeContextInfoItem_flag0_1_offset = 88,
+	TypeContextInfoItem_flag0_2_offset = 92,
+	TypeContextInfoItem_objectId_offset = 96,
+	TypeContextInfoItem_mdPropId_offset = 112,
+	TypeContextInfoItem_isTypeSource_offset = 128,
+	TypeContextInfoItem_providedTypeDomain_offset = 136,
+	TypeContextInfoItem_str1_offset = 144,
+	TypeContextInfoItem_str2_offset = 172,
+	TypeContextInfoItem_byte_0_offset = 200,
+	TypeContextInfoItem_someVector_offset = 208,
 	TypeNameInfo_size = 44,
 	TypeNameInfo_name_offset = 0,
 	TypeNameInfo_uuid_offset = 28,
-	ContextValueInfo_size = 84,
+	ContextValueInfo_size = 88,
 	ContextValueInfo_nameEng_offset = 0,
 	ContextValueInfo_nameRus_offset = 28,
 	ContextValueInfo_typeDomainPattern_offset = 56,
-	ContextValueInfo_isMutable_offset = 60,
-	ContextValueInfo_zero1_offset = 64,
-	ContextValueInfo_zero2_offset = 68,
-	ContextValueInfo_pZero1_offset = 72,
-	ContextValueInfo_pZero2_offset = 76,
-	ContextValueInfo_zero3_offset = 80,
+	ContextValueInfo_isMutable_offset = 64,
+	ContextValueInfo_zero1_offset = 68,
+	ContextValueInfo_zero2_offset = 72,
+	ContextValueInfo_pZero1_offset = 76,
+	ContextValueInfo_pZero2_offset = 80,
+	ContextValueInfo_zero3_offset = 84,
 	URL_size = 64,
 	URL_url_offset = 0,
 	URL_vec_offset = 32,
@@ -443,27 +449,27 @@ enum snegopat__someConstValues {
 	URL_b2_offset = 57,
 	Date_size = 8,
 	Date_ticks_offset = 0,
-	Numeric_size = 36,
+	Numeric_size = 40,
 	Numeric_allocked_offset = 0,
 	Numeric_length_offset = 4,
 	Numeric_prec_offset = 8,
 	Numeric__sign_offset = 12,
 	Numeric_data_offset = 16,
-	Numeric_inplace1_offset = 20,
-	Numeric_inplace2_offset = 24,
-	Numeric_inplace3_offset = 28,
-	Numeric_inplace4_offset = 32,
+	Numeric_inplace1_offset = 24,
+	Numeric_inplace2_offset = 28,
+	Numeric_inplace3_offset = 32,
+	Numeric_inplace4_offset = 36,
 	Value_size = 16,
 	Value_vtable_offset = 0,
 	Value_pValue_offset = 8,
 	Type_size = 8,
 	Type_pType_offset = 0,
-	VTColumnInfo_size = 92,
+	VTColumnInfo_size = 96,
 	VTColumnInfo_name1_offset = 0,
 	VTColumnInfo_name2_offset = 28,
 	VTColumnInfo_type_offset = 56,
-	VTColumnInfo_title_offset = 60,
-	VTColumnInfo_width_offset = 88,
+	VTColumnInfo_title_offset = 64,
+	VTColumnInfo_width_offset = 92,
 	StructKeys_size = 8,
 	StructKeys_key1_offset = 0,
 	StructKeys_key2_offset = 4,
@@ -513,7 +519,6 @@ enum snegopat__someConstValues {
 	tagRECT_top_offset = 4,
 	tagRECT_right_offset = 8,
 	tagRECT_bottom_offset = 12,
-	IBkEndUI_openView = 10,
 	IBkEndUI_doModal1 = 21,
 	IBkEndUI_messageBox = 22,
 	IBkEndUI_doModal2 = 24,
@@ -1089,7 +1094,7 @@ enum TxtEdtCommand {
 	cmdProcessTemplate = 61,
 };
 enum TxtOffsets {
-	ModuleTxtExtSettingsMap = 628,
+	ModuleTxtExtSettingsMap = 968,
 };
 enum ColorsKind {
 	ckRGB = 0,
@@ -2202,12 +2207,12 @@ public:
 	uint64 self;
 	IUnknown& unk;
 	void openView(IFramedView& view, const ViewPosition& pos = ViewPosition ( ), int openIn = 0, bool activate = true, const Guid& g = IID_NULL);
-	int doModal1(IFramedView& pView, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8);
-	int messageBox(const v8string& text, uint type = 0, uint timeout = 0, uint caption = 0, uint64 parent = 0, mbp& param = mbp ( ), int i1 = 0, int i2 = 0, int i3 = 0, int i4 = 0, int i5 = 0);
-	int doModal2(IFramedView& pView, int i1, int i2, int i3, int i4, int i5, int i6, int i7);
+	int doModal1(IFramedView& pView, uint64 i1, uint64 i2, uint64 i3, uint64 i4, uint64 i5, uint64 i6, uint64 i7, uint64 i8);
+	int messageBox(const v8string& text, uint64 type = 0, uint64 timeout = 0, uint64 caption = 0, uint64 parent = 0, mbp& param = mbp ( ), uint64 i1 = 0, uint64 i2 = 0, uint64 i3 = 0, uint64 i4 = 0, uint64 i5 = 0);
+	int doModal2(IFramedView& pView, uint64 i1, uint64 i2, uint64 i3, uint64 i4, uint64 i5, uint64 i6, uint64 i7);
 	ModalStates currentModalState();
-	int doMsgLine(const v8string& text, MessageMarker marker = mNone, const Guid& g = IID_NULL, int i1 = 0, IUnknown&& pUnkObject = null, const V8Picture& customMarker = V8Picture ( ));
-	bool GetFileName(SelectFileName& data, int timeout, uint64 parent);
+	int doMsgLine(const v8string& text, uint64 marker = mNone, const Guid& g = IID_NULL, uint64 i1 = 0, IUnknown&& pUnkObject = null, const V8Picture& customMarker = V8Picture ( ));
+	bool GetFileName(SelectFileName& data, uint64 timeout, uint64 parent);
 };
 
 class MyMessageHandler {
@@ -2227,9 +2232,13 @@ public:
 	mbpRef&& ref() const;
 	uint64 self;
 	void ctor();
-	int i1;	// 0x0 (0)
-	int i2;	// 0x4 (4)
-	int p1;	// 0x8 (8)
+	uint64 pNode;	// 0x0 (0)
+	uint64 size;	// 0x8 (8)
+	uint64 fakeNode;	// 0x10 (16)
+	uint64 prev;	// 0x18 (24)
+	uint64 next;	// 0x20 (32)
+	int8 i1;	// 0x28 (40)
+	int8 i2;	// 0x29 (41)
 };
 
 class SelectFileName {
@@ -2277,7 +2286,7 @@ public:
 	void ctor(const CommandID& _id, int p);
 	CommandID id;	// 0x0 (0)
 	int param;	// 0x14 (20)
-	uint object;	// 0x18 (24)
+	uint64 object;	// 0x18 (24)
 };
 
 class ICommandState {
@@ -3349,8 +3358,8 @@ public:
 	v8string name1;	// 0x0 (0)
 	v8string name2;	// 0x1C (28)
 	v8string description;	// 0x38 (56)
-	TypeDomainPattern typeDomain;	// 0x54 (84)
-	bool readOnly;	// 0x58 (88)
+	TypeDomainPattern typeDomain;	// 0x58 (88)
+	bool readOnly;	// 0x60 (96)
 };
 
 class MDEventInfo {
@@ -4102,9 +4111,9 @@ public:
 	TextPosition opSub(const TextPosition&);
 	TextPosition& operator=(const TextPosition&);
 	bool operator==(const TextPosition&) const;
-	uint vtable;	// 0x0 (0)
-	uint line;	// 0x4 (4)
-	uint col;	// 0x8 (8)
+	uint64 vtable;	// 0x0 (0)
+	uint line;	// 0x8 (8)
+	uint col;	// 0xC (12)
 };
 
 class TextManager {
@@ -4166,7 +4175,7 @@ public:
 	uint types(Vector&) const;
 	uint64 typesCount() const;
 	void ctor();
-	uint ptr;	// 0x0 (0)
+	uint64 ptr;	// 0x0 (0)
 };
 
 class TypeContextInfoItem {
@@ -4180,19 +4189,21 @@ public:
 	uint params;	// 0x20 (32)
 	int from;	// 0x24 (36)
 	TypeDomainPattern typeDomain;	// 0x28 (40)
-	uint lst_0;	// 0x2C (44)
-	uint lst_4;	// 0x30 (48)
-	uint flag1;	// 0x34 (52)
-	uint flag0_1;	// 0x40 (64)
-	uint flag0_2;	// 0x44 (68)
-	Guid objectId;	// 0x48 (72)
-	Guid mdPropId;	// 0x58 (88)
-	bool isTypeSource;	// 0x68 (104)
-	TypeDomainPattern providedTypeDomain;	// 0x6C (108)
-	v8string str1;	// 0x70 (112)
-	v8string str2;	// 0x8C (140)
-	bool byte_0;	// 0xA8 (168)
-	Vector someVector;	// 0xB0 (176)
+	uint64 lst_0;	// 0x30 (48)
+	uint64 lst_4;	// 0x38 (56)
+	uint flag1;	// 0x40 (64)
+	uint64 ip1;	// 0x48 (72)
+	uint64 ip2;	// 0x50 (80)
+	uint flag0_1;	// 0x58 (88)
+	uint flag0_2;	// 0x5C (92)
+	Guid objectId;	// 0x60 (96)
+	Guid mdPropId;	// 0x70 (112)
+	bool isTypeSource;	// 0x80 (128)
+	TypeDomainPattern providedTypeDomain;	// 0x88 (136)
+	v8string str1;	// 0x90 (144)
+	v8string str2;	// 0xAC (172)
+	bool byte_0;	// 0xC8 (200)
+	Vector someVector;	// 0xD0 (208)
 };
 
 class ITypeContextInfo {
@@ -4313,12 +4324,12 @@ public:
 	v8string nameEng;	// 0x0 (0)
 	v8string nameRus;	// 0x1C (28)
 	TypeDomainPattern typeDomainPattern;	// 0x38 (56)
-	bool isMutable;	// 0x3C (60)
-	uint zero1;	// 0x40 (64)
-	uint zero2;	// 0x44 (68)
-	uint pZero1;	// 0x48 (72)
-	uint pZero2;	// 0x4C (76)
-	uint zero3;	// 0x50 (80)
+	bool isMutable;	// 0x40 (64)
+	uint zero1;	// 0x44 (68)
+	uint zero2;	// 0x48 (72)
+	uint pZero1;	// 0x4C (76)
+	uint pZero2;	// 0x50 (80)
+	uint zero3;	// 0x54 (84)
 };
 
 class IContextDefExt {
@@ -4460,6 +4471,7 @@ public:
 	Numeric();
 	NumericRef&& ref() const;
 	uint64 self;
+	void dtor();
 	void ctor(const Numeric&);
 	void ctor(int16);
 	void ctor(uint16);
@@ -4489,16 +4501,15 @@ public:
 	bool toInteger(int64&) const;
 	v8string toString() const;
 	void ctor();
-	void dtor();
 	uint allocked;	// 0x0 (0)
 	uint length;	// 0x4 (4)
 	uint prec;	// 0x8 (8)
 	uint _sign;	// 0xC (12)
-	uint data;	// 0x10 (16)
-	uint inplace1;	// 0x14 (20)
-	uint inplace2;	// 0x18 (24)
-	uint inplace3;	// 0x1C (28)
-	uint inplace4;	// 0x20 (32)
+	uint64 data;	// 0x10 (16)
+	uint inplace1;	// 0x18 (24)
+	uint inplace2;	// 0x1C (28)
+	uint inplace3;	// 0x20 (32)
+	uint inplace4;	// 0x24 (36)
 };
 
 class Value {
@@ -4569,7 +4580,7 @@ public:
 	bool operator==(const uint16&) const;
 	bool getString(v8string&) const;
 	void toString(v8string&) const;
-	uint vtable;	// 0x0 (0)
+	uint64 vtable;	// 0x0 (0)
 	IValue&& pValue;	// 0x8 (8)
 };
 
@@ -4873,8 +4884,8 @@ public:
 	v8string name1;	// 0x0 (0)
 	v8string name2;	// 0x1C (28)
 	TypeDomainPattern type;	// 0x38 (56)
-	v8string title;	// 0x3C (60)
-	uint width;	// 0x58 (88)
+	v8string title;	// 0x40 (64)
+	uint width;	// 0x5C (92)
 };
 
 class StructKeys {
@@ -5737,6 +5748,8 @@ public:
 // Globals funcs
 void dumpVtable(?&, const string& alias = "");
 bool checkInterface(?&);
+
+namespace mem {
 uint8 byte;
 void set_byte(uint64, uint8);
 uint16 word;
@@ -5761,6 +5774,8 @@ int interlockedIncr(uint64 address);
 int interlockedDecr(uint64 address);
 int interlockedExchangeAdd(uint64 address, int value);
 int64 interlockedExchangeAdd64(uint64 address, int64 value);
+
+} // namespace mem
 string join(const array<string>&, const string&);
 string formatInt(int64, const string& = "", uint width = 0);
 string formatFloat(double, const string&, uint, uint);
@@ -6390,15 +6405,3 @@ Guid IID_IFormViewCore;
 Guid gMDIClientID;
 Guid IID_Window;
 Rect kEmptyRect;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;

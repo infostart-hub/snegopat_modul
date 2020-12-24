@@ -6,7 +6,9 @@ controls.as
 #pragma once
 #include "../all.h"
 
+#if x86 = 1
 Packet piSetTrapOnDoModal("trapDoModal", setTrapOnDoModal, piOnMainWindow);
+#endif
 
 class IExtControl {};
 
@@ -128,7 +130,7 @@ class IV8Form {
         if (!find.isEnd())
             return find.value;
         IV8Control control(form, ctrlId);
-        ctrls.insert(ctrlId, control);
+        ctrls.insert(ctrlId, &&control);
         return control;
     }
 
@@ -441,7 +443,7 @@ bool generateModalEvent(IFramedView&& pView, int& result, bool& bCreated) {
     ModalDialogInfo info;
     &&info.object = hookInfo;	// запоминаем объект для события
     &&info.originals = findPatchedTable(pView);	// Находим нужную для view патченную vtable, запоминаем оригинал
-    mapDialogsToInfo.insert(pView.self, info);	// запоминаем view
+    mapDialogsToInfo.insert(pView.self, &&info);	// запоминаем view
     return true;	// вызвать оригинал
 }
 

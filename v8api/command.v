@@ -15,7 +15,7 @@
 :props
 	CommandID id
 	int       param
-	uint	  object
+	int_ptr	  object
 :meths
 	void ctor(const CommandID&in _id, int p)
 	{
@@ -59,11 +59,15 @@
 :virt
 	void setCount(uint count)
 
-:iface ICmdSateImpl {70A10FE2-2D9D-4B4F-B157-75F15557BE9D}
+:iface ICmdStateImpl {70A10FE2-2D9D-4B4F-B157-75F15557BE9D}
 :virt
     void setCommand(const CommandID& id, IUnknown@+ state)
 :props
+  #if x86 = 1
 	16
+  #else
+    28
+  #endif
 	CommandID id
 	ICommandState@ cmdState
 	IListCmdState@ lstState

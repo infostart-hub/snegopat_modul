@@ -5,7 +5,7 @@
 #include "../all.h"
 
 SynEditInfo seInfo = SynEditInfo();
-Packet piSynEdit("synedit", function() { editorsManager._registerEditor(seInfo); return true; }, piOnMainEnter);
+//Packet piSynEdit("synedit", function() { editorsManager._registerEditor(seInfo); return true; }, piOnMainEnter);
 
 IDispatch&& addinObj;
 

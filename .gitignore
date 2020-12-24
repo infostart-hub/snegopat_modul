@@ -3,3 +3,4 @@ _build/
 AngelScript/
 *.ipch
 *.VC.*
+.vs/

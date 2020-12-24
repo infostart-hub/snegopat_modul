@@ -32,7 +32,7 @@
     // Загрузка стандартных аддинов
     function loadStdAddins() {
         var group = addins.sys;
-        var prefix = "script:<addins>\\std\\";
+        var prefix = "script:<addins>std\\";
         return loadAddin(prefix + "vbs.vbs", group) &&
             loadAddin(prefix + "commands.js", addins.root) &&
             loadAddin(prefix + "marked.js", group) &&
@@ -54,7 +54,6 @@
         vt.Columns.Add("Addin");
         vt.Columns.Add("isGroup");
         profileRoot.createValue(profileKey, vt, pflSnegopat);
-        /*var snwnd = <any>addins.byUniqueName("snegopatwnd").object();
         (function (rows, parentGroup) {
             for (var i = 0, c = rows.count(); i < c; i++) {
                 var row = rows.get(i)
@@ -64,6 +63,7 @@
                     loadAddin(row.Addin, parentGroup);
             }
         })(profileRoot.getValue(profileKey).Строки, addins.users);
+        /*var snwnd = <any>addins.byUniqueName("snegopatwnd").object();
         snwnd.addinsProfileKey = profileKey;
         snwnd.restoreWindowState();
         */

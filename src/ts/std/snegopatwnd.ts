@@ -1127,7 +1127,7 @@ class UpdatePage implements Page {
 					MessageBox("Не задан логин на snegopat.ru")
 					return;
 				}
-				CreateDirectory(env.pathes.repo);
+				/*CreateDirectory(env.pathes.repo);
 				var remoteUrl = this.form.remoteRepoURL.replace("://", `://${this.form.snegopatLogin}@`);
 				this.runFossilLocal(`clone "${remoteUrl}" -A ${this.form.snegopatLogin} "${env.pathes.repo}sn.fossil"`, true, true);
 				this.runFossilLocal(`open "${env.pathes.repo}sn.fossil"`, true, true);
@@ -1136,7 +1136,7 @@ class UpdatePage implements Page {
 				if (this.localRepoExist) {
 					this.handlerCmdBarUpdatebtnRefreshRepo();
 					return;
-				}
+				}*/
 			}
 			this.fillRepoList();
 			this.updateVersionInfo();

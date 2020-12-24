@@ -146,7 +146,7 @@ IV8View&& getViewWrapper(const Guid& id) {
     if (!find.isEnd())
         return find.value;
     IV8View v(id);
-    viewWrappers.insert(strId, v);
+    viewWrappers.insert(strId, &&v);
     return v;
 }
 
@@ -647,10 +647,10 @@ void setTrapOnMsgBox() {
     trMsgBox.setTrap(getBkEndUI(), IBkEndUI_messageBox, msgBoxTrap);
 }
 
-int msgBoxTrap(IBkEndUI& pUI, const v8string& text, uint type, uint timeout, uint caption, uint parent, mbp&inout param,
-               int i1, int i2, int i3
+int msgBoxTrap(IBkEndUI& pUI, const v8string& text, int_ptr type, int_ptr timeout, int_ptr caption, int_ptr parent, mbp&inout param,
+    int_ptr i1, int_ptr i2, int_ptr i3
 #if ver >= 8.3
-               , int i4, int i5
+               , int_ptr i4, int_ptr i5
 #endif
                ) {
     // Для начала снимем перехват. Тогда обработчики события смогут также вызывать MsgBox без зацикливания
@@ -701,19 +701,20 @@ class IMsgBoxHook {
 ////////////////////////////////////////////////////////////////////////////////////
 // Перехват и оповещение о Сообщить
 void setTrapOnMessage() {
-    trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
+    //trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
 }
 
 TrapVirtualStdCall trMessage;
 
-int doMsgLineTrap(IBkEndUI& pUI, const v8string&in text, MessageMarker marker, const Guid&in g, int i1, IUnknown& pUnkObject, const V8Picture&in customMarker) {
+int doMsgLineTrap(IBkEndUI& pUI, const v8string&in text, int_ptr marker, const Guid&in g, int_ptr i1, IUnknown& pUnkObject, const V8Picture&in customMarker) {
+    Print(text.str);
     // Для начала снимем перехват. Тогда обработчики события смогут также вызывать Message без зацикливания
     trMessage.swap();
     if (oneDesigner._events._hasHandlers(dspWindows, "onMessage")) {
         // Если есть подписанты, оповестим их
         IMessageParams params;
         params._text = text;
-        params._marker = marker;
+        params._marker = MessageMarker(marker);
         array<Variant> args(1);
         args[0].setDispatch(createDispatchFromAS(&&params));
         oneDesigner._events.fireEvent(dspWindows, "onMessage", args);

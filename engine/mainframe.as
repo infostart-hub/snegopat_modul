@@ -77,10 +77,11 @@ class MyCommandStateList {
 class CommandState {
     MyCommandState cmdState;
     MyCommandStateList lstState;
-    ICmdSateImpl&& allState;
+    ICmdStateImpl&& allState;
 
     CommandState(const CommandID& id, bool withList) {
-        currentProcess().createByClsid(CLSID_CmdStateImpl, IID_ICmdSateImpl, allState);
+        currentProcess().createByClsid(CLSID_CmdStateImpl, IID_ICmdStateImpl, allState);
+        //MsgBox("All state is " + allState.self);
         allState.setCommand(id, AStoIUnknown(&&cmdState, IID_ICommandState));
         if (withList)
             &&allState.lstState = AStoIUnknown(&&lstState, IID_IListCmdState);

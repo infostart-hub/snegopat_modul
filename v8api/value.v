@@ -65,7 +65,7 @@
 	uint length
 	uint prec
 	uint _sign
-	uint data
+	int_ptr data
 	uint inplace1
 	uint inplace2
 	uint inplace3
@@ -77,6 +77,9 @@
 #else
 	core83.dll
 #endif
+  #if ver >= 8.3.11
+	void dtor()|??1Numeric@core@@QAE@XZ|??1Numeric@core@@QEAA@XZ
+  #endif
 	void ctor(const Numeric&)|??0Numeric@core@@QAE@ABV01@@Z|??0Numeric@core@@QEAA@AEBV01@@Z
 	void ctor(int16)|??0Numeric@core@@QAE@F@Z|??0Numeric@core@@QEAA@F@Z
 	void ctor(uint16)|??0Numeric@core@@QAE@G@Z|??0Numeric@core@@QEAA@G@Z
@@ -115,17 +118,19 @@
 		obj.ctor(0);
 	}
 	---
+  #if ver < 8.3.11
 	void dtor()
 	{
-		if(obj.data != obj.self + 20)
+		if(obj.data != obj.self + Numeric_inplace1_offset)
 			free(obj.data);
 	}
 	---
+  #endif
 
 // Value
 :class Value
 :props
-	uint vtable
+	int_ptr vtable
 	IValue@ pValue
 :dlls
 #if ver < 8.3

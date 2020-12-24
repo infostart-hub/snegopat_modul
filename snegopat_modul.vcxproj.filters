@@ -45,9 +45,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="v8api\window.v">
-      <Filter>4 v8api</Filter>
-    </None>
     <None Include="engine\add_global.as">
       <Filter>5 engine</Filter>
     </None>
@@ -171,9 +168,6 @@
     <None Include="engine\textwnd.as">
       <Filter>5 engine</Filter>
     </None>
-    <None Include="engine\typereader.as">
-      <Filter>5 engine</Filter>
-    </None>
     <None Include="src\ts\std\commands.ts">
       <Filter>6 scripts</Filter>
     </None>
@@ -291,10 +285,22 @@
     <None Include="v8api\vt.v">
       <Filter>4 v8api</Filter>
     </None>
+    <None Include="lib\x64\snegopat.dll">
+      <Filter>1 Основные</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="module.info">
+    <CopyFileToFolders Include="engine\typereader.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\window.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="module.info">
       <Filter>1 Основные</Filter>
-    </CustomBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\x86\snegopat.dll">
+      <Filter>1 Основные</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

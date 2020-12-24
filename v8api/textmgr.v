@@ -1,6 +1,6 @@
 ﻿:class TextPosition
 :props
-	uint vtable
+	int_ptr vtable
 	uint line
 	uint col
 :dlls

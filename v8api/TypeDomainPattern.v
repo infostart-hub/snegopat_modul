@@ -1,6 +1,6 @@
 ﻿:class TypeDomainPattern
 :props
-	uint ptr
+	int_ptr ptr
 :dlls
 #if ver < 8.3
 	core82.dll

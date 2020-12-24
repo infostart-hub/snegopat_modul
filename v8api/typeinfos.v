@@ -7,6 +7,14 @@
 	tcfTemplate
 	tcfKeyword
 
+:struct list_node
+:props
+	int_ptr p1
+	int_ptr p2
+	int_ptr p3
+	uint16  f
+
+
 :struct TypeContextInfoItem
 #if ver >= 8.3.4
 :meths
@@ -27,12 +35,13 @@
 		obj.lst_4 = obj.lst_16 = 0;
 	  #else
 	    obj.lst_4 = 0;
-		obj.lst_0 = malloc(16);
-		mem::dword[obj.lst_0] = obj.lst_0;
-		mem::dword[obj.lst_0 + 4] = obj.lst_0;
-		mem::dword[obj.lst_0 + 8] = obj.lst_0;
-		mem::byte[obj.lst_0 + 0xD] = 1;
-		mem::byte[obj.lst_0 + 0xC] = 1;
+		obj.lst_0 = malloc(64);
+		list_nodeRef&& node = tolist_node(obj.lst_0);
+		node.ref.p1 = node.ref.p2 = node.ref.p3 = obj.lst_0;
+		node.ref.f = 0x101;
+
+		TextPositionRef&& tp = toTextPosition(obj.self + TypeContextInfoItem_textPos_vt_offset);
+		tp.ref.ctor();
 	  #endif
 	}
 	---
@@ -44,17 +53,18 @@
 	int from
 	TypeDomainPattern typeDomain
 	// Какой-то список или хэшмап
-	uint lst_0
-	uint lst_4
+	int_ptr lst_0
+	int_ptr lst_4
   #if ver < 8.3.11
-	uint lst_8
-	uint lst_12
-	uint lst_16
+	int_ptr lst_8
+	int_ptr lst_12
+	int_ptr lst_16
 	uint unk1
   #endif
 	uint flag1
   #if ver >= 8.3.11.3133
-	+8
+	int_ptr ip1
+	int_ptr textPos_vt
   #endif
 	uint flag0_1
 	uint flag0_2
