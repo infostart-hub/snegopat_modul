@@ -864,14 +864,14 @@ class UpdatePage implements Page {
 		this.btnSubscribePage = buttons.Find("btnSubscribePage");
 		var pf = env.pathes.tools + 'fossil.exe';
 		var file = v8New("File", pf);
-		if (file.Exist()) {
+		if (file.Существует()) {
 			this.pathToFossil = '"' + file.FullName + '" ';
 			this.pathToFecho = '| "' + file.Path + 'fecho.exe" ';
 		} else
 			Message("Не найден путь к fossil");
 		file = v8New("File", env.pathes.core + "_fossil_");
 		this.form.localRepoPath = file.Path;
-		this.localRepoExist = file.Exist();
+		this.localRepoExist = file.Существует();
 		if (!this.localRepoExist) {
 			MessageBox('Нет синхронизации локального и внешнего репозитария. Заполните данные для подключения и нажмите "Обновить репозитарий"');
 		}
@@ -900,7 +900,7 @@ class UpdatePage implements Page {
 		this.readSettings();
 		file = v8New("File", env.pathes.data + "cntlm.ini");
 		this.ntlmIni = file.FullName;
-		if (!file.Exist()) {
+		if (!file.Существует()) {
 			var td = v8New("TextDocument");
 			td.Write(this.ntlmIni);
 		}
@@ -1132,7 +1132,7 @@ class UpdatePage implements Page {
 				this.runFossilLocal(`clone "${remoteUrl}" -A ${this.form.snegopatLogin} "${env.pathes.repo}sn.fossil"`, true, true);
 				this.runFossilLocal(`open "${env.pathes.repo}sn.fossil"`, true, true);
 				var file = v8New("File", env.pathes.core + "_fossil_");
-				this.localRepoExist = file.Exist();
+				this.localRepoExist = file.Существует();
 				if (this.localRepoExist) {
 					this.handlerCmdBarUpdatebtnRefreshRepo();
 					return;

@@ -25,9 +25,6 @@ bool initAddins() {
 #if x86 = 1
     if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
-#else
-    GlobalAddinObject();
-    _dumpV8Api();
 #endif
     return true;
 }

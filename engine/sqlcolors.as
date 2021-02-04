@@ -7,9 +7,7 @@
 #pragma once
 #include "../all.h"
 
-#if x86 = 1
 Packet sqlColorsAndGrouping("sqlColorsAndGrouping", initGroupingAndColoring, piOnMainEnter);
-#endif
 
 // Перехватчик функции синтакс-разбора строки текста редактором 1С для
 // текстового расширения "Встроенный язык"
@@ -120,7 +118,7 @@ bool initGroupingAndColoring() {
     } else if (trITextExtColors_getColors.state == trapDisabled)
         trITextExtColors_getColors.swap();
     // Если включена раскраска строк в цвета запросов, надо разобраться с фоном
-    if (colorizedMultiLines) {
+    /*if (colorizedMultiLines) {
         if (enableBkColorForMultiLine) {
             // Надо устанавливать или восстанавливать перехват на получение фона строки
             // Для начала выясним, какой тип перехвата нужно делать
@@ -157,16 +155,16 @@ bool initGroupingAndColoring() {
             if (trTxtExt_getBG.state == trapEnabled)
                 trTxtExt_getBG.swap();
         }
-    }
+    }*/
     return true;
 }
 
 void printSyntaxInfos(const string& text, Vector& infos) {
     SyntaxItemInfoRef&& s = toSyntaxItemInfo(infos.start);
-    Print("------");
+    doLog("------", 3);
     while (s < infos.end) {
-        Print(text.substr(s.ref.start, s.ref.len) + "  blockKind=" + s.ref.blockKind + " blockMode=" + s.ref.blockMode + " isBlock=" + int(s.ref.isBlock)
-            + " cat=" + s.ref.lexemCategory + " lexType=" + s.ref.lexemType);
+        doLog(text.substr(s.ref.start, s.ref.len) + "  blockKind=" + s.ref.blockKind + " blockMode=" + s.ref.blockMode + " isBlock=" + int(s.ref.isBlock)
+            + " cat=" + s.ref.lexemCategory + " lexType=" + s.ref.lexemType, 3);
         &&s = s + 1;
     }
 }
@@ -201,10 +199,10 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
         array<SQLBlockInfo&&>&& newBlocks = parseQuoteLexemAsSQL(srcLine, infos, newCount);
         // Теперь все полученные блоки нужно слить в один вектор
         infos.dtor();
-        uint pWrite = infos.allock(newCount, SyntaxItemInfo_size);
+        int_ptr pWrite = infos.allock(newCount, SyntaxItemInfo_size);
         for (uint idx = 0, m = newBlocks.length; idx < m; idx++) {
             SQLBlockInfo&& pBlock = newBlocks[idx];
-            uint size = pBlock.tokens.size();
+            int_ptr size = pBlock.tokens.size();
             if (size != 0) {
                 mem::memcpy(pWrite, pBlock.tokens.start, size);
                 pWrite += size;
@@ -249,6 +247,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
     uint tokensCount = tokens.count(SyntaxItemInfo_size);
     array<SQLBlockInfo&&> sqlBlocks;
     newCount = 0;
+    printSyntaxInfos(srcLine, tokens);
     for (uint idx = 0; idx < tokensCount; idx++) {
         // Один блок по-любому войдет в новый вектор, либо как есть, либо как открывающая кавычка
         newCount++;

@@ -46,7 +46,7 @@ var pathToServer;
 var pflFolder = "Snegopat/bsl_analize/", pflPath = pflFolder + "pathToBsl";
 
 function tryFindPathToBsl(p: string) {
-    if (v8New("File", p).Exist()) {
+    if (v8New("File", p).Существует()) {
         pathToServer = p;
         return true;
     }
@@ -75,7 +75,7 @@ function runAnalyses(td: TextDocument) {
         CreateDirectory(tmpPath);
         var fPath = tmpPath + "text.bsl";
         td.Write(fPath);
-        if (!v8New("File", fPath).Exist()) {
+        if (!v8New("File", fPath).Существует()) {
             MessageBox("Не удалось записать текст модуля во временный файл");
             return undefined;
         }
@@ -85,7 +85,7 @@ function runAnalyses(td: TextDocument) {
         //Message(cmd);
         wsh.Run(cmd, 1, 1);
         fPath = tmpPath + "bsl-json.json";
-        if (!v8New("File", fPath).Exist()) {
+        if (!v8New("File", fPath).Существует()) {
             MessageBox("Файл с результатом работы не найден");
             DeleteFiles(tmpPath);
             return undefined;
@@ -243,7 +243,7 @@ function msgListВыбор(Элемент, ВыбраннаяСтрока, Ко�
 stdlib.createMacros(SelfScript.self, "Расширеный анализ текущего модуля",
 "Вызывает анализ текущего модуля с помощью bsl language server",
 stdcommands.Frntend.SyntaxCheck.info.picture, function() {
-    if (!pathToServer || !v8New("File", pathToServer).Exist()) {
+    if (!pathToServer || !v8New("File", pathToServer).Существует()) {
         openFormSettings();
         return;
     }

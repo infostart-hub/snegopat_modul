@@ -4,3 +4,5 @@ AngelScript/
 *.ipch
 *.VC.*
 .vs/
+*.aps
+*.user

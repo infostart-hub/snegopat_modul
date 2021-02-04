@@ -311,7 +311,7 @@ class HelpSystem {
                 var ai = repo.addins[idx];
                 if (ai.helpPath.length) {
                     var file: File = v8New("File", ai.helpPath);
-                    if (file.Exist() && file.IsFile()) {
+                    if (file.Существует() && file.IsFile()) {
                         var folderForCache = env.pathes.help + repo.typeOfRepo + file.Path.substr(repo.basePath.length - 1);
                         if (!stdlib.isFolderExist(folderForCache)) {
                             CreateDirectory(folderForCache);

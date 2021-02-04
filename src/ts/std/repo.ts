@@ -117,7 +117,7 @@ class RepoSystem {
         var files = FindFiles(this.root.path, maskForAuto, false);
         for (var idx = 0; idx < files.Count(); idx++) {
             var file: File = files.Get(idx);
-            if (file.Exist() && file.IsFile()) {
+            if (file.Существует() && file.IsFile()) {
                 this.processScriptFile(file, this.root, isStd);
             }
         }
@@ -147,20 +147,20 @@ class RepoSystem {
         var files = FindFiles(this.root.path + "list\\", "*.info", false);
         for (var idx = 0; idx < files.Count(); idx++) {
             var file: File = files.Get(idx);
-            if (file.Exist() && file.IsFile()) {
+            if (file.Существует() && file.IsFile()) {
                 var td = v8New("TextDocument");
                 td.Read(file.FullName);
                 if (td.LineCount()) {
                     var line = td.GetLine(1);
                     if (line.indexOf("script:") == 0) {
                         file = v8New("File", this.root.path + line.substr(7).replace(/^\s+|\s+$/g, ""));
-                        if (file.Exist() && file.IsFile())
+                        if (file.Существует() && file.IsFile())
                             this.processScriptFile(file, this.createFolder(file.Path), false);
                     } else {
                         var folder = this.root;
                         if (line.indexOf("file:") == 0) {
                             file = v8New("File", this.root.path + line.substr(5).replace(/^\s+|\s+$/g, ""));
-                            if (file.Exist() && file.IsFile()) {
+                            if (file.Существует() && file.IsFile()) {
                                 td.Read(file.FullName);
                                 folder = this.createFolder(file.Path);
                             }

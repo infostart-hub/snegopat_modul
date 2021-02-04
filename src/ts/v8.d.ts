@@ -156,6 +156,8 @@ interface PictureFormat {
 }
 interface ColorDepth {
 }
+interface PromiseV8 {
+}
 interface Stream {
 	CanRead: boolean;
 	ДоступноЧтение: boolean;
@@ -185,20 +187,36 @@ interface Stream {
 	Записать(... params): void;
 	BeginGetSize(... params): void;
 	НачатьПолучениеРазмера(... params): void;
+	SizeAsync(): PromiseV8;
+	РазмерАсинх(): PromiseV8;
 	BeginCopyTo(... params): void;
 	НачатьКопированиеВ(... params): void;
+	CopyToAsync(... params): PromiseV8;
+	КопироватьВАсинх(... params): PromiseV8;
 	BeginSeek(... params): void;
 	НачатьПереход(... params): void;
+	SeekAsync(... params): PromiseV8;
+	ПерейтиАсинх(... params): PromiseV8;
 	BeginSetSize(... params): void;
 	НачатьУстановкуРазмера(... params): void;
+	SetSizeAsync(... params): PromiseV8;
+	УстановитьРазмерАсинх(... params): PromiseV8;
 	BeginRead(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 	BeginWrite(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	BeginFlush(... params): void;
 	НачатьСбросБуферов(... params): void;
+	FlushAsync(): PromiseV8;
+	СброситьБуферыАсинх(): PromiseV8;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 }
 interface BinaryData {
 	Write(... params): void;
@@ -209,6 +227,8 @@ interface BinaryData {
 	ОткрытьПотокДляЧтения(): Stream;
 	BeginWrite(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 }
 declare type ДвоичныеДанные = BinaryData;
 interface Picture {
@@ -240,6 +260,8 @@ interface Picture {
 	РазмерФайла(): number;
 	GetBinaryData(... params): BinaryData;
 	ПолучитьДвоичныеДанные(... params): BinaryData;
+	FrameCount(): number;
+	КоличествоКадров(): number;
 }
 declare type Картинка = Picture;
 interface PictureSize {
@@ -664,10 +686,14 @@ interface ValueList {
 	ВыбратьЭлемент(... params): ValueListItem;
 	ShowChooseItem(... params): void;
 	ПоказатьВыборЭлемента(... params): void;
+	ChooseItemAsync(... params): PromiseV8;
+	ВыбратьЭлементАсинх(... params): PromiseV8;
 	CheckItems(... params): boolean;
 	ОтметитьЭлементы(... params): boolean;
 	ShowCheckItems(... params): void;
 	ПоказатьОтметкуЭлементов(... params): void;
+	CheckItemsAsync(... params): PromiseV8;
+	ОтметитьЭлементыАсинх(... params): PromiseV8;
 	UnloadValues(): ArrayV8;
 	ВыгрузитьЗначения(): ArrayV8;
 	LoadValues(... params): void;
@@ -1736,6 +1762,8 @@ interface SpreadsheetDocument {
 	КоличествоСтраниц(): number;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	GetDataAreaHorizontalSize(): number;
 	ПолучитьРазмерОбластиДанныхПоГоризонтали(): number;
 	GetDataAreaVerticalSize(): number;
@@ -4333,10 +4361,14 @@ interface ClientApplicationForm {
 	ВыбратьИзМеню(... params): ValueListItem;
 	ShowChooseFromMenu(... params): void;
 	ПоказатьВыборИзМеню(... params): void;
+	ChooseFromMenuAsync(... params): PromiseV8;
+	ВыбратьИзМенюАсинх(... params): PromiseV8;
 	ChooseFromList(... params): ValueListItem;
 	ВыбратьИзСписка(... params): ValueListItem;
 	ShowChooseFromList(... params): void;
 	ПоказатьВыборИзСписка(... params): void;
+	ChooseFromListAsync(... params): PromiseV8;
+	ВыбратьИзСпискаАсинх(... params): PromiseV8;
 	ClearMarkIncomplete(): void;
 	ОтключитьОтметкуНезаполненного(): void;
 	RefreshDataRepresentation(... params): void;
@@ -4359,6 +4391,8 @@ interface ClientApplicationForm {
 	НачатьРедактированиеЭлемента(): void;
 	BeginGetConversation(... params): void;
 	НачатьПолучениеОбсуждения(... params): void;
+	GetConversationAsync(): PromiseV8;
+	ПолучитьОбсуждениеАсинх(): PromiseV8;
 	ReopenFromOtherServer(): void;
 	ПереоткрытьСДругогоСервера(): void;
 	FillOnReopenFromOtherServer(... params): void;
@@ -4620,22 +4654,40 @@ declare function DocumentsDir(): string;
 declare function КаталогДокументов(): string;
 declare function BeginGettingDocumentsDir(... params): void;
 declare function НачатьПолучениеКаталогаДокументов(... params): void;
+declare function DocumentsDirAsync();
+declare function КаталогДокументовАсинх();
 declare function BeginGettingUserDataWorkDir(... params): void;
 declare function НачатьПолучениеРабочегоКаталогаДанныхПользователя(... params): void;
+declare function UserDataWorkDirAsync();
+declare function РабочийКаталогДанныхПользователяАсинх();
 declare function ShowMessageBox(... params): void;
 declare function ПоказатьПредупреждение(... params): void;
+declare function DoMessageBoxAsync(... params);
+declare function ПредупреждениеАсинх(... params);
 declare function ShowQueryBox(... params): void;
 declare function ПоказатьВопрос(... params): void;
+declare function DoQueryBoxAsync(... params): PromiseV8;
+declare function ВопросАсинх(... params): PromiseV8;
 declare function ShowValue(... params): void;
 declare function ПоказатьЗначение(... params): void;
+declare function OpenValueAsync(... params): PromiseV8;
+declare function ОткрытьЗначениеАсинх(... params): PromiseV8;
 declare function ShowInputDate(... params): void;
 declare function ПоказатьВводДаты(... params): void;
+declare function InputDateAsync(... params): PromiseV8;
+declare function ВвестиДатуАсинх(... params): PromiseV8;
 declare function ShowInputValue(... params): void;
 declare function ПоказатьВводЗначения(... params): void;
+declare function InputValueAsync(... params): PromiseV8;
+declare function ВвестиЗначениеАсинх(... params): PromiseV8;
 declare function ShowInputString(... params): void;
 declare function ПоказатьВводСтроки(... params): void;
+declare function InputStringAsync(... params): PromiseV8;
+declare function ВвестиСтрокуАсинх(... params): PromiseV8;
 declare function ShowInputNumber(... params): void;
 declare function ПоказатьВводЧисла(... params): void;
+declare function InputNumberAsync(... params): PromiseV8;
+declare function ВвестиЧислоАсинх(... params): PromiseV8;
 declare function AttachLicensingClientParametersRequestHandler(... params): void;
 declare function ПодключитьОбработчикЗапросаНастроекКлиентаЛицензирования(... params): void;
 declare function DetachLicensingClientParametersRequestHandler(): void;
@@ -6074,6 +6126,10 @@ declare function GetAllFilesMask();
 declare function ПолучитьМаскуВсеФайлы();
 declare function GetPathSeparator();
 declare function ПолучитьРазделительПути();
+declare function MobileApplicationFunctionalitySupported(... params): boolean;
+declare function ПоддерживаетсяФункциональностьМобильногоПриложения(... params): boolean;
+declare function GetExternalURL(... params): string;
+declare function ПолучитьВнешнююНавигационнуюСсылку(... params): string;
 interface EnumXBaseEncoding {
 	ANSI;
 	OEM;
@@ -6085,6 +6141,8 @@ interface EnumInternetMailTextType {
 	ПростойТекст;
 	RichText;
 	РазмеченныйТекст;
+	CustomText;
+	ПроизвольныйТекст;
 }
 declare type ПеречислениеТипТекстаПочтовогоСообщения = EnumInternetMailTextType;
 interface EnumInternetMailTextProcessing {
@@ -6204,6 +6262,8 @@ interface CryptoToolsManager {
 	ПолучитьИнформациюМодуляКриптографии(... params): CryptoModuleInformation;
 	BeginGettingCryptoModuleInformation(... params): void;
 	НачатьПолучениеИнформацииМодуляКриптографии(... params): void;
+	GetCryptoModuleInformationAsync(... params): PromiseV8;
+	ПолучитьИнформациюМодуляКриптографииАсинх(... params): PromiseV8;
 }
 interface EnumInternetMailMessageParseStatus {
 	ErrorsNotDetected;
@@ -6334,7 +6394,7 @@ declare function NumberInWords(... params): string;
 declare function ЧислоПрописью(... params): string;
 declare function PeriodPresentation(... params): string;
 declare function ПредставлениеПериода(... params): string;
-declare function FileCopy(... params): void;
+declare function CopyFile(... params): void;
 declare function КопироватьФайл(... params): void;
 declare function MoveFile(... params): void;
 declare function ПереместитьФайл(... params): void;
@@ -6356,18 +6416,36 @@ declare function CurrentUniversalDateInMilliseconds();
 declare function ТекущаяУниверсальнаяДатаВМиллисекундах();
 declare function BeginCopyingFile(... params): void;
 declare function НачатьКопированиеФайла(... params): void;
+declare function CopyFileAsync(... params): PromiseV8;
+declare function КопироватьФайлАсинх(... params): PromiseV8;
 declare function BeginMovingFile(... params): void;
 declare function НачатьПеремещениеФайла(... params): void;
+declare function MoveFileAsync(... params): PromiseV8;
+declare function ПереместитьФайлАсинх(... params): PromiseV8;
 declare function BeginDeletingFiles(... params): void;
 declare function НачатьУдалениеФайлов(... params): void;
+declare function DeleteFilesAsync(... params): PromiseV8;
+declare function УдалитьФайлыАсинх(... params): PromiseV8;
 declare function BeginFindingFiles(... params): void;
 declare function НачатьПоискФайлов(... params): void;
+declare function FindFilesAsync(... params): PromiseV8;
+declare function НайтиФайлыАсинх(... params): PromiseV8;
 declare function BeginCreatingDirectory(... params): void;
 declare function НачатьСозданиеКаталога(... params): void;
+declare function CreateDirectoryAsync(... params): PromiseV8;
+declare function СоздатьКаталогАсинх(... params): PromiseV8;
 declare function BeginRunningApplication(... params): void;
 declare function НачатьЗапускПриложения(... params): void;
+declare function RunAppAsync(... params): PromiseV8;
+declare function ЗапуститьПриложениеАсинх(... params): PromiseV8;
 declare function StringWithNumber(... params): string;
 declare function СтрокаСЧислом(... params): string;
+declare function BeginGettingNetworkAdaptersInformation(... params): void;
+declare function НачатьПолучениеИнформацииОСетевыхАдаптерах(... params): void;
+declare function GetNetworkAdaptersInformation();
+declare function ПолучитьИнформациюОСетевыхАдаптерах();
+declare function GetNetworkAdaptersInformationAsync();
+declare function ПолучитьИнформациюОСетевыхАдаптерахАсинх();
 interface EnumVerticalAlign {
 	Top;
 	Верх;
@@ -7202,6 +7280,8 @@ interface EnumErrorCategory {
 	ОшибкаВнешнегоИсточникаДанных;
 	GotoURLError;
 	ОшибкаПереходаПоНавигационнойСсылке;
+	DatabaseCopyError;
+	ОшибкаКопииБазыДанных;
 	OtherError;
 	ПрочаяОшибка;
 	AllErrors;
@@ -7382,208 +7462,6 @@ declare function ConnectExternalDataSource(... params): void;
 declare function УстановитьСоединениеСВнешнимИсточникомДанных(... params): void;
 declare function DisconnectExternalDataSource(... params): void;
 declare function РазорватьСоединениеСВнешнимИсточникомДанных(... params): void;
-interface EnumWindowOpenVariant {
-	SingleWindow;
-	ОтдельноеОкно;
-}
-declare type ПеречислениеВариантОткрытияОкна = EnumWindowOpenVariant;
-interface EnumClientApplicationAgentState {
-	Connected;
-	Подключен;
-	Disconnected;
-	Отключен;
-	NotStarted;
-	НеЗапущен;
-}
-declare type ПеречислениеСостояниеАгентаКлиентскогоПриложения = EnumClientApplicationAgentState;
-interface ClientApplicationAgentManager {
-	BeginConnect(): void;
-	НачатьПодключение(): void;
-	BeginDisconnect(): void;
-	НачатьОтключение(): void;
-	BeginInstallation(): void;
-	НачатьУстановку(): void;
-	AttachStateChangeHandler(... params): void;
-	ПодключитьОбработчикИзмененияСостояния(... params): void;
-	DetachStateChangeHandler(... params): void;
-	ОтключитьОбработчикИзмененияСостояния(... params): void;
-	GetApplicationDescription(): string;
-	ПолучитьНаименованиеПриложения(): string;
-	SetApplicationDescription(... params): void;
-	УстановитьНаименованиеПриложения(... params): void;
-	IsVersionActual(): boolean;
-	ВерсияАктуальна(): boolean;
-	GetCurrentState(): EnumClientApplicationAgentState;
-	ПолучитьТекущееСостояние(): EnumClientApplicationAgentState;
-}
-interface ExternalSiteWindowManager {
-	Enabled: boolean;
-	Доступно: boolean;
-	AttachMessageHandler(... params): void;
-	ПодключитьОбработчикСообщений(... params): void;
-	DetachMessageHandler(... params): void;
-	ОтключитьОбработчикСообщений(... params): void;
-	PostMessage(... params): void;
-	ОтправитьСообщение(... params): void;
-}
-interface GlobalSearchPlanItem {
-	SearchType;
-	ВидПоиска;
-	ProcedureName;
-	ИмяПроцедуры;
-	Module;
-	Модуль;
-	AtServer;
-	НаСервере;
-	Background;
-	Фоновый;
-	Order;
-	Порядок;
-	AdditionalParameters;
-	ДополнительныеПараметры;
-}
-declare type ЭлементПланаГлобальногоПоиска = GlobalSearchPlanItem;
-interface GlobalSearchPlan {
-	Insert(... params): void;
-	Вставить(... params): void;
-	Add(... params): void;
-	Добавить(... params): void;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Find(... params): GlobalSearchPlanItem;
-	Найти(... params): GlobalSearchPlanItem;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params): GlobalSearchPlanItem;
-	Получить(... params): GlobalSearchPlanItem;
-	Delete(... params): void;
-	Удалить(... params): void;
-}
-declare type ПланГлобальногоПоиска = GlobalSearchPlan;
-interface GlobalSearchManager {
-	SetPlan(... params): void;
-	УстановитьПлан(... params): void;
-	GetPlan(): GlobalSearchPlan;
-	ПолучитьПлан(): GlobalSearchPlan;
-	SetDescription(... params): void;
-	УстановитьОписание(... params): void;
-	GetDescription(): FormattedString | string;
-	ПолучитьОписание(): FormattedString | string;
-	BeginSearch(... params): void;
-	НачатьПоиск(... params): void;
-	SetInputHint(... params): void;
-	УстановитьПодсказкуВвода(... params): void;
-	GetInputHint();
-	ПолучитьПодсказкуВвода();
-}
-interface ClientApplicationWindow {
-	Caption: string;
-	Заголовок: string;
-	IsMain: boolean;
-	Основное: boolean;
-	HomePage: boolean;
-	НачальнаяСтраница: boolean;
-	Content: FixedArray;
-	Содержимое: FixedArray;
-	GetContent();
-	ПолучитьСодержимое();
-	GetURL(): string;
-	ПолучитьНавигационнуюСсылку(): string;
-	Activate(): void;
-	Активизировать(): void;
-}
-declare type ОкноКлиентскогоПриложения = ClientApplicationWindow;
-interface ClientApplicationWindows {
-	Count(): number;
-	Количество(): number;
-	Get(... params): ClientApplicationWindow;
-	Получить(... params): ClientApplicationWindow;
-}
-declare type ОкнаКлиентскогоПриложения = ClientApplicationWindows;
-declare var WindowOpenVariant: EnumWindowOpenVariant;
-declare var ВариантОткрытияОкна: EnumWindowOpenVariant;
-declare var ClientApplicationAgent: ClientApplicationAgentManager;
-declare var АгентКлиентскогоПриложения: ClientApplicationAgentManager;
-declare var ExternalSiteWindow: ExternalSiteWindowManager;
-declare var ОкноВнешнегоСайта: ExternalSiteWindowManager;
-declare var GlobalSearch: GlobalSearchManager;
-declare var ГлобальныйПоиск: GlobalSearchManager;
-declare function GetApplicationCaption();
-declare function ПолучитьЗаголовокПриложения();
-declare function SetApplicationCaption(... params): void;
-declare function УстановитьЗаголовокПриложения(... params): void;
-declare function ShowUserNotification(... params): void;
-declare function ПоказатьОповещениеПользователя(... params): void;
-declare function GetFile(... params);
-declare function ПолучитьФайл(... params);
-declare function PutFile(... params);
-declare function ПоместитьФайл(... params);
-declare function BeginPutFile(... params): void;
-declare function НачатьПомещениеФайла(... params): void;
-declare function GetInterfaceFunctionalOption(... params);
-declare function ПолучитьФункциональнуюОпциюИнтерфейса(... params);
-declare function SetInterfaceFunctionalOptionParameters(... params): void;
-declare function УстановитьПараметрыФункциональныхОпцийИнтерфейса(... params): void;
-declare function GetInterfaceFunctionalOptionParameters();
-declare function ПолучитьПараметрыФункциональныхОпцийИнтерфейса();
-declare function RefreshInterface(): void;
-declare function ОбновитьИнтерфейс(): void;
-declare function GetWindows(): ClientApplicationWindows;
-declare function ПолучитьОкна(): ClientApplicationWindows;
-declare function SetShortApplicationCaption(... params): void;
-declare function УстановитьКраткийЗаголовокПриложения(... params): void;
-declare function GetShortApplicationCaption();
-declare function ПолучитьКраткийЗаголовокПриложения();
-declare function ActiveWindow(): ClientApplicationWindow;
-declare function АктивноеОкно(): ClientApplicationWindow;
-declare function GotoURL(... params): void;
-declare function ПерейтиПоНавигационнойСсылке(... params): void;
-declare function FindWindowByURL(... params): ClientApplicationWindow;
-declare function НайтиОкноПоНавигационнойСсылке(... params): ClientApplicationWindow;
-declare function ExecuteNotifyProcessing(... params);
-declare function ВыполнитьОбработкуОповещения(... params);
-declare function System(... params): void;
-declare function КомандаСистемы(... params): void;
-declare function NotifyChanged(... params): void;
-declare function ОповеститьОбИзменении(... params): void;
-declare function AttachFileSystemExtension();
-declare function ПодключитьРасширениеРаботыСФайлами();
-declare function BeginAttachingFileSystemExtension(... params): void;
-declare function НачатьПодключениеРасширенияРаботыСФайлами(... params): void;
-declare function InstallFileSystemExtension(): void;
-declare function УстановитьРасширениеРаботыСФайлами(): void;
-declare function BeginInstallFileSystemExtension(... params): void;
-declare function НачатьУстановкуРасширенияРаботыСФайлами(... params): void;
-declare function GetFiles(... params);
-declare function ПолучитьФайлы(... params);
-declare function PutFiles(... params);
-declare function ПоместитьФайлы(... params);
-declare function BeginGettingFiles(... params): void;
-declare function НачатьПолучениеФайлов(... params): void;
-declare function BeginPuttingFiles(... params): void;
-declare function НачатьПомещениеФайлов(... params): void;
-declare function InstallAddIn(... params): void;
-declare function УстановитьВнешнююКомпоненту(... params): void;
-declare function BeginInstallAddIn(... params): void;
-declare function НачатьУстановкуВнешнейКомпоненты(... params): void;
-declare function RequestUserPermission(... params);
-declare function ЗапроситьРазрешениеПользователя(... params);
-declare function BeginRequestingUserPermission(... params): void;
-declare function НачатьЗапросРазрешенияПользователя(... params): void;
-declare function GetClientApplicationCaption();
-declare function ПолучитьЗаголовокКлиентскогоПриложения();
-declare function SetClientApplicationCaption(... params): void;
-declare function УстановитьЗаголовокКлиентскогоПриложения(... params): void;
-declare function BeginPutFileToServer(... params): void;
-declare function НачатьПомещениеФайлаНаСервер(... params): void;
-declare function BeginPutFilesToServer(... params): void;
-declare function НачатьПомещениеФайловНаСервер(... params): void;
-declare function BeginGetFileFromServer(... params): void;
-declare function НачатьПолучениеФайлаССервера(... params): void;
-declare function BeginGetFilesFromServer(... params): void;
-declare function НачатьПолучениеФайловССервера(... params): void;
 interface EnumFileDialogMode {
 	Open;
 	Открытие;
@@ -7599,10 +7477,22 @@ declare function InstallCryptoExtension(): void;
 declare function УстановитьРасширениеРаботыСКриптографией(): void;
 declare function BeginInstallCryptoExtension(... params): void;
 declare function НачатьУстановкуРасширенияРаботыСКриптографией(... params): void;
+declare function InstallCryptoExtensionAsync(): PromiseV8;
+declare function УстановитьРасширениеРаботыСКриптографиейАсинх(): PromiseV8;
 declare function AttachCryptoExtension(): boolean;
 declare function ПодключитьРасширениеРаботыСКриптографией(): boolean;
 declare function BeginAttachingCryptoExtension(... params): void;
 declare function НачатьПодключениеРасширенияРаботыСКриптографией(... params): void;
+declare function AttachCryptoExtensionAsync(): PromiseV8;
+declare function ПодключитьРасширениеРаботыСКриптографиейАсинх(): PromiseV8;
+declare function BeginInstallingComputerInformationExtension(... params): void;
+declare function НачатьУстановкуРасширенияПолученияИнформацииОКомпьютере(... params): void;
+declare function InstallComputerInformationExtensionAsync();
+declare function УстановитьРасширениеПолученияИнформацииОКомпьютереАсинх();
+declare function BeginAttachingComputerInformationExtension(... params): void;
+declare function НачатьПодключениеРасширенияПолученияИнформацииОКомпьютере(... params): void;
+declare function AttachComputerInformationExtensionAsync();
+declare function ПодключитьРасширениеПолученияИнформацииОКомпьютереАсинх();
 interface EnumXMLNodeType {
 	None;
 	Ничего;
@@ -8277,6 +8167,10 @@ interface InfoBaseUser {
 	НастройкиВторогоФактораАутентификации;
 	SecondAuthenticationFactorSettingsProcessing: SecondAuthenticationFactorSettingsProcessingType;
 	ОбработкаНастроекВторогоФактораАутентификации: SecondAuthenticationFactorSettingsProcessingType;
+	CannotRecoveryPassword;
+	ЗапрещеноВосстанавливатьПароль;
+	Email;
+	АдресЭлектроннойПочты;
 	Write(): void;
 	Записать(): void;
 	Delete(): void;
@@ -8387,6 +8281,159 @@ interface FullTextSearchMode {
 }
 interface FullTextSearchMetadataUse {
 }
+interface FullTextSearchListItem {
+	Value;
+	Значение;
+	Metadata;
+	Метаданные;
+	Presentation: string;
+	Представление: string;
+	Description: string;
+	Описание: string;
+}
+interface XMLNodeType {
+}
+interface XMLSpace {
+}
+interface XMLNamespaceContext {
+	DefaultNamespace: string;
+	ПространствоИменПоУмолчанию: string;
+	Depth: number;
+	Глубина: number;
+	NamespaceURIs(): ArrayV8;
+	URIПространствИмен(): ArrayV8;
+	NamespaceMappings(): Map;
+	СоответствияПространствИмен(): Map;
+	LookupNamespaceURI(... params): string;
+	НайтиURIПространстваИмен(... params): string;
+	LookupPrefix(... params): string;
+	НайтиПрефикс(... params): string;
+	Prefixes(... params): ArrayV8;
+	Префиксы(... params): ArrayV8;
+}
+declare type КонтекстПространствИменXML = XMLNamespaceContext;
+interface XMLValidationType {
+}
+interface XMLReaderSettings {
+	Version: string;
+	Версия: string;
+	Lang: string;
+	Язык: string;
+	Space: XMLSpace;
+	ПробельныеСимволы: XMLSpace;
+	ValidationType: XMLValidationType;
+	ТипПроверкиПравильности: XMLValidationType;
+	IgnoreXMLDeclaration: boolean;
+	ИгнорироватьОбъявлениеXML: boolean;
+	IgnoreDocumentType: boolean;
+	ИгнорироватьТипДокумента: boolean;
+	IgnoreProcessingInstructions: boolean;
+	ИгнорироватьИнструкцииОбработки: boolean;
+	IgnoreComments: boolean;
+	ИгнорироватьКомментарии: boolean;
+	IgnoreWhitespace: boolean;
+	ИгнорироватьПробельныеСимволы: boolean;
+	CDATASectionAsText: boolean;
+	СекцииCDATAКакТекст: boolean;
+	UseIgnorableWhitespace: boolean;
+	ИспользоватьИгнорируемыеПробельныеСимволы: boolean;
+}
+declare type ПараметрыЧтенияXML = XMLReaderSettings;
+interface XMLAttributeType {
+}
+interface XMLReader {
+	NodeType: XMLNodeType;
+	ТипУзла: XMLNodeType;
+	Name: string;
+	Имя: string;
+	LocalName: string;
+	ЛокальноеИмя: string;
+	Prefix: string;
+	Префикс: string;
+	NamespaceURI: string;
+	URIПространстваИмен: string;
+	Value: string;
+	Значение: string;
+	XMLEncoding: string;
+	КодировкаXML: string;
+	InputEncoding: string;
+	КодировкаИсточника: string;
+	XMLVersion: string;
+	ВерсияXML: string;
+	Standalone: boolean;
+	Автономный: boolean;
+	BaseURI: string;
+	БазовыйURI: string;
+	HasName: boolean;
+	ИмеетИмя: boolean;
+	SystemId: string;
+	СистемныйИдентификатор: string;
+	PublicId: string;
+	ПубличныйИдентификатор: string;
+	NotationName: string;
+	ИмяНотации: string;
+	HasValue: boolean;
+	ИмеетЗначение: boolean;
+	IsWhitespace: boolean;
+	ЭтоПробельныеСимволы: boolean;
+	IsCharacters: boolean;
+	ЭтоСимвольныеДанные: boolean;
+	Space: XMLSpace;
+	ПробельныеСимволы: XMLSpace;
+	Lang: string;
+	Язык: string;
+	NamespaceContext: XMLNamespaceContext;
+	КонтекстПространствИмен: XMLNamespaceContext;
+	IsDefaultAttribute: boolean;
+	ЭтоАтрибутПоУмолчанию: boolean;
+	Settings: XMLReaderSettings;
+	Параметры: XMLReaderSettings;
+	IgnoreWhitespace: boolean;
+	ИгнорироватьПробелы: boolean;
+	Read(): boolean;
+	Прочитать(): boolean;
+	ReadAttribute(): boolean;
+	ПрочитатьАтрибут(): boolean;
+	AttributeCount(): number;
+	КоличествоАтрибутов(): number;
+	GetAttribute(... params): string;
+	ПолучитьАтрибут(... params): string;
+	LookupNamespaceURI(... params);
+	НайтиURIПространстваИмен(... params);
+	AttributeName(... params): string;
+	ИмяАтрибута(... params): string;
+	AttributePrefix(... params): string;
+	ПрефиксАтрибута(... params): string;
+	AttributeLocalName(... params): string;
+	ЛокальноеИмяАтрибута(... params): string;
+	AttributeNamespaceURI(... params): string;
+	URIПространстваИменАтрибута(... params): string;
+	AttributeValue(... params): string;
+	ЗначениеАтрибута(... params): string;
+	AttributeType(... params): XMLAttributeType;
+	ТипАтрибута(... params): XMLAttributeType;
+	FirstAttribute(): boolean;
+	ПервыйАтрибут(): boolean;
+	NextAttribute(): boolean;
+	СледующийАтрибут(): boolean;
+	Skip(): void;
+	Пропустить(): void;
+	MoveToContent(... params): XMLNodeType;
+	ПерейтиКСодержимому(... params): XMLNodeType;
+	FirstDeclaration(): boolean;
+	ПервоеОбъявление(): boolean;
+	NextDeclaration(): boolean;
+	СледующееОбъявление(): boolean;
+	OpenFile(... params): void;
+	ОткрытьФайл(... params): void;
+	SetString(... params): void;
+	УстановитьСтроку(... params): void;
+	Close(): void;
+	Закрыть(): void;
+	OpenStream(... params): void;
+	ОткрытьПоток(... params): void;
+}
+declare type ЧтениеXML = XMLReader;
 interface FullTextSearchList {
 	SearchString: string;
 	СтрокаПоиска: string;
@@ -8402,24 +8449,26 @@ interface FullTextSearchList {
 	ПорогНечеткости: number;
 	MetadataUse: FullTextSearchMetadataUse;
 	ИспользованиеМетаданных: FullTextSearchMetadataUse;
-	StartPosition();
-	НачальнаяПозиция();
-	TooManyResults();
-	СлишкомМногоРезультатов();
+	LimitSearchString;
+	ОграничиватьСтрокуПоиска;
+	StartPosition(): number;
+	НачальнаяПозиция(): number;
+	TooManyResults(): boolean;
+	СлишкомМногоРезультатов(): boolean;
 	FirstPart(): void;
 	ПерваяЧасть(): void;
 	NextPart(... params): void;
 	СледующаяЧасть(... params): void;
 	PreviousPart(... params): void;
 	ПредыдущаяЧасть(... params): void;
-	TotalCount();
-	ПолноеКоличество();
-	Count();
-	Количество();
-	Get(... params);
-	Получить(... params);
-	GetRepresentation(... params);
-	ПолучитьОтображение(... params);
+	TotalCount(): number;
+	ПолноеКоличество(): number;
+	Count(): number;
+	Количество(): number;
+	Get(... params): FullTextSearchListItem;
+	Получить(... params): FullTextSearchListItem;
+	GetRepresentation(... params): XMLReader | string;
+	ПолучитьОтображение(... params): XMLReader | string;
 }
 interface CompositeWordsSeparationMode {
 }
@@ -8815,6 +8864,56 @@ interface InfoBaseUserAuthenticationLockManager {
 	УстановитьНастройки(... params): void;
 	GetLocks(... params): ArrayV8;
 	ПолучитьБлокировки(... params): ArrayV8;
+}
+interface EnumInfoBaseUserPasswordRecoveryMethod {
+	GoToURL;
+	ПереходПоНавигационнойСсылке;
+	SendVerificationCodeThroughStandardService;
+	ОтправкаКодаПодтвержденияЧерезСтандартныйСервис;
+	SendVerificationCodeBySetParameters;
+	ОтправкаКодаПодтвержденияПоЗаданнымПараметрам;
+	None;
+	Нет;
+}
+declare type ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы = EnumInfoBaseUserPasswordRecoveryMethod;
+interface PasswordRecoverySettings {
+	PasswordRecoveryMethod: EnumInfoBaseUserPasswordRecoveryMethod;
+	СпособВосстановленияПароля: EnumInfoBaseUserPasswordRecoveryMethod;
+	PasswordRecoveryURL: string;
+	НавигационнаяСсылкаВосстановленияПароля: string;
+	VerificationCodeLength: number;
+	ДлинаКодаПодтверждения: number;
+	MaxUnsuccessfulVerificationCodeValidationAttemptsCount: number;
+	МаксимальноеКоличествоНеуспешныхПопытокПроверкиКодаПодтверждения: number;
+	SMTPServerAddress: string;
+	АдресСервераSMTP: string;
+	SMTPUser: string;
+	ПользовательSMTP: string;
+	SMTPPassword: string;
+	ПарольSMTP: string;
+	SMTPPort: number;
+	ПортSMTP: number;
+	SenderName: string;
+	ИмяОтправителя: string;
+	Header: string;
+	Заголовок: string;
+	HTMLMailText: string;
+	ТекстСообщенияHTML: string;
+	ShowHelpHyperlink: boolean;
+	ОтображатьГиперссылкуПомощи: boolean;
+	HelpURL: string;
+	НавигационнаяСсылкаПомощи: string;
+	VerificationCodeRefreshRequestLockDuration: number;
+	ДлительностьБлокировкиЗапросаОбновленияКодаПодтверждения: number;
+	UseSSL;
+	ИспользоватьSSL;
+}
+declare type НастройкиВосстановленияПароля = PasswordRecoverySettings;
+interface AdditionalAuthenticationSettingsManager {
+	GetPasswordRecoverySettings(): PasswordRecoverySettings;
+	ПолучитьНастройкиВосстановленияПароля(): PasswordRecoverySettings;
+	SetPasswordRecoverySettings(... params): void;
+	УстановитьНастройкиВосстановленияПароля(... params): void;
 }
 interface DatabaseCopyReplicationType {
 }
@@ -9388,8 +9487,12 @@ interface TextDocument {
 	Вывести(... params): void;
 	BeginReading(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 }
 declare type ТекстовыйДокумент = TextDocument;
 interface ConnectionStopRequest {
@@ -9502,6 +9605,10 @@ declare var CompositeWordsSeparationMode: EnumCompositeWordsSeparationMode;
 declare var РежимРазделенияСоставныхСлов: EnumCompositeWordsSeparationMode;
 declare var AuthenticationLock: InfoBaseUserAuthenticationLockManager;
 declare var БлокировкаАутентификации: InfoBaseUserAuthenticationLockManager;
+declare var AdditionalAuthenticationSettings: AdditionalAuthenticationSettingsManager;
+declare var ДополнительныеНастройкиАутентификации: AdditionalAuthenticationSettingsManager;
+declare var InfoBaseUserPasswordRecoveryMethod: EnumInfoBaseUserPasswordRecoveryMethod;
+declare var СпособВосстановленияПароляПользователяИнформационнойБазы: EnumInfoBaseUserPasswordRecoveryMethod;
 declare var DynamicListsUserSettingsStorage: StandardSettingsStorageManager;
 declare var ХранилищеПользовательскихНастроекДинамическихСписков: StandardSettingsStorageManager;
 declare var DatabaseCopies: DatabaseCopiesManager;
@@ -9562,6 +9669,8 @@ declare function TempFilesDir(): string;
 declare function КаталогВременныхФайлов(): string;
 declare function BeginGettingTempFilesDir(... params): void;
 declare function НачатьПолучениеКаталогаВременныхФайлов(... params): void;
+declare function TempFilesDirAsync();
+declare function КаталогВременныхФайловАсинх();
 declare function CurrentLocaleCode(): string;
 declare function ТекущийКодЛокализации(): string;
 declare function InfoBaseLocaleCode(): string;
@@ -9744,6 +9853,10 @@ declare function SetSafeModeDisabled(... params): void;
 declare function УстановитьОтключениеБезопасногоРежима(... params): void;
 declare function GetSafeModeDisabled();
 declare function ПолучитьОтключениеБезопасногоРежима();
+declare function SetTotalRecalcJobCount(... params): void;
+declare function УстановитьКоличествоЗаданийПересчетаИтогов(... params): void;
+declare function GetTotalRecalcJobCount();
+declare function ПолучитьКоличествоЗаданийПересчетаИтогов();
 interface EnumXMLForm {
 	Attribute;
 	Атрибут;
@@ -11847,6 +11960,247 @@ declare function ImportXDTOModel(... params): XDTODataObject;
 declare function ИмпортМоделиXDTO(... params): XDTODataObject;
 declare function CreateXDTOFactory(... params): XDTOFactory;
 declare function СоздатьФабрикуXDTO(... params): XDTOFactory;
+interface EnumWindowOpenVariant {
+	SingleWindow;
+	ОтдельноеОкно;
+}
+declare type ПеречислениеВариантОткрытияОкна = EnumWindowOpenVariant;
+interface EnumClientApplicationAgentState {
+	Connected;
+	Подключен;
+	Disconnected;
+	Отключен;
+	NotStarted;
+	НеЗапущен;
+}
+declare type ПеречислениеСостояниеАгентаКлиентскогоПриложения = EnumClientApplicationAgentState;
+interface ClientApplicationAgentManager {
+	BeginConnect(): void;
+	НачатьПодключение(): void;
+	BeginDisconnect(): void;
+	НачатьОтключение(): void;
+	BeginInstallation(): void;
+	НачатьУстановку(): void;
+	AttachStateChangeHandler(... params): void;
+	ПодключитьОбработчикИзмененияСостояния(... params): void;
+	DetachStateChangeHandler(... params): void;
+	ОтключитьОбработчикИзмененияСостояния(... params): void;
+	GetApplicationDescription(): string;
+	ПолучитьНаименованиеПриложения(): string;
+	SetApplicationDescription(... params): void;
+	УстановитьНаименованиеПриложения(... params): void;
+	IsVersionActual(): boolean;
+	ВерсияАктуальна(): boolean;
+	GetCurrentState(): EnumClientApplicationAgentState;
+	ПолучитьТекущееСостояние(): EnumClientApplicationAgentState;
+}
+interface ExternalSiteWindowManager {
+	Enabled: boolean;
+	Доступно: boolean;
+	AttachMessageHandler(... params): void;
+	ПодключитьОбработчикСообщений(... params): void;
+	DetachMessageHandler(... params): void;
+	ОтключитьОбработчикСообщений(... params): void;
+	PostMessage(... params): void;
+	ОтправитьСообщение(... params): void;
+}
+interface GlobalSearchPlanItem {
+	SearchType;
+	ВидПоиска;
+	ProcedureName;
+	ИмяПроцедуры;
+	Module;
+	Модуль;
+	AtServer;
+	НаСервере;
+	Background;
+	Фоновый;
+	Order;
+	Порядок;
+	AdditionalParameters;
+	ДополнительныеПараметры;
+}
+declare type ЭлементПланаГлобальногоПоиска = GlobalSearchPlanItem;
+interface GlobalSearchPlan {
+	Insert(... params): void;
+	Вставить(... params): void;
+	Add(... params): void;
+	Добавить(... params): void;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Find(... params): GlobalSearchPlanItem;
+	Найти(... params): GlobalSearchPlanItem;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params): GlobalSearchPlanItem;
+	Получить(... params): GlobalSearchPlanItem;
+	Delete(... params): void;
+	Удалить(... params): void;
+}
+declare type ПланГлобальногоПоиска = GlobalSearchPlan;
+interface GlobalSearchManager {
+	SetPlan(... params): void;
+	УстановитьПлан(... params): void;
+	GetPlan(): GlobalSearchPlan;
+	ПолучитьПлан(): GlobalSearchPlan;
+	SetDescription(... params): void;
+	УстановитьОписание(... params): void;
+	GetDescription(): FormattedString | string;
+	ПолучитьОписание(): FormattedString | string;
+	BeginSearch(... params): void;
+	НачатьПоиск(... params): void;
+	SetInputHint(... params): void;
+	УстановитьПодсказкуВвода(... params): void;
+	GetInputHint();
+	ПолучитьПодсказкуВвода();
+}
+interface EnumProgressiveWebApplicationMode {
+	InBrowserWindow;
+	ВОкнеБраузера;
+	InStandaloneWindow;
+	ВОтдельномОкне;
+}
+declare type ПеречислениеРежимПрогрессивногоВебПриложения = EnumProgressiveWebApplicationMode;
+interface ProgressiveWebApplicationManager {
+	Supported(): boolean;
+	Поддерживается(): boolean;
+	IsInstalled(): boolean;
+	Установлено(): boolean;
+	CurrentMode(): EnumProgressiveWebApplicationMode;
+	ТекущийРежим(): EnumProgressiveWebApplicationMode;
+	AttachInstallationCompleteHandler(... params): void;
+	ПодключитьОбработчикОкончанияУстановки(... params): void;
+	DetachInstallationCompleteHandler(... params): void;
+	ОтключитьОбработчикОкончанияУстановки(... params): void;
+	BeginInstallation(): void;
+	НачатьУстановку(): void;
+}
+interface ClientApplicationWindow {
+	Caption: string;
+	Заголовок: string;
+	IsMain: boolean;
+	Основное: boolean;
+	HomePage: boolean;
+	НачальнаяСтраница: boolean;
+	Content: FixedArray;
+	Содержимое: FixedArray;
+	GetContent();
+	ПолучитьСодержимое();
+	GetURL(): string;
+	ПолучитьНавигационнуюСсылку(): string;
+	Activate(): void;
+	Активизировать(): void;
+}
+declare type ОкноКлиентскогоПриложения = ClientApplicationWindow;
+interface ClientApplicationWindows {
+	Count(): number;
+	Количество(): number;
+	Get(... params): ClientApplicationWindow;
+	Получить(... params): ClientApplicationWindow;
+}
+declare type ОкнаКлиентскогоПриложения = ClientApplicationWindows;
+declare var WindowOpenVariant: EnumWindowOpenVariant;
+declare var ВариантОткрытияОкна: EnumWindowOpenVariant;
+declare var ClientApplicationAgent: ClientApplicationAgentManager;
+declare var АгентКлиентскогоПриложения: ClientApplicationAgentManager;
+declare var ExternalSiteWindow: ExternalSiteWindowManager;
+declare var ОкноВнешнегоСайта: ExternalSiteWindowManager;
+declare var GlobalSearch: GlobalSearchManager;
+declare var ГлобальныйПоиск: GlobalSearchManager;
+declare var ProgressiveWebApplication: ProgressiveWebApplicationManager;
+declare var ПрогрессивноеВебПриложение: ProgressiveWebApplicationManager;
+declare function GetApplicationCaption();
+declare function ПолучитьЗаголовокПриложения();
+declare function SetApplicationCaption(... params): void;
+declare function УстановитьЗаголовокПриложения(... params): void;
+declare function ShowUserNotification(... params): void;
+declare function ПоказатьОповещениеПользователя(... params): void;
+declare function GetFile(... params);
+declare function ПолучитьФайл(... params);
+declare function PutFile(... params);
+declare function ПоместитьФайл(... params);
+declare function BeginPutFile(... params): void;
+declare function НачатьПомещениеФайла(... params): void;
+declare function GetInterfaceFunctionalOption(... params);
+declare function ПолучитьФункциональнуюОпциюИнтерфейса(... params);
+declare function SetInterfaceFunctionalOptionParameters(... params): void;
+declare function УстановитьПараметрыФункциональныхОпцийИнтерфейса(... params): void;
+declare function GetInterfaceFunctionalOptionParameters();
+declare function ПолучитьПараметрыФункциональныхОпцийИнтерфейса();
+declare function RefreshInterface(): void;
+declare function ОбновитьИнтерфейс(): void;
+declare function GetWindows(): ClientApplicationWindows;
+declare function ПолучитьОкна(): ClientApplicationWindows;
+declare function SetShortApplicationCaption(... params): void;
+declare function УстановитьКраткийЗаголовокПриложения(... params): void;
+declare function GetShortApplicationCaption();
+declare function ПолучитьКраткийЗаголовокПриложения();
+declare function ActiveWindow(): ClientApplicationWindow;
+declare function АктивноеОкно(): ClientApplicationWindow;
+declare function GotoURL(... params): void;
+declare function ПерейтиПоНавигационнойСсылке(... params): void;
+declare function FindWindowByURL(... params): ClientApplicationWindow;
+declare function НайтиОкноПоНавигационнойСсылке(... params): ClientApplicationWindow;
+declare function ExecuteNotifyProcessing(... params);
+declare function ВыполнитьОбработкуОповещения(... params);
+declare function System(... params): void;
+declare function КомандаСистемы(... params): void;
+declare function NotifyChanged(... params): void;
+declare function ОповеститьОбИзменении(... params): void;
+declare function AttachFileSystemExtension();
+declare function ПодключитьРасширениеРаботыСФайлами();
+declare function BeginAttachingFileSystemExtension(... params): void;
+declare function НачатьПодключениеРасширенияРаботыСФайлами(... params): void;
+declare function AttachFileSystemExtensionAsync();
+declare function ПодключитьРасширениеРаботыСФайламиАсинх();
+declare function InstallFileSystemExtension(): void;
+declare function УстановитьРасширениеРаботыСФайлами(): void;
+declare function BeginInstallFileSystemExtension(... params): void;
+declare function НачатьУстановкуРасширенияРаботыСФайлами(... params): void;
+declare function InstallFileSystemExtensionAsync();
+declare function УстановитьРасширениеРаботыСФайламиАсинх();
+declare function GetFiles(... params);
+declare function ПолучитьФайлы(... params);
+declare function PutFiles(... params);
+declare function ПоместитьФайлы(... params);
+declare function BeginGettingFiles(... params): void;
+declare function НачатьПолучениеФайлов(... params): void;
+declare function BeginPuttingFiles(... params): void;
+declare function НачатьПомещениеФайлов(... params): void;
+declare function InstallAddIn(... params): void;
+declare function УстановитьВнешнююКомпоненту(... params): void;
+declare function BeginInstallAddIn(... params): void;
+declare function НачатьУстановкуВнешнейКомпоненты(... params): void;
+declare function InstallAddInAsync(... params);
+declare function УстановитьВнешнююКомпонентуАсинх(... params);
+declare function RequestUserPermission(... params);
+declare function ЗапроситьРазрешениеПользователя(... params);
+declare function BeginRequestingUserPermission(... params): void;
+declare function НачатьЗапросРазрешенияПользователя(... params): void;
+declare function RequestUserPermissionAsync(... params);
+declare function ЗапроситьРазрешениеПользователяАсинх(... params);
+declare function GetClientApplicationCaption();
+declare function ПолучитьЗаголовокКлиентскогоПриложения();
+declare function SetClientApplicationCaption(... params): void;
+declare function УстановитьЗаголовокКлиентскогоПриложения(... params): void;
+declare function BeginPutFileToServer(... params): void;
+declare function НачатьПомещениеФайлаНаСервер(... params): void;
+declare function PutFileToServerAsync(... params);
+declare function ПоместитьФайлНаСерверАсинх(... params);
+declare function BeginPutFilesToServer(... params): void;
+declare function НачатьПомещениеФайловНаСервер(... params): void;
+declare function PutFilesToServerAsync(... params);
+declare function ПоместитьФайлыНаСерверАсинх(... params);
+declare function BeginGetFileFromServer(... params): void;
+declare function НачатьПолучениеФайлаССервера(... params): void;
+declare function GetFileFromServerAsync(... params);
+declare function ПолучитьФайлССервераАсинх(... params);
+declare function BeginGetFilesFromServer(... params): void;
+declare function НачатьПолучениеФайловССервера(... params): void;
+declare function GetFilesFromServerAsync(... params);
+declare function ПолучитьФайлыССервераАсинх(... params);
 interface WorkingDateMode {
 }
 interface XMLCanonicalizationType {
@@ -12201,6 +12555,8 @@ interface InternetMailText {
 	Кодировка: string;
 	Data: BinaryData;
 	Данные: BinaryData;
+	CustomTextType;
+	ПроизвольныйТипТекста;
 }
 interface ListBox {
 	Enabled: boolean;
@@ -12250,6 +12606,23 @@ interface EnumAutoShowStateMode {
 declare type ПеречислениеРежимАвтоОтображенияСостояния = EnumAutoShowStateMode;
 interface CollapseFormItemsByImportance {
 }
+interface CommandExecuteParameters {
+	Source;
+	Источник;
+	Window;
+	Окно;
+	Uniqueness;
+	Уникальность;
+	URL;
+	НавигационнаяСсылка;
+}
+interface EnumPlannerItemActionLocation {
+	EndOfText;
+	ПослеТекста;
+	EndOfItem;
+	ВКонцеЭлемента;
+}
+declare type ПеречислениеПоложениеДействияЭлементаПланировщика = EnumPlannerItemActionLocation;
 interface PredictionModelColumnType {
 }
 interface PredictionModelColumn {
@@ -12816,149 +13189,6 @@ interface HTTPServiceResponse {
 declare type HTTPСервисОтвет = HTTPServiceResponse;
 interface TelephonyToolsCallEventVariant {
 }
-interface XMLNodeType {
-}
-interface XMLSpace {
-}
-interface XMLNamespaceContext {
-	DefaultNamespace: string;
-	ПространствоИменПоУмолчанию: string;
-	Depth: number;
-	Глубина: number;
-	NamespaceURIs(): ArrayV8;
-	URIПространствИмен(): ArrayV8;
-	NamespaceMappings(): Map;
-	СоответствияПространствИмен(): Map;
-	LookupNamespaceURI(... params): string;
-	НайтиURIПространстваИмен(... params): string;
-	LookupPrefix(... params): string;
-	НайтиПрефикс(... params): string;
-	Prefixes(... params): ArrayV8;
-	Префиксы(... params): ArrayV8;
-}
-declare type КонтекстПространствИменXML = XMLNamespaceContext;
-interface XMLValidationType {
-}
-interface XMLReaderSettings {
-	Version: string;
-	Версия: string;
-	Lang: string;
-	Язык: string;
-	Space: XMLSpace;
-	ПробельныеСимволы: XMLSpace;
-	ValidationType: XMLValidationType;
-	ТипПроверкиПравильности: XMLValidationType;
-	IgnoreXMLDeclaration: boolean;
-	ИгнорироватьОбъявлениеXML: boolean;
-	IgnoreDocumentType: boolean;
-	ИгнорироватьТипДокумента: boolean;
-	IgnoreProcessingInstructions: boolean;
-	ИгнорироватьИнструкцииОбработки: boolean;
-	IgnoreComments: boolean;
-	ИгнорироватьКомментарии: boolean;
-	IgnoreWhitespace: boolean;
-	ИгнорироватьПробельныеСимволы: boolean;
-	CDATASectionAsText: boolean;
-	СекцииCDATAКакТекст: boolean;
-	UseIgnorableWhitespace: boolean;
-	ИспользоватьИгнорируемыеПробельныеСимволы: boolean;
-}
-declare type ПараметрыЧтенияXML = XMLReaderSettings;
-interface XMLAttributeType {
-}
-interface XMLReader {
-	NodeType: XMLNodeType;
-	ТипУзла: XMLNodeType;
-	Name: string;
-	Имя: string;
-	LocalName: string;
-	ЛокальноеИмя: string;
-	Prefix: string;
-	Префикс: string;
-	NamespaceURI: string;
-	URIПространстваИмен: string;
-	Value: string;
-	Значение: string;
-	XMLEncoding: string;
-	КодировкаXML: string;
-	InputEncoding: string;
-	КодировкаИсточника: string;
-	XMLVersion: string;
-	ВерсияXML: string;
-	Standalone: boolean;
-	Автономный: boolean;
-	BaseURI: string;
-	БазовыйURI: string;
-	HasName: boolean;
-	ИмеетИмя: boolean;
-	SystemId: string;
-	СистемныйИдентификатор: string;
-	PublicId: string;
-	ПубличныйИдентификатор: string;
-	NotationName: string;
-	ИмяНотации: string;
-	HasValue: boolean;
-	ИмеетЗначение: boolean;
-	IsWhitespace: boolean;
-	ЭтоПробельныеСимволы: boolean;
-	IsCharacters: boolean;
-	ЭтоСимвольныеДанные: boolean;
-	Space: XMLSpace;
-	ПробельныеСимволы: XMLSpace;
-	Lang: string;
-	Язык: string;
-	NamespaceContext: XMLNamespaceContext;
-	КонтекстПространствИмен: XMLNamespaceContext;
-	IsDefaultAttribute: boolean;
-	ЭтоАтрибутПоУмолчанию: boolean;
-	Settings: XMLReaderSettings;
-	Параметры: XMLReaderSettings;
-	IgnoreWhitespace: boolean;
-	ИгнорироватьПробелы: boolean;
-	Read(): boolean;
-	Прочитать(): boolean;
-	ReadAttribute(): boolean;
-	ПрочитатьАтрибут(): boolean;
-	AttributeCount(): number;
-	КоличествоАтрибутов(): number;
-	GetAttribute(... params): string;
-	ПолучитьАтрибут(... params): string;
-	LookupNamespaceURI(... params);
-	НайтиURIПространстваИмен(... params);
-	AttributeName(... params): string;
-	ИмяАтрибута(... params): string;
-	AttributePrefix(... params): string;
-	ПрефиксАтрибута(... params): string;
-	AttributeLocalName(... params): string;
-	ЛокальноеИмяАтрибута(... params): string;
-	AttributeNamespaceURI(... params): string;
-	URIПространстваИменАтрибута(... params): string;
-	AttributeValue(... params): string;
-	ЗначениеАтрибута(... params): string;
-	AttributeType(... params): XMLAttributeType;
-	ТипАтрибута(... params): XMLAttributeType;
-	FirstAttribute(): boolean;
-	ПервыйАтрибут(): boolean;
-	NextAttribute(): boolean;
-	СледующийАтрибут(): boolean;
-	Skip(): void;
-	Пропустить(): void;
-	MoveToContent(... params): XMLNodeType;
-	ПерейтиКСодержимому(... params): XMLNodeType;
-	FirstDeclaration(): boolean;
-	ПервоеОбъявление(): boolean;
-	NextDeclaration(): boolean;
-	СледующееОбъявление(): boolean;
-	OpenFile(... params): void;
-	ОткрытьФайл(... params): void;
-	SetString(... params): void;
-	УстановитьСтроку(... params): void;
-	Close(): void;
-	Закрыть(): void;
-	OpenStream(... params): void;
-	ОткрытьПоток(... params): void;
-}
-declare type ЧтениеXML = XMLReader;
 interface EnumQuerySchemaPeriodAdditionType {
 	NoAddition;
 	БезДополнения;
@@ -13150,7 +13380,7 @@ interface CheckBox {
 declare type Флажок = CheckBox;
 interface EventLogEntryTransactionMode {
 }
-interface VideoQuality  {
+interface VideoQuality {
 }
 interface RoundMode {
 }
@@ -13196,151 +13426,7 @@ interface ChartLabelType {
 }
 interface ChartSpaceMode {
 }
-interface ChartSplineMode {
-}
-interface ChartSemitransparencyMode {
-}
-interface ChartValuesBySeriesConnectionType {
-}
 interface ChartAnimation {
-}
-interface ChartBoundaryDetectionMethod {
-}
-interface ChartAxis {
-	BaseValue: number;
-	БазовоеЗначение: number;
-	MaxValue;
-	МаксимальноеЗначение;
-	MinValue;
-	МинимальноеЗначение;
-	MaxValueDetectionMethod: ChartBoundaryDetectionMethod;
-	СпособОпределенияМаксимальногоЗначения: ChartBoundaryDetectionMethod;
-	MinValueDetectionMethod: ChartBoundaryDetectionMethod;
-	СпособОпределенияМинимальногоЗначения: ChartBoundaryDetectionMethod;
-}
-interface ChartPointsAxisValuesSource {
-}
-interface ChartBubbleSizeValueSource {
-}
-interface ChartBubbleSizing {
-}
-interface BubbleChartNegativeValuesShowMode {
-}
-interface ChartPointsConnectionType {
-}
-interface BarChartPointsOrder {
-}
-interface ChartReferenceLinePosition {
-}
-interface ChartReferenceLine {
-	Value;
-	Значение;
-	LabelText: string;
-	ТекстПодписи: string;
-	ToolTip: string;
-	Подсказка: string;
-	LabelArea: ChartLabelArea;
-	ОбластьПодписи: ChartLabelArea;
-	Line: Line;
-	Линия: Line;
-	Color: Color;
-	Цвет: Color;
-	SemitransparencyPercent: number;
-	ПроцентПолупрозрачности: number;
-	Details;
-	Расшифровка;
-	Position: ChartReferenceLinePosition;
-	Положение: ChartReferenceLinePosition;
-}
-interface ChartReferenceLines {
-	Insert(... params): ChartReferenceLine;
-	Вставить(... params): ChartReferenceLine;
-	Add(): ChartReferenceLine;
-	Добавить(): ChartReferenceLine;
-	Index(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Get(... params): ChartReferenceLine;
-	Получить(... params): ChartReferenceLine;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Delete(... params): boolean;
-	Удалить(... params): boolean;
-}
-interface ChartReferenceBand {
-	Begin;
-	Начало;
-	End;
-	Конец;
-	LabelText: string;
-	ТекстПодписи: string;
-	ToolTip: string;
-	Подсказка: string;
-	LabelArea: ChartLabelArea;
-	ОбластьПодписи: ChartLabelArea;
-	Color: Color;
-	Цвет: Color;
-	SemitransparencyPercent: number;
-	ПроцентПолупрозрачности: number;
-	Border: Line;
-	Граница: Line;
-	BorderColor: Color;
-	ЦветГраницы: Color;
-	BorderSemitransparencyPercent: number;
-	ПроцентПолупрозрачностиГраницы: number;
-	Details;
-	Расшифровка;
-	DisplayAreaBegin;
-	НачалоОбластиОтображения;
-	DisplayAreaEnd;
-	КонецОбластиОтображения;
-	Position;
-	Положение;
-}
-interface ChartReferenceBands {
-	Insert(... params): ChartReferenceBand;
-	Вставить(... params): ChartReferenceBand;
-	Add(): ChartReferenceBand;
-	Добавить(): ChartReferenceBand;
-	Index(... params): number;
-	Индекс(... params): number;
-	Count(): number;
-	Количество(): number;
-	Get(... params): ChartReferenceBand;
-	Получить(... params): ChartReferenceBand;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Delete(... params): boolean;
-	Удалить(... params): boolean;
-}
-interface ChartColorPalette {
-}
-interface ChartColorPaletteDescription {
-	ColorPalette: ChartColorPalette;
-	ПалитраЦветов: ChartColorPalette;
-	GradientPaletteStartColor: Color;
-	ЦветНачалаГрадиентнойПалитры: Color;
-	GradientPaletteEndColor: Color;
-	ЦветКонцаГрадиентнойПалитры: Color;
-	GradientPaletteMaxColors: number;
-	МаксимальноеКоличествоЦветовГрадиентнойПалитры: number;
-	GetPalette(): ArrayV8;
-	ПолучитьПалитру(): ArrayV8;
-	SetPalette(... params): void;
-	УстановитьПалитру(... params): void;
-}
-interface NonnumericChartValueUse {
-}
-interface PointsConnectionAcrossSkippedChartValuesType {
-}
-interface ChartValuesToolTipShowMode {
-}
-interface ChartValuesToolTipFillType {
-}
-interface ChartSelectionMode {
-}
-interface ShowChartPopupReferenceLine {
 }
 interface ChartTitleAreaPlacement {
 }
@@ -13398,64 +13484,6 @@ interface PivotChartLegendArea {
 	Placement: ChartLegendPlacement;
 	Расположение: ChartLegendPlacement;
 }
-interface ShowChartScaleTitle {
-}
-interface ChartScaleTitleTextSource {
-}
-interface ChartScaleTitlePlacement {
-}
-interface ChartGridLinesShowMode {
-}
-interface ChartScaleLabelLocation {
-}
-interface ChartScaleLocation {
-}
-interface ChartScaleMarkLocation {
-}
-interface ChartScale {
-	ShowTitle: ShowChartScaleTitle;
-	ОтображениеЗаголовка: ShowChartScaleTitle;
-	TitleTextSource: ChartScaleTitleTextSource;
-	СпособЗаполненияТекстаЗаголовка: ChartScaleTitleTextSource;
-	TitleText;
-	ТекстЗаголовка;
-	TitleArea: ChartLabelArea;
-	ОбластьЗаголовка: ChartLabelArea;
-	TitlePlacement: ChartScaleTitlePlacement;
-	РасположениеЗаголовка: ChartScaleTitlePlacement;
-	GridLinesShowMode: ChartGridLinesShowMode;
-	ОтображениеЛинийСетки: ChartGridLinesShowMode;
-	ScaleLabelLocation: ChartScaleLabelLocation;
-	ПоложениеПодписейШкалы: ChartScaleLabelLocation;
-	GridLine: Line;
-	ЛинияСетки: Line;
-	GridLineColor: Color;
-	ЦветЛинииСетки: Color;
-	LabelFont: Font;
-	ШрифтПодписей: Font;
-	LabelColor: Color;
-	ЦветПодписей: Color;
-	LabelOrientation: ChartLabelsOrientation;
-	ОриентацияПодписей: ChartLabelsOrientation;
-	LabelFormat: string;
-	ФорматПодписей: string;
-	ScaleLine: Line;
-	ЛинияШкалы: Line;
-	ScaleLineColor: Color;
-	ЦветЛинииШкалы: Color;
-	MaxLabelRows: number;
-	МаксимальноеКоличествоРядовПодписей: number;
-	LabelAngle: number;
-	УголНаклонаПодписей: number;
-	ScaleLocation: ChartScaleLocation;
-	ПоложениеШкалы: ChartScaleLocation;
-	ScaleStep: number;
-	ШагШкалы: number;
-	ScaleMarkLocation: ChartScaleMarkLocation;
-	ПоложениеОтметокШкалы: ChartScaleMarkLocation;
-	ShowInChart: ShowInChart;
-	Отображение: ShowInChart;
-}
 interface ChartPlotAreaPlacement {
 }
 interface PivotChartLabelsOrientation {
@@ -13489,14 +13517,6 @@ interface PivotChartPlotArea {
 	Право: number;
 	Bottom: number;
 	Низ: number;
-	PointsScale: ChartScale;
-	ШкалаТочек: ChartScale;
-	ValuesScale: ChartScale;
-	ШкалаЗначений: ChartScale;
-	AdditionalValuesScale: ChartScale;
-	ДополнительнаяШкалаЗначений: ChartScale;
-	SeriesScale: ChartScale;
-	ШкалаСерий: ChartScale;
 	Placement: ChartPlotAreaPlacement;
 	Расположение: ChartPlotAreaPlacement;
 	HorizontalScaleLabelsOrientation: PivotChartLabelsOrientation;
@@ -13603,94 +13623,8 @@ interface PivotChart {
 	РежимПробелов: ChartSpaceMode;
 	AutoMinValue: boolean;
 	АвтоМинимальноеЗначение: boolean;
-	SplineMode: ChartSplineMode;
-	РежимСглаживания: ChartSplineMode;
-	SplineStrain: number;
-	НатяжениеСглаживания: number;
-	SemitransparencyMode: ChartSemitransparencyMode;
-	РежимПолупрозрачности: ChartSemitransparencyMode;
-	SemitransparencyPercent: number;
-	ПроцентПолупрозрачности: number;
-	FunnelNeckHeight: number;
-	ВысотаГорлаВоронки: number;
-	FunnelNeckWidth: number;
-	ШиринаГорлаВоронки: number;
-	FunnelSpace: number;
-	ПробелыВоронки: number;
-	ValuesBySeriesConnection: ChartValuesBySeriesConnectionType;
-	СоединениеЗначенийПоСериям: ChartValuesBySeriesConnectionType;
-	ValuesBySeriesConnectionLines: Line;
-	ЛинииСоединенияЗначенийПоСериям: Line;
-	ValuesBySeriesConnectionColor: Color;
-	ЦветСоединенияЗначенийПоСериям: Color;
 	Animation: ChartAnimation;
 	Анимация: ChartAnimation;
-	SeriesOrderInLegend: ChartSeriesOrderInLegend;
-	ПорядокСерийВЛегенде: ChartSeriesOrderInLegend;
-	ValuesAxis: ChartAxis;
-	ОсьЗначений: ChartAxis;
-	PointsAxis: ChartAxis;
-	ОсьТочек: ChartAxis;
-	AdditionalValuesAxis: ChartAxis;
-	ДополнительнаяОсьЗначений: ChartAxis;
-	PointsAxisValuesSource: ChartPointsAxisValuesSource;
-	ИсточникЗначенийОсиТочек: ChartPointsAxisValuesSource;
-	PointsAxisSeries: ChartSeries;
-	СерияНаОсиТочек: ChartSeries;
-	BubbleSizeValueSource: ChartBubbleSizeValueSource;
-	ИсточникЗначенияРазмераПузырька: ChartBubbleSizeValueSource;
-	BubbleSizeCommonSeries: ChartSeries;
-	ОбщаяСерияРазмераПузырька: ChartSeries;
-	BubbleSizing: ChartBubbleSizing;
-	ВлияниеРазмераНаПузырек: ChartBubbleSizing;
-	DefaultBubbleSize: number;
-	РазмерПузырькаПоУмолчанию: number;
-	MinBubbleSize: number;
-	МинимальныйРазмерПузырька: number;
-	MaxBubbleSize: number;
-	МаксимальныйРазмерПузырька: number;
-	BubbleChartNegativeValuesShowMode: BubbleChartNegativeValuesShowMode;
-	ОтображениеОтрицательныхЗначенийПузырьковойДиаграммы: BubbleChartNegativeValuesShowMode;
-	PointsConnection: ChartPointsConnectionType;
-	СоединениеТочек: ChartPointsConnectionType;
-	BarChartPointsOrder: BarChartPointsOrder;
-	ПорядокОтображенияТочекГоризонтальнойГистограммы: BarChartPointsOrder;
-	GradientPaletteMaxColors: number;
-	МаксимальноеКоличествоЦветовГрадиентнойПалитры: number;
-	GradientPaletteStartColor: Color;
-	ЦветНачалаГрадиентнойПалитры: Color;
-	GradientPaletteEndColor: Color;
-	ЦветКонцаГрадиентнойПалитры: Color;
-	ValuesReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииЗначений: ChartReferenceLines;
-	ValuesReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыЗначений: ChartReferenceBands;
-	PointsReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииТочек: ChartReferenceLines;
-	PointsReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыТочек: ChartReferenceBands;
-	ColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветов: ChartColorPaletteDescription;
-	ReferenceBandsColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветовИнформационныхИнтервалов: ChartColorPaletteDescription;
-	NonnumericValueUse: NonnumericChartValueUse;
-	ИспользованиеНечисловыхЗначений: NonnumericChartValueUse;
-	PointsConnectionAcrossSkippedValues: PointsConnectionAcrossSkippedChartValuesType;
-	СоединениеТочекПриПропущенныхЗначениях: PointsConnectionAcrossSkippedChartValuesType;
-	ValuesToolTipShowMode: ChartValuesToolTipShowMode;
-	ОтображениеПодсказкиЗначений: ChartValuesToolTipShowMode;
-	ValuesToolTipFillType: ChartValuesToolTipFillType;
-	ЗаполнениеПодсказкиЗначений: ChartValuesToolTipFillType;
-	SelectionMode: ChartSelectionMode;
-	РежимВыделения: ChartSelectionMode;
-	ShowPointsPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюТочек: ShowChartPopupReferenceLine;
-	ShowValuesPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюЗначений: ShowChartPopupReferenceLine;
-	DonutChartInnerRadius: number;
-	ВнутреннийРадиусКольцевойДиаграммы: number;
-	ValuesEditMode: ChartValuesEditMode;
-	РежимРедактированияЗначений: ChartValuesEditMode;
 	TitleArea: PivotChartTitleArea;
 	ОбластьЗаголовка: PivotChartTitleArea;
 	LegendArea: PivotChartLegendArea;
@@ -14174,6 +14108,61 @@ interface PlannerReplacementItemCollection {
 	Найти(... params): PlannerItem;
 }
 declare type КоллекцияЗамещающихЭлементовПланировщика = PlannerReplacementItemCollection;
+interface PlannerItemActionLocation {
+}
+interface PlannerItemAction {
+	Value;
+	Значение;
+	Enabled: boolean;
+	Доступность: boolean;
+	Visible: boolean;
+	Видимость: boolean;
+	Picture: Picture;
+	Картинка: Picture;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
+	TextColor: Color;
+	ЦветТекста: Color;
+	Font: Font;
+	Шрифт: Font;
+	ToolTip: string;
+	Подсказка: string;
+	Location: PlannerItemActionLocation;
+	Положение: PlannerItemActionLocation;
+}
+declare type ДействиеЭлементаПланировщика = PlannerItemAction;
+interface PlannerItemActionCollection {
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Get(... params): PlannerItemAction;
+	Получить(... params): PlannerItemAction;
+	Add(... params): PlannerItemAction;
+	Добавить(... params): PlannerItemAction;
+	Insert(... params): PlannerItemAction;
+	Вставить(... params): PlannerItemAction;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Find(... params): PlannerItemAction;
+	Найти(... params): PlannerItemAction;
+}
+declare type КоллекцияДействийЭлементаПланировщика = PlannerItemActionCollection;
+interface EnumPlannerItemEnableEditMode {
+	DisableEdit;
+	ЗапретитьРедактирование;
+	DisableDragAndStretch;
+	ЗапретитьПеретаскиваниеИРастягивание;
+	DisableStretch;
+	ЗапретитьРастягивание;
+	EnableEdit;
+	РазрешитьРедактирование;
+}
+declare type ПеречислениеРежимРазрешенияРедактированияЭлементаПланировщика = EnumPlannerItemEnableEditMode;
 interface PlannerItem {
 	Value;
 	Значение;
@@ -14187,8 +14176,8 @@ interface PlannerItem {
 	Расписание: PlannerItemSchedule;
 	Parent: Planner;
 	Родитель: Planner;
-	Text: string;
-	Текст: string;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
 	BorderColor: Color;
 	ЦветРамки: Color;
 	TextColor: Color;
@@ -14207,6 +14196,12 @@ interface PlannerItem {
 	ЗамещающиеЭлементы: PlannerReplacementItemCollection;
 	ToolTip: string;
 	Подсказка: string;
+	Border: Border;
+	Рамка: Border;
+	Actions: PlannerItemActionCollection;
+	Действия: PlannerItemActionCollection;
+	EnableEditMode: EnumPlannerItemEnableEditMode;
+	РежимРазрешенияРедактирования: EnumPlannerItemEnableEditMode;
 	Unload(): Structure;
 	Выгрузить(): Structure;
 	Load(... params): void;
@@ -14239,8 +14234,8 @@ declare type КоллекцияЭлементовПланировщика = Plan
 interface PlannerDimensionItem {
 	Value;
 	Значение;
-	Text: string;
-	Текст: string;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
 	BorderColor: Color;
 	ЦветРамки: Color;
 	TextColor: Color;
@@ -14283,8 +14278,8 @@ interface PlannerDimension {
 	Элементы: PlannerDimensionItemCollection;
 	Value;
 	Значение;
-	Text: string;
-	Текст: string;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
 	BorderColor: Color;
 	ЦветРамки: Color;
 	TextColor: Color;
@@ -14325,8 +14320,8 @@ interface TimeScaleDayFormat {
 interface TimeScaleItemLabel {
 	Date: Date;
 	Дата: Date;
-	Text: string;
-	Текст: string;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
 	Details;
 	Расшифровка;
 	LineColor: Color;
@@ -14446,8 +14441,8 @@ declare type КоллекцияТекущихПериодовОтображен�
 interface PlannerBackgroundIntervalLabel {
 	Value;
 	Значение;
-	Text: string;
-	Текст: string;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
 	TextColor: Color;
 	ЦветТекста: Color;
 	VerticalAlign: VerticalAlign;
@@ -14486,6 +14481,10 @@ interface PlannerBackgroundInterval {
 	Конец: Date;
 	Color: Color;
 	Цвет: Color;
+	Border: Border;
+	Рамка: Border;
+	BorderColor: Color;
+	ЦветРамки: Color;
 	DimensionValues: FixedMap;
 	ЗначенияИзмерений: FixedMap;
 	Labels: PlannerBackgroundIntervalLabelCollection;
@@ -14529,6 +14528,13 @@ interface EnumPlannerItemsBehaviorWhenSpaceInsufficient {
 	ОтображатьВсеЭлементы;
 }
 declare type ПеречислениеПоведениеЭлементовПланировщикаПриНедостаткеМеста = EnumPlannerItemsBehaviorWhenSpaceInsufficient;
+interface EnumNewPlannerItemsTextType {
+	String;
+	Строка;
+	FormattedString;
+	ФорматированнаяСтрока;
+}
+declare type ПеречислениеТипТекстаНовыхЭлементовПланировщика = EnumNewPlannerItemsTextType;
 interface Planner {
 	Items: PlannerItemCollection;
 	Элементы: PlannerItemCollection;
@@ -14576,6 +14582,8 @@ interface Planner {
 	ОтображениеВремениЭлементов: EnumPlannerItemsTimeRepresentation;
 	ItemsBehaviorWhenSpaceInsufficient: EnumPlannerItemsBehaviorWhenSpaceInsufficient;
 	ПоведениеЭлементовПриНедостаткеМеста: EnumPlannerItemsBehaviorWhenSpaceInsufficient;
+	NewItemsTextType: EnumNewPlannerItemsTextType;
+	ТипТекстаНовыхЭлементов: EnumNewPlannerItemsTextType;
 	AutoMinColumnWidth: boolean;
 	АвтоМинимальнаяШиринаКолонки: boolean;
 	AutoMinRowHeight: boolean;
@@ -14588,6 +14596,8 @@ interface Planner {
 	ФиксироватьЗаголовокИзмерений: boolean;
 	FixTimeScaleHeader: boolean;
 	ФиксироватьЗаголовокШкалыВремени: boolean;
+	Border: Border;
+	Рамка: Border;
 	Print(... params): void;
 	Напечатать(... params): void;
 }
@@ -14621,55 +14631,6 @@ interface DataCompositionDetailsFieldValues {
 	Получить(... params): DataCompositionDetailsFieldValue;
 }
 declare type ЗначенияПолейРасшифровкиКомпоновкиДанных = DataCompositionDetailsFieldValues;
-interface InternetMail {
-	CurrentMailbox: string;
-	ТекущийПочтовыйЯщик: string;
-	DelimeterChar: string;
-	СимволРазделитель: string;
-	Logon(... params): void;
-	Подключиться(... params): void;
-	Logoff(): void;
-	Отключиться(): void;
-	Send(... params): Map;
-	Послать(... params): Map;
-	Get(... params): ArrayV8;
-	Выбрать(... params): ArrayV8;
-	GetUIDL(... params): ArrayV8;
-	ПолучитьИдентификаторы(... params): ArrayV8;
-	GetHeaders(... params): ArrayV8;
-	ПолучитьЗаголовки(... params): ArrayV8;
-	DeleteMessages(... params): void;
-	УдалитьСообщения(... params): void;
-	CombinePartial(... params): ArrayV8;
-	ОбъединитьЧастичные(... params): ArrayV8;
-	CreateMailbox(... params): void;
-	СоздатьПочтовыйЯщик(... params): void;
-	DeleteMailbox(... params): void;
-	УдалитьПочтовыйЯщик(... params): void;
-	RenameMailbox(... params): void;
-	ПереименоватьПочтовыйЯщик(... params): void;
-	GetMailboxes(): ArrayV8;
-	ПолучитьПочтовыеЯщики(): ArrayV8;
-	UndeleteMessages(... params): void;
-	ОтменитьУдалениеСообщений(... params): void;
-	ClearDeletedMassages(): void;
-	ОчиститьУдаленныеСообщения(): void;
-	GetMessageCount();
-	ПолучитьКоличествоСообщений();
-	SubscribeToMailbox(... params): void;
-	ПодписатьсяНаПочтовыйЯщик(... params): void;
-	UnsubscribeFromMailbox(... params): void;
-	ОтменитьПодпискуНаПочтовыйЯщик(... params): void;
-	GetMailboxesBySubscription();
-	ПолучитьПочтовыеЯщикиПоПодписке();
-	MoveToMailbox(... params): void;
-	ПереместитьВПочтовыйЯщик(... params): void;
-	GetMessagesFlags(... params): Map;
-	ПолучитьФлагиСообщений(... params): Map;
-	SetMessagesFlags(... params): void;
-	УстановитьФлагиСообщений(... params): void;
-}
-declare type ИнтернетПочта = InternetMail;
 interface StandardPeriodVariant {
 }
 interface StandardPeriod {
@@ -15368,8 +15329,6 @@ interface EnumGaugeChartValueRepresentation {
 declare type ПеречислениеОтображениеЗначенияИзмерительнойДиаграммы = EnumGaugeChartValueRepresentation;
 interface StandardBeginningDateVariant {
 }
-interface DataAnalysisColumnTypeClusterization {
-}
 interface EnumColorDepth {
 	BitPerPixel1;
 	БитНаПиксел1;
@@ -15437,8 +15396,6 @@ interface DataCompositionChoiceParameters {
 	Вставить(... params): DataCompositionChoiceParameter;
 	Get(... params): DataCompositionChoiceParameter;
 	Получить(... params): DataCompositionChoiceParameter;
-}
-interface DataCompositionPredefinedValue {
 }
 interface HTMLTableRowElement {
 	NodeName: string;
@@ -15563,6 +15520,8 @@ interface EnumColumnSizeChange {
 	НеИзменять;
 }
 declare type ПеречислениеИзменениеРазмераКолонки = EnumColumnSizeChange;
+interface DataCompositionPredefinedValue {
+}
 interface EnumPredictionModelColumnType {
 	Input;
 	Входная;
@@ -15699,6 +15658,8 @@ interface GeographicalSchemaLineType {
 interface DataCompositionResourcesPlacement {
 }
 interface FillChecking {
+}
+interface ChartBoundaryDetectionMethod {
 }
 interface EnumChartOrientation {
 	SouthWest;
@@ -16015,6 +15976,16 @@ interface EnumGeographicalSchemaProjection {
 	КоническаяПроекцияРавныхПлощадейЛамберта;
 }
 declare type ПеречислениеТипПроекцииГеографическойСхемы = EnumGeographicalSchemaProjection;
+interface NetworkAdapterInformation {
+	AdapterName;
+	ИмяАдаптера;
+	MACAddress;
+	MACАдрес;
+	IsCurrentAdapter;
+	ЭтоТекущийАдаптер;
+	IPAddress;
+	IPАдрес;
+}
 interface GraphicalSchemaItemSubBusinessProcess {
 	Name;
 	Имя;
@@ -16341,6 +16312,8 @@ interface EnumDataCompositionFilterApplicationType {
 	ТолькоИерархия;
 }
 declare type ПеречислениеТипПримененияОтбораКомпоновкиДанных = EnumDataCompositionFilterApplicationType;
+interface PlannerInsideDragAction {
+}
 interface XSNotationDeclaration {
 	ComponentType: XSComponentType;
 	ТипКомпоненты: XSComponentType;
@@ -16404,6 +16377,8 @@ interface ProcessingPicture {
 	ВыделитьОбласть(... params): void;
 	SetDensity(... params): void;
 	УстановитьПлотность(... params): void;
+	GetPictures(): ArrayV8;
+	ПолучитьКартинки(): ArrayV8;
 }
 declare type ОбрабатываемаяКартинка = ProcessingPicture;
 interface EnumGeographicalSchemaLineType {
@@ -17254,6 +17229,22 @@ interface EnumParagraphType {
 	НумерованныйСписок;
 }
 declare type ПеречислениеТипПараграфа = EnumParagraphType;
+interface ChartColorPalette {
+}
+interface ChartColorPaletteDescription {
+	ColorPalette: ChartColorPalette;
+	ПалитраЦветов: ChartColorPalette;
+	GradientPaletteStartColor: Color;
+	ЦветНачалаГрадиентнойПалитры: Color;
+	GradientPaletteEndColor: Color;
+	ЦветКонцаГрадиентнойПалитры: Color;
+	GradientPaletteMaxColors: number;
+	МаксимальноеКоличествоЦветовГрадиентнойПалитры: number;
+	GetPalette(): ArrayV8;
+	ПолучитьПалитру(): ArrayV8;
+	SetPalette(... params): void;
+	УстановитьПалитру(... params): void;
+}
 interface XSAttributeUseCategory {
 }
 interface XSAttributeUse {
@@ -17461,18 +17452,6 @@ interface PeriodAppearance {
 	Dates: DateAppearanceCollection;
 	Даты: DateAppearanceCollection;
 }
-interface InternetMailTexts {
-	Count(): number;
-	Количество(): number;
-	Add(... params): InternetMailText;
-	Добавить(... params): InternetMailText;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Get(... params): InternetMailText;
-	Получить(... params): InternetMailText;
-}
 interface HTMLHRElement {
 	NodeName: string;
 	ИмяУзла: string;
@@ -17586,8 +17565,73 @@ interface StandardPeriodEditDialog {
 	Редактировать(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	EditAsync(): PromiseV8;
+	РедактироватьАсинх(): PromiseV8;
 }
 declare type ДиалогРедактированияСтандартногоПериода = StandardPeriodEditDialog;
+interface MemoryStream {
+	CanRead: boolean;
+	ДоступноЧтение: boolean;
+	CanWrite: boolean;
+	ДоступнаЗапись: boolean;
+	CanSeek: boolean;
+	ДоступноИзменениеПозиции: boolean;
+	Close(): void;
+	Закрыть(): void;
+	Size(): number;
+	Размер(): number;
+	GetReadOnlyStream(): Stream;
+	ПолучитьПотокТолькоДляЧтения(): Stream;
+	CurrentPosition(): number;
+	ТекущаяПозиция(): number;
+	CopyTo(... params);
+	КопироватьВ(... params);
+	Flush(): void;
+	СброситьБуферы(): void;
+	Seek(... params): number;
+	Перейти(... params): number;
+	SetSize(... params): void;
+	УстановитьРазмер(... params): void;
+	Read(... params): number;
+	Прочитать(... params): number;
+	Write(... params): void;
+	Записать(... params): void;
+	BeginGetSize(... params): void;
+	НачатьПолучениеРазмера(... params): void;
+	SizeAsync(): PromiseV8;
+	РазмерАсинх(): PromiseV8;
+	BeginCopyTo(... params): void;
+	НачатьКопированиеВ(... params): void;
+	CopyToAsync(... params): PromiseV8;
+	КопироватьВАсинх(... params): PromiseV8;
+	BeginSeek(... params): void;
+	НачатьПереход(... params): void;
+	SeekAsync(... params): PromiseV8;
+	ПерейтиАсинх(... params): PromiseV8;
+	BeginSetSize(... params): void;
+	НачатьУстановкуРазмера(... params): void;
+	SetSizeAsync(... params): PromiseV8;
+	УстановитьРазмерАсинх(... params): PromiseV8;
+	BeginRead(... params): void;
+	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
+	BeginWrite(... params): void;
+	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
+	BeginFlush(... params): void;
+	НачатьСбросБуферов(... params): void;
+	FlushAsync(): PromiseV8;
+	СброситьБуферыАсинх(): PromiseV8;
+	BeginClose(... params): void;
+	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
+	CloseAndGetBinaryData(): BinaryData;
+	ЗакрытьИПолучитьДвоичныеДанные(): BinaryData;
+}
+declare type ПотокВПамяти = MemoryStream;
 interface XSParticle {
 	ComponentType: XSComponentType;
 	ТипКомпоненты: XSComponentType;
@@ -17621,53 +17665,6 @@ interface XSParticle {
 	ЯвляетсяПодмножеством(... params): boolean;
 }
 declare type ФрагментXS = XSParticle;
-interface MemoryStream {
-	CanRead: boolean;
-	ДоступноЧтение: boolean;
-	CanWrite: boolean;
-	ДоступнаЗапись: boolean;
-	CanSeek: boolean;
-	ДоступноИзменениеПозиции: boolean;
-	Close(): void;
-	Закрыть(): void;
-	Size(): number;
-	Размер(): number;
-	GetReadOnlyStream(): Stream;
-	ПолучитьПотокТолькоДляЧтения(): Stream;
-	CurrentPosition(): number;
-	ТекущаяПозиция(): number;
-	CopyTo(... params);
-	КопироватьВ(... params);
-	Flush(): void;
-	СброситьБуферы(): void;
-	Seek(... params): number;
-	Перейти(... params): number;
-	SetSize(... params): void;
-	УстановитьРазмер(... params): void;
-	Read(... params): number;
-	Прочитать(... params): number;
-	Write(... params): void;
-	Записать(... params): void;
-	BeginGetSize(... params): void;
-	НачатьПолучениеРазмера(... params): void;
-	BeginCopyTo(... params): void;
-	НачатьКопированиеВ(... params): void;
-	BeginSeek(... params): void;
-	НачатьПереход(... params): void;
-	BeginSetSize(... params): void;
-	НачатьУстановкуРазмера(... params): void;
-	BeginRead(... params): void;
-	НачатьЧтение(... params): void;
-	BeginWrite(... params): void;
-	НачатьЗапись(... params): void;
-	BeginFlush(... params): void;
-	НачатьСбросБуферов(... params): void;
-	BeginClose(... params): void;
-	НачатьЗакрытие(... params): void;
-	CloseAndGetBinaryData(): BinaryData;
-	ЗакрытьИПолучитьДвоичныеДанные(): BinaryData;
-}
-declare type ПотокВПамяти = MemoryStream;
 interface EnumDataCompositionSettingsViewMode {
 	All;
 	Все;
@@ -18209,6 +18206,8 @@ interface EnumClusterizationMethod {
 }
 declare type ПеречислениеМетодКластеризации = EnumClusterizationMethod;
 interface ContactDataURLType {
+}
+interface AudioRecordingFormat {
 }
 interface GanttChartLegendArea {
 	Transparent: boolean;
@@ -19010,6 +19009,8 @@ interface EnumChartColorPalette {
 declare type ПеречислениеПалитраЦветовДиаграммы = EnumChartColorPalette;
 interface AutoSaveFormDataInSettings {
 }
+interface MobileApplicationFunctionalities {
+}
 interface EnumPivotTableColumnTotalPosition {
 	Left;
 	Лево;
@@ -19048,6 +19049,8 @@ interface EnumCryptoCertificateStoreType {
 	КорневыеСертификаты;
 }
 declare type ПеречислениеТипХранилищаСертификатовКриптографии = EnumCryptoCertificateStoreType;
+interface ChartValuesToolTipShowMode {
+}
 interface DragAllowedActions {
 }
 interface EnumShowInChartLegend {
@@ -19110,6 +19113,14 @@ interface EnumAnalysisDataType {
 	Дискретные;
 }
 declare type ПеречислениеВидДанныхАнализа = EnumAnalysisDataType;
+interface GlobalSearchResult {
+	Value;
+	Значение;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
+	Picture: Picture;
+	Картинка: Picture;
+}
 interface EnumUseMenuMode {
 	DontUse;
 	НеИспользовать;
@@ -19264,6 +19275,7 @@ interface CollaborationSystemUserIDCollection {
 	Clear(): void;
 	Очистить(): void;
 }
+declare type КоллекцияИдентификаторовПользователейСистемыВзаимодействия = CollaborationSystemUserIDCollection;
 interface CollaborationSystemIntegrationID {
 }
 interface CollaborationSystemConversation {
@@ -19313,6 +19325,64 @@ interface ChartTitleArea {
 	Расположение: ChartTitleAreaPlacement;
 }
 interface RadarChartScaleType {
+}
+interface ShowChartScaleTitle {
+}
+interface ChartScaleTitleTextSource {
+}
+interface ChartScaleTitlePlacement {
+}
+interface ChartGridLinesShowMode {
+}
+interface ChartScaleLabelLocation {
+}
+interface ChartScaleLocation {
+}
+interface ChartScaleMarkLocation {
+}
+interface ChartScale {
+	ShowTitle: ShowChartScaleTitle;
+	ОтображениеЗаголовка: ShowChartScaleTitle;
+	TitleTextSource: ChartScaleTitleTextSource;
+	СпособЗаполненияТекстаЗаголовка: ChartScaleTitleTextSource;
+	TitleText;
+	ТекстЗаголовка;
+	TitleArea: ChartLabelArea;
+	ОбластьЗаголовка: ChartLabelArea;
+	TitlePlacement: ChartScaleTitlePlacement;
+	РасположениеЗаголовка: ChartScaleTitlePlacement;
+	GridLinesShowMode: ChartGridLinesShowMode;
+	ОтображениеЛинийСетки: ChartGridLinesShowMode;
+	ScaleLabelLocation: ChartScaleLabelLocation;
+	ПоложениеПодписейШкалы: ChartScaleLabelLocation;
+	GridLine: Line;
+	ЛинияСетки: Line;
+	GridLineColor: Color;
+	ЦветЛинииСетки: Color;
+	LabelFont: Font;
+	ШрифтПодписей: Font;
+	LabelColor: Color;
+	ЦветПодписей: Color;
+	LabelOrientation: ChartLabelsOrientation;
+	ОриентацияПодписей: ChartLabelsOrientation;
+	LabelFormat: string;
+	ФорматПодписей: string;
+	ScaleLine: Line;
+	ЛинияШкалы: Line;
+	ScaleLineColor: Color;
+	ЦветЛинииШкалы: Color;
+	MaxLabelRows: number;
+	МаксимальноеКоличествоРядовПодписей: number;
+	LabelAngle: number;
+	УголНаклонаПодписей: number;
+	ScaleLocation: ChartScaleLocation;
+	ПоложениеШкалы: ChartScaleLocation;
+	ScaleStep: number;
+	ШагШкалы: number;
+	ScaleMarkLocation: ChartScaleMarkLocation;
+	ПоложениеОтметокШкалы: ChartScaleMarkLocation;
+	ShowInChart: ShowInChart;
+	Отображение: ShowInChart;
 }
 interface ChartPlotArea {
 	Transparent: boolean;
@@ -19469,6 +19539,130 @@ interface GaugeChartQualityBands {
 	Сдвинуть(... params): void;
 	Delete(... params): boolean;
 	Удалить(... params): boolean;
+}
+interface ChartSplineMode {
+}
+interface ChartSemitransparencyMode {
+}
+interface ChartValuesBySeriesConnectionType {
+}
+interface ChartAxis {
+	BaseValue: number;
+	БазовоеЗначение: number;
+	MaxValue;
+	МаксимальноеЗначение;
+	MinValue;
+	МинимальноеЗначение;
+	MaxValueDetectionMethod: ChartBoundaryDetectionMethod;
+	СпособОпределенияМаксимальногоЗначения: ChartBoundaryDetectionMethod;
+	MinValueDetectionMethod: ChartBoundaryDetectionMethod;
+	СпособОпределенияМинимальногоЗначения: ChartBoundaryDetectionMethod;
+}
+interface ChartPointsAxisValuesSource {
+}
+interface ChartBubbleSizeValueSource {
+}
+interface ChartBubbleSizing {
+}
+interface BubbleChartNegativeValuesShowMode {
+}
+interface ChartPointsConnectionType {
+}
+interface BarChartPointsOrder {
+}
+interface ChartReferenceLinePosition {
+}
+interface ChartReferenceLine {
+	Value;
+	Значение;
+	LabelText: string;
+	ТекстПодписи: string;
+	ToolTip: string;
+	Подсказка: string;
+	LabelArea: ChartLabelArea;
+	ОбластьПодписи: ChartLabelArea;
+	Line: Line;
+	Линия: Line;
+	Color: Color;
+	Цвет: Color;
+	SemitransparencyPercent: number;
+	ПроцентПолупрозрачности: number;
+	Details;
+	Расшифровка;
+	Position: ChartReferenceLinePosition;
+	Положение: ChartReferenceLinePosition;
+}
+interface ChartReferenceLines {
+	Insert(... params): ChartReferenceLine;
+	Вставить(... params): ChartReferenceLine;
+	Add(): ChartReferenceLine;
+	Добавить(): ChartReferenceLine;
+	Index(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Get(... params): ChartReferenceLine;
+	Получить(... params): ChartReferenceLine;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Delete(... params): boolean;
+	Удалить(... params): boolean;
+}
+interface ChartReferenceBand {
+	Begin;
+	Начало;
+	End;
+	Конец;
+	LabelText: string;
+	ТекстПодписи: string;
+	ToolTip: string;
+	Подсказка: string;
+	LabelArea: ChartLabelArea;
+	ОбластьПодписи: ChartLabelArea;
+	Color: Color;
+	Цвет: Color;
+	SemitransparencyPercent: number;
+	ПроцентПолупрозрачности: number;
+	Border: Line;
+	Граница: Line;
+	BorderColor: Color;
+	ЦветГраницы: Color;
+	BorderSemitransparencyPercent: number;
+	ПроцентПолупрозрачностиГраницы: number;
+	Details;
+	Расшифровка;
+	DisplayAreaBegin;
+	НачалоОбластиОтображения;
+	DisplayAreaEnd;
+	КонецОбластиОтображения;
+	Position;
+	Положение;
+}
+interface ChartReferenceBands {
+	Insert(... params): ChartReferenceBand;
+	Вставить(... params): ChartReferenceBand;
+	Add(): ChartReferenceBand;
+	Добавить(): ChartReferenceBand;
+	Index(... params): number;
+	Индекс(... params): number;
+	Count(): number;
+	Количество(): number;
+	Get(... params): ChartReferenceBand;
+	Получить(... params): ChartReferenceBand;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Delete(... params): boolean;
+	Удалить(... params): boolean;
+}
+interface NonnumericChartValueUse {
+}
+interface PointsConnectionAcrossSkippedChartValuesType {
+}
+interface ChartValuesToolTipFillType {
+}
+interface ChartSelectionMode {
+}
+interface ShowChartPopupReferenceLine {
 }
 interface Chart {
 	TitleArea: ChartTitleArea;
@@ -20498,6 +20692,8 @@ interface FontChooseDialog {
 	Выбрать(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	ChooseAsync(): PromiseV8;
+	ВыбратьАсинх(): PromiseV8;
 }
 declare type ДиалогВыбораШрифта = FontChooseDialog;
 interface SelectionShowMode {
@@ -20581,6 +20777,8 @@ interface EnumLinkedValueChangeMode {
 	НеИзменять;
 }
 declare type ПеречислениеРежимИзмененияСвязанногоЗначения = EnumLinkedValueChangeMode;
+interface PlannerItemEnableEditMode {
+}
 interface GanttChartScaleKeeping {
 }
 interface EnumDataCompositionResultBeginItemType {
@@ -20838,13 +21036,6 @@ interface EnumDataAnalysisResultTableFillType {
 	ВсеПоля;
 }
 declare type ПеречислениеТипЗаполненияТаблицыРезультатаАнализаДанных = EnumDataAnalysisResultTableFillType;
-interface DOMWriter {
-	DOMConfig: DOMWriterConfiguration;
-	КонфигурацияDOM: DOMWriterConfiguration;
-	Write(... params): void;
-	Записать(... params): void;
-}
-declare type ЗаписьDOM = DOMWriter;
 interface POP3AuthenticationMode {
 }
 interface UseInternetMailTokenAuthentication {
@@ -20900,6 +21091,13 @@ interface InternetMailProfile {
 	ТокенДоступа: string;
 }
 declare type ИнтернетПочтовыйПрофиль = InternetMailProfile;
+interface DOMWriter {
+	DOMConfig: DOMWriterConfiguration;
+	КонфигурацияDOM: DOMWriterConfiguration;
+	Write(... params): void;
+	Записать(... params): void;
+}
+declare type ЗаписьDOM = DOMWriter;
 interface AdministrationLicense {
 	FileName: string;
 	ИмяФайла: string;
@@ -23617,6 +23815,10 @@ interface EnumPlannerCommandSource {
 	ЭлементШкалыВремени;
 	WrappedTimeScaleHeaderArea;
 	ОбластьПеренесенногоЗаголовкаШкалыВремени;
+	URL;
+	НавигационнаяСсылка;
+	Action;
+	Действие;
 }
 declare type ПеречислениеИсточникКомандПланировщика = EnumPlannerCommandSource;
 interface RadioButton {
@@ -24146,6 +24348,16 @@ interface EnumTableBehaviorOnHorizontalCompression {
 declare type ПеречислениеПоведениеТаблицыПриСжатииПоГоризонтали = EnumTableBehaviorOnHorizontalCompression;
 interface CommandBarButtonType {
 }
+interface TransferredFileDescription {
+	Name;
+	Имя;
+	FullName;
+	ПолноеИмя;
+	FileID;
+	ИдентификаторФайла;
+	Location;
+	Хранение;
+}
 interface DendrogramTitleArea {
 	Text: string;
 	Текст: string;
@@ -24171,16 +24383,6 @@ interface DendrogramTitleArea {
 	Низ: number;
 	Placement: ChartTitleAreaPlacement;
 	Расположение: ChartTitleAreaPlacement;
-}
-interface TransferredFileDescription {
-	Name;
-	Имя;
-	FullName;
-	ПолноеИмя;
-	FileID;
-	ИдентификаторФайла;
-	Location;
-	Хранение;
 }
 interface MobileDeviceApplicationRunAdditionalDataItem {
 	Key: string;
@@ -24320,13 +24522,6 @@ interface EnumSecureStorageAccessProtectionMethod {
 declare type ПеречислениеСпособЗащитыДоступаБезопасногоХранилища = EnumSecureStorageAccessProtectionMethod;
 interface ControlCollapseMode {
 }
-interface EnumDataAnalysisNumericValueUseType {
-	AsNumeric;
-	КакЧисло;
-	AsBoolean;
-	КакБулево;
-}
-declare type ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных = EnumDataAnalysisNumericValueUseType;
 interface EnumCurrentRowUse {
 	Use;
 	Использует;
@@ -24356,8 +24551,6 @@ interface EnumClientApplicationInterfaceVariant {
 	Такси;
 }
 declare type ПеречислениеВариантИнтерфейсаКлиентскогоПриложения = EnumClientApplicationInterfaceVariant;
-interface DataAnalysisColumnTypeSummaryStatistics {
-}
 interface QueryDataSource {
 	DataSource;
 	ИсточникДанных;
@@ -24643,6 +24836,8 @@ interface ColorChooseDialog {
 	Выбрать(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	ChooseAsync(): PromiseV8;
+	ВыбратьАсинх(): PromiseV8;
 }
 declare type ДиалогВыбораЦвета = ColorChooseDialog;
 interface SaveFormDataInSettings {
@@ -25120,8 +25315,12 @@ interface ReadDataResult {
 	ОткрытьПотокДляЧтения(): Stream;
 	BeginGetBinaryData(... params): void;
 	НачатьПолучениеДвоичныхДанных(... params): void;
+	GetBinaryDataAsync(): PromiseV8;
+	ПолучитьДвоичныеДанныеАсинх(): PromiseV8;
 	BeginGetBinaryDataBuffer(... params): void;
 	НачатьПолучениеБуфераДвоичныхДанных(... params): void;
+	GetBinaryDataBufferAsync(): PromiseV8;
+	ПолучитьБуферДвоичныхДанныхАсинх(): PromiseV8;
 }
 interface DataReader {
 	TextEncoding: string;
@@ -25168,34 +25367,64 @@ interface DataReader {
 	КопироватьВ(... params): number;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 	BeginReadByte(... params): void;
 	НачатьЧтениеБайта(... params): void;
+	ReadByteAsync(): PromiseV8;
+	ПрочитатьБайтАсинх(): PromiseV8;
 	BeginReadInt16(... params): void;
 	НачатьЧтениеЦелого16(... params): void;
+	ReadInt16Async(... params): PromiseV8;
+	ПрочитатьЦелое16Асинх(... params): PromiseV8;
 	BeginReadInt32(... params): void;
 	НачатьЧтениеЦелого32(... params): void;
+	ReadInt32Async(... params): PromiseV8;
+	ПрочитатьЦелое32Асинх(... params): PromiseV8;
 	BeginReadInt64(... params): void;
 	НачатьЧтениеЦелого64(... params): void;
+	ReadInt64Async(... params): PromiseV8;
+	ПрочитатьЦелое64Асинх(... params): PromiseV8;
 	BeginReadIntoBinaryDataBuffer(... params): void;
 	НачатьЧтениеВБуферДвоичныхДанных(... params): void;
+	ReadIntoBinaryDataBufferAsync(... params): PromiseV8;
+	ПрочитатьВБуферДвоичныхДанныхАсинх(... params): PromiseV8;
 	BeginRead(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 	BeginReadChars(... params): void;
 	НачатьЧтениеСимволов(... params): void;
+	ReadCharsAsync(... params): PromiseV8;
+	ПрочитатьСимволыАсинх(... params): PromiseV8;
 	BeginReadLine(... params): void;
 	НачатьЧтениеСтроки(... params): void;
+	ReadLineAsync(... params): PromiseV8;
+	ПрочитатьСтрокуАсинх(... params): PromiseV8;
 	BeginReadTo(... params): void;
 	НачатьЧтениеДо(... params): void;
+	ReadToAsync(... params): PromiseV8;
+	ПрочитатьДоАсинх(... params): PromiseV8;
 	BeginSplit(... params): void;
 	НачатьРазделение(... params): void;
+	SplitAsync(... params): PromiseV8;
+	РазделитьАсинх(... params): PromiseV8;
 	BeginSplitInPartsOf(... params): void;
 	НачатьРазделениеНаЧастиПо(... params): void;
+	SplitInPartsOfAsync(... params): PromiseV8;
+	РазделитьНаЧастиПоАсинх(... params): PromiseV8;
 	BeginSkip(... params): void;
 	НачатьПропуск(... params): void;
+	SkipAsync(... params): PromiseV8;
+	ПропуститьАсинх(... params): PromiseV8;
 	BeginSkipTo(... params): void;
 	НачатьПропускДо(... params): void;
+	SkipToAsync(... params): PromiseV8;
+	ПропуститьДоАсинх(... params): PromiseV8;
 	BeginCopyTo(... params): void;
 	НачатьКопированиеВ(... params): void;
+	CopyToAsync(... params): PromiseV8;
+	КопироватьВАсинх(... params): PromiseV8;
 }
 declare type ЧтениеДанных = DataReader;
 interface EnumOrientation {
@@ -25259,10 +25488,16 @@ interface AdRepresentationManager {
 	ПоказатьВидеообъявлениеСВознаграждением(... params): void;
 	BeginFullscreenAdDownloading(... params): void;
 	НачатьЗагрузкуПолноэкраннойРекламы(... params): void;
+	DownloadFullscreenAdAsync();
+	ЗагрузитьПолноэкраннуюРекламуАсинх();
 	BeginAdBannerDownloading(... params): void;
 	НачатьЗагрузкуРекламногоБаннера(... params): void;
+	DownloadAdBannerAsync();
+	ЗагрузитьРекламныйБаннерАсинх();
 	BeginRewardedVideoDownloading(... params): void;
 	НачатьЗагрузкуВидеообъявленияСВознаграждением(... params): void;
+	DownloadRewardedVideoAsync();
+	ЗагрузитьВидеообъявлениеСВознаграждениемАсинх();
 	GetAdStatus(... params): AdStatus;
 	ПолучитьСтатусРекламы(... params): AdStatus;
 }
@@ -25274,6 +25509,15 @@ interface EnumDataCompositionConditionalAppearanceUse {
 	НеИспользовать;
 }
 declare type ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных = EnumDataCompositionConditionalAppearanceUse;
+interface EnumDataChangeType {
+	Create;
+	Добавление;
+	Update;
+	Изменение;
+	Delete;
+	Удаление;
+}
+declare type ПеречислениеВидИзмененияДанных = EnumDataChangeType;
 interface DataCompositionAreaTemplateValueCollectionCells {
 	Add(): DataCompositionAreaTemplateValueCollectionCell;
 	Добавить(): DataCompositionAreaTemplateValueCollectionCell;
@@ -25318,6 +25562,15 @@ interface EnumPDFSignatureType {
 	Сертифицирующая;
 }
 declare type ПеречислениеТипПодписиPDF = EnumPDFSignatureType;
+interface BarcodeType {
+}
+interface OnReopenFormFromOtherServerFillParameters {
+	IncludedAttributes: ArrayV8;
+	ВключитьРеквизиты: ArrayV8;
+	ExcludedAttributes: ArrayV8;
+	ИсключитьРеквизиты: ArrayV8;
+}
+declare type ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера = OnReopenFormFromOtherServerFillParameters;
 interface HTMLDocumentFieldMode {
 }
 interface EnumSpreadsheetDocumentSelectionShowModeType {
@@ -25343,14 +25596,24 @@ interface PDFWriter {
 	Закрыть(): void;
 	BeginOpen(... params): void;
 	НачатьОткрытие(... params): void;
+	OpenAsync(... params): PromiseV8;
+	ОткрытьАсинх(... params): PromiseV8;
 	BeginWriteAttachments(... params): void;
 	НачатьЗаписьВложений(... params): void;
+	WriteAttachmentsAsync(... params): PromiseV8;
+	ЗаписатьВложенияАсинх(... params): PromiseV8;
 	BeginWriteAttachmentsDeletion(... params): void;
 	НачатьЗаписьУдаленияВложений(... params): void;
+	WriteAttachmentsDeletionAsync(... params): PromiseV8;
+	ЗаписатьУдалениеВложенийАсинх(... params): PromiseV8;
 	BeginWriteSignature(... params): void;
 	НачатьЗаписьПодписи(... params): void;
+	WriteSignatureAsync(... params): PromiseV8;
+	ЗаписатьПодписьАсинх(... params): PromiseV8;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 }
 declare type ЗаписьPDF = PDFWriter;
 interface EnumChartTitleAreaPlacement {
@@ -25435,8 +25698,12 @@ interface TextDocumentField {
 	Вывести(... params): void;
 	BeginReading(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 }
 interface GanttChartIntervalRepresentation {
 }
@@ -25531,8 +25798,6 @@ interface GanttChartPlotArea {
 	Шрифт: Font;
 	Border: Border;
 	Рамка: Border;
-	LabelsOrientation: ChartLabelsOrientation;
-	ОриентацияМеток: ChartLabelsOrientation;
 	ScaleColor: Color;
 	ЦветШкал: Color;
 	ScaleLines: Line;
@@ -25545,14 +25810,6 @@ interface GanttChartPlotArea {
 	Право: number;
 	Bottom: number;
 	Низ: number;
-	PointsScale: ChartScale;
-	ШкалаТочек: ChartScale;
-	ValuesScale: ChartScale;
-	ШкалаЗначений: ChartScale;
-	AdditionalValuesScale: ChartScale;
-	ДополнительнаяШкалаЗначений: ChartScale;
-	SeriesScale: ChartScale;
-	ШкалаСерий: ChartScale;
 	Placement: ChartPlotAreaPlacement;
 	Расположение: ChartPlotAreaPlacement;
 	TimeScale: TimeScale;
@@ -25605,94 +25862,8 @@ interface GanttChart {
 	АвтоМинимальноеЗначение: boolean;
 	RefreshEnabled: boolean;
 	Обновление: boolean;
-	SplineMode: ChartSplineMode;
-	РежимСглаживания: ChartSplineMode;
-	SplineStrain: number;
-	НатяжениеСглаживания: number;
-	SemitransparencyMode: ChartSemitransparencyMode;
-	РежимПолупрозрачности: ChartSemitransparencyMode;
-	SemitransparencyPercent: number;
-	ПроцентПолупрозрачности: number;
-	FunnelNeckHeight: number;
-	ВысотаГорлаВоронки: number;
-	FunnelNeckWidth: number;
-	ШиринаГорлаВоронки: number;
-	FunnelSpace: number;
-	ПробелыВоронки: number;
-	ValuesBySeriesConnection: ChartValuesBySeriesConnectionType;
-	СоединениеЗначенийПоСериям: ChartValuesBySeriesConnectionType;
-	ValuesBySeriesConnectionLines: Line;
-	ЛинииСоединенияЗначенийПоСериям: Line;
-	ValuesBySeriesConnectionColor: Color;
-	ЦветСоединенияЗначенийПоСериям: Color;
 	Animation: ChartAnimation;
 	Анимация: ChartAnimation;
-	SeriesOrderInLegend: ChartSeriesOrderInLegend;
-	ПорядокСерийВЛегенде: ChartSeriesOrderInLegend;
-	ValuesAxis: ChartAxis;
-	ОсьЗначений: ChartAxis;
-	PointsAxis: ChartAxis;
-	ОсьТочек: ChartAxis;
-	AdditionalValuesAxis: ChartAxis;
-	ДополнительнаяОсьЗначений: ChartAxis;
-	PointsAxisValuesSource: ChartPointsAxisValuesSource;
-	ИсточникЗначенийОсиТочек: ChartPointsAxisValuesSource;
-	PointsAxisSeries: ChartSeries;
-	СерияНаОсиТочек: ChartSeries;
-	BubbleSizeValueSource: ChartBubbleSizeValueSource;
-	ИсточникЗначенияРазмераПузырька: ChartBubbleSizeValueSource;
-	BubbleSizeCommonSeries: ChartSeries;
-	ОбщаяСерияРазмераПузырька: ChartSeries;
-	BubbleSizing: ChartBubbleSizing;
-	ВлияниеРазмераНаПузырек: ChartBubbleSizing;
-	DefaultBubbleSize: number;
-	РазмерПузырькаПоУмолчанию: number;
-	MinBubbleSize: number;
-	МинимальныйРазмерПузырька: number;
-	MaxBubbleSize: number;
-	МаксимальныйРазмерПузырька: number;
-	BubbleChartNegativeValuesShowMode: BubbleChartNegativeValuesShowMode;
-	ОтображениеОтрицательныхЗначенийПузырьковойДиаграммы: BubbleChartNegativeValuesShowMode;
-	PointsConnection: ChartPointsConnectionType;
-	СоединениеТочек: ChartPointsConnectionType;
-	BarChartPointsOrder: BarChartPointsOrder;
-	ПорядокОтображенияТочекГоризонтальнойГистограммы: BarChartPointsOrder;
-	GradientPaletteMaxColors: number;
-	МаксимальноеКоличествоЦветовГрадиентнойПалитры: number;
-	GradientPaletteStartColor: Color;
-	ЦветНачалаГрадиентнойПалитры: Color;
-	GradientPaletteEndColor: Color;
-	ЦветКонцаГрадиентнойПалитры: Color;
-	ValuesReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииЗначений: ChartReferenceLines;
-	ValuesReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыЗначений: ChartReferenceBands;
-	PointsReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииТочек: ChartReferenceLines;
-	PointsReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыТочек: ChartReferenceBands;
-	ColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветов: ChartColorPaletteDescription;
-	ReferenceBandsColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветовИнформационныхИнтервалов: ChartColorPaletteDescription;
-	NonnumericValueUse: NonnumericChartValueUse;
-	ИспользованиеНечисловыхЗначений: NonnumericChartValueUse;
-	PointsConnectionAcrossSkippedValues: PointsConnectionAcrossSkippedChartValuesType;
-	СоединениеТочекПриПропущенныхЗначениях: PointsConnectionAcrossSkippedChartValuesType;
-	ValuesToolTipShowMode: ChartValuesToolTipShowMode;
-	ОтображениеПодсказкиЗначений: ChartValuesToolTipShowMode;
-	ValuesToolTipFillType: ChartValuesToolTipFillType;
-	ЗаполнениеПодсказкиЗначений: ChartValuesToolTipFillType;
-	SelectionMode: ChartSelectionMode;
-	РежимВыделения: ChartSelectionMode;
-	ShowPointsPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюТочек: ShowChartPopupReferenceLine;
-	ShowValuesPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюЗначений: ShowChartPopupReferenceLine;
-	DonutChartInnerRadius: number;
-	ВнутреннийРадиусКольцевойДиаграммы: number;
-	ValuesEditMode: ChartValuesEditMode;
-	РежимРедактированияЗначений: ChartValuesEditMode;
 	Points: GanttChartPointCollection;
 	Точки: GanttChartPointCollection;
 	Series: GanttChartSeriesCollection;
@@ -25850,14 +26021,6 @@ interface DendrogramPlotArea {
 	Право: number;
 	Bottom: number;
 	Низ: number;
-	PointsScale: ChartScale;
-	ШкалаТочек: ChartScale;
-	ValuesScale: ChartScale;
-	ШкалаЗначений: ChartScale;
-	AdditionalValuesScale: ChartScale;
-	ДополнительнаяШкалаЗначений: ChartScale;
-	SeriesScale: ChartScale;
-	ШкалаСерий: ChartScale;
 	Placement: ChartPlotAreaPlacement;
 	Расположение: ChartPlotAreaPlacement;
 	VerticalLabels: boolean;
@@ -25884,94 +26047,8 @@ interface Dendrogram {
 	АвтоМинимальноеЗначение: boolean;
 	RefreshEnabled: boolean;
 	Обновление: boolean;
-	SplineMode: ChartSplineMode;
-	РежимСглаживания: ChartSplineMode;
-	SplineStrain: number;
-	НатяжениеСглаживания: number;
-	SemitransparencyMode: ChartSemitransparencyMode;
-	РежимПолупрозрачности: ChartSemitransparencyMode;
-	SemitransparencyPercent: number;
-	ПроцентПолупрозрачности: number;
-	FunnelNeckHeight: number;
-	ВысотаГорлаВоронки: number;
-	FunnelNeckWidth: number;
-	ШиринаГорлаВоронки: number;
-	FunnelSpace: number;
-	ПробелыВоронки: number;
-	ValuesBySeriesConnection: ChartValuesBySeriesConnectionType;
-	СоединениеЗначенийПоСериям: ChartValuesBySeriesConnectionType;
-	ValuesBySeriesConnectionLines: Line;
-	ЛинииСоединенияЗначенийПоСериям: Line;
-	ValuesBySeriesConnectionColor: Color;
-	ЦветСоединенияЗначенийПоСериям: Color;
 	Animation: ChartAnimation;
 	Анимация: ChartAnimation;
-	SeriesOrderInLegend: ChartSeriesOrderInLegend;
-	ПорядокСерийВЛегенде: ChartSeriesOrderInLegend;
-	ValuesAxis: ChartAxis;
-	ОсьЗначений: ChartAxis;
-	PointsAxis: ChartAxis;
-	ОсьТочек: ChartAxis;
-	AdditionalValuesAxis: ChartAxis;
-	ДополнительнаяОсьЗначений: ChartAxis;
-	PointsAxisValuesSource: ChartPointsAxisValuesSource;
-	ИсточникЗначенийОсиТочек: ChartPointsAxisValuesSource;
-	PointsAxisSeries: ChartSeries;
-	СерияНаОсиТочек: ChartSeries;
-	BubbleSizeValueSource: ChartBubbleSizeValueSource;
-	ИсточникЗначенияРазмераПузырька: ChartBubbleSizeValueSource;
-	BubbleSizeCommonSeries: ChartSeries;
-	ОбщаяСерияРазмераПузырька: ChartSeries;
-	BubbleSizing: ChartBubbleSizing;
-	ВлияниеРазмераНаПузырек: ChartBubbleSizing;
-	DefaultBubbleSize: number;
-	РазмерПузырькаПоУмолчанию: number;
-	MinBubbleSize: number;
-	МинимальныйРазмерПузырька: number;
-	MaxBubbleSize: number;
-	МаксимальныйРазмерПузырька: number;
-	BubbleChartNegativeValuesShowMode: BubbleChartNegativeValuesShowMode;
-	ОтображениеОтрицательныхЗначенийПузырьковойДиаграммы: BubbleChartNegativeValuesShowMode;
-	PointsConnection: ChartPointsConnectionType;
-	СоединениеТочек: ChartPointsConnectionType;
-	BarChartPointsOrder: BarChartPointsOrder;
-	ПорядокОтображенияТочекГоризонтальнойГистограммы: BarChartPointsOrder;
-	GradientPaletteMaxColors: number;
-	МаксимальноеКоличествоЦветовГрадиентнойПалитры: number;
-	GradientPaletteStartColor: Color;
-	ЦветНачалаГрадиентнойПалитры: Color;
-	GradientPaletteEndColor: Color;
-	ЦветКонцаГрадиентнойПалитры: Color;
-	ValuesReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииЗначений: ChartReferenceLines;
-	ValuesReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыЗначений: ChartReferenceBands;
-	PointsReferenceLines: ChartReferenceLines;
-	ИнформационныеЛинииТочек: ChartReferenceLines;
-	PointsReferenceBands: ChartReferenceBands;
-	ИнформационныеИнтервалыТочек: ChartReferenceBands;
-	ColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветов: ChartColorPaletteDescription;
-	ReferenceBandsColorPaletteDescription: ChartColorPaletteDescription;
-	ОписаниеПалитрыЦветовИнформационныхИнтервалов: ChartColorPaletteDescription;
-	NonnumericValueUse: NonnumericChartValueUse;
-	ИспользованиеНечисловыхЗначений: NonnumericChartValueUse;
-	PointsConnectionAcrossSkippedValues: PointsConnectionAcrossSkippedChartValuesType;
-	СоединениеТочекПриПропущенныхЗначениях: PointsConnectionAcrossSkippedChartValuesType;
-	ValuesToolTipShowMode: ChartValuesToolTipShowMode;
-	ОтображениеПодсказкиЗначений: ChartValuesToolTipShowMode;
-	ValuesToolTipFillType: ChartValuesToolTipFillType;
-	ЗаполнениеПодсказкиЗначений: ChartValuesToolTipFillType;
-	SelectionMode: ChartSelectionMode;
-	РежимВыделения: ChartSelectionMode;
-	ShowPointsPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюТочек: ShowChartPopupReferenceLine;
-	ShowValuesPopupReferenceLine: ShowChartPopupReferenceLine;
-	ОтображатьВсплывающуюИнформационнуюЛиниюЗначений: ShowChartPopupReferenceLine;
-	DonutChartInnerRadius: number;
-	ВнутреннийРадиусКольцевойДиаграммы: number;
-	ValuesEditMode: ChartValuesEditMode;
-	РежимРедактированияЗначений: ChartValuesEditMode;
 	Items: DendrogramItemCollection;
 	Элементы: DendrogramItemCollection;
 	Links: DendrogramLinkCollection;
@@ -26037,6 +26114,16 @@ interface FormChartField {
 	ПолучитьВыделенныеЭлементы(): ArrayV8;
 	SetSelectedItems(... params): void;
 	УстановитьВыделенныеЭлементы(... params): void;
+}
+interface PlannerInsideDragParameter {
+	Begin: Date;
+	Начало: Date;
+	End: Date;
+	Конец: Date;
+	DimensionValues: FixedMap;
+	ЗначенияИзмерений: FixedMap;
+	Item: PlannerItem;
+	Элемент: PlannerItem;
 }
 interface GeographicCoordinates {
 	Latitude: number;
@@ -26106,83 +26193,6 @@ interface FormPictureDecoration {
 interface CollaborationSystemApplicationID {
 }
 declare type ИдентификаторПриложенияСистемыВзаимодействия = CollaborationSystemApplicationID;
-interface CryptoCertificateStore {
-	GetAll();
-	ПолучитьВсе();
-	FindBySubject(... params);
-	НайтиПоСубъекту(... params);
-	FindBySerialNumber(... params);
-	НайтиПоСерийномуНомеру(... params);
-	FindByThumbprint(... params);
-	НайтиПоОтпечатку(... params);
-	Add(... params): void;
-	Добавить(... params): void;
-	Delete(... params): void;
-	Удалить(... params): void;
-	BeginGettingAll(... params): void;
-	НачатьПолучениеВсех(... params): void;
-	BeginFindingBySubject(... params): void;
-	НачатьПоискПоСубъекту(... params): void;
-	BeginFindingBySerialNumber(... params): void;
-	НачатьПоискПоСерийномуНомеру(... params): void;
-	BeginFindingByThumbprint(... params): void;
-	НачатьПоискПоОтпечатку(... params): void;
-	BeginAdding(... params): void;
-	НачатьДобавление(... params): void;
-	BeginDeleting(... params): void;
-	НачатьУдаление(... params): void;
-}
-interface CryptoManager {
-	HashAlgorithm: string;
-	АлгоритмХеширования: string;
-	SignAlgorithm: string;
-	АлгоритмПодписи: string;
-	EncryptAlgorithm: string;
-	АлгоритмШифрования: string;
-	IncludeCertificatesInSignature;
-	ВключениеСертификатовВПодпись;
-	PrivateKeyAccessPassword: string;
-	ПарольДоступаКЗакрытомуКлючу: string;
-	InteractiveModeUse;
-	ИспользованиеИнтерактивногоРежима;
-	Sign(... params): BinaryData;
-	Подписать(... params): BinaryData;
-	VerifySignature(... params): void;
-	ПроверитьПодпись(... params): void;
-	Encrypt(... params): BinaryData;
-	Зашифровать(... params): BinaryData;
-	Decrypt(... params): BinaryData;
-	Расшифровать(... params): BinaryData;
-	CheckCertificate(... params): void;
-	ПроверитьСертификат(... params): void;
-	GetCertificateStore(... params): CryptoCertificateStore;
-	ПолучитьХранилищеСертификатов(... params): CryptoCertificateStore;
-	GetCryptoModuleInformation(): CryptoModuleInformation;
-	ПолучитьИнформациюМодуляКриптографии(): CryptoModuleInformation;
-	GetCertificatesFromSignature(... params);
-	ПолучитьСертификатыИзПодписи(... params);
-	ShowCertificateList(... params): void;
-	ПоказатьСписокСертификатов(... params): void;
-	BeginInitialization(... params): void;
-	НачатьИнициализацию(... params): void;
-	BeginSigning(... params): void;
-	НачатьПодписывание(... params): void;
-	BeginVerifyingSignature(... params): void;
-	НачатьПроверкуПодписи(... params): void;
-	BeginEncrypting(... params): void;
-	НачатьШифрование(... params): void;
-	BeginDecrypting(... params): void;
-	НачатьРасшифровку(... params): void;
-	BeginCheckingCertificate(... params): void;
-	НачатьПроверкуСертификата(... params): void;
-	BeginGettingCertificateStore(... params): void;
-	НачатьПолучениеХранилищаСертификатов(... params): void;
-	BeginGettingCryptoModuleInformation(... params): void;
-	НачатьПолучениеИнформацииМодуляКриптографии(... params): void;
-	BeginGettingCertificatesFromSignature(... params): void;
-	НачатьПолучениеСертификатовИзПодписи(... params): void;
-}
-declare type МенеджерКриптографии = CryptoManager;
 interface WSParameter {
 	Name;
 	Имя;
@@ -26239,22 +26249,6 @@ interface GeographicalSchemaPolylineObjectSegment {
 	IndexOf(... params): number;
 	Индекс(... params): number;
 }
-interface DataAnalysisNumericValueUseType {
-}
-interface EnumSliceUse {
-	DontUse;
-	НеИспользовать;
-	First;
-	Первые;
-	Last;
-	Последние;
-}
-declare type ПеречислениеИспользованиеСреза = EnumSliceUse;
-interface DataCompositionResourcesAutoPosition {
-}
-interface WindowsCertificationAuthorityCertificates {
-}
-declare type СертификатыУдостоверяющихЦентровWindows = WindowsCertificationAuthorityCertificates;
 interface InternetMailAddress {
 	DisplayName: string;
 	ОтображаемоеИмя: string;
@@ -26266,6 +26260,18 @@ interface InternetMailAddress {
 	Адрес: string;
 	Encoding: string;
 	Кодировка: string;
+}
+interface InternetMailTexts {
+	Count(): number;
+	Количество(): number;
+	Add(... params): InternetMailText;
+	Добавить(... params): InternetMailText;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Get(... params): InternetMailText;
+	Получить(... params): InternetMailText;
 }
 interface InternetMailAddresses {
 	Count(): number;
@@ -26384,6 +26390,23 @@ interface InternetMailAttachments {
 	Get(... params): InternetMailAttachment;
 	Получить(... params): InternetMailAttachment;
 }
+interface EnumPlannerInsideDragAction {
+	Creating;
+	Создание;
+	Editing;
+	Редактирование;
+	Copying;
+	Копирование;
+	Selection;
+	Выделение;
+}
+declare type ПеречислениеДействиеПеретаскиванияВнутриПланировщика = EnumPlannerInsideDragAction;
+interface AddInAsyncCallResult {
+	Value;
+	Значение;
+	Parameters: ArrayV8;
+	Параметры: ArrayV8;
+}
 interface EnumDataAnalysisStandardizationType {
 	DontStandardize;
 	НеСтандартизировать;
@@ -26463,6 +26486,8 @@ interface DataCompositionDetailsProcess {
 	ВыбратьДействие(... params): void;
 	ShowActionChoice(... params): void;
 	ПоказатьВыборДействия(... params): void;
+	ChooseActionAsync(... params): PromiseV8;
+	ВыбратьДействиеАсинх(... params): PromiseV8;
 	DrillDown(... params): DataCompositionSettings;
 	Расшифровать(... params): DataCompositionSettings;
 	OpenValue(... params): void;
@@ -26500,6 +26525,7 @@ interface EnumHashFunction {
 	MD5;
 	SHA1;
 	SHA256;
+	SHA512;
 }
 declare type ПеречислениеХешФункция = EnumHashFunction;
 interface UsualGroupBehavior {
@@ -26544,6 +26570,8 @@ interface QueryWizard {
 	ОткрытьМодально(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type КонструкторЗапроса = QueryWizard;
 interface EnumChartLabelType {
@@ -26636,6 +26664,9 @@ interface MacOSClientCertificate {
 	СпособВыбораСертификатаMacOS: MacOSCertificateSelectMode;
 }
 declare type СертификатКлиентаMacOS = MacOSClientCertificate;
+interface WindowsCertificationAuthorityCertificates {
+}
+declare type СертификатыУдостоверяющихЦентровWindows = WindowsCertificationAuthorityCertificates;
 interface FileCertificationAuthorityCertificates {
 	FileName: string;
 	ИмяФайла: string;
@@ -26868,15 +26899,19 @@ interface AutoTimeMode {
 }
 interface DataAnalysisStandardizationType {
 }
-interface TextExtraction {
-	FileName: string;
-	ИмяФайла: string;
-	GetText(): string;
-	ПолучитьТекст(): string;
-	Write(... params): void;
-	Записать(... params): void;
+interface URLNavigationData {
+	BaseURL;
+	БазоваяНавигационнаяСсылка;
+	RelativeURL;
+	ОтносительнаяНавигационнаяСсылка;
+	URLOptions;
+	ПараметрыНавигационнойСсылки;
+	Launch;
+	Запуск;
+	MobileApplicationNavigationExtrasData;
+	ДополнительныеДанныеПереходаВМобильноеПриложение;
 }
-declare type ИзвлечениеТекста = TextExtraction;
+declare type ДанныеПереходаПоНавигационнойСсылке = URLNavigationData;
 interface CalculationRegisterPeriodType {
 }
 interface StringEncodingMethod {
@@ -26965,6 +27000,12 @@ interface EnumRequiredMobileApplicationPermissions {
 	УстановкаПриложений;
 	AllowOSBackup;
 	РазрешитьРезервноеКопированиеСредствамиОС;
+	Biometrics;
+	Биометрия;
+	BluetoothPrinters;
+	BluetoothПринтеры;
+	WiFiPrinters;
+	WiFiПринтеры;
 }
 declare type ПеречислениеТребуемыеРазрешенияМобильногоПриложения = EnumRequiredMobileApplicationPermissions;
 interface StandardTabularSectionDescription {
@@ -27001,6 +27042,15 @@ interface EnumGeographicalSchemaObjectFindType {
 	ВключаютПолностью;
 }
 declare type ПеречислениеТипПоискаОбъектовГеографическойСхемы = EnumGeographicalSchemaObjectFindType;
+interface EnumPlannerInsideDragBoundsChangingVariant {
+	Begin;
+	Начало;
+	End;
+	Конец;
+	BeginAndEnd;
+	НачалоИКонец;
+}
+declare type ПеречислениеВариантИзмененияГраницПеретаскиванияВнутриПланировщика = EnumPlannerInsideDragBoundsChangingVariant;
 interface SpreadsheetDocumentGroupHeaderPlacement {
 }
 interface ContactDataItemInstantMessaging {
@@ -27012,6 +27062,26 @@ interface ContactDataItemInstantMessaging {
 	Идентификатор;
 }
 declare type ЭлементДанныхКонтактаМгновенныеСообщения = ContactDataItemInstantMessaging;
+interface GlobalSearchResultItemActionCollection {
+	Add(... params): GlobalSearchResultItemActionCollection;
+	Добавить(... params): GlobalSearchResultItemActionCollection;
+	Insert(... params): GlobalSearchResultItemActionCollection;
+	Вставить(... params): GlobalSearchResultItemActionCollection;
+	Clear(): void;
+	Очистить(): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): GlobalSearchResultItemActionCollection;
+	Получить(... params): GlobalSearchResultItemActionCollection;
+	Find(... params): GlobalSearchResultItemActionCollection;
+	Найти(... params): GlobalSearchResultItemActionCollection;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+}
 interface EnumQueryRecordType {
 	DetailRecord;
 	ДетальнаяЗапись;
@@ -27023,17 +27093,21 @@ interface EnumQueryRecordType {
 	ОбщийИтог;
 }
 declare type ПеречислениеТипЗаписиЗапроса = EnumQueryRecordType;
+interface StandardGlobalSearchType {
+}
 interface GlobalSearchResultItem {
 	Value;
 	Значение;
-	Presentation;
-	Представление;
-	Picture;
-	Картинка;
-	SearchType;
-	ВидПоиска;
-	Description;
-	Описание;
+	Presentation: string;
+	Представление: string;
+	Picture: Picture;
+	Картинка: Picture;
+	SearchType: StandardGlobalSearchType | string;
+	ВидПоиска: StandardGlobalSearchType | string;
+	Description: string;
+	Описание: string;
+	Actions: GlobalSearchResultItemActionCollection;
+	Действия: GlobalSearchResultItemActionCollection;
 }
 declare type ЭлементРезультатаГлобальногоПоиска = GlobalSearchResultItem;
 interface GlobalSearchResult {
@@ -27134,6 +27208,8 @@ interface ChartTypeChooseDialog {
 	ДоступныеТипыДиаграммы: ArrayV8;
 	Show(... params): void;
 	Показать(... params): void;
+	ChooseAsync(): PromiseV8;
+	ВыбратьАсинх(): PromiseV8;
 }
 declare type ДиалогВыбораТипаДиаграммы = ChartTypeChooseDialog;
 interface EnumChartValuesToolTipShowMode {
@@ -27247,8 +27323,6 @@ interface EnumChartScaleLocation {
 	Край;
 }
 declare type ПеречислениеПоложениеШкалыДиаграммы = EnumChartScaleLocation;
-interface StandardGlobalSearchType {
-}
 interface EnumChartScaleLabelLocation {
 	Auto;
 	Авто;
@@ -27299,15 +27373,6 @@ interface EnumChartMarkerType {
 	Чередование;
 }
 declare type ПеречислениеТипМаркераДиаграммы = EnumChartMarkerType;
-interface FileAccess {
-}
-interface TransferableFileDescription {
-	Location;
-	Хранение;
-	Name;
-	Имя;
-}
-declare type ОписаниеПередаваемогоФайла = TransferableFileDescription;
 interface EnumChartScaleTitlePlacement {
 	WithAxis;
 	РядомСОсью;
@@ -27493,6 +27558,8 @@ interface EnumPivotChartType {
 declare type ПеречислениеТипСводнойДиаграммы = EnumPivotChartType;
 interface PredictionModelInformation {
 }
+interface RadioButtonType {
+}
 interface EnumGanttChartLinkType {
 	BeginEnd;
 	НачалоКонец;
@@ -27504,8 +27571,6 @@ interface EnumGanttChartLinkType {
 	КонецКонец;
 }
 declare type ПеречислениеТипСвязиДиаграммыГанта = EnumGanttChartLinkType;
-interface RadioButtonType {
-}
 interface EnumGanttChartValueTextRepresentation {
 	None;
 	НеОтображать;
@@ -27992,7 +28057,7 @@ interface File {
 	ИмяБезРасширения: string;
 	Extension: string;
 	Расширение: string;
-	Exist(): boolean;
+	Exists(): boolean;
 	Существует(): boolean;
 	IsFile(): boolean;
 	ЭтоФайл(): boolean;
@@ -28022,32 +28087,60 @@ interface File {
 	ПолучитьКартинкуПредставленияФайлаБиблиотекиМобильногоУстройства();
 	BeginCheckingExistence(... params): void;
 	НачатьПроверкуСуществования(... params): void;
+	ExistsAsync(): PromiseV8;
+	СуществуетАсинх(): PromiseV8;
 	BeginCheckingIsFile(... params): void;
 	НачатьПроверкуЭтоФайл(... params): void;
+	IsFileAsync(): PromiseV8;
+	ЭтоФайлАсинх(): PromiseV8;
 	BeginCheckingIsDirectory(... params): void;
 	НачатьПроверкуЭтоКаталог(... params): void;
+	IsDirectoryAsync(): PromiseV8;
+	ЭтоКаталогАсинх(): PromiseV8;
 	BeginGettingSize(... params): void;
 	НачатьПолучениеРазмера(... params): void;
+	SizeAsync(): PromiseV8;
+	РазмерАсинх(): PromiseV8;
 	BeginGettingModificationTime(... params): void;
 	НачатьПолучениеВремениИзменения(... params): void;
+	GetModificationTimeAsync(): PromiseV8;
+	ПолучитьВремяИзмененияАсинх(): PromiseV8;
 	BeginSettingModificationTime(... params): void;
 	НачатьУстановкуВремениИзменения(... params): void;
+	SetModificationTimeAsync(... params): PromiseV8;
+	УстановитьВремяИзмененияАсинх(... params): PromiseV8;
 	BeginGettingReadOnly(... params): void;
 	НачатьПолучениеТолькоЧтения(... params): void;
+	GetReadOnlyAsync(): PromiseV8;
+	ПолучитьТолькоЧтениеАсинх(): PromiseV8;
 	BeginSettingReadOnly(... params): void;
 	НачатьУстановкуТолькоЧтения(... params): void;
+	SetReadOnlyAsync(... params): PromiseV8;
+	УстановитьТолькоЧтениеАсинх(... params): PromiseV8;
 	BeginGettingHidden(... params): void;
 	НачатьПолучениеНевидимости(... params): void;
+	GetHiddenAsync(): PromiseV8;
+	ПолучитьНевидимостьАсинх(): PromiseV8;
 	BeginSettingHidden(... params): void;
 	НачатьУстановкуНевидимости(... params): void;
+	SetHiddenAsync(... params): PromiseV8;
+	УстановитьНевидимостьАсинх(... params): PromiseV8;
 	BeginGettingModificationUniversalTime(... params): void;
 	НачатьПолучениеУниверсальногоВремениИзменения(... params): void;
+	GetModificationUniversalTimeAsync(): PromiseV8;
+	ПолучитьУниверсальноеВремяИзмененияАсинх(): PromiseV8;
 	BeginSettingModificationUniversalTime(... params): void;
 	НачатьУстановкуУниверсальногоВремениИзменения(... params): void;
+	SetModificationUniversalTimeAsync(... params): PromiseV8;
+	УстановитьУниверсальноеВремяИзмененияАсинх(... params): PromiseV8;
 	BeginInitialization(... params): void;
 	НачатьИнициализацию(... params): void;
+	InitializeAsync(... params): PromiseV8;
+	ИнициализироватьАсинх(... params): PromiseV8;
 	BeginGetMobileDeviceLibraryFileThumbnail(... params): void;
 	НачатьПолучениеКартинкиПредставленияФайлаБиблиотекиМобильногоУстройства(... params): void;
+	GetMobileDeviceLibraryFileThumbnailAsync(): PromiseV8;
+	ПолучитьКартинкуПредставленияФайлаБиблиотекиМобильногоУстройстваАсинх(): PromiseV8;
 }
 declare type Файл = File;
 interface DataAnalysisColumnsControl {
@@ -28290,6 +28383,8 @@ interface FormattedDocument {
 	Записать(... params): void;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	GetHTML(... params): void;
 	ПолучитьHTML(... params): void;
 	SetHTML(... params): void;
@@ -28407,16 +28502,28 @@ interface PDFReader {
 	Закрыть(): void;
 	BeginOpen(... params): void;
 	НачатьОткрытие(... params): void;
+	OpenAsync(... params): PromiseV8;
+	ОткрытьАсинх(... params): PromiseV8;
 	BeginGetAttachments(... params): void;
 	НачатьПолучениеВложений(... params): void;
+	GetAttachmentsAsync(): PromiseV8;
+	ПолучитьВложенияАсинх(): PromiseV8;
 	BeginVerifySignatures(... params): void;
 	НачатьПроверкуПодписей(... params): void;
+	VerifySignaturesAsync(... params): PromiseV8;
+	ПроверитьПодписиАсинх(... params): PromiseV8;
 	BeginVerifySignature(... params): void;
 	НачатьПроверкуПодписи(... params): void;
+	VerifySignatureAsync(... params): PromiseV8;
+	ПроверитьПодписьАсинх(... params): PromiseV8;
 	BeginGetSignatureDescriptions(... params): void;
 	НачатьПолучениеОписанияПодписей(... params): void;
+	GetSignatureDescriptionsAsync(... params): PromiseV8;
+	ПолучитьОписанияПодписейАсинх(... params): PromiseV8;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 }
 declare type ЧтениеPDF = PDFReader;
 interface DataCompositionAvailableParameterUseRestrictions {
@@ -28468,8 +28575,12 @@ interface CryptoCertificate {
 	Выгрузить(... params): BinaryData;
 	BeginInitialization(... params): void;
 	НачатьИнициализацию(... params): void;
+	InitializeAsync(... params): PromiseV8;
+	ИнициализироватьАсинх(... params): PromiseV8;
 	BeginUnloading(... params): void;
 	НачатьВыгрузку(... params): void;
+	UnloadAsync(... params): PromiseV8;
+	ВыгрузитьАсинх(... params): PromiseV8;
 }
 declare type СертификатКриптографии = CryptoCertificate;
 interface PDFSignatureDescription {
@@ -28521,17 +28632,10 @@ interface EnumFormattedDocumentItemType {
 declare type ПеречислениеТипЭлементаФорматированногоДокумента = EnumFormattedDocumentItemType;
 interface FormattedDocumentFileType {
 }
+interface NewPlannerItemsTextType {
+}
 interface PlannerItemsBehaviorWhenSpaceInsufficient {
 }
-interface EnumDataChangeType {
-	Create;
-	Добавление;
-	Update;
-	Изменение;
-	Delete;
-	Удаление;
-}
-declare type ПеречислениеВидИзмененияДанных = EnumDataChangeType;
 interface ClientApplicationFormScaleVariant {
 }
 interface NumericValueType {
@@ -28647,6 +28751,8 @@ interface EnumDataAnalysisColumnTypeAssociationRules {
 declare type ПеречислениеТипКолонкиАнализаДанныхПоискАссоциаций = EnumDataAnalysisColumnTypeAssociationRules;
 interface DataAnalysisColumnTypeAssociationRules {
 }
+interface AudioRecordingChannelUse {
+}
 interface EnumDataAnalysisColumnTypeSummaryStatistics {
 	NotUsed;
 	НеИспользуемая;
@@ -28654,6 +28760,8 @@ interface EnumDataAnalysisColumnTypeSummaryStatistics {
 	Входная;
 }
 declare type ПеречислениеТипКолонкиАнализаДанныхОбщаяСтатистика = EnumDataAnalysisColumnTypeSummaryStatistics;
+interface DataAnalysisColumnTypeSummaryStatistics {
+}
 interface EnumDataAnalysisColumnTypeClusterization {
 	NotUsed;
 	НеИспользуемая;
@@ -28667,6 +28775,8 @@ interface EnumDataAnalysisColumnTypeClusterization {
 	Ключ;
 }
 declare type ПеречислениеТипКолонкиАнализаДанныхКластеризация = EnumDataAnalysisColumnTypeClusterization;
+interface DataAnalysisColumnTypeClusterization {
+}
 interface EnumDataAnalysisColumnTypeDecisionTree {
 	NotUsed;
 	НеИспользуемая;
@@ -28698,6 +28808,8 @@ interface CollaborationSystemAttachment {
 	ОткрытьПотокДляЧтения(): Stream;
 	BeginOpenStreamForRead(... params): void;
 	НачатьОткрытиеПотокаДляЧтения(... params): void;
+	OpenStreamForReadAsync(): PromiseV8;
+	ОткрытьПотокДляЧтенияАсинх(): PromiseV8;
 }
 interface CollaborationSystemAttachmentCollection {
 	Add(... params): void;
@@ -28724,24 +28836,27 @@ interface PointInTime {
 	Сравнить(... params): number;
 }
 declare type МоментВремени = PointInTime;
-interface InternetMailMessageFlags {
-	New: string;
-	Новое: string;
-	Seen: string;
-	Прочитанное: string;
-	Flagged: number;
-	Помеченное: number;
-	Deleted: number;
-	Удаленное: number;
-	Answered: string;
-	Отвеченное: string;
-	Forwarded: string;
-	Пересланное: string;
-	Canceled: string;
-	Отмененное: string;
-}
-declare type ФлагиИнтернетПочтовогоСообщения = InternetMailMessageFlags;
 interface AssociationRulesDataSourceType {
+}
+interface EnumDataAnalysisNumericValueUseType {
+	AsNumeric;
+	КакЧисло;
+	AsBoolean;
+	КакБулево;
+}
+declare type ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных = EnumDataAnalysisNumericValueUseType;
+interface DataAnalysisNumericValueUseType {
+}
+interface EnumSliceUse {
+	DontUse;
+	НеИспользовать;
+	First;
+	Первые;
+	Last;
+	Последние;
+}
+declare type ПеречислениеИспользованиеСреза = EnumSliceUse;
+interface DataCompositionResourcesAutoPosition {
 }
 interface DataAnalysisResultTableFillType {
 }
@@ -29050,6 +29165,10 @@ interface EnumDataLineChangeType {
 	Перемещение;
 }
 declare type ПеречислениеВидИзмененияСтрокиДанных = EnumDataLineChangeType;
+interface ProgressiveWebApplicationMode {
+}
+interface StandardTabularSectionDescriptions {
+}
 interface EnumUserNotificationStatus {
 	Information;
 	Информация;
@@ -29276,6 +29395,8 @@ interface InAppPurchasesManager {
 	Приобретена(... params): boolean;
 	BeginPurchasing(... params): boolean;
 	НачатьПриобретение(... params): boolean;
+	PurchaseAsync(... params): PromiseV8;
+	ПриобрестиАсинх(... params): PromiseV8;
 	ConsumePurchase(... params): boolean;
 	ИзрасходоватьПокупку(... params): boolean;
 	GetInAppPurchaseReceipts(... params): ArrayV8;
@@ -29288,6 +29409,23 @@ interface InAppPurchasesManager {
 	ПолучитьИсториюПриобретений(... params): ArrayV8;
 }
 declare type МенеджерВстроенныхПокупок = InAppPurchasesManager;
+interface CollaborationSystemBot {
+	User;
+	Пользователь;
+	ExecuteProcessingInfoBaseUserName;
+	ИмяПользователяИнформационнойБазыВыполненияОбработки;
+	Metadata;
+	Метаданные;
+	AdditionalParameters;
+	ДополнительныеПараметры;
+	Predefined;
+	Предопределенный;
+	Write(): void;
+	Записать(): void;
+	Delete(): void;
+	Удалить(): void;
+}
+declare type БотСистемыВзаимодействия = CollaborationSystemBot;
 interface HTMLDocumentField {
 	Document;
 	Документ;
@@ -29464,6 +29602,26 @@ interface EnumDataCompositionSettingsRefreshMethod {
 	Полное;
 }
 declare type ПеречислениеСпособВосстановленияНастроекКомпоновкиДанных = EnumDataCompositionSettingsRefreshMethod;
+interface CollaborationSystemMessageActionCollection {
+	Add(... params): CollaborationSystemMessageActionCollection;
+	Добавить(... params): CollaborationSystemMessageActionCollection;
+	Insert(... params): CollaborationSystemMessageActionCollection;
+	Вставить(... params): CollaborationSystemMessageActionCollection;
+	Clear(): void;
+	Очистить(): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Get(... params): CollaborationSystemMessageActionCollection;
+	Получить(... params): CollaborationSystemMessageActionCollection;
+	Find(... params): CollaborationSystemMessageActionCollection;
+	Найти(... params): CollaborationSystemMessageActionCollection;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+}
 interface DataCompositionSettingsRefreshMethod {
 }
 interface EnumDataCompositionSettingsItemState {
@@ -29703,6 +29861,283 @@ interface EnumDataCompositionFieldPlacement {
 declare type ПеречислениеРасположениеПоляКомпоновкиДанных = EnumDataCompositionFieldPlacement;
 interface IntervalBoundVariant {
 }
+interface DataCompositionTemplateAreaTemplate {
+	Template: string;
+	Макет: string;
+}
+interface DataCompositionTemplateTable {
+	ID: string;
+	Идентификатор: string;
+	Name: string;
+	Имя: string;
+	HeaderTemplate: string;
+	МакетШапки: string;
+	RowsTotalTemplate: string;
+	МакетИтоговСтрок: string;
+	ColumnsTotalTemplate: string;
+	МакетИтоговКолонок: string;
+	OverallsTemplate: string;
+	МакетОбщихИтогов: string;
+	RowsTotalPlacement: DataCompositionTotalPlacement;
+	РасположениеИтоговСтрок: DataCompositionTotalPlacement;
+	ColumnsTotalPlacement: DataCompositionTotalPlacement;
+	РасположениеИтоговКолонок: DataCompositionTotalPlacement;
+	Columns: DataCompositionTemplateTableGroupBody;
+	Колонки: DataCompositionTemplateTableGroupBody;
+	Rows: DataCompositionTemplateTableGroupBody;
+	Строки: DataCompositionTemplateTableGroupBody;
+}
+interface DataCompositionTemplateHierarchicalGroup {
+}
+interface DataCompositionTemplateDataSource {
+	Name: string;
+	Имя: string;
+	Type: string;
+	Тип: string;
+	ConnectionString: string;
+	СтрокаСоединения: string;
+}
+interface DataCompositionTemplateDataSources {
+	Add(): DataCompositionTemplateDataSource;
+	Добавить(): DataCompositionTemplateDataSource;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): DataCompositionTemplateDataSource;
+	Найти(... params): DataCompositionTemplateDataSource;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionTemplateDataSource;
+	Вставить(... params): DataCompositionTemplateDataSource;
+	Get(... params): DataCompositionTemplateDataSource;
+	Получить(... params): DataCompositionTemplateDataSource;
+}
+interface DataCompositionTemplateAreaTemplateDefinitions {
+	Add(): DataCompositionTemplateAreaTemplateDefinition;
+	Добавить(): DataCompositionTemplateAreaTemplateDefinition;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Find(... params): DataCompositionTemplateAreaTemplateDefinition;
+	Найти(... params): DataCompositionTemplateAreaTemplateDefinition;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionTemplateAreaTemplateDefinition;
+	Вставить(... params): DataCompositionTemplateAreaTemplateDefinition;
+	Get(... params): DataCompositionTemplateAreaTemplateDefinition;
+	Получить(... params): DataCompositionTemplateAreaTemplateDefinition;
+}
+interface DataCompositionTemplate {
+	DataSources: DataCompositionTemplateDataSources;
+	ИсточникиДанных: DataCompositionTemplateDataSources;
+	DataSets: DataCompositionTemplateDataSets;
+	НаборыДанных: DataCompositionTemplateDataSets;
+	DataSetLinks: DataCompositionTemplateDataSetLinks;
+	СвязиНаборовДанных: DataCompositionTemplateDataSetLinks;
+	ParameterValues: DataCompositionTemplateParameterValues;
+	ЗначенияПараметров: DataCompositionTemplateParameterValues;
+	Templates: DataCompositionTemplateAreaTemplateDefinitions;
+	Макеты: DataCompositionTemplateAreaTemplateDefinitions;
+	Body: DataCompositionTemplateBody;
+	Тело: DataCompositionTemplateBody;
+	RequiredDataRelevance;
+	ТребуемаяАктуальностьДанных;
+	RequiredDataRelevanceTime;
+	ТребуемоеВремяАктуальностиДанных;
+}
+declare type МакетКомпоновкиДанных = DataCompositionTemplate;
+interface DataCompositionTemplateNestedObject {
+	ID: string;
+	Идентификатор: string;
+	DataComposition: DataCompositionTemplate;
+	КомпоновкаДанных: DataCompositionTemplate;
+	ParameterValues: DataCompositionTemplateParameterValues;
+	ЗначенияПараметров: DataCompositionTemplateParameterValues;
+	Name: string;
+	Имя: string;
+}
+interface DataCompositionTemplateGroup {
+	ID: string;
+	Идентификатор: string;
+	Name: string;
+	Имя: string;
+	Group: DataCompositionTemplateGrouping;
+	Группировка: DataCompositionTemplateGrouping;
+	RecordsFilter: string;
+	ОтборЗаписей: string;
+	GroupFilter: string;
+	ОтборГруппировок: string;
+	GroupFilterWithHierarchy: string;
+	ОтборГруппировокСИерархией: string;
+	GroupFilterHierarchyOnly: string;
+	ОтборГруппировокТолькоИерархия: string;
+	Order: DataCompositionOrderExpressions;
+	Порядок: DataCompositionOrderExpressions;
+	HierarchicalOrder: DataCompositionOrderExpressions;
+	ИерархическийПорядок: DataCompositionOrderExpressions;
+	RecordsCount: number;
+	КоличествоЗаписей: number;
+	RecordsPercent: number;
+	ПроцентЗаписей: number;
+	HeaderTemplate: string;
+	МакетШапки: string;
+	FooterTemplate: string;
+	МакетПодвала: string;
+	Body: DataCompositionTemplateBody;
+	Тело: DataCompositionTemplateBody;
+	HierarchicalBody: DataCompositionTemplateBody;
+	ТелоИерархии: DataCompositionTemplateBody;
+}
+interface DataCompositionTemplateHierarchicalRecords {
+}
+interface DataCompositionTemplateChartGroupTemplate {
+	Template: string;
+	Макет: string;
+	ResourceTemplate: DataCompositionTemplateTableBodyTemplates;
+	МакетРесурсов: DataCompositionTemplateTableBodyTemplates;
+}
+interface DataCompositionTemplateChartHierarchicalGroup {
+}
+interface DataCompositionTemplateChartGroupBody {
+	Add(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+	Добавить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+	Вставить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+	Get(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+	Получить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
+}
+interface DataCompositionTemplateChartGroup {
+	ID: string;
+	Идентификатор: string;
+	Name: string;
+	Имя: string;
+	Group: DataCompositionTemplateGrouping;
+	Группировка: DataCompositionTemplateGrouping;
+	RecordsFilter: string;
+	ОтборЗаписей: string;
+	GroupFilter: string;
+	ОтборГруппировок: string;
+	GroupFilterWithHierarchy: string;
+	ОтборГруппировокСИерархией: string;
+	GroupFilterHierarchyOnly: string;
+	ОтборГруппировокТолькоИерархия: string;
+	Order: DataCompositionOrderExpressions;
+	Порядок: DataCompositionOrderExpressions;
+	HierarchicalOrder: DataCompositionOrderExpressions;
+	ИерархическийПорядок: DataCompositionOrderExpressions;
+	RecordsCount: number;
+	КоличествоЗаписей: number;
+	RecordsPercent: number;
+	ПроцентЗаписей: number;
+	Body: DataCompositionTemplateChartGroupBody;
+	Тело: DataCompositionTemplateChartGroupBody;
+	HierarchicalBody: DataCompositionTemplateChartGroupBody;
+	ТелоИерархии: DataCompositionTemplateChartGroupBody;
+}
+interface DataCompositionTemplateChartGroups {
+	Add(): DataCompositionTemplateChartGroup;
+	Добавить(): DataCompositionTemplateChartGroup;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionTemplateChartGroup;
+	Вставить(... params): DataCompositionTemplateChartGroup;
+	Get(... params): DataCompositionTemplateChartGroup;
+	Получить(... params): DataCompositionTemplateChartGroup;
+}
+interface DataCompositionTemplateChart {
+	ID: string;
+	Идентификатор: string;
+	Name: string;
+	Имя: string;
+	Template: string;
+	Макет: string;
+	ResourceTemplate: string;
+	МакетРесурсов: string;
+	Points: DataCompositionTemplateChartGroups;
+	Точки: DataCompositionTemplateChartGroups;
+	Series: DataCompositionTemplateChartGroups;
+	Серии: DataCompositionTemplateChartGroups;
+}
+interface DataCompositionTemplateBody {
+	Add(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+	Добавить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+	Delete(... params): void;
+	Удалить(... params): void;
+	Clear(): void;
+	Очистить(): void;
+	Count(): number;
+	Количество(): number;
+	IndexOf(... params): number;
+	Индекс(... params): number;
+	Move(... params): void;
+	Сдвинуть(... params): void;
+	Insert(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+	Вставить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+	Get(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+	Получить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
+}
+interface DataCompositionTemplateRecords {
+	ID: string;
+	Идентификатор: string;
+	Name: string;
+	Имя: string;
+	DataSet: string;
+	НаборДанных: string;
+	DataSets: ArrayV8;
+	НаборыДанных: ArrayV8;
+	RequiredDataSets: ArrayV8;
+	ОбязательныеНаборыДанных: ArrayV8;
+	RecordsFilter: string;
+	ОтборЗаписей: string;
+	GroupFilterWithHierarchy: string;
+	ОтборГруппировокСИерархией: string;
+	Order: DataCompositionOrderExpressions;
+	Порядок: DataCompositionOrderExpressions;
+	RecordsCount: number;
+	КоличествоЗаписей: number;
+	RecordsPercent: number;
+	ПроцентЗаписей: number;
+	HeaderTemplate: string;
+	МакетШапки: string;
+	FooterTemplate: string;
+	МакетПодвала: string;
+	Body: DataCompositionTemplateBody;
+	Тело: DataCompositionTemplateBody;
+}
+interface DataCompositionDetailsActionChoiceResult {
+	ChosenAction;
+	ВыбранноеДействие;
+	ChosenActionParameter;
+	ПараметрВыбранногоДействия;
+}
 interface DeviceToolsManager {
 	FlashlightSupported(): boolean;
 	ПоддерживаетсяФонарик(): boolean;
@@ -29838,14 +30273,16 @@ interface RepresentableDocumentBatch {
 	ЗаписатьФайлДляПечати(... params): void;
 	BeginWritingFileForPrinting(... params): void;
 	НачатьЗаписьФайлаДляПечати(... params): void;
+	WriteFileForPrintingAsync(... params): PromiseV8;
+	ЗаписатьФайлДляПечатиАсинх(... params): PromiseV8;
 	Write(... params): void;
 	Записать(... params): void;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 }
 declare type ПакетОтображаемыхДокументов = RepresentableDocumentBatch;
-interface InternetMailTextProcessing {
-}
 interface PredictionModelDecisionTree {
 	DataSource;
 	ИсточникДанных;
@@ -29883,6 +30320,8 @@ interface DataAnalysisDecisionTreeResult {
 	Ошибка: number;
 	CreatePredictionModel(): PredictionModelDecisionTree;
 	СоздатьМодельПрогноза(): PredictionModelDecisionTree;
+}
+interface InternetMailTextProcessing {
 }
 interface EnumDisplayImportance {
 	Auto;
@@ -29942,6 +30381,10 @@ interface EnumCollaborationSystemStandardCommand {
 	ВыполнитьДействие;
 	GetMessageURL;
 	ПолучитьНавигационнуюСсылкуСообщения;
+	CopyAttachment;
+	КопироватьВложение;
+	QuoteMessage;
+	ЦитироватьСообщение;
 }
 declare type ПеречислениеСтандартнаяКомандаСистемыВзаимодействия = EnumCollaborationSystemStandardCommand;
 interface EnumCollapseFormItemsByImportance {
@@ -30084,6 +30527,29 @@ interface EnumAutoCapitalizationOnTextInput {
 	ВсеСимволы;
 }
 declare type ПеречислениеАвтоИзменениеРегистраПриВводеТекста = EnumAutoCapitalizationOnTextInput;
+interface EnumStopMultimediaRecordingButtonPlacement {
+	None;
+	Нет;
+	Left;
+	Лево;
+	LeftTop;
+	ЛевоВерх;
+	LeftBottom;
+	ЛевоНиз;
+	Right;
+	Право;
+	RightTop;
+	ПравоВерх;
+	RightBottom;
+	ПравоНиз;
+	Top;
+	Верх;
+	Bottom;
+	Низ;
+	Auto;
+	Авто;
+}
+declare type ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа = EnumStopMultimediaRecordingButtonPlacement;
 interface EnumAutoCorrectionOnTextInput {
 	Auto;
 	Авто;
@@ -30133,6 +30599,65 @@ interface EnumFormPagesState {
 	ЗаголовкиИТекущаяСтраница;
 }
 declare type ПеречислениеСостояниеСтраницФормы = EnumFormPagesState;
+interface EnumMobileApplicationFunctionalities {
+	Biometrics;
+	Биометрия;
+	Location;
+	Геопозиционирование;
+	BackgroundLocation;
+	ГеопозиционированиеВФоновомРежиме;
+	BluetoothPrinters;
+	BluetoothПринтеры;
+	WiFiPrinters;
+	WiFiПринтеры;
+	Contacts;
+	Контакты;
+	Calendars;
+	Календари;
+	PushNotifications;
+	PushУведомления;
+	LocalNotifications;
+	ЛокальныеУведомления;
+	InAppPurchases;
+	ВстроенныеПокупки;
+	PersonalComputerFileExchange;
+	ОбменФайламиСПерсональнымКомпьютером;
+	Ads;
+	Реклама;
+	NumberDialing;
+	НаборНомера;
+	CallProcessing;
+	ОбработкаЗвонков;
+	CallLog;
+	ЖурналЗвонков;
+	AutoSendSMS;
+	АвтоматическаяОтправкаSMS;
+	ReceiveSMS;
+	ПолучениеSMS;
+	SMSLog;
+	ЖурналSMS;
+	Camera;
+	Камера;
+	Microphone;
+	Микрофон;
+	MusicLibrary;
+	БиблиотекаМузыки;
+	PictureAndVideoLibraries;
+	БиблиотекиКартинокИВидео;
+	AudioPlaybackAndVibration;
+	ВоспроизведениеАудиоИВибрация;
+	BackgroundAudioPlaybackAndVibration;
+	ВоспроизведениеАудиоИВибрацияВФоновомРежиме;
+	InstallPackages;
+	УстановкаПриложений;
+	OSBackup;
+	РезервноеКопированиеСредствамиОС;
+	ApplicationUsageStatistics;
+	СтатистикаИспользованияПриложения;
+	BarcodeScanning;
+	СканированиеШтрихКодов;
+}
+declare type ПеречислениеФункциональностьМобильногоПриложения = EnumMobileApplicationFunctionalities;
 interface RequiredMobileApplicationPermissions {
 }
 interface EnumApplicationUsePurpose {
@@ -30157,92 +30682,6 @@ interface Geofence {
 	Радиус: number;
 }
 declare type Геозона = Geofence;
-interface DataCompositionTemplateChartGroupTemplate {
-	Template: string;
-	Макет: string;
-	ResourceTemplate: DataCompositionTemplateTableBodyTemplates;
-	МакетРесурсов: DataCompositionTemplateTableBodyTemplates;
-}
-interface DataCompositionTemplateChartHierarchicalGroup {
-}
-interface DataCompositionTemplateChartGroupBody {
-	Add(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-	Добавить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-	Вставить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-	Get(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-	Получить(... params): DataCompositionTemplateChartGroupTemplate | DataCompositionTemplateChartGroup | DataCompositionTemplateChartHierarchicalGroup;
-}
-interface DataCompositionTemplateChartGroup {
-	ID: string;
-	Идентификатор: string;
-	Name: string;
-	Имя: string;
-	Group: DataCompositionTemplateGrouping;
-	Группировка: DataCompositionTemplateGrouping;
-	RecordsFilter: string;
-	ОтборЗаписей: string;
-	GroupFilter: string;
-	ОтборГруппировок: string;
-	GroupFilterWithHierarchy: string;
-	ОтборГруппировокСИерархией: string;
-	GroupFilterHierarchyOnly: string;
-	ОтборГруппировокТолькоИерархия: string;
-	Order: DataCompositionOrderExpressions;
-	Порядок: DataCompositionOrderExpressions;
-	HierarchicalOrder: DataCompositionOrderExpressions;
-	ИерархическийПорядок: DataCompositionOrderExpressions;
-	RecordsCount: number;
-	КоличествоЗаписей: number;
-	RecordsPercent: number;
-	ПроцентЗаписей: number;
-	Body: DataCompositionTemplateChartGroupBody;
-	Тело: DataCompositionTemplateChartGroupBody;
-	HierarchicalBody: DataCompositionTemplateChartGroupBody;
-	ТелоИерархии: DataCompositionTemplateChartGroupBody;
-}
-interface DataCompositionTemplateChartGroups {
-	Add(): DataCompositionTemplateChartGroup;
-	Добавить(): DataCompositionTemplateChartGroup;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionTemplateChartGroup;
-	Вставить(... params): DataCompositionTemplateChartGroup;
-	Get(... params): DataCompositionTemplateChartGroup;
-	Получить(... params): DataCompositionTemplateChartGroup;
-}
-interface DataCompositionTemplateChart {
-	ID: string;
-	Идентификатор: string;
-	Name: string;
-	Имя: string;
-	Template: string;
-	Макет: string;
-	ResourceTemplate: string;
-	МакетРесурсов: string;
-	Points: DataCompositionTemplateChartGroups;
-	Точки: DataCompositionTemplateChartGroups;
-	Series: DataCompositionTemplateChartGroups;
-	Серии: DataCompositionTemplateChartGroups;
-}
 interface ChoiceDataGetModeOnInputByString {
 }
 interface GeographicalSchemaField {
@@ -30396,191 +30835,6 @@ interface FormMainItem {
 	ПолучитьДействие(... params);
 	SetAction(... params): void;
 	УстановитьДействие(... params): void;
-}
-interface DataCompositionTemplateAreaTemplate {
-	Template: string;
-	Макет: string;
-}
-interface DataCompositionTemplateTable {
-	ID: string;
-	Идентификатор: string;
-	Name: string;
-	Имя: string;
-	HeaderTemplate: string;
-	МакетШапки: string;
-	RowsTotalTemplate: string;
-	МакетИтоговСтрок: string;
-	ColumnsTotalTemplate: string;
-	МакетИтоговКолонок: string;
-	OverallsTemplate: string;
-	МакетОбщихИтогов: string;
-	RowsTotalPlacement: DataCompositionTotalPlacement;
-	РасположениеИтоговСтрок: DataCompositionTotalPlacement;
-	ColumnsTotalPlacement: DataCompositionTotalPlacement;
-	РасположениеИтоговКолонок: DataCompositionTotalPlacement;
-	Columns: DataCompositionTemplateTableGroupBody;
-	Колонки: DataCompositionTemplateTableGroupBody;
-	Rows: DataCompositionTemplateTableGroupBody;
-	Строки: DataCompositionTemplateTableGroupBody;
-}
-interface DataCompositionTemplateHierarchicalGroup {
-}
-interface DataCompositionTemplateRecords {
-	ID: string;
-	Идентификатор: string;
-	Name: string;
-	Имя: string;
-	DataSet: string;
-	НаборДанных: string;
-	DataSets: ArrayV8;
-	НаборыДанных: ArrayV8;
-	RequiredDataSets: ArrayV8;
-	ОбязательныеНаборыДанных: ArrayV8;
-	RecordsFilter: string;
-	ОтборЗаписей: string;
-	GroupFilterWithHierarchy: string;
-	ОтборГруппировокСИерархией: string;
-	Order: DataCompositionOrderExpressions;
-	Порядок: DataCompositionOrderExpressions;
-	RecordsCount: number;
-	КоличествоЗаписей: number;
-	RecordsPercent: number;
-	ПроцентЗаписей: number;
-	HeaderTemplate: string;
-	МакетШапки: string;
-	FooterTemplate: string;
-	МакетПодвала: string;
-	Body: DataCompositionTemplateBody;
-	Тело: DataCompositionTemplateBody;
-}
-interface DataCompositionTemplateDataSource {
-	Name: string;
-	Имя: string;
-	Type: string;
-	Тип: string;
-	ConnectionString: string;
-	СтрокаСоединения: string;
-}
-interface DataCompositionTemplateDataSources {
-	Add(): DataCompositionTemplateDataSource;
-	Добавить(): DataCompositionTemplateDataSource;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): DataCompositionTemplateDataSource;
-	Найти(... params): DataCompositionTemplateDataSource;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionTemplateDataSource;
-	Вставить(... params): DataCompositionTemplateDataSource;
-	Get(... params): DataCompositionTemplateDataSource;
-	Получить(... params): DataCompositionTemplateDataSource;
-}
-interface DataCompositionTemplateAreaTemplateDefinitions {
-	Add(): DataCompositionTemplateAreaTemplateDefinition;
-	Добавить(): DataCompositionTemplateAreaTemplateDefinition;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Find(... params): DataCompositionTemplateAreaTemplateDefinition;
-	Найти(... params): DataCompositionTemplateAreaTemplateDefinition;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionTemplateAreaTemplateDefinition;
-	Вставить(... params): DataCompositionTemplateAreaTemplateDefinition;
-	Get(... params): DataCompositionTemplateAreaTemplateDefinition;
-	Получить(... params): DataCompositionTemplateAreaTemplateDefinition;
-}
-interface DataCompositionTemplate {
-	DataSources: DataCompositionTemplateDataSources;
-	ИсточникиДанных: DataCompositionTemplateDataSources;
-	DataSets: DataCompositionTemplateDataSets;
-	НаборыДанных: DataCompositionTemplateDataSets;
-	DataSetLinks: DataCompositionTemplateDataSetLinks;
-	СвязиНаборовДанных: DataCompositionTemplateDataSetLinks;
-	ParameterValues: DataCompositionTemplateParameterValues;
-	ЗначенияПараметров: DataCompositionTemplateParameterValues;
-	Templates: DataCompositionTemplateAreaTemplateDefinitions;
-	Макеты: DataCompositionTemplateAreaTemplateDefinitions;
-	Body: DataCompositionTemplateBody;
-	Тело: DataCompositionTemplateBody;
-	RequiredDataRelevance;
-	ТребуемаяАктуальностьДанных;
-	RequiredDataRelevanceTime;
-	ТребуемоеВремяАктуальностиДанных;
-}
-declare type МакетКомпоновкиДанных = DataCompositionTemplate;
-interface DataCompositionTemplateNestedObject {
-	ID: string;
-	Идентификатор: string;
-	DataComposition: DataCompositionTemplate;
-	КомпоновкаДанных: DataCompositionTemplate;
-	ParameterValues: DataCompositionTemplateParameterValues;
-	ЗначенияПараметров: DataCompositionTemplateParameterValues;
-	Name: string;
-	Имя: string;
-}
-interface DataCompositionTemplateGroup {
-	ID: string;
-	Идентификатор: string;
-	Name: string;
-	Имя: string;
-	Group: DataCompositionTemplateGrouping;
-	Группировка: DataCompositionTemplateGrouping;
-	RecordsFilter: string;
-	ОтборЗаписей: string;
-	GroupFilter: string;
-	ОтборГруппировок: string;
-	GroupFilterWithHierarchy: string;
-	ОтборГруппировокСИерархией: string;
-	GroupFilterHierarchyOnly: string;
-	ОтборГруппировокТолькоИерархия: string;
-	Order: DataCompositionOrderExpressions;
-	Порядок: DataCompositionOrderExpressions;
-	HierarchicalOrder: DataCompositionOrderExpressions;
-	ИерархическийПорядок: DataCompositionOrderExpressions;
-	RecordsCount: number;
-	КоличествоЗаписей: number;
-	RecordsPercent: number;
-	ПроцентЗаписей: number;
-	HeaderTemplate: string;
-	МакетШапки: string;
-	FooterTemplate: string;
-	МакетПодвала: string;
-	Body: DataCompositionTemplateBody;
-	Тело: DataCompositionTemplateBody;
-	HierarchicalBody: DataCompositionTemplateBody;
-	ТелоИерархии: DataCompositionTemplateBody;
-}
-interface DataCompositionTemplateHierarchicalRecords {
-}
-interface DataCompositionTemplateBody {
-	Add(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
-	Добавить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
-	Delete(... params): void;
-	Удалить(... params): void;
-	Clear(): void;
-	Очистить(): void;
-	Count(): number;
-	Количество(): number;
-	IndexOf(... params): number;
-	Индекс(... params): number;
-	Move(... params): void;
-	Сдвинуть(... params): void;
-	Insert(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
-	Вставить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
-	Get(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
-	Получить(... params): DataCompositionTemplateAreaTemplate | DataCompositionTemplateTable | DataCompositionTemplateHierarchicalGroup | DataCompositionTemplateRecords | DataCompositionTemplateNestedObject | DataCompositionTemplateGroup | DataCompositionTemplateHierarchicalRecords | DataCompositionTemplateChart;
 }
 interface ReportObject {
 }
@@ -31152,8 +31406,12 @@ interface FormPictureField {
 	РазрешитьПеретаскивание: boolean;
 	FileDragMode: FileDragMode;
 	СпособПеретаскиванияФайлов: FileDragMode;
+	CurrentFrameNumber: number;
+	НомерТекущегоКадра: number;
 	Refresh(): void;
 	Обновить(): void;
+	GetFramesCount(): number;
+	ПолучитьКоличествоКадров(): number;
 }
 interface ViewStatus {
 	Width: number;
@@ -31335,6 +31593,14 @@ interface EnumDataCompositionPeriodType {
 	Дополнительный;
 }
 declare type ПеречислениеТипПериодаКомпоновкиДанных = EnumDataCompositionPeriodType;
+interface CollaborationSystemMessageAction {
+	Value;
+	Значение;
+	Text: FormattedString | string;
+	Текст: FormattedString | string;
+	Picture: Picture;
+	Картинка: Picture;
+}
 interface CollaborationSystemIntegration {
 	ID: CollaborationSystemIntegrationID;
 	Идентификатор: CollaborationSystemIntegrationID;
@@ -31447,8 +31713,8 @@ interface CollaborationSystemMessage {
 	Данные;
 	Conversation: CollaborationSystemConversationID;
 	Обсуждение: CollaborationSystemConversationID;
-	Actions: ValueList;
-	Действия: ValueList;
+	Actions: CollaborationSystemMessageActionCollection;
+	Действия: CollaborationSystemMessageActionCollection;
 	Attachments: CollaborationSystemAttachmentCollection;
 	Вложения: CollaborationSystemAttachmentCollection;
 	Write(): void;
@@ -31615,14 +31881,30 @@ interface CollaborationSystemManager {
 	ПолучитьТипыВнешнихСистем();
 	GetExternalSystemDescription(... params): CollaborationSystemExternalSystemDescription;
 	ПолучитьОписаниеВнешнейСистемы(... params): CollaborationSystemExternalSystemDescription;
+	CreateBot(): CollaborationSystemBot;
+	СоздатьБота(): CollaborationSystemBot;
+	GetBot(... params): CollaborationSystemBot;
+	ПолучитьБота(... params): CollaborationSystemBot;
+	GetBots(): ArrayV8;
+	ПолучитьБотов(): ArrayV8;
+	ProcessBots(): void;
+	ВыполнитьОбработкуБотов(): void;
 	BeginInfoBaseRegistration(... params): void;
 	НачатьРегистрациюИнформационнойБазы(... params): void;
+	RegisterInfoBaseAsync(... params): PromiseV8;
+	ВыполнитьРегистрациюИнформационнойБазыАсинх(... params): PromiseV8;
 	BeginInfoBaseUnregistration(... params): void;
 	НачатьОтменуРегистрацииИнформационнойБазы(... params): void;
+	UnregisterInfoBaseAsync(): PromiseV8;
+	ОтменитьРегистрациюИнформационнойБазыАсинх(): PromiseV8;
 	BeginAttachNewMessagesHandler(... params): void;
 	НачатьПодключениеОбработчикаНовыхСообщений(... params): void;
+	AttachNewMessagesHandlerAsync(... params): PromiseV8;
+	ПодключитьОбработчикНовыхСообщенийАсинх(... params): PromiseV8;
 	BeginDetachNewMessagesHandler(... params): void;
 	НачатьОтключениеОбработчикаНовыхСообщений(... params): void;
+	DetachNewMessagesHandlerAsync(... params): void;
+	ОтключитьОбработчикНовыхСообщенийАсинх(... params): void;
 	AttachAfterMessageSendHandler(... params): void;
 	ПодключитьОбработчикПослеОтправкиСообщения(... params): void;
 	DetachAfterMessageSendHandler(... params): void;
@@ -31635,6 +31917,14 @@ interface CollaborationSystemManager {
 	ПодключитьОбработчикФормированияКоманд(... params): void;
 	DetachGenerateCommandsHandler(... params): void;
 	ОтключитьОбработчикФормированияКоманд(... params): void;
+	VideoconferenceAllowed(): boolean;
+	ВидеоконференцииДоступны(): boolean;
+	GetMaximumNumberOfParticipantsInVideoconference(): number;
+	ПолучитьМаксимальноеКоличествоУчастниковВидеоконференции(): number;
+	StartVideoconference(... params): void;
+	НачатьВидеоконференцию(... params): void;
+	VideoconferenceAsync(... params): PromiseV8;
+	ВидеоконференцияАсинх(... params): PromiseV8;
 }
 declare type МенеджерСистемыВзаимодействия = CollaborationSystemManager;
 interface InfoBaseConnection {
@@ -31652,8 +31942,6 @@ interface InfoBaseConnection {
 	НомерСоединения: number;
 	SessionNumber: number;
 	НомерСеанса: number;
-}
-interface StandardTabularSectionDescriptions {
 }
 interface StandardTabularSectionDescriptions {
 }
@@ -31707,6 +31995,8 @@ interface OrderingItemControl {
 interface InformationBaseContext {
 }
 interface StandardCommandsGroup {
+}
+interface StopMultimediaRecordingButtonPlacement {
 }
 interface ConfigurationExtensionScope {
 }
@@ -31847,6 +32137,8 @@ interface EventLogAccessDeniedEventUseDescription {
 	ПоляРегистрации;
 }
 declare type ОписаниеИспользованияСобытияОтказВДоступеЖурналаРегистрации = EventLogAccessDeniedEventUseDescription;
+interface InfoBaseUserPasswordRecoveryMethod {
+}
 interface ConfigurationDescription {
 	Name;
 	Имя;
@@ -31856,16 +32148,6 @@ interface ConfigurationDescription {
 	Версия;
 }
 declare type ОписаниеКонфигурации = ConfigurationDescription;
-interface FullTextSearchListItem {
-	Value;
-	Значение;
-	Metadata;
-	Метаданные;
-	Presentation: string;
-	Представление: string;
-	Description: string;
-	Описание: string;
-}
 interface ConfigurationExtensionApplicationIssueInformation {
 	Extension: ConfigurationExtension;
 	Расширение: ConfigurationExtension;
@@ -32193,6 +32475,8 @@ interface SpreadsheetDocumentField {
 	КоличествоСтраниц(): number;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	GetDataAreaHorizontalSize(): number;
 	ПолучитьРазмерОбластиДанныхПоГоризонтали(): number;
 	GetDataAreaVerticalSize(): number;
@@ -32519,6 +32803,8 @@ interface HTTPServiceRequest {
 	GetBodyAsStream(): Stream;
 	ПолучитьТелоКакПоток(): Stream;
 }
+interface PlannerInsideDragBoundsChangingVariant {
+}
 interface PlannerCommandGenerateParameters {
 	Source: PlannerCommandSource;
 	Источник: PlannerCommandSource;
@@ -32532,6 +32818,12 @@ interface PlannerCommandGenerateParameters {
 	Дата: Date;
 	TimeScaleItem: TimeScale;
 	ЭлементШкалыВремени: TimeScale;
+	URL: string;
+	НавигационнаяСсылка: string;
+	Action: PlannerItemAction;
+	Действие: PlannerItemAction;
+	Dimension: PlannerDimension;
+	Измерение: PlannerDimension;
 }
 interface EnumPlannerStandardCommand {
 	CreateItem;
@@ -32548,6 +32840,12 @@ interface EnumPlannerStandardCommand {
 	ВыбратьЭлементШкалыВремени;
 	SelectWrappedTimeScaleHeader;
 	ВыбратьПеренесенныйЗаголовокШкалыВремени;
+	GotoURL;
+	ПерейтиПоНавигационнойСсылке;
+	CopyURL;
+	КопироватьНавигационнуюСсылку;
+	ExecuteAction;
+	ВыполнитьДействие;
 }
 declare type ПеречислениеСтандартнаяКомандаПланировщика = EnumPlannerStandardCommand;
 interface ZipFileWriter {
@@ -32733,8 +33031,12 @@ interface GraphicalSchema {
 	Напечатать(... params): void;
 	BeginWriting(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	BeginReading(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 }
 declare type ГрафическаяСхема = GraphicalSchema;
 interface DataCompositionPeriodType {
@@ -32770,6 +33072,72 @@ interface DeliverableNotificationSendErrorType {
 }
 interface InternetMailProtocol {
 }
+interface InternetMailMessageFlags {
+	New: string;
+	Новое: string;
+	Seen: string;
+	Прочитанное: string;
+	Flagged: number;
+	Помеченное: number;
+	Deleted: number;
+	Удаленное: number;
+	Answered: string;
+	Отвеченное: string;
+	Forwarded: string;
+	Пересланное: string;
+	Canceled: string;
+	Отмененное: string;
+}
+declare type ФлагиИнтернетПочтовогоСообщения = InternetMailMessageFlags;
+interface InternetMail {
+	CurrentMailbox: string;
+	ТекущийПочтовыйЯщик: string;
+	DelimeterChar: string;
+	СимволРазделитель: string;
+	Logon(... params): void;
+	Подключиться(... params): void;
+	Logoff(): void;
+	Отключиться(): void;
+	Send(... params): Map;
+	Послать(... params): Map;
+	Get(... params): ArrayV8;
+	Выбрать(... params): ArrayV8;
+	GetUIDL(... params): ArrayV8;
+	ПолучитьИдентификаторы(... params): ArrayV8;
+	GetHeaders(... params): ArrayV8;
+	ПолучитьЗаголовки(... params): ArrayV8;
+	DeleteMessages(... params): void;
+	УдалитьСообщения(... params): void;
+	CombinePartial(... params): ArrayV8;
+	ОбъединитьЧастичные(... params): ArrayV8;
+	CreateMailbox(... params): void;
+	СоздатьПочтовыйЯщик(... params): void;
+	DeleteMailbox(... params): void;
+	УдалитьПочтовыйЯщик(... params): void;
+	RenameMailbox(... params): void;
+	ПереименоватьПочтовыйЯщик(... params): void;
+	GetMailboxes(): ArrayV8;
+	ПолучитьПочтовыеЯщики(): ArrayV8;
+	UndeleteMessages(... params): void;
+	ОтменитьУдалениеСообщений(... params): void;
+	ClearDeletedMassages(): void;
+	ОчиститьУдаленныеСообщения(): void;
+	GetMessageCount();
+	ПолучитьКоличествоСообщений();
+	SubscribeToMailbox(... params): void;
+	ПодписатьсяНаПочтовыйЯщик(... params): void;
+	UnsubscribeFromMailbox(... params): void;
+	ОтменитьПодпискуНаПочтовыйЯщик(... params): void;
+	GetMailboxesBySubscription();
+	ПолучитьПочтовыеЯщикиПоПодписке();
+	MoveToMailbox(... params): void;
+	ПереместитьВПочтовыйЯщик(... params): void;
+	GetMessagesFlags(... params): Map;
+	ПолучитьФлагиСообщений(... params): Map;
+	SetMessagesFlags(... params): void;
+	УстановитьФлагиСообщений(... params): void;
+}
+declare type ИнтернетПочта = InternetMail;
 interface FileRef {
 	FileID: string;
 	ИдентификаторФайла: string;
@@ -32786,15 +33154,144 @@ interface FileRef {
 	GetModificationUniversalTime(): Date;
 	ПолучитьУниверсальноеВремяИзменения(): Date;
 }
+interface FileAccess {
+}
+interface TransferableFileDescription {
+	Location;
+	Хранение;
+	Name;
+	Имя;
+}
+declare type ОписаниеПередаваемогоФайла = TransferableFileDescription;
+interface TextExtraction {
+	FileName: string;
+	ИмяФайла: string;
+	GetText(): string;
+	ПолучитьТекст(): string;
+	Write(... params): void;
+	Записать(... params): void;
+}
+declare type ИзвлечениеТекста = TextExtraction;
 interface CryptoKeysContainer {
 	Unload(... params): BinaryData;
 	Выгрузить(... params): BinaryData;
 	BeginInitialization(... params): void;
 	НачатьИнициализацию(... params): void;
+	InitializeAsync(... params): PromiseV8;
+	ИнициализироватьАсинх(... params): PromiseV8;
 	BeginUnload(... params): void;
 	НачатьВыгрузку(... params): void;
+	UnloadAsync(... params): PromiseV8;
+	ВыгрузитьАсинх(... params): PromiseV8;
 }
 declare type КонтейнерКлючейКриптографии = CryptoKeysContainer;
+interface CryptoCertificateStore {
+	GetAll();
+	ПолучитьВсе();
+	FindBySubject(... params);
+	НайтиПоСубъекту(... params);
+	FindBySerialNumber(... params);
+	НайтиПоСерийномуНомеру(... params);
+	FindByThumbprint(... params);
+	НайтиПоОтпечатку(... params);
+	Add(... params): void;
+	Добавить(... params): void;
+	Delete(... params): void;
+	Удалить(... params): void;
+	BeginGettingAll(... params): void;
+	НачатьПолучениеВсех(... params): void;
+	GetAllAsync(): PromiseV8;
+	ПолучитьВсеАсинх(): PromiseV8;
+	BeginFindingBySubject(... params): void;
+	НачатьПоискПоСубъекту(... params): void;
+	FindBySubjectAsync(... params): PromiseV8;
+	НайтиПоСубъектуАсинх(... params): PromiseV8;
+	BeginFindingBySerialNumber(... params): void;
+	НачатьПоискПоСерийномуНомеру(... params): void;
+	FindBySerialNumberAsync(... params): PromiseV8;
+	НайтиПоСерийномуНомеруАсинх(... params): PromiseV8;
+	BeginFindingByThumbprint(... params): void;
+	НачатьПоискПоОтпечатку(... params): void;
+	FindByThumbprintAsync(... params): PromiseV8;
+	НайтиПоОтпечаткуАсинх(... params): PromiseV8;
+	BeginAdding(... params): void;
+	НачатьДобавление(... params): void;
+	AddAsync(... params): PromiseV8;
+	ДобавитьАсинх(... params): PromiseV8;
+	BeginDeleting(... params): void;
+	НачатьУдаление(... params): void;
+	DeleteAsync(... params): PromiseV8;
+	УдалитьАсинх(... params): PromiseV8;
+}
+interface CryptoManager {
+	HashAlgorithm: string;
+	АлгоритмХеширования: string;
+	SignAlgorithm: string;
+	АлгоритмПодписи: string;
+	EncryptAlgorithm: string;
+	АлгоритмШифрования: string;
+	IncludeCertificatesInSignature;
+	ВключениеСертификатовВПодпись;
+	PrivateKeyAccessPassword: string;
+	ПарольДоступаКЗакрытомуКлючу: string;
+	InteractiveModeUse;
+	ИспользованиеИнтерактивногоРежима;
+	Sign(... params): BinaryData;
+	Подписать(... params): BinaryData;
+	VerifySignature(... params): void;
+	ПроверитьПодпись(... params): void;
+	Encrypt(... params): BinaryData;
+	Зашифровать(... params): BinaryData;
+	Decrypt(... params): BinaryData;
+	Расшифровать(... params): BinaryData;
+	CheckCertificate(... params): void;
+	ПроверитьСертификат(... params): void;
+	GetCertificateStore(... params): CryptoCertificateStore;
+	ПолучитьХранилищеСертификатов(... params): CryptoCertificateStore;
+	GetCryptoModuleInformation(): CryptoModuleInformation;
+	ПолучитьИнформациюМодуляКриптографии(): CryptoModuleInformation;
+	GetCertificatesFromSignature(... params);
+	ПолучитьСертификатыИзПодписи(... params);
+	ShowCertificateList(... params): void;
+	ПоказатьСписокСертификатов(... params): void;
+	BeginInitialization(... params): void;
+	НачатьИнициализацию(... params): void;
+	InitializeAsync(... params): PromiseV8;
+	ИнициализироватьАсинх(... params): PromiseV8;
+	BeginSigning(... params): void;
+	НачатьПодписывание(... params): void;
+	SignAsync(... params): PromiseV8;
+	ПодписатьАсинх(... params): PromiseV8;
+	BeginVerifyingSignature(... params): void;
+	НачатьПроверкуПодписи(... params): void;
+	VerifySignatureAsync(... params): PromiseV8;
+	ПроверитьПодписьАсинх(... params): PromiseV8;
+	BeginEncrypting(... params): void;
+	НачатьШифрование(... params): void;
+	EncryptAsync(... params): PromiseV8;
+	ЗашифроватьАсинх(... params): PromiseV8;
+	BeginDecrypting(... params): void;
+	НачатьРасшифровку(... params): void;
+	DecryptAsync(... params): PromiseV8;
+	РасшифроватьАсинх(... params): PromiseV8;
+	BeginCheckingCertificate(... params): void;
+	НачатьПроверкуСертификата(... params): void;
+	CheckCertificateAsync(... params): PromiseV8;
+	ПроверитьСертификатАсинх(... params): PromiseV8;
+	BeginGettingCertificateStore(... params): void;
+	НачатьПолучениеХранилищаСертификатов(... params): void;
+	GetCertificateStoreAsync(... params): PromiseV8;
+	ПолучитьХранилищеСертификатовАсинх(... params): PromiseV8;
+	BeginGettingCryptoModuleInformation(... params): void;
+	НачатьПолучениеИнформацииМодуляКриптографии(... params): void;
+	GetCryptoModuleInformationAsync(): PromiseV8;
+	ПолучитьИнформациюМодуляКриптографииАсинх(): PromiseV8;
+	BeginGettingCertificatesFromSignature(... params): void;
+	НачатьПолучениеСертификатовИзПодписи(... params): void;
+	GetCertificatesFromSignatureAsync(... params): PromiseV8;
+	ПолучитьСертификатыИзПодписиАсинх(... params): PromiseV8;
+}
+declare type МенеджерКриптографии = CryptoManager;
 interface PositionInStream {
 }
 interface FileStream {
@@ -32828,20 +33325,36 @@ interface FileStream {
 	Записать(... params): void;
 	BeginGetSize(... params): void;
 	НачатьПолучениеРазмера(... params): void;
+	SizeAsync(): PromiseV8;
+	РазмерАсинх(): PromiseV8;
 	BeginCopyTo(... params): void;
 	НачатьКопированиеВ(... params): void;
+	CopyToAsync(... params): PromiseV8;
+	КопироватьВАсинх(... params): PromiseV8;
 	BeginSeek(... params): void;
 	НачатьПереход(... params): void;
+	SeekAsync(... params): PromiseV8;
+	ПерейтиАсинх(... params): PromiseV8;
 	BeginSetSize(... params): void;
 	НачатьУстановкуРазмера(... params): void;
+	SetSizeAsync(... params): PromiseV8;
+	УстановитьРазмерАсинх(... params): PromiseV8;
 	BeginRead(... params): void;
 	НачатьЧтение(... params): void;
+	ReadAsync(... params): PromiseV8;
+	ПрочитатьАсинх(... params): PromiseV8;
 	BeginWrite(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	BeginFlush(... params): void;
 	НачатьСбросБуферов(... params): void;
+	FlushAsync(): PromiseV8;
+	СброситьБуферыАсинх(): PromiseV8;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 }
 declare type ФайловыйПоток = FileStream;
 interface FileStreamsManager {
@@ -32859,16 +33372,28 @@ interface FileStreamsManager {
 	СоздатьВременныйФайл(... params): FileStream;
 	BeginCreate(... params): void;
 	НачатьСоздание(... params): void;
+	CreateAsync(... params): PromiseV8;
+	СоздатьАсинх(... params): PromiseV8;
 	BeginOpen(... params): void;
 	НачатьОткрытие(... params): void;
+	OpenAsync(... params): PromiseV8;
+	ОткрытьАсинх(... params): PromiseV8;
 	BeginOpenForRead(... params): void;
 	НачатьОткрытиеДляЧтения(... params): void;
+	OpenForReadAsync(... params): PromiseV8;
+	ОткрытьДляЧтенияАсинх(... params): PromiseV8;
 	BeginOpenForWrite(... params): void;
 	НачатьОткрытиеДляЗаписи(... params): void;
+	OpenForWriteAsync(... params): PromiseV8;
+	ОткрытьДляЗаписиАсинх(... params): PromiseV8;
 	BeginOpenForAppend(... params): void;
 	НачатьОткрытиеДляДописывания(... params): void;
+	OpenForAppendAsync(... params): PromiseV8;
+	ОткрытьДляДописыванияАсинх(... params): PromiseV8;
 	BeginCreateTempFile(... params): void;
 	НачатьСозданиеВременногоФайла(... params): void;
+	CreateTempFileAsync(... params): PromiseV8;
+	СоздатьВременныйФайлАсинх(... params): PromiseV8;
 }
 interface EnumFileOpenMode {
 	Create;
@@ -32963,24 +33488,44 @@ interface DataWriter {
 	ЗаписатьСтроку(... params): void;
 	BeginFlush(... params): void;
 	НачатьСбросБуферов(... params): void;
+	FlushAsync(): PromiseV8;
+	СброситьБуферыАсинх(): PromiseV8;
 	BeginClose(... params): void;
 	НачатьЗакрытие(... params): void;
+	CloseAsync(): PromiseV8;
+	ЗакрытьАсинх(): PromiseV8;
 	BeginWriteByte(... params): void;
 	НачатьЗаписьБайта(... params): void;
+	WriteByteAsync(... params): PromiseV8;
+	ЗаписатьБайтАсинх(... params): PromiseV8;
 	BeginWriteIn16(... params): void;
 	НачатьЗаписьЦелого16(... params): void;
+	WriteInt16Async(... params): PromiseV8;
+	ЗаписатьЦелое16Асинх(... params): PromiseV8;
 	BeginWriteInt32(... params): void;
 	НачатьЗаписьЦелого32(... params): void;
+	WriteInt32Async(... params): PromiseV8;
+	ЗаписатьЦелое32Асинх(... params): PromiseV8;
 	BeginWriteInt64(... params): void;
 	НачатьЗаписьЦелого64(... params): void;
+	WriteInt64Async(... params): PromiseV8;
+	ЗаписатьЦелое64Асинх(... params): PromiseV8;
 	BeginWriteBinaryDataBuffer(... params): void;
 	НачатьЗаписьБуфераДвоичныхДанных(... params): void;
+	WriteBinaryDataBufferAsync(... params): PromiseV8;
+	ЗаписатьБуферДвоичныхДанныхАсинх(... params): PromiseV8;
 	BeginWrite(... params): void;
 	НачатьЗапись(... params): void;
+	WriteAsync(... params): PromiseV8;
+	ЗаписатьАсинх(... params): PromiseV8;
 	BeginWriteChars(... params): void;
 	НачатьЗаписьСимволов(... params): void;
+	WriteCharsAsync(... params): PromiseV8;
+	ЗаписатьСимволыАсинх(... params): PromiseV8;
 	BeginWriteLine(... params): void;
 	НачатьЗаписьСтроки(... params): void;
+	WriteLineAsync(... params): PromiseV8;
+	ЗаписатьСтрокуАсинх(... params): PromiseV8;
 }
 declare type ЗаписьДанных = DataWriter;
 interface AdministrationWorkProcess {
@@ -33399,7 +33944,7 @@ interface FileDialog {
 	Каталог: string;
 	Preview: boolean;
 	ПредварительныйПросмотр: boolean;
-	CheckFileExist: boolean;
+	CheckFileExistence: boolean;
 	ПроверятьСуществованиеФайла: boolean;
 	Multiselect: boolean;
 	МножественныйВыбор: boolean;
@@ -33407,6 +33952,8 @@ interface FileDialog {
 	Выбрать(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	ChooseAsync(): PromiseV8;
+	ВыбратьАсинх(): PromiseV8;
 }
 declare type ДиалогВыбораФайла = FileDialog;
 interface GetFilesDialogParameters {
@@ -33656,8 +34203,12 @@ interface MultimediaData {
 interface MultimediaTools {
 	MakePhoto(... params): MultimediaData;
 	СделатьФотоснимок(... params): MultimediaData;
-	MakeAudioRecording(): MultimediaData;
-	СделатьАудиозапись(): MultimediaData;
+	MakeAudioRecording(... params): MultimediaData;
+	СделатьАудиозапись(... params): MultimediaData;
+	StartAudioRecording(... params): void;
+	ВключитьАудиозапись(... params): void;
+	StopAudioRecording(): void;
+	ОтключитьАудиозапись(): void;
 	MakeVideoRecording(... params): MultimediaData;
 	СделатьВидеозапись(... params): MultimediaData;
 	ShowBarcodeScanning(... params): void;
@@ -33826,6 +34377,8 @@ interface DataHistoryVersionsFilterDialog {
 	Отбор: ArrayV8;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type ДиалогОтбораВерсийИсторииДанных = DataHistoryVersionsFilterDialog;
 interface DataHistoryUsersChooseDialog {
@@ -33835,6 +34388,8 @@ interface DataHistoryUsersChooseDialog {
 	Пользователи: ArrayV8;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type ДиалогВыбораПользователейИсторииДанных = DataHistoryUsersChooseDialog;
 interface IntegrationServiceSettings {
@@ -34650,6 +35205,8 @@ interface PlannerItemScheduleDialog {
 	ОткрытьМодально(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type ДиалогРасписанияЭлементаПланировщика = PlannerItemScheduleDialog;
 interface WindowOpenVariant {
@@ -34661,6 +35218,8 @@ interface ScheduledJobDialog {
 	ОткрытьМодально(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type ДиалогРасписанияРегламентногоЗадания = ScheduledJobDialog;
 interface FormatStringWizard {
@@ -34672,27 +35231,10 @@ interface FormatStringWizard {
 	ОткрытьМодально(): boolean;
 	Show(... params): void;
 	Показать(... params): void;
+	DoAsync(): PromiseV8;
+	ОткрытьАсинх(): PromiseV8;
 }
 declare type КонструкторФорматнойСтроки = FormatStringWizard;
-interface CommandExecuteParameters {
-	Source;
-	Источник;
-	Window;
-	Окно;
-	Uniqueness;
-	Уникальность;
-	URL;
-	НавигационнаяСсылка;
-}
-interface BarcodeType {
-}
-interface OnReopenFormFromOtherServerFillParameters {
-	IncludedAttributes: ArrayV8;
-	ВключитьРеквизиты: ArrayV8;
-	ExcludedAttributes: ArrayV8;
-	ИсключитьРеквизиты: ArrayV8;
-}
-declare type ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера = OnReopenFormFromOtherServerFillParameters;
 interface MessageFromExternalSite {
 	Origin: string;
 	Источник: string;
@@ -34740,6 +35282,18 @@ interface PhotoStamp {
 	Текст: string;
 }
 declare type ОтметкаНаФотоснимке = PhotoStamp;
+interface EnumAudioRecordingChannelUse {
+	Mono;
+	Моно;
+	Stereo;
+	Стерео;
+}
+declare type ПеречислениеИспользованиеКаналовАудиозаписи = EnumAudioRecordingChannelUse;
+interface EnumAudioRecordingFormat {
+	Mpeg4AAC;
+	WavPCM16bit;
+}
+declare type ПеречислениеФорматАудиозаписи = EnumAudioRecordingFormat;
 interface EnumCameraLightingType {
 	Disable;
 	Выключена;
@@ -34749,7 +35303,7 @@ interface EnumCameraLightingType {
 	Авто;
 }
 declare type ПеречислениеТипПодсветкиКамеры = EnumCameraLightingType;
-interface EnumVideoQuality  {
+interface EnumVideoQuality {
 	High;
 	Высокое;
 	Low;
@@ -34757,7 +35311,7 @@ interface EnumVideoQuality  {
 	Auto;
 	Авто;
 }
-declare type ПеречислениеКачествоВидеозаписи = EnumVideoQuality ;
+declare type ПеречислениеКачествоВидеозаписи = EnumVideoQuality;
 interface EnumDeviceCameraType {
 	Rear;
 	Задняя;
@@ -34806,10 +35360,6 @@ interface ApplicationUsageStatisticsManager {
 	ОтправитьСобытие(... params): void;
 	SendScreen(... params): void;
 	ОтправитьЭкран(... params): void;
-	StartVideoRecording(): void;
-	НачатьВидеозапись(): void;
-	StopVideoRecording(): void;
-	ЗавершитьВидеозапись(): void;
 }
 declare type МенеджерСтатистикиИспользованияПриложения = ApplicationUsageStatisticsManager;
 interface SecureStorageManager {
@@ -34819,10 +35369,16 @@ interface SecureStorageManager {
 	СодержитКлюч(... params): boolean;
 	BeginPutData(... params): void;
 	НачатьПомещениеДанных(... params): void;
+	PutDataAsync(... params);
+	ПоместитьДанныеАсинх(... params);
 	BeginGetData(... params): void;
 	НачатьПолучениеДанных(... params): void;
+	GetDataAsync(... params);
+	ПолучитьДанныеАсинх(... params);
 	BeginDeleteData(... params): void;
 	НачатьУдалениеДанных(... params): void;
+	DeleteDataAsync(... params);
+	УдалитьДанныеАсинх(... params);
 }
 declare type МенеджерБезопасногоХранилища = SecureStorageManager;
 interface AdditionalUserVerificationManager {
@@ -34832,6 +35388,8 @@ interface AdditionalUserVerificationManager {
 	ТекущийСпособБиометрическойПроверки();
 	BeginVerification(... params): void;
 	НачатьПроверку(... params): void;
+	VerifyAsync(... params);
+	ПроверитьАсинх(... params);
 }
 declare type МенеджерДополнительнойПроверкиПользователя = AdditionalUserVerificationManager;
 interface InternetConnectionType {
@@ -35108,6 +35666,17 @@ interface EnumBiometricVerificationMethod {
 declare type ПеречислениеСпособБиометрическойПроверки = EnumBiometricVerificationMethod;
 interface BiometricVerificationMethod {
 }
+interface AudioRecordingSettings {
+	AudioRecordingFormat: EnumAudioRecordingFormat;
+	ФорматАудиозаписи: EnumAudioRecordingFormat;
+	AudioRecordingChannelUse: EnumAudioRecordingChannelUse;
+	ИспользованиеКаналовАудиозаписи: EnumAudioRecordingChannelUse;
+	SamplingRate: number;
+	ЧастотаДискретизации: number;
+	EncodingBitRate: number;
+	СкоростьКодирования: number;
+}
+declare type ПараметрыАудиозаписи = AudioRecordingSettings;
 interface EnumAdStatus {
 	NotDownloaded;
 	НеЗагружена;
@@ -35133,8 +35702,8 @@ interface EnumCollaborationSystemUsersChoicePurpose {
 	ПолучательСообщения;
 	ConversationMember;
 	УчастникОбсуждения;
-	VideoConferenceMember;
-	УчастникВидеоКонференции;
+	VideoconferenceParticipant;
+	УчастникВидеоконференции;
 }
 declare type ПеречислениеНазначениеВыбораПользователейСистемыВзаимодействия = EnumCollaborationSystemUsersChoicePurpose;
 interface CollaborationSystemCommandSource {
@@ -35637,18 +36206,6 @@ declare function v8New(name:"EnumDynamicListKeyType",... params): EnumDynamicLis
 declare function v8New(name:"ПеречислениеВидКлючаДинамическогоСписка",... params): ПеречислениеВидКлючаДинамическогоСписка;
 declare function v8New(name:"EnumCollaborationSystemNotificationRepresentation",... params): EnumCollaborationSystemNotificationRepresentation;
 declare function v8New(name:"ПеречислениеОтображениеОповещенийСистемыВзаимодействия",... params): ПеречислениеОтображениеОповещенийСистемыВзаимодействия;
-declare function v8New(name:"EnumWindowOpenVariant",... params): EnumWindowOpenVariant;
-declare function v8New(name:"ПеречислениеВариантОткрытияОкна",... params): ПеречислениеВариантОткрытияОкна;
-declare function v8New(name:"EnumClientApplicationAgentState",... params): EnumClientApplicationAgentState;
-declare function v8New(name:"ПеречислениеСостояниеАгентаКлиентскогоПриложения",... params): ПеречислениеСостояниеАгентаКлиентскогоПриложения;
-declare function v8New(name:"GlobalSearchPlan",... params): GlobalSearchPlan;
-declare function v8New(name:"ПланГлобальногоПоиска",... params): ПланГлобальногоПоиска;
-declare function v8New(name:"GlobalSearchPlanItem",... params): GlobalSearchPlanItem;
-declare function v8New(name:"ЭлементПланаГлобальногоПоиска",... params): ЭлементПланаГлобальногоПоиска;
-declare function v8New(name:"ClientApplicationWindows",... params): ClientApplicationWindows;
-declare function v8New(name:"ОкнаКлиентскогоПриложения",... params): ОкнаКлиентскогоПриложения;
-declare function v8New(name:"ClientApplicationWindow",... params): ClientApplicationWindow;
-declare function v8New(name:"ОкноКлиентскогоПриложения",... params): ОкноКлиентскогоПриложения;
 declare function v8New(name:"EnumFileDialogMode",... params): EnumFileDialogMode;
 declare function v8New(name:"ПеречислениеРежимДиалогаВыбораФайла",... params): ПеречислениеРежимДиалогаВыбораФайла;
 declare function v8New(name:"EnumXMLNodeType",... params): EnumXMLNodeType;
@@ -35739,6 +36296,12 @@ declare function v8New(name:"EnumDataItemReceive",... params): EnumDataItemRecei
 declare function v8New(name:"ПеречислениеПолучениеЭлементаДанных",... params): ПеречислениеПолучениеЭлементаДанных;
 declare function v8New(name:"EnumFullTextSearchMode",... params): EnumFullTextSearchMode;
 declare function v8New(name:"ПеречислениеРежимПолнотекстовогоПоиска",... params): ПеречислениеРежимПолнотекстовогоПоиска;
+declare function v8New(name:"XMLReader",... params): XMLReader;
+declare function v8New(name:"ЧтениеXML",... params): ЧтениеXML;
+declare function v8New(name:"XMLNamespaceContext",... params): XMLNamespaceContext;
+declare function v8New(name:"КонтекстПространствИменXML",... params): КонтекстПространствИменXML;
+declare function v8New(name:"XMLReaderSettings",... params): XMLReaderSettings;
+declare function v8New(name:"ПараметрыЧтенияXML",... params): ПараметрыЧтенияXML;
 declare function v8New(name:"EnumFullTextSearchRepresentationType",... params): EnumFullTextSearchRepresentationType;
 declare function v8New(name:"ПеречислениеВидОтображенияПолнотекстовогоПоиска",... params): ПеречислениеВидОтображенияПолнотекстовогоПоиска;
 declare function v8New(name:"EnumFullTextSearchMetadataUse",... params): EnumFullTextSearchMetadataUse;
@@ -35767,6 +36330,10 @@ declare function v8New(name:"EnumCompositeWordsSeparationMode",... params): Enum
 declare function v8New(name:"ПеречислениеРежимРазделенияСоставныхСлов",... params): ПеречислениеРежимРазделенияСоставныхСлов;
 declare function v8New(name:"InfoBaseUserAuthenticationLockSettings",... params): InfoBaseUserAuthenticationLockSettings;
 declare function v8New(name:"НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы",... params): НастройкиБлокировкиАутентификацииПользователейИнформационнойБазы;
+declare function v8New(name:"PasswordRecoverySettings",... params): PasswordRecoverySettings;
+declare function v8New(name:"НастройкиВосстановленияПароля",... params): НастройкиВосстановленияПароля;
+declare function v8New(name:"EnumInfoBaseUserPasswordRecoveryMethod",... params): EnumInfoBaseUserPasswordRecoveryMethod;
+declare function v8New(name:"ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы",... params): ПеречислениеСпособВосстановленияПароляПользователяИнформационнойБазы;
 declare function v8New(name:"EnumDatabaseCopyReplicationType",... params): EnumDatabaseCopyReplicationType;
 declare function v8New(name:"ПеречислениеТипРепликацииКопииБазыДанных",... params): ПеречислениеТипРепликацииКопииБазыДанных;
 declare function v8New(name:"EnumDatabaseCopyDBMSType",... params): EnumDatabaseCopyDBMSType;
@@ -35845,6 +36412,20 @@ declare function v8New(name:"XSModelGroup",... params): XSModelGroup;
 declare function v8New(name:"ГруппаМоделиXS",... params): ГруппаМоделиXS;
 declare function v8New(name:"XDTOSerializer",... params): XDTOSerializer;
 declare function v8New(name:"СериализаторXDTO",... params): СериализаторXDTO;
+declare function v8New(name:"EnumWindowOpenVariant",... params): EnumWindowOpenVariant;
+declare function v8New(name:"ПеречислениеВариантОткрытияОкна",... params): ПеречислениеВариантОткрытияОкна;
+declare function v8New(name:"EnumClientApplicationAgentState",... params): EnumClientApplicationAgentState;
+declare function v8New(name:"ПеречислениеСостояниеАгентаКлиентскогоПриложения",... params): ПеречислениеСостояниеАгентаКлиентскогоПриложения;
+declare function v8New(name:"GlobalSearchPlan",... params): GlobalSearchPlan;
+declare function v8New(name:"ПланГлобальногоПоиска",... params): ПланГлобальногоПоиска;
+declare function v8New(name:"GlobalSearchPlanItem",... params): GlobalSearchPlanItem;
+declare function v8New(name:"ЭлементПланаГлобальногоПоиска",... params): ЭлементПланаГлобальногоПоиска;
+declare function v8New(name:"EnumProgressiveWebApplicationMode",... params): EnumProgressiveWebApplicationMode;
+declare function v8New(name:"ПеречислениеРежимПрогрессивногоВебПриложения",... params): ПеречислениеРежимПрогрессивногоВебПриложения;
+declare function v8New(name:"ClientApplicationWindows",... params): ClientApplicationWindows;
+declare function v8New(name:"ОкнаКлиентскогоПриложения",... params): ОкнаКлиентскогоПриложения;
+declare function v8New(name:"ClientApplicationWindow",... params): ClientApplicationWindow;
+declare function v8New(name:"ОкноКлиентскогоПриложения",... params): ОкноКлиентскогоПриложения;
 declare function v8New(name:"DataCompositionAreaTemplateValueCollectionCell",... params): DataCompositionAreaTemplateValueCollectionCell;
 declare function v8New(name:"ЯчейкаМакетаКоллекцииЗначенийОбластиКомпоновкиДанных",... params): ЯчейкаМакетаКоллекцииЗначенийОбластиКомпоновкиДанных;
 declare function v8New(name:"XSInclude",... params): XSInclude;
@@ -35859,6 +36440,8 @@ declare function v8New(name:"ListBox",... params): ListBox;
 declare function v8New(name:"ПолеСписка",... params): ПолеСписка;
 declare function v8New(name:"EnumAutoShowStateMode",... params): EnumAutoShowStateMode;
 declare function v8New(name:"ПеречислениеРежимАвтоОтображенияСостояния",... params): ПеречислениеРежимАвтоОтображенияСостояния;
+declare function v8New(name:"EnumPlannerItemActionLocation",... params): EnumPlannerItemActionLocation;
+declare function v8New(name:"ПеречислениеПоложениеДействияЭлементаПланировщика",... params): ПеречислениеПоложениеДействияЭлементаПланировщика;
 declare function v8New(name:"TrackBar",... params): TrackBar;
 declare function v8New(name:"ПолосаРегулирования",... params): ПолосаРегулирования;
 declare function v8New(name:"XSMaxInclusiveFacet",... params): XSMaxInclusiveFacet;
@@ -35883,12 +36466,6 @@ declare function v8New(name:"XMLWriterSettings",... params): XMLWriterSettings;
 declare function v8New(name:"ПараметрыЗаписиXML",... params): ПараметрыЗаписиXML;
 declare function v8New(name:"HTTPServiceResponse",... params): HTTPServiceResponse;
 declare function v8New(name:"HTTPСервисОтвет",... params): HTTPСервисОтвет;
-declare function v8New(name:"XMLReader",... params): XMLReader;
-declare function v8New(name:"ЧтениеXML",... params): ЧтениеXML;
-declare function v8New(name:"XMLNamespaceContext",... params): XMLNamespaceContext;
-declare function v8New(name:"КонтекстПространствИменXML",... params): КонтекстПространствИменXML;
-declare function v8New(name:"XMLReaderSettings",... params): XMLReaderSettings;
-declare function v8New(name:"ПараметрыЧтенияXML",... params): ПараметрыЧтенияXML;
 declare function v8New(name:"EnumQuerySchemaPeriodAdditionType",... params): EnumQuerySchemaPeriodAdditionType;
 declare function v8New(name:"ПеречислениеТипДополненияПериодамиСхемыЗапроса",... params): ПеречислениеТипДополненияПериодамиСхемыЗапроса;
 declare function v8New(name:"EnumStandardAppearance",... params): EnumStandardAppearance;
@@ -35933,6 +36510,12 @@ declare function v8New(name:"FixedMap",... params): FixedMap;
 declare function v8New(name:"ФиксированноеСоответствие",... params): ФиксированноеСоответствие;
 declare function v8New(name:"PlannerReplacementItemCollection",... params): PlannerReplacementItemCollection;
 declare function v8New(name:"КоллекцияЗамещающихЭлементовПланировщика",... params): КоллекцияЗамещающихЭлементовПланировщика;
+declare function v8New(name:"PlannerItemActionCollection",... params): PlannerItemActionCollection;
+declare function v8New(name:"КоллекцияДействийЭлементаПланировщика",... params): КоллекцияДействийЭлементаПланировщика;
+declare function v8New(name:"PlannerItemAction",... params): PlannerItemAction;
+declare function v8New(name:"ДействиеЭлементаПланировщика",... params): ДействиеЭлементаПланировщика;
+declare function v8New(name:"EnumPlannerItemEnableEditMode",... params): EnumPlannerItemEnableEditMode;
+declare function v8New(name:"ПеречислениеРежимРазрешенияРедактированияЭлементаПланировщика",... params): ПеречислениеРежимРазрешенияРедактированияЭлементаПланировщика;
 declare function v8New(name:"PlannerDimensionCollection",... params): PlannerDimensionCollection;
 declare function v8New(name:"КоллекцияИзмеренийПланировщика",... params): КоллекцияИзмеренийПланировщика;
 declare function v8New(name:"PlannerDimension",... params): PlannerDimension;
@@ -35959,10 +36542,10 @@ declare function v8New(name:"EnumPlannerItemsTimeRepresentation",... params): En
 declare function v8New(name:"ПеречислениеОтображениеВремениЭлементовПланировщика",... params): ПеречислениеОтображениеВремениЭлементовПланировщика;
 declare function v8New(name:"EnumPlannerItemsBehaviorWhenSpaceInsufficient",... params): EnumPlannerItemsBehaviorWhenSpaceInsufficient;
 declare function v8New(name:"ПеречислениеПоведениеЭлементовПланировщикаПриНедостаткеМеста",... params): ПеречислениеПоведениеЭлементовПланировщикаПриНедостаткеМеста;
+declare function v8New(name:"EnumNewPlannerItemsTextType",... params): EnumNewPlannerItemsTextType;
+declare function v8New(name:"ПеречислениеТипТекстаНовыхЭлементовПланировщика",... params): ПеречислениеТипТекстаНовыхЭлементовПланировщика;
 declare function v8New(name:"DataCompositionDetailsFieldValues",... params): DataCompositionDetailsFieldValues;
 declare function v8New(name:"ЗначенияПолейРасшифровкиКомпоновкиДанных",... params): ЗначенияПолейРасшифровкиКомпоновкиДанных;
-declare function v8New(name:"InternetMail",... params): InternetMail;
-declare function v8New(name:"ИнтернетПочта",... params): ИнтернетПочта;
 declare function v8New(name:"StandardPeriod",... params): StandardPeriod;
 declare function v8New(name:"СтандартныйПериод",... params): СтандартныйПериод;
 declare function v8New(name:"QuerySchemaExpression",... params): QuerySchemaExpression;
@@ -36073,10 +36656,10 @@ declare function v8New(name:"Splitter",... params): Splitter;
 declare function v8New(name:"Разделитель",... params): Разделитель;
 declare function v8New(name:"StandardPeriodEditDialog",... params): StandardPeriodEditDialog;
 declare function v8New(name:"ДиалогРедактированияСтандартногоПериода",... params): ДиалогРедактированияСтандартногоПериода;
-declare function v8New(name:"XSParticle",... params): XSParticle;
-declare function v8New(name:"ФрагментXS",... params): ФрагментXS;
 declare function v8New(name:"MemoryStream",... params): MemoryStream;
 declare function v8New(name:"ПотокВПамяти",... params): ПотокВПамяти;
+declare function v8New(name:"XSParticle",... params): XSParticle;
+declare function v8New(name:"ФрагментXS",... params): ФрагментXS;
 declare function v8New(name:"EnumDataCompositionSettingsViewMode",... params): EnumDataCompositionSettingsViewMode;
 declare function v8New(name:"ПеречислениеРежимОтображенияНастроекКомпоновкиДанных",... params): ПеречислениеРежимОтображенияНастроекКомпоновкиДанных;
 declare function v8New(name:"EnumChartSeriesGraphicalRepresentationType",... params): EnumChartSeriesGraphicalRepresentationType;
@@ -36177,6 +36760,8 @@ declare function v8New(name:"CollaborationSystemConversationID",... params): Col
 declare function v8New(name:"ИдентификаторОбсужденияСистемыВзаимодействия",... params): ИдентификаторОбсужденияСистемыВзаимодействия;
 declare function v8New(name:"CollaborationSystemConversationContext",... params): CollaborationSystemConversationContext;
 declare function v8New(name:"КонтекстОбсужденияСистемыВзаимодействия",... params): КонтекстОбсужденияСистемыВзаимодействия;
+declare function v8New(name:"CollaborationSystemUserIDCollection",... params): CollaborationSystemUserIDCollection;
+declare function v8New(name:"КоллекцияИдентификаторовПользователейСистемыВзаимодействия",... params): КоллекцияИдентификаторовПользователейСистемыВзаимодействия;
 declare function v8New(name:"Chart",... params): Chart;
 declare function v8New(name:"Диаграмма",... params): Диаграмма;
 declare function v8New(name:"EnumAdministrationProcessChoicePriority",... params): EnumAdministrationProcessChoicePriority;
@@ -36225,10 +36810,10 @@ declare function v8New(name:"EnumCalendarEventRecurrence",... params): EnumCalen
 declare function v8New(name:"ПеречислениеПовторениеСобытияКалендаря",... params): ПеречислениеПовторениеСобытияКалендаря;
 declare function v8New(name:"EnumDataAnalysisResultTableFillType",... params): EnumDataAnalysisResultTableFillType;
 declare function v8New(name:"ПеречислениеТипЗаполненияТаблицыРезультатаАнализаДанных",... params): ПеречислениеТипЗаполненияТаблицыРезультатаАнализаДанных;
-declare function v8New(name:"DOMWriter",... params): DOMWriter;
-declare function v8New(name:"ЗаписьDOM",... params): ЗаписьDOM;
 declare function v8New(name:"InternetMailProfile",... params): InternetMailProfile;
 declare function v8New(name:"ИнтернетПочтовыйПрофиль",... params): ИнтернетПочтовыйПрофиль;
+declare function v8New(name:"DOMWriter",... params): DOMWriter;
+declare function v8New(name:"ЗаписьDOM",... params): ЗаписьDOM;
 declare function v8New(name:"SecondAuthenticationFactorSetting",... params): SecondAuthenticationFactorSetting;
 declare function v8New(name:"НастройкаВторогоФактораАутентификации",... params): НастройкаВторогоФактораАутентификации;
 declare function v8New(name:"EnumByteOrderMarkUse",... params): EnumByteOrderMarkUse;
@@ -36315,8 +36900,6 @@ declare function v8New(name:"EnumGeographicalSchemaShowMode",... params): EnumGe
 declare function v8New(name:"ПеречислениеРежимОтображенияГеографическойСхемы",... params): ПеречислениеРежимОтображенияГеографическойСхемы;
 declare function v8New(name:"EnumSecureStorageAccessProtectionMethod",... params): EnumSecureStorageAccessProtectionMethod;
 declare function v8New(name:"ПеречислениеСпособЗащитыДоступаБезопасногоХранилища",... params): ПеречислениеСпособЗащитыДоступаБезопасногоХранилища;
-declare function v8New(name:"EnumDataAnalysisNumericValueUseType",... params): EnumDataAnalysisNumericValueUseType;
-declare function v8New(name:"ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных",... params): ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных;
 declare function v8New(name:"EnumCurrentRowUse",... params): EnumCurrentRowUse;
 declare function v8New(name:"ПеречислениеИспользованиеТекущейСтроки",... params): ПеречислениеИспользованиеТекущейСтроки;
 declare function v8New(name:"EnumPredefinedDataUpdate",... params): EnumPredefinedDataUpdate;
@@ -36379,10 +36962,14 @@ declare function v8New(name:"AdRepresentationManager",... params): AdRepresentat
 declare function v8New(name:"МенеджерОтображенияРекламы",... params): МенеджерОтображенияРекламы;
 declare function v8New(name:"EnumDataCompositionConditionalAppearanceUse",... params): EnumDataCompositionConditionalAppearanceUse;
 declare function v8New(name:"ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных",... params): ПеречислениеИспользованиеУсловногоОформленияКомпоновкиДанных;
+declare function v8New(name:"EnumDataChangeType",... params): EnumDataChangeType;
+declare function v8New(name:"ПеречислениеВидИзмененияДанных",... params): ПеречислениеВидИзмененияДанных;
 declare function v8New(name:"EnumAccumulationRegisterAggregatePeriodicity",... params): EnumAccumulationRegisterAggregatePeriodicity;
 declare function v8New(name:"ПеречислениеПериодичностьАгрегатаРегистраНакопления",... params): ПеречислениеПериодичностьАгрегатаРегистраНакопления;
 declare function v8New(name:"EnumPDFSignatureType",... params): EnumPDFSignatureType;
 declare function v8New(name:"ПеречислениеТипПодписиPDF",... params): ПеречислениеТипПодписиPDF;
+declare function v8New(name:"OnReopenFormFromOtherServerFillParameters",... params): OnReopenFormFromOtherServerFillParameters;
+declare function v8New(name:"ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера",... params): ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера;
 declare function v8New(name:"EnumSpreadsheetDocumentSelectionShowModeType",... params): EnumSpreadsheetDocumentSelectionShowModeType;
 declare function v8New(name:"ПеречислениеТипОтображенияВыделенияТабличногоДокумента",... params): ПеречислениеТипОтображенияВыделенияТабличногоДокумента;
 declare function v8New(name:"GraphicalSchemaField",... params): GraphicalSchemaField;
@@ -36415,18 +37002,14 @@ declare function v8New(name:"GeographicCoordinates",... params): GeographicCoord
 declare function v8New(name:"ГеографическиеКоординаты",... params): ГеографическиеКоординаты;
 declare function v8New(name:"CollaborationSystemApplicationID",... params): CollaborationSystemApplicationID;
 declare function v8New(name:"ИдентификаторПриложенияСистемыВзаимодействия",... params): ИдентификаторПриложенияСистемыВзаимодействия;
-declare function v8New(name:"CryptoManager",... params): CryptoManager;
-declare function v8New(name:"МенеджерКриптографии",... params): МенеджерКриптографии;
 declare function v8New(name:"EnumDataCompositionDetailsProcessingAction",... params): EnumDataCompositionDetailsProcessingAction;
 declare function v8New(name:"ПеречислениеДействиеОбработкиРасшифровкиКомпоновкиДанных",... params): ПеречислениеДействиеОбработкиРасшифровкиКомпоновкиДанных;
 declare function v8New(name:"EnumUseSpreadsheetDocumentWidthReduction",... params): EnumUseSpreadsheetDocumentWidthReduction;
 declare function v8New(name:"ПеречислениеИспользованиеШириныСжатияТабличногоДокумента",... params): ПеречислениеИспользованиеШириныСжатияТабличногоДокумента;
-declare function v8New(name:"EnumSliceUse",... params): EnumSliceUse;
-declare function v8New(name:"ПеречислениеИспользованиеСреза",... params): ПеречислениеИспользованиеСреза;
-declare function v8New(name:"WindowsCertificationAuthorityCertificates",... params): WindowsCertificationAuthorityCertificates;
-declare function v8New(name:"СертификатыУдостоверяющихЦентровWindows",... params): СертификатыУдостоверяющихЦентровWindows;
 declare function v8New(name:"InternetMailMessage",... params): InternetMailMessage;
 declare function v8New(name:"ИнтернетПочтовоеСообщение",... params): ИнтернетПочтовоеСообщение;
+declare function v8New(name:"EnumPlannerInsideDragAction",... params): EnumPlannerInsideDragAction;
+declare function v8New(name:"ПеречислениеДействиеПеретаскиванияВнутриПланировщика",... params): ПеречислениеДействиеПеретаскиванияВнутриПланировщика;
 declare function v8New(name:"EnumDataAnalysisStandardizationType",... params): EnumDataAnalysisStandardizationType;
 declare function v8New(name:"ПеречислениеТипСтандартизацииАнализаДанных",... params): ПеречислениеТипСтандартизацииАнализаДанных;
 declare function v8New(name:"DataCompositionDetailsProcessDescription",... params): DataCompositionDetailsProcessDescription;
@@ -36455,6 +37038,8 @@ declare function v8New(name:"FTPConnection",... params): FTPConnection;
 declare function v8New(name:"FTPСоединение",... params): FTPСоединение;
 declare function v8New(name:"OpenSSLSecureConnection",... params): OpenSSLSecureConnection;
 declare function v8New(name:"ЗащищенноеСоединениеOpenSSL",... params): ЗащищенноеСоединениеOpenSSL;
+declare function v8New(name:"WindowsCertificationAuthorityCertificates",... params): WindowsCertificationAuthorityCertificates;
+declare function v8New(name:"СертификатыУдостоверяющихЦентровWindows",... params): СертификатыУдостоверяющихЦентровWindows;
 declare function v8New(name:"FileCertificationAuthorityCertificates",... params): FileCertificationAuthorityCertificates;
 declare function v8New(name:"СертификатыУдостоверяющихЦентровФайл",... params): СертификатыУдостоверяющихЦентровФайл;
 declare function v8New(name:"FileClientCertificate",... params): FileClientCertificate;
@@ -36475,8 +37060,8 @@ declare function v8New(name:"DataCompositionPivotTableDataSource",... params): D
 declare function v8New(name:"ИсточникДанныхСводнойТаблицыКомпоновкиДанных",... params): ИсточникДанныхСводнойТаблицыКомпоновкиДанных;
 declare function v8New(name:"EnumChartSpaceMode",... params): EnumChartSpaceMode;
 declare function v8New(name:"ПеречислениеРежимПробеловДиаграммы",... params): ПеречислениеРежимПробеловДиаграммы;
-declare function v8New(name:"TextExtraction",... params): TextExtraction;
-declare function v8New(name:"ИзвлечениеТекста",... params): ИзвлечениеТекста;
+declare function v8New(name:"URLNavigationData",... params): URLNavigationData;
+declare function v8New(name:"ДанныеПереходаПоНавигационнойСсылке",... params): ДанныеПереходаПоНавигационнойСсылке;
 declare function v8New(name:"AddInSettings",... params): AddInSettings;
 declare function v8New(name:"НастройкиВнешнейКомпоненты",... params): НастройкиВнешнейКомпоненты;
 declare function v8New(name:"EnumChartPointsAxisValuesSource",... params): EnumChartPointsAxisValuesSource;
@@ -36493,6 +37078,8 @@ declare function v8New(name:"CommandInterfaceCommand",... params): CommandInterf
 declare function v8New(name:"КомандаКомандногоИнтерфейса",... params): КомандаКомандногоИнтерфейса;
 declare function v8New(name:"EnumGeographicalSchemaObjectFindType",... params): EnumGeographicalSchemaObjectFindType;
 declare function v8New(name:"ПеречислениеТипПоискаОбъектовГеографическойСхемы",... params): ПеречислениеТипПоискаОбъектовГеографическойСхемы;
+declare function v8New(name:"EnumPlannerInsideDragBoundsChangingVariant",... params): EnumPlannerInsideDragBoundsChangingVariant;
+declare function v8New(name:"ПеречислениеВариантИзмененияГраницПеретаскиванияВнутриПланировщика",... params): ПеречислениеВариантИзмененияГраницПеретаскиванияВнутриПланировщика;
 declare function v8New(name:"ContactDataItemInstantMessaging",... params): ContactDataItemInstantMessaging;
 declare function v8New(name:"ЭлементДанныхКонтактаМгновенныеСообщения",... params): ЭлементДанныхКонтактаМгновенныеСообщения;
 declare function v8New(name:"EnumQueryRecordType",... params): EnumQueryRecordType;
@@ -36541,8 +37128,6 @@ declare function v8New(name:"EnumWindowsCertificateSelectMode",... params): Enum
 declare function v8New(name:"ПеречислениеСпособВыбораСертификатаWindows",... params): ПеречислениеСпособВыбораСертификатаWindows;
 declare function v8New(name:"EnumChartMarkerType",... params): EnumChartMarkerType;
 declare function v8New(name:"ПеречислениеТипМаркераДиаграммы",... params): ПеречислениеТипМаркераДиаграммы;
-declare function v8New(name:"TransferableFileDescription",... params): TransferableFileDescription;
-declare function v8New(name:"ОписаниеПередаваемогоФайла",... params): ОписаниеПередаваемогоФайла;
 declare function v8New(name:"EnumChartScaleTitlePlacement",... params): EnumChartScaleTitlePlacement;
 declare function v8New(name:"ПеречислениеРасположениеЗаголовкаШкалыДиаграммы",... params): ПеречислениеРасположениеЗаголовкаШкалыДиаграммы;
 declare function v8New(name:"EventLogAccessEventUseDescription",... params): EventLogAccessEventUseDescription;
@@ -36653,8 +37238,6 @@ declare function v8New(name:"EnumPDFAttachmentRelationshipType",... params): Enu
 declare function v8New(name:"ПеречислениеТипСвязиВложенияPDF",... params): ПеречислениеТипСвязиВложенияPDF;
 declare function v8New(name:"EnumFormattedDocumentItemType",... params): EnumFormattedDocumentItemType;
 declare function v8New(name:"ПеречислениеТипЭлементаФорматированногоДокумента",... params): ПеречислениеТипЭлементаФорматированногоДокумента;
-declare function v8New(name:"EnumDataChangeType",... params): EnumDataChangeType;
-declare function v8New(name:"ПеречислениеВидИзмененияДанных",... params): ПеречислениеВидИзмененияДанных;
 declare function v8New(name:"EnumClientApplicationBaseFontVariant",... params): EnumClientApplicationBaseFontVariant;
 declare function v8New(name:"ПеречислениеВариантОсновногоШрифтаКлиентскогоПриложения",... params): ПеречислениеВариантОсновногоШрифтаКлиентскогоПриложения;
 declare function v8New(name:"EnumNumericValueType",... params): EnumNumericValueType;
@@ -36687,8 +37270,10 @@ declare function v8New(name:"EnumAssociationRulesDataSourceType",... params): En
 declare function v8New(name:"ПеречислениеТипИсточникаДанныхПоискаАссоциаций",... params): ПеречислениеТипИсточникаДанныхПоискаАссоциаций;
 declare function v8New(name:"PointInTime",... params): PointInTime;
 declare function v8New(name:"МоментВремени",... params): МоментВремени;
-declare function v8New(name:"InternetMailMessageFlags",... params): InternetMailMessageFlags;
-declare function v8New(name:"ФлагиИнтернетПочтовогоСообщения",... params): ФлагиИнтернетПочтовогоСообщения;
+declare function v8New(name:"EnumDataAnalysisNumericValueUseType",... params): EnumDataAnalysisNumericValueUseType;
+declare function v8New(name:"ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных",... params): ПеречислениеТипИспользованияЧисловыхЗначенийАнализаДанных;
+declare function v8New(name:"EnumSliceUse",... params): EnumSliceUse;
+declare function v8New(name:"ПеречислениеИспользованиеСреза",... params): ПеречислениеИспользованиеСреза;
 declare function v8New(name:"EnumDataAnalysisTimeIntervalUnitType",... params): EnumDataAnalysisTimeIntervalUnitType;
 declare function v8New(name:"ПеречислениеТипЕдиницыИнтервалаВремениАнализаДанных",... params): ПеречислениеТипЕдиницыИнтервалаВремениАнализаДанных;
 declare function v8New(name:"EnumCalculationRegisterPeriodType",... params): EnumCalculationRegisterPeriodType;
@@ -36743,6 +37328,8 @@ declare function v8New(name:"EnumItemHeightControlVariant",... params): EnumItem
 declare function v8New(name:"ПеречислениеВариантУправленияВысотойЭлемента",... params): ПеречислениеВариантУправленияВысотойЭлемента;
 declare function v8New(name:"InAppPurchasesManager",... params): InAppPurchasesManager;
 declare function v8New(name:"МенеджерВстроенныхПокупок",... params): МенеджерВстроенныхПокупок;
+declare function v8New(name:"CollaborationSystemBot",... params): CollaborationSystemBot;
+declare function v8New(name:"БотСистемыВзаимодействия",... params): БотСистемыВзаимодействия;
 declare function v8New(name:"CollaborationSystemInfoBaseRegistrationResult",... params): CollaborationSystemInfoBaseRegistrationResult;
 declare function v8New(name:"РезультатРегистрацииИнформационнойБазыСистемыВзаимодействия",... params): РезультатРегистрацииИнформационнойБазыСистемыВзаимодействия;
 declare function v8New(name:"EnumRowGotoDirection",... params): EnumRowGotoDirection;
@@ -36789,6 +37376,8 @@ declare function v8New(name:"EnumDataCompositionSortDirection",... params): Enum
 declare function v8New(name:"ПеречислениеНаправлениеСортировкиКомпоновкиДанных",... params): ПеречислениеНаправлениеСортировкиКомпоновкиДанных;
 declare function v8New(name:"EnumDataCompositionFieldPlacement",... params): EnumDataCompositionFieldPlacement;
 declare function v8New(name:"ПеречислениеРасположениеПоляКомпоновкиДанных",... params): ПеречислениеРасположениеПоляКомпоновкиДанных;
+declare function v8New(name:"DataCompositionTemplate",... params): DataCompositionTemplate;
+declare function v8New(name:"МакетКомпоновкиДанных",... params): МакетКомпоновкиДанных;
 declare function v8New(name:"DeviceToolsManager",... params): DeviceToolsManager;
 declare function v8New(name:"МенеджерСредствУстройства",... params): МенеджерСредствУстройства;
 declare function v8New(name:"DataCompositionAvailableSettingsSource",... params): DataCompositionAvailableSettingsSource;
@@ -36827,18 +37416,20 @@ declare function v8New(name:"ClientApplicationInterfaceContentSettingsItem",... 
 declare function v8New(name:"ЭлементНастройкиСоставаИнтерфейсаКлиентскогоПриложения",... params): ЭлементНастройкиСоставаИнтерфейсаКлиентскогоПриложения;
 declare function v8New(name:"EnumAutoCapitalizationOnTextInput",... params): EnumAutoCapitalizationOnTextInput;
 declare function v8New(name:"ПеречислениеАвтоИзменениеРегистраПриВводеТекста",... params): ПеречислениеАвтоИзменениеРегистраПриВводеТекста;
+declare function v8New(name:"EnumStopMultimediaRecordingButtonPlacement",... params): EnumStopMultimediaRecordingButtonPlacement;
+declare function v8New(name:"ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа",... params): ПеречислениеРасположениеКнопкиОстановкиЗаписиМультимедиа;
 declare function v8New(name:"EnumAutoCorrectionOnTextInput",... params): EnumAutoCorrectionOnTextInput;
 declare function v8New(name:"ПеречислениеАвтоИсправлениеПриВводеТекста",... params): ПеречислениеАвтоИсправлениеПриВводеТекста;
 declare function v8New(name:"EnumAutoShowOpenButtonMode",... params): EnumAutoShowOpenButtonMode;
 declare function v8New(name:"ПеречислениеРежимАвтоОтображенияКнопкиОткрытия",... params): ПеречислениеРежимАвтоОтображенияКнопкиОткрытия;
 declare function v8New(name:"EnumFormPagesState",... params): EnumFormPagesState;
 declare function v8New(name:"ПеречислениеСостояниеСтраницФормы",... params): ПеречислениеСостояниеСтраницФормы;
+declare function v8New(name:"EnumMobileApplicationFunctionalities",... params): EnumMobileApplicationFunctionalities;
+declare function v8New(name:"ПеречислениеФункциональностьМобильногоПриложения",... params): ПеречислениеФункциональностьМобильногоПриложения;
 declare function v8New(name:"EnumApplicationUsePurpose",... params): EnumApplicationUsePurpose;
 declare function v8New(name:"ПеречислениеНазначениеИспользованияПриложения",... params): ПеречислениеНазначениеИспользованияПриложения;
 declare function v8New(name:"Geofence",... params): Geofence;
 declare function v8New(name:"Геозона",... params): Геозона;
-declare function v8New(name:"DataCompositionTemplate",... params): DataCompositionTemplate;
-declare function v8New(name:"МакетКомпоновкиДанных",... params): МакетКомпоновкиДанных;
 declare function v8New(name:"DataCompositionAppearanceTemplateWizard",... params): DataCompositionAppearanceTemplateWizard;
 declare function v8New(name:"КонструкторМакетаОформленияКомпоновкиДанных",... params): КонструкторМакетаОформленияКомпоновкиДанных;
 declare function v8New(name:"MacOSClientCertificate",... params): MacOSClientCertificate;
@@ -36939,8 +37530,18 @@ declare function v8New(name:"GraphicalSchema",... params): GraphicalSchema;
 declare function v8New(name:"ГрафическаяСхема",... params): ГрафическаяСхема;
 declare function v8New(name:"SystemInfo",... params): SystemInfo;
 declare function v8New(name:"СистемнаяИнформация",... params): СистемнаяИнформация;
+declare function v8New(name:"InternetMailMessageFlags",... params): InternetMailMessageFlags;
+declare function v8New(name:"ФлагиИнтернетПочтовогоСообщения",... params): ФлагиИнтернетПочтовогоСообщения;
+declare function v8New(name:"InternetMail",... params): InternetMail;
+declare function v8New(name:"ИнтернетПочта",... params): ИнтернетПочта;
+declare function v8New(name:"TransferableFileDescription",... params): TransferableFileDescription;
+declare function v8New(name:"ОписаниеПередаваемогоФайла",... params): ОписаниеПередаваемогоФайла;
+declare function v8New(name:"TextExtraction",... params): TextExtraction;
+declare function v8New(name:"ИзвлечениеТекста",... params): ИзвлечениеТекста;
 declare function v8New(name:"CryptoKeysContainer",... params): CryptoKeysContainer;
 declare function v8New(name:"КонтейнерКлючейКриптографии",... params): КонтейнерКлючейКриптографии;
+declare function v8New(name:"CryptoManager",... params): CryptoManager;
+declare function v8New(name:"МенеджерКриптографии",... params): МенеджерКриптографии;
 declare function v8New(name:"FileStream",... params): FileStream;
 declare function v8New(name:"ФайловыйПоток",... params): ФайловыйПоток;
 declare function v8New(name:"EnumFileOpenMode",... params): EnumFileOpenMode;
@@ -37059,17 +37660,19 @@ declare function v8New(name:"ScheduledJobDialog",... params): ScheduledJobDialog
 declare function v8New(name:"ДиалогРасписанияРегламентногоЗадания",... params): ДиалогРасписанияРегламентногоЗадания;
 declare function v8New(name:"FormatStringWizard",... params): FormatStringWizard;
 declare function v8New(name:"КонструкторФорматнойСтроки",... params): КонструкторФорматнойСтроки;
-declare function v8New(name:"OnReopenFormFromOtherServerFillParameters",... params): OnReopenFormFromOtherServerFillParameters;
-declare function v8New(name:"ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера",... params): ПараметрыЗаполненияПриПереоткрытииФормыСДругогоСервера;
 declare function v8New(name:"ErrorReport",... params): ErrorReport;
 declare function v8New(name:"ОтчетОбОшибке",... params): ОтчетОбОшибке;
 declare function v8New(name:"SMSMessage",... params): SMSMessage;
 declare function v8New(name:"SMSСообщение",... params): SMSСообщение;
 declare function v8New(name:"PhotoStamp",... params): PhotoStamp;
 declare function v8New(name:"ОтметкаНаФотоснимке",... params): ОтметкаНаФотоснимке;
+declare function v8New(name:"EnumAudioRecordingChannelUse",... params): EnumAudioRecordingChannelUse;
+declare function v8New(name:"ПеречислениеИспользованиеКаналовАудиозаписи",... params): ПеречислениеИспользованиеКаналовАудиозаписи;
+declare function v8New(name:"EnumAudioRecordingFormat",... params): EnumAudioRecordingFormat;
+declare function v8New(name:"ПеречислениеФорматАудиозаписи",... params): ПеречислениеФорматАудиозаписи;
 declare function v8New(name:"EnumCameraLightingType",... params): EnumCameraLightingType;
 declare function v8New(name:"ПеречислениеТипПодсветкиКамеры",... params): ПеречислениеТипПодсветкиКамеры;
-declare function v8New(name:"EnumVideoQuality ",... params): EnumVideoQuality ;
+declare function v8New(name:"EnumVideoQuality",... params): EnumVideoQuality;
 declare function v8New(name:"ПеречислениеКачествоВидеозаписи",... params): ПеречислениеКачествоВидеозаписи;
 declare function v8New(name:"EnumDeviceCameraType",... params): EnumDeviceCameraType;
 declare function v8New(name:"ПеречислениеТипКамерыУстройства",... params): ПеречислениеТипКамерыУстройства;
@@ -37109,6 +37712,8 @@ declare function v8New(name:"EnumAdditionalUserVerificationMethod",... params): 
 declare function v8New(name:"ПеречислениеСпособДополнительнойПроверкиПользователя",... params): ПеречислениеСпособДополнительнойПроверкиПользователя;
 declare function v8New(name:"EnumBiometricVerificationMethod",... params): EnumBiometricVerificationMethod;
 declare function v8New(name:"ПеречислениеСпособБиометрическойПроверки",... params): ПеречислениеСпособБиометрическойПроверки;
+declare function v8New(name:"AudioRecordingSettings",... params): AudioRecordingSettings;
+declare function v8New(name:"ПараметрыАудиозаписи",... params): ПараметрыАудиозаписи;
 declare function v8New(name:"EnumAdStatus",... params): EnumAdStatus;
 declare function v8New(name:"ПеречислениеСтатусРекламы",... params): ПеречислениеСтатусРекламы;
 declare function v8New(name:"EnumAdBannerRepresentation",... params): EnumAdBannerRepresentation;

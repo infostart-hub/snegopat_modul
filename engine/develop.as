@@ -145,7 +145,7 @@ class V8Dumper {
             lines.insertLast("}");
         if (!name1.isEmpty() && name1 != name0)
             lines.insertLast("declare type " + name1 + " = " + name0 + ";");
-        write(join(lines, "\n") + "\n");
+        write(join(lines, "\n", true));
     }
     
     void dumpV8New() {
@@ -206,7 +206,7 @@ class V8Dumper {
                     "GraphicalSchemaItemSwitchCases,MngSrvDataCompositionAreaTemplateField,".find("," + name0 + ",") != badStrIdx)
                     return "";
                 //write("// " + name0 + "\n");
-                if ("Array" ==  name0)
+                if ("Array" ==  name0 || "Promise" == name0)
                     name0 += "V8";
                 else if ("FormItems" == name0)
                     name1 += "Упр";

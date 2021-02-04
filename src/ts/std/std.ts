@@ -1,4 +1,4 @@
-//engine: JScript
+﻿//engine: JScript
 //debug: no
 //uname: stdlib
 //dname: Стандартная библиотека
@@ -464,10 +464,10 @@ export function getAllPredefHotKeys(script, predef) {
 
 export function isFileExist(path: string): boolean {
     var file: File = v8New("File", path);
-    return file.Exist() && !file.IsDirectory();
+    return file.Существует() && !file.IsDirectory();
 }
 
 export function isFolderExist(path: string): boolean {
     var file: File = v8New("File", path);
-    return file.Exist() && file.IsDirectory();
+    return file.Существует() && file.IsDirectory();
 }
