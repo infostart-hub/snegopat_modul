@@ -51,8 +51,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd
-devenv snegopat_modul.sln /Build "Release|x64" /Project snegopat_modul.vcxproj
+      <Command>devenv snegopat_modul.sln /Build "Release|x64" /Project snegopat_modul.vcxproj
 devenv snegopat_modul.sln /Build "Release|x86" /Project snegopat_modul.vcxproj
 </Command>
       <Message>Строим всё...</Message>

@@ -1,0 +1,6 @@
+[snegopat_ide]
+modul  = Snegopat
+proc   = 1cv8.exe
+test   = test.dll, isNeedLoad
+;defs   =
+;args   =

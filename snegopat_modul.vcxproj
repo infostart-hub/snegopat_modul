@@ -75,7 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\modules\snegopat\lib\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
     <TargetName>test</TargetName>
     <TargetExt>.dll</TargetExt>
@@ -85,7 +85,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\modules\snegopat\lib\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
     <TargetName>test</TargetName>
     <GenerateManifest>false</GenerateManifest>
@@ -96,7 +96,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\modules\snegopat\lib\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
     <TargetName>test</TargetName>
     <TargetExt>.dll</TargetExt>
@@ -106,7 +106,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)_build\$(Configuration)\lib\$(PlatformTarget)\</OutDir>
+    <OutDir>$(SolutionDir)_build\$(Configuration)\modules\snegopat\lib\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)_build\objs\$(Configuration)\$(PlatformTarget)\$(ProjectName)\</IntDir>
     <TargetName>test</TargetName>
     <GenerateManifest>false</GenerateManifest>
@@ -152,6 +152,7 @@ cd ..\..
 robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)load" ..\load\ /mir /im /NJH /NJS /NP&gt;nul
 :: Соберем скрипты из TypeScript
 set rootdir=%25cd%25
 cd "$(ProjectDir)"
@@ -206,6 +207,7 @@ cd ..\..
 robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)load" ..\..\load\ /mir /im /NJH /NJS /NP&gt;nul
 :: Соберем скрипты из TypeScript
 set rootdir=%25cd%25
 cd "$(ProjectDir)"
@@ -239,7 +241,7 @@ if not exist lib\x86\snegopat.dll (
    echo Не найден lib\x86\snegopat.dll
    exit 1
 )
-
+cd ..\..\
 :: Собираем архив, работает только на Win10
 for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
 set year=%25year:~0,4%25
@@ -287,6 +289,7 @@ cd ..\..
 robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)load" ..\load\ /mir /im /NJH /NJS /NP&gt;nul
 :: Соберем скрипты из TypeScript
 set rootdir=%25cd%25
 cd "$(ProjectDir)"
@@ -332,11 +335,10 @@ echo Готово
       <EntryPointSymbol>start</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>::echo checking "$(OutDir)$(TargetName).pdb"
-if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+      <Command>if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
 :: Идем в выходной каталог
 cd /d "$(OutDir)"
-cd ..\..
+cd ..\..\..\..\
 :: Собираем архив, работает только на Win10
 for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
 set year=%25year:~0,4%25
@@ -354,6 +356,7 @@ cd ..\..
 robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
 robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
+robocopy "$(ProjectDir)load" ..\..\load\ /mir /im /NJH /NJS /NP&gt;nul
 :: Соберем скрипты из TypeScript
 set rootdir=%25cd%25
 cd "$(ProjectDir)"
