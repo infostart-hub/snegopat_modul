@@ -16,7 +16,7 @@
 
 global.connectGlobals(SelfScript);
 import * as stdlib from "./std";
-import * as helpsys from "./help";
+//import * as helpsys from "./help";
 import * as repo from "./repo";
 import * as snmain from "./snegopat";
 import * as hks from "./hotkeys";
@@ -44,8 +44,9 @@ var FormDriver = (function () {
 	return {
 		switchPage: function (pageNum: number) {
 			if (currentPage) {
-				var i: Page = instances[currentPage];
-				i.exit();
+                var i: Page = instances[currentPage];
+                if (i)
+                    i.exit();
 			}
 			currentPage = form.Panel.Pages.Get(pageNum).Name;
 			if (currentPage in instances)
@@ -242,10 +243,10 @@ class AddinsPage implements Page {
 		for (var idx in this.loaderButtons)
 			this.loaderButtons[idx].Enabled = inUsersAddins && !isAddin;
 		// Теперь надо показать инфу об аддине, если она есть
-		var helpPath;
-		if (isAddin)
-			helpPath = helpsys.getHelpSystem().addinHelpPath((<Addin>cr.object).uniqueName);
-		this.setInfo(helpPath);
+		//var helpPath;
+		//if (isAddin)
+		//	helpPath = helpsys.getHelpSystem().addinHelpPath((<Addin>cr.object).uniqueName);
+		//this.setInfo(helpPath);
 	}
 	onIdle() {
 		var ctrl = this.form.CurrentControl.Name;
@@ -259,7 +260,8 @@ class AddinsPage implements Page {
 			this.lastInfoControl = ctrl;
 		}
 	}
-	setInfo(path: string) {
+    setInfo(path: string) {
+        /*
 		if (!path || !path.length)
 			path = "core\\00 firststep.md0.html";
 		path = env.pathes.help + path;
@@ -270,7 +272,7 @@ class AddinsPage implements Page {
 				this.form.Controls.AddinInfo.Navigate(path);
 		} catch (e) {
 			this.form.Controls.AddinInfo.Navigate(path);
-		}
+		}*/
 	}
 	// Обработчик команды загрузки аддина
 	handlerDoLoadAddin(button: { val: CommandBarButton }) {
@@ -351,13 +353,13 @@ class AddinsPage implements Page {
 			var hf = "/" + env.pathes.help.replace(/\\/g, "/").replace(/ /g, "%20").toLowerCase();
 			if (loc.pathname.toLowerCase().indexOf(hf) == 0) {
 				var path = loc.pathname.substr(hf.length).replace(/\//g, "\\").replace(/%20/g, ' ').toLowerCase();
-				var hs = helpsys.getHelpSystem();
+				/*var hs = helpsys.getHelpSystem();
 				if (path in hs.allTopics) {
 					var p = this.form.Panel;
 					p.CurrentPage = p.Pages.Find("Help");
 					if (hs.allTopics[path]["row"])
 						(<any>this.form.Controls).Find("HelpTree").CurrentRow = hs.allTopics[path]["row"];
-				}
+				}*/
 			}
 		}
 	}
@@ -377,18 +379,20 @@ class AddinsPage implements Page {
 		var row = <UserListRow>this.form.LoadList.Rows.Add();
 		row.LoadStr = "Пользовательские аддины";
 		row.isGroup = true;
-		var rp = repo.getRepo();
-		(function copyvt(src, dst) {
-			for (var i = 0; i < src.Count(); i++) {
-				var from: LoadRow = src.Get(i);
-				var to: UserListRow = <UserListRow>dst.Add();
-				var ai = rp.findByLoadStr(from.Addin);
-				to.LoadStr = from.Addin;
-				to.Dname = ai ? ai.name() : "";
-				to.isGroup = from.isGroup;
-				copyvt(from.Rows, to.Rows);
-			}
-		})(vt.Rows, row.Rows);
+        var rp = repo.getRepo();
+        if (vt) {
+            (function copyvt(src, dst) {
+                for (var i = 0; i < src.Count(); i++) {
+                    var from: LoadRow = src.Get(i);
+                    var to: UserListRow = <UserListRow>dst.Add();
+                    var ai = rp.findByLoadStr(from.Addin);
+                    to.LoadStr = from.Addin;
+                    to.Dname = ai ? ai.name() : "";
+                    to.isGroup = from.isGroup;
+                    copyvt(from.Rows, to.Rows);
+                }
+            })(vt.Rows, row.Rows);
+        }
 	}
 	handlerLoadListOnActivateRow() {
 		var row: UserListRow = this.form.Controls.LoadList.CurrentRow;
@@ -1262,6 +1266,7 @@ class UpdatePage implements Page {
 /**
  * Данный класс служит для связи отображения справки в форме со справочной системой
  */
+/*
 type HelpControls = FormItems & { HelpTree: TableBox, HelpSearch: TextBox, HelpHtml: HTMLDocumentField, HelpBar: CommandBar };
 type HelpTreeRow = { topic: string, data: helpsys.HelpFolder } & ValueTreeRow;
 type HelpTree = { Get(p: number): HelpTreeRow } & ValueTree;
@@ -1371,7 +1376,7 @@ class HelpPage implements Page {
 		} catch (e) { }
 	}
 };
-
+*/
 type AboutControls = FormItems & { AboutHtml: HTMLDocumentField };
 type AboutForm = { Controls: AboutControls } & Form;
 

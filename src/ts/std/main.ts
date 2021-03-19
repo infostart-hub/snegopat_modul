@@ -40,10 +40,10 @@
             loadAddin(prefix + "hotkeys.js", group) &&
             loadAddin(prefix + "macroswnd.js", group) &&
             //loadAddin(prefix + "help.js", group) &&
-            //loadAddin(prefix + "repo.js", group) &&
-            loadAddin(prefix + "snegopat.js", group)// &&
+            loadAddin(prefix + "repo.js", group) &&
+            loadAddin(prefix + "snegopat.js", group) &&
             //loadAddin(prefix + "editors.js", group) &&
-            //loadAddin(prefix + "snegopatwnd.js", group)
+            loadAddin(prefix + "snegopatwnd.js", group)
             ;
     }
 
@@ -63,10 +63,9 @@
                     loadAddin(row.Addin, parentGroup);
             }
         })(profileRoot.getValue(profileKey).Строки, addins.users);
-        /*var snwnd = <any>addins.byUniqueName("snegopatwnd").object();
+        var snwnd = <any>addins.byUniqueName("snegopatwnd").object();
         snwnd.addinsProfileKey = profileKey;
         snwnd.restoreWindowState();
-        */
     }
 
     function loadAddin(loaderStr, group) {

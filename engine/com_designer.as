@@ -360,6 +360,7 @@ void setTrapOnComExportCount() {
         , "?com_exported_count@core@@YA_KXZ",
     #endif
         0, com_export_count);
+    exitAppHandlers.insertLast(function() { trComExportCount.swap(); });
 }
 
 
