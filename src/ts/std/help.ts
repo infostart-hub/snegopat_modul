@@ -10,9 +10,10 @@
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 
-global.connectGlobals(SelfScript);
 import * as stdlib from "./std";
 import {AddinInfo, AddinsFolder} from "./repo";
+
+global.connectGlobals(SelfScript);
 
 /*@
 Скрипт организует работу справочной системы снегопата.

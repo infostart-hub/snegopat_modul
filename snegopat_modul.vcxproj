@@ -113,7 +113,7 @@
     <TargetExt>.dll</TargetExt>
     <ExecutablePath>C:\Projects\snegopatrb\_build\Core.As\Release\lib\x64;$(ExecutablePath)</ExecutablePath>
     <CustomBuildAfterTargets>Link</CustomBuildAfterTargets>
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,25 +145,7 @@ if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
       <Message>Убираем лишнее...</Message>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>:: Идем в выходной каталог
-cd /d "$(OutDir)"
-cd ..\..
-:: Копируем то, что нужно просто скопировать
-robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)load" ..\load\ /mir /im /NJH /NJS /NP&gt;nul
-:: Соберем скрипты из TypeScript
-set rootdir=%25cd%25
-cd "$(ProjectDir)"
-echo Typescript...
-tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
-echo Готово
-:: Проверяем модуль
-echo Синтакс-проверка...
-runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
-echo Готово
-</Command>
+      <Command>bld_tools\build.cmd "$(OutDir)"</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>...Копируем и проверяем файлы ...</Message>
@@ -200,25 +182,7 @@ echo Готово
       <EntryPointSymbol>start</EntryPointSymbol>
     </Link>
     <CustomBuildStep>
-      <Command>:: Идем в выходной каталог
-cd /d "$(OutDir)"
-cd ..\..
-:: Копируем то, что нужно просто скопировать
-robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)load" ..\..\load\ /mir /im /NJH /NJS /NP&gt;nul
-:: Соберем скрипты из TypeScript
-set rootdir=%25cd%25
-cd "$(ProjectDir)"
-echo Typescript...
-tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
-echo Готово
-:: Проверяем модуль
-echo Синтакс-проверка...
-runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
-echo Готово
-</Command>
+      <Command>bld_tools\build.cmd "$(OutDir)"</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>...Копируем и проверяем файлы ...</Message>
@@ -226,6 +190,7 @@ echo Готово
     </CustomBuildStep>
     <PostBuildEvent>
       <Command>if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
+if exist "$(SolutionDir)..\sign.cmd" call "$(SolutionDir)..\sign.cmd" $(TargetPath)
 :: Идем в выходной каталог
 cd /d "$(OutDir)"
 cd ..\..
@@ -241,15 +206,17 @@ if not exist lib\x86\snegopat.dll (
    echo Не найден lib\x86\snegopat.dll
    exit 1
 )
+runner run bldTools /f "$(SolutionDir)bld_tools\"
 cd ..\..\
 :: Собираем архив, работает только на Win10
+echo Пакуем файлы...
 for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
 set year=%25year:~0,4%25
 for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
 if exist %25zipname%25 del /s %25zipname%25
 tar -a -c -f %25zipname%25 *
 </Command>
-      <Message>Пакуем файлы...</Message>
+      <Message>Собираем модуль...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -282,25 +249,7 @@ if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
       <Message>Убираем лишнее...</Message>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>:: Идем в выходной каталог
-cd /d "$(OutDir)"
-cd ..\..
-:: Копируем то, что нужно просто скопировать
-robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)load" ..\load\ /mir /im /NJH /NJS /NP&gt;nul
-:: Соберем скрипты из TypeScript
-set rootdir=%25cd%25
-cd "$(ProjectDir)"
-echo Typescript...
-tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
-echo Готово
-:: Проверяем модуль
-echo Синтакс-проверка...
-runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
-echo Готово
-</Command>
+      <Command>bld_tools\build.cmd "$(OutDir)"</Command>
       <Message>...Копируем и проверяем файлы ...</Message>
       <Outputs>bld</Outputs>
     </CustomBuildStep>
@@ -335,39 +284,11 @@ echo Готово
       <EntryPointSymbol>start</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
-:: Идем в выходной каталог
-cd /d "$(OutDir)"
-cd ..\..\..\..\
-:: Собираем архив, работает только на Win10
-for /f "delims=. tokens=3" %25%25i in ('date /t') do set year=%25%25i
-set year=%25year:~0,4%25
-for /f "delims=. tokens=1,2" %25%25i in ('date /t') do set zipname=..\snegopat-$(Configuration)-%25year%25-%25%25j-%25%25i.zip
-if exist %25zipname%25 del /s %25zipname%25
-tar -a -c -f %25zipname%25 *
-</Command>
-      <Message>Пакуем файлы...</Message>
+      <Command>if exist "$(SolutionDir)..\sign.cmd" call "$(SolutionDir)..\sign.cmd" $(TargetPath)</Command>
+      <Message>Signing...</Message>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>:: Идем в выходной каталог
-cd /d "$(OutDir)"
-cd ..\..
-:: Копируем то, что нужно просто скопировать
-robocopy "$(ProjectDir)addins" addins\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)tools" tools\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)www" www\ /mir /im /NJH /NJS /NP&gt;nul
-robocopy "$(ProjectDir)load" ..\..\load\ /mir /im /NJH /NJS /NP&gt;nul
-:: Соберем скрипты из TypeScript
-set rootdir=%25cd%25
-cd "$(ProjectDir)"
-echo Typescript...
-tsc.exe -p "src\ts" --outDir "%25rootdir%25\addins"
-echo Готово
-:: Проверяем модуль
-echo Синтакс-проверка...
-runner check snegopat -coreas-subst-module-path "$(ProjectDir)" /d ver=8.3.18
-echo Готово
-</Command>
+      <Command>bld_tools\build.cmd "$(OutDir)"</Command>
       <Message>...Копируем и проверяем файлы ...</Message>
       <Outputs>bld</Outputs>
     </CustomBuildStep>
@@ -694,6 +615,7 @@ echo Готово
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </CopyFileToFolders>
+    <None Include="bld_tools\build.as" />
     <None Include="src\ts\std\commands.ts" />
     <None Include="src\ts\std\editors.ts" />
     <None Include="src\ts\std\help.ts" />

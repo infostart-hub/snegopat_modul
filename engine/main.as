@@ -16,7 +16,7 @@ string activeAddin;
 
 uint64 v8ver;
 
-
+// Вызывается из snegopat.dll в момент создания окна заставки 1С
 void run() {
     myFolder = env.moduleDir;
     v8ver = env.processVersion;
@@ -32,6 +32,7 @@ void run() {
     initWorkWithMainFrame();
 }
 
+// Вызывается из Core.As в момент загрузки модуля.
 int main(array<string>&& cmdArgs) {
     return 0;
 }
