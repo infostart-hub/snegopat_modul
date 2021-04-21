@@ -179,6 +179,20 @@ class SelectScriptsForm {
 			this.form.Controls.AddinInfo.SetText("<html><body></body></html>");
 		}
 	}
+	КонтекстноеМенюbtnReload(button) {
+		var row = this.form.Controls.AddinsTree.CurrentRow as AddinsTreeRow;
+		if (row && row.ScriptInfo) {
+			var addin = addins.byUniqueName(row.ScriptInfo.tags.uname);
+			if (addin && addins.isAddinUnloadable(addin)) {
+				try {
+					addins.unloadAddin(addin);
+					addins.loadAddin(row.ScriptInfo.load, addin.group);
+				} catch (e) {
+					Message("Произошла ошибка: " + e.description);
+				}
+			}
+		}
+	}
 }
 
 function openForm() {
