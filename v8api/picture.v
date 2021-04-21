@@ -1,4 +1,7 @@
-﻿// тип V8Picture
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// тип V8Picture
 :struct V8Picture
 	:props
 		int kind

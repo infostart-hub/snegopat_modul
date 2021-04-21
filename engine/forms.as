@@ -1,6 +1,9 @@
-﻿/* forms.as
-    Работа с формами
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с формами
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -183,7 +186,7 @@ IFileEx&& findForm(IFile&& form, const string& name) {
         &&root = openFromStorage(stg, formUuids[i]);
         rootText = file_getString(root, dsUtf8);
         // Выдёргиваем из текста название формы
-        string formName = rootText.match(RegExp("(?i)\\{1,0," + formUuids[i] + "\\},\"([^\"]+)\",")).text(0, 1);
+        string formName = rootText.match(RegExp("(?i)\\{\\d,0," + formUuids[i] + "\\},\"([^\"]+)\",")).text(0, 1);
         if (formName == name)// Нашли нужную форму, вернем файл, ей соответствующий
             return openFromStorage(stg, formUuids[i] + ".0");
     }

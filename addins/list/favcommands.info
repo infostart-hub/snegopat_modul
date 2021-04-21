@@ -1,1 +1,1 @@
-script:FavCommands\FavoriteCommands.js
+script:addins\\FavCommands\FavoriteCommands.js

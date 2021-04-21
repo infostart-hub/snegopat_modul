@@ -1,1 +1,1 @@
-script:dvcs\dvcs_fossil.js
+script:addins\\dvcs\dvcs_fossil.js

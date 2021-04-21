@@ -1,4 +1,7 @@
-﻿// debugger.v - интерфейсы для работы с отладчиком 1С
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// debugger.v - интерфейсы для работы с отладчиком 1С
 
 :iface ICalcValueCreator {77BABCB2-0E4A-4B4D-B218-F28B3A74A5CC}
 :virt

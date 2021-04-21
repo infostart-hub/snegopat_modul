@@ -7,7 +7,7 @@ interface Addin {
 	invokeMacros(macros: string);
 	menu(): string[];
 	invokeMenu(idx: number): void;
-	object(): Object;
+	object(): any;
 }
 interface AddinGroup {
 	name: string;
@@ -20,6 +20,7 @@ interface AddinGroup {
 	addAddin(addin: Addin): void;
 	addinsCount: number;
 	addin(idx: number): Addin;
+	removeGroup(g: AddinGroup): void;
 }
 interface AddinMgr {
 	root: AddinGroup;
@@ -102,7 +103,7 @@ interface IV8DataFile {
 	close(): void;
 }
 interface IV8ExtProp {
-	object: Object;
+	object: any;
 	url: string;
 	idData: string;
 	idEditor: string;
@@ -230,22 +231,22 @@ interface IHotKeys {
 	clearAll(): void;
 	addTemp(Key: number, addinName: string, Macros: string): number;
 	removeTemp(hkID: number): void;
-	addTempFunction(Key: number, disp: Object, name?: string): number;
+	addTempFunction(Key: number, disp: any, name?: string): number;
 	hotKeyToString(code: number): string;
 }
 interface HandlerNode {
-	handler: Object;
+	handler: any;
 	nameOfHandler: string;
 	removed: boolean;
 }
 interface IEventConnector {
-	connect(pSource: Object, eventName: string, handler: Object, handlerName?: string): HandlerNode;
-	disconnect(pSource: Object, eventName: string, handler: Object, handlerName?: string): void;
+	connect(pSource: any, eventName: string, handler: any, handlerName?: string): HandlerNode;
+	disconnect(pSource: any, eventName: string, handler: any, handlerName?: string): void;
 	disconnectNode(node: HandlerNode): void;
-	fireEvent(pSource: Object, eventName: string, args: any[]): void;
-	addCommandHandler(cmdGroupUUID: string, cmdNumber: number, handler: Object, handlerName: string): HandlerNode;
-	delCommandHandler(cmdGroupUUID: string, cmdNumber: number, handler: Object, handlerName: string): void;
-	removeMyListeners(pSource: Object): void;
+	fireEvent(pSource: any, eventName: string, args: any[]): void;
+	addCommandHandler(cmdGroupUUID: string, cmdNumber: number, handler: any, handlerName: string): HandlerNode;
+	delCommandHandler(cmdGroupUUID: string, cmdNumber: number, handler: any, handlerName: string): void;
+	removeMyListeners(pSource: any): void;
 }
 interface IV8ViewPosition {
 	vp;
@@ -386,8 +387,8 @@ interface SelfScript {
 	fullPath: string;
 	uniqueName: string;
 	displayName: string;
-	self: Object;
-	addNamedItem(name: string, unk: Object, global?: boolean): void;
+	self: any;
+	addNamedItem(name: string, unk: any, global?: boolean): void;
 }
 interface V8Value {
 	value;
@@ -440,18 +441,18 @@ interface _IfaceDesigner {
 	cmdService: CommandService;
 	winApi: WinApi;
 	v8New(name: string, ... params);
-	Message(text: string, markerOrPict?, clickHandler?: Object, handlerArg?): void;
+	Message(text: string, markerOrPict?, clickHandler?: any, handlerArg?): void;
 	MessageBox(text: string, style?: number, caption?: string, timeout?: number): number;
 	globalContext(uuidStr: string);
 	designInternalForm(path?: string): void;
 	designScriptForm(path?: string): void;
-	loadFormForScript(selfScript: SelfScript, formName?: string, eventHandler?: Object, eventPrefix?: string);
-	loadScriptForm(path: string, eventHandler: Object, eventPrefix?: string);
-	loadScriptFormEpf(path: string, formName: string, eventHandler: Object, eventPrefix?: string);
+	loadFormForScript(selfScript: SelfScript, formName?: string, eventHandler?: any, eventPrefix?: string);
+	loadScriptForm(path: string, eventHandler: any, eventPrefix?: string);
+	loadScriptFormEpf(path: string, formName: string, eventHandler: any, eventPrefix?: string);
 	toV8Value(varValue): V8Value;
 	getCmdState(cmdGroupUUID: string, cmdNumber: number, subCommandIdx?: number): ICmdUpdateResult;
 	sendCommand(cmdGroupUUID: string, cmdNumber: number, subCommandIdx?: number): boolean;
-	createTimer(msec: number, pDisp: Object, member?: string): number;
+	createTimer(msec: number, pDisp: any, member?: string): number;
 	killTimer(timerID: number): void;
 	saveProfile(): void;
 	snPrint(msg: string): void;
@@ -465,8 +466,8 @@ interface _IfaceSelfScript {
 	fullPath: string;
 	uniqueName: string;
 	displayName: string;
-	self: Object;
-	addNamedItem(name: string, unk: Object, global?: boolean): void;
+	self: any;
+	addNamedItem(name: string, unk: any, global?: boolean): void;
 }
 interface SciStyleDefinition {
 	index: number;
@@ -687,6 +688,19 @@ declare var MINMAXINFO_ptMaxSize_offset: number;
 declare var MINMAXINFO_ptMaxPosition_offset: number;
 declare var MINMAXINFO_ptMinTrackSize_offset: number;
 declare var MINMAXINFO_ptMaxTrackSize_offset: number;
+declare var FILETIME_size: number;
+declare var FILETIME_dwLowDateTime_offset: number;
+declare var FILETIME_dwHighDateTime_offset: number;
+declare var WIN32_FIND_DATA_size: number;
+declare var WIN32_FIND_DATA_dwFileAttributes_offset: number;
+declare var WIN32_FIND_DATA_ftCreationTime_offset: number;
+declare var WIN32_FIND_DATA_ftLastAccessTime_offset: number;
+declare var WIN32_FIND_DATA_ftLastWriteTime_offset: number;
+declare var WIN32_FIND_DATA_nFileSizeHigh_offset: number;
+declare var WIN32_FIND_DATA_nFileSizeLow_offset: number;
+declare var WIN32_FIND_DATA_dwReserved0_offset: number;
+declare var WIN32_FIND_DATA_dwReserved1_offset: number;
+declare var WIN32_FIND_DATA_cFileName_offset: number;
 declare var mbp_size: number;
 declare var mbp_pNode_offset: number;
 declare var mbp_size_offset: number;
@@ -1322,6 +1336,7 @@ declare var VK_ZOOM: number;
 declare var VK_NONAME: number;
 declare var VK_PA1: number;
 declare var VK_OEM_CLEAR: number;
+declare var FILE_ATTRIBUTE_DIRECTORY: number;
 declare var endOfText: number;
 declare var lexUnknown: number;
 declare var lexRemark: number;
@@ -3105,6 +3120,14 @@ declare var CP_THREAD_ACP: number;
 declare var CP_SYMBOL: number;
 declare var CP_UTF7: number;
 declare var CP_UTF8: number;
+declare var FILE_SHARE_READ: number;
+declare var FILE_SHARE_WRITE: number;
+declare var FILE_SHARE_DELETE: number;
+declare var CREATE_NEW: number;
+declare var CREATE_ALWAYS: number;
+declare var OPEN_EXISTING: number;
+declare var OPEN_ALWAYS: number;
+declare var TRUNCATE_EXISTING: number;
 declare var addins: AddinMgr;
 declare var profileRoot: ProfileStore;
 declare var snegopat: Snegopat;
@@ -3118,18 +3141,18 @@ declare var env: EnvironmentData;
 declare var cmdService: CommandService;
 declare var winApi: WinApi;
 declare function v8New(name: string, ... params);
-declare function Message(text: string, markerOrPict?, clickHandler?: Object, handlerArg?): void;
+declare function Message(text: string, markerOrPict?, clickHandler?: any, handlerArg?): void;
 declare function MessageBox(text: string, style?: number, caption?: string, timeout?: number): number;
 declare function globalContext(uuidStr: string);
 declare function designInternalForm(path?: string): void;
 declare function designScriptForm(path?: string): void;
-declare function loadFormForScript(selfScript: SelfScript, formName?: string, eventHandler?: Object, eventPrefix?: string);
-declare function loadScriptForm(path: string, eventHandler: Object, eventPrefix?: string);
-declare function loadScriptFormEpf(path: string, formName: string, eventHandler: Object, eventPrefix?: string);
+declare function loadFormForScript(selfScript: SelfScript, formName?: string, eventHandler?: any, eventPrefix?: string);
+declare function loadScriptForm(path: string, eventHandler: any, eventPrefix?: string);
+declare function loadScriptFormEpf(path: string, formName: string, eventHandler: any, eventPrefix?: string);
 declare function toV8Value(varValue): V8Value;
 declare function getCmdState(cmdGroupUUID: string, cmdNumber: number, subCommandIdx?: number): ICmdUpdateResult;
 declare function sendCommand(cmdGroupUUID: string, cmdNumber: number, subCommandIdx?: number): boolean;
-declare function createTimer(msec: number, pDisp: Object, member?: string): number;
+declare function createTimer(msec: number, pDisp: any, member?: string): number;
 declare function killTimer(timerID: number): void;
 declare function saveProfile(): void;
 declare function snPrint(msg: string): void;

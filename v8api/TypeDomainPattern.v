@@ -1,4 +1,7 @@
-﻿:class TypeDomainPattern
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:class TypeDomainPattern
 :props
 	int_ptr ptr
 :dlls

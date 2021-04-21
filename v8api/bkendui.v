@@ -1,4 +1,5 @@
-﻿//8.3.17.1549
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
 
 // Сервис BkEndUI
 :service IBkEndUI {614E1F45-71A9-11D4-B997-008048DA0334}

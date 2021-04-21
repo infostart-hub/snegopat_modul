@@ -1,1 +1,1 @@
-script:dvcs\diff_doc.js
+script:addins\\dvcs\diff_doc.js

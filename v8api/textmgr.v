@@ -1,4 +1,7 @@
-﻿:class TextPosition
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:class TextPosition
 :props
 	int_ptr vtable
 	uint line

@@ -1,6 +1,8 @@
-﻿/* com_snegopat.as
-    Реализует объект snegopat из SnegAPI.
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Реализует объект snegopat из SnegAPI.
+ */
+
 // Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"

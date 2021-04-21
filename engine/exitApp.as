@@ -1,6 +1,9 @@
-﻿/* exitApp.as
-    Тут обработчики завершения приложения
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Тут обработчики завершения приложения
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -22,6 +25,8 @@ class ExitAppNotifier {
     void onEvent(const Guid&in eventID, long val, IUnknown& obj) {
         for (uint i = 0, im = exitAppHandlers.length; i < im; i++)
             exitAppHandlers[i]();
+        // 1С висит в процессах после выхода - временный хак
+        TerminateProcess(GetCurrentProcess(), 0);
     }
 };
 

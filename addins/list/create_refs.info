@@ -1,1 +1,1 @@
-script:code_gen\create_refs.js
+script:addins\\code_gen\create_refs.js

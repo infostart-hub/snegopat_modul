@@ -1,1 +1,1 @@
-script:dvcs\preCommitHookRedmine.js
+script:addins\\dvcs\preCommitHookRedmine.js

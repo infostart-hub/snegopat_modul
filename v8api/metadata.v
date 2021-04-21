@@ -1,4 +1,7 @@
-﻿// Метаданные
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Метаданные
 :service IMDEditService {9EAEF404-78D2-4841-8332-3C3166212DCD}
 	:virt
 		4

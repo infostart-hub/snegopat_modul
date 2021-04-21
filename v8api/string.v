@@ -1,4 +1,7 @@
-﻿// Описание объекта Строка
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание объекта Строка
 :enum EStringSize
 #if ver < 8.3
 	16 inplaceStringSize

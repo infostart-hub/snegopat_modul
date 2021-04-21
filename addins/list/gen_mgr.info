@@ -1,1 +1,1 @@
-script:code_gen\gen_mgr.js
+script:addins\\code_gen\gen_mgr.js

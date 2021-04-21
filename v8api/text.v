@@ -1,4 +1,7 @@
-﻿// Описание интерфейсов работы с текстом
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с текстом
 :tdef wchar_t uint16
 :enum ControlMode
     ctrlDesign

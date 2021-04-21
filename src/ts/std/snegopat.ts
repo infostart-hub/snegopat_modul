@@ -1,4 +1,4 @@
-//engine: JScript
+﻿//engine: JScript
 //uname: SnegopatMainScript
 //dname: Снегопат
 //debug: no
@@ -6,6 +6,11 @@
 //descr: Скрипт с основными макросами снегопата
 //author: orefkov
 //help: inplace
+
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Основной скрипт снегопата.
+ */
 
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
@@ -98,8 +103,12 @@ stdlib.createMacros(SelfScript.self, "Разработка\\Переключит
 
 stdlib.createMacros(SelfScript.self, "Открыть окно Снегопата",
     "Открытие основного окна Снегопата", (<any>PictureLib).НастройкаСписка,
-    function () { (<any>addins.byUniqueName("snegopatwnd").object()).openWnd(); }
-    );
+    function () {
+        var a = addins.byUniqueName("snegopatwnd");
+        if (!a)
+            a = addins.loadAddin("script:addins\\std\\snegopatwnd.js", addins.sys);
+        (<any>a.object()).openWnd(); 
+    });
 
 stdlib.createMacros(SelfScript.self, "Показать список методов модуля",
     "Открыть диалог со списком методов редактируемого модуля",
@@ -169,6 +178,12 @@ stdlib.createMacros(SelfScript.self, "Перейти к определению",
         return false;
     },
     "Ctrl + Enter"
+);
+
+stdlib.createMacros(SelfScript.self, "Выбрать подключаемые скрипты",
+    "Открыть диалог для выбора загружаемых скриптов", undefined, ()=>{
+        addins.byUniqueName("select_scripts").object().openForm();
+    }
 );
 
 /*

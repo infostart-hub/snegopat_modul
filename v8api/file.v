@@ -1,4 +1,6 @@
-﻿
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
 :enum FileOpenModes
 	0x1		fomAppend
 	0x2		fomTruncate

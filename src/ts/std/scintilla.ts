@@ -8,6 +8,11 @@
 //addin: global
 //addin: scintilla_int
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с редактором Scintilla
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 

@@ -2,8 +2,10 @@
 //uname: qs
 //dname: Быстрый поиск
 //addin: stdcommands
+//help: inplace
+//descr: Быстрый поиск по модулям конфигурации в предварительно сделанной поисковой базе
 
-var ellip = String.fromCharCode(0x2026);
+var ellip = "\u2026";
 // Подключение аддинов, в новой версии будет автоматом через import
 var stdlib = addins.byUniqueName("stdlib").object();
 var global = addins.byUniqueName("global").object();

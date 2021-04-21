@@ -1,1 +1,1 @@
-script:dvcs\diff-v8Reader.js
+script:addins\\dvcs\diff-v8Reader.js

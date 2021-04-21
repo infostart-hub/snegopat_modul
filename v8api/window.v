@@ -1,4 +1,7 @@
-﻿// Описание интерфейсов работы с окнами
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с окнами
 :iface IView {B105A780-F121-11d3-93F7-008048DA11F9}
 :virt
     void drawView(HDC dc, const Rect& rect, const Rect& updateRect)

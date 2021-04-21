@@ -1,4 +1,7 @@
-﻿// Описание элемента.
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание элемента.
 :enum TypeContextInfoItemFrom
 	tcfContext
 	tcfGlobal
@@ -39,9 +42,10 @@
 		list_nodeRef&& node = tolist_node(obj.lst_0);
 		node.ref.p1 = node.ref.p2 = node.ref.p3 = obj.lst_0;
 		node.ref.f = 0x101;
-
-		TextPositionRef&& tp = toTextPosition(obj.self + TypeContextInfoItem_textPos_vt_offset);
-		tp.ref.ctor();
+		#if ver >= 8.3.11.3133
+			TextPositionRef&& tp = toTextPosition(obj.self + TypeContextInfoItem_textPos_vt_offset);
+			tp.ref.ctor();
+		#endif
 	  #endif
 	}
 	---
@@ -138,12 +142,12 @@
 :iface IContextDef {FD7B6CC1-DC8E-11D2-B8D0-008048DA0335}
 :virt
     int propsCount()
-    const uint16& propName(int prop, int lang)
+    int_ptr propName(int prop, int lang)
     bool isPropReadable(int prop)
     bool isPropWritable(int prop)
     int findProp(const v8string&in pszPropName)
     int methsCount()
-    const uint16& methName(int meth, int lang)
+    int_ptr methName(int meth, int lang)
     int paramsCount(int meth)
     bool isParamIn(int meth, int param)
     bool isParamOut(int meth, int param)

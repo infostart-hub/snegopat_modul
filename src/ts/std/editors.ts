@@ -7,6 +7,11 @@
 //help: inplace
 //addin: global
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Выбор альтернативных редакторов.
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 

@@ -1,4 +1,9 @@
-﻿// ModuleTextProcessor.as
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Логика работы с текстом модуля
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 

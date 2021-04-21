@@ -7,6 +7,11 @@
 //help: inplace
 //addin: global
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Набор полезных методов
+ */
+
 /*@
 В данном скрипте собраны несколько методов, полезных для сторонних разработчиков аддинов, чтобы
 им не приходилось "изобретать велосипед", а также более "бесшовно" встраиваться в существующую
@@ -17,6 +22,7 @@
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 import * as stdcommands from "./commands";
+import {AddinsList} from "./build";
 
 global.connectGlobals(SelfScript);
 /**
@@ -463,11 +469,27 @@ export function getAllPredefHotKeys(script, predef) {
 }
 
 export function isFileExist(path: string): boolean {
-    var file: File = v8New("File", path);
+    var file = v8New("File", path);
     return file.Существует() && !file.IsDirectory();
 }
 
 export function isFolderExist(path: string): boolean {
-    var file: File = v8New("File", path);
+    var file = v8New("File", path);
     return file.Существует() && file.IsDirectory();
+}
+
+export function loadAddin(loaderStr, group) {
+    //Message("Load " + loaderStr);
+    if (!addins.loadAddin(loaderStr, group)) {
+        Message("Ошибка загрузки аддина '" + loaderStr + "': " + addins.lastAddinError);
+        return false;
+    }
+    return true;
+}
+
+export function allAddins() {
+    var repoAddin = addins.byUniqueName("all.js");
+    if (!repoAddin)
+        repoAddin = addins.loadAddin("script:addins\\std\\all.js", addins.sys);
+    return repoAddin.object().allAddins as AddinsList;
 }

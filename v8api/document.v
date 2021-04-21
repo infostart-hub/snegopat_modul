@@ -1,4 +1,7 @@
-﻿// Описание интерфейсов работы с документами
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с документами
 :iface IPersistableDocument {39D1961C-1881-4E3F-8453-16AD0A648B05}
 	:virt
 		void save(IFile@+ file)

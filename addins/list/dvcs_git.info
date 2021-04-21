@@ -1,1 +1,1 @@
-script:dvcs\dvcs_git.js
+script:addins\\dvcs\dvcs_git.js

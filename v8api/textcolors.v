@@ -1,4 +1,7 @@
-﻿:enum ColorsKind
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:enum ColorsKind
 	ckRGB
 	ckIdxWin
 	ckIdxWeb

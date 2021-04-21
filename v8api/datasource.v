@@ -1,4 +1,7 @@
-﻿/// Перечисление типов данных
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Перечисление типов данных
 :enum DataSource_SourceType
 	stTable
 	stTree

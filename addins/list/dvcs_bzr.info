@@ -1,1 +1,1 @@
-script:dvcs\dvcs_bzr.js
+script:addins\\dvcs\dvcs_bzr.js

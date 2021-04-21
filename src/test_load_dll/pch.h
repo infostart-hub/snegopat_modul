@@ -1,7 +1,7 @@
 ﻿/*
-* (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
-* Прекомпиленные заголовки
-*/
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Прекомпиленные заголовки
+ */
 
 #ifndef PCH_H
 #define PCH_H

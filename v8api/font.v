@@ -1,4 +1,7 @@
-﻿:struct Font
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:struct Font
 :props
 	int kind
 	LOGFONT lf

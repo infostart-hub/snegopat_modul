@@ -1,11 +1,14 @@
-﻿/* com_sqlite.as
-Работа с sqlite базами
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с sqlite базами
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
 // Обработка одного запроса
-bool processOneQuery(uint pStmt, Value& result, QueryResultProcessor& qp) {
+bool processOneQuery(int_ptr pStmt, Value& result, QueryResultProcessor& qp) {
     uint cols = sqlite3_column_count(pStmt);
     if (cols > 0) {
         if (qp.needColumns()) {
@@ -50,7 +53,7 @@ bool processOneQuery(uint pStmt, Value& result, QueryResultProcessor& qp) {
     return true;
 }
 
-bool processOneQueryAndReset(uint pStmt, Value& result, QueryResultProcessor& qp) {
+bool processOneQueryAndReset(int_ptr pStmt, Value& result, QueryResultProcessor& qp) {
     bool res = processOneQuery(pStmt, result, qp);
     sqlite3_reset(pStmt);
     return res;
@@ -170,8 +173,8 @@ class OneValueQueryResultProcessor : QueryResultProcessor {
 
 // Класс обёртка для работы с базой данных sqlite
 class SqliteBase {
-    uint _db;
-    SqliteBase(uint db) {
+    int_ptr _db;
+    SqliteBase(int_ptr db) {
         _db = db;
     }
     // Выполнить один запрос или несколько запросов, разделённых ';'
@@ -190,8 +193,8 @@ class SqliteBase {
         int count = 0;
         if (resultArray !is null)
             count = resultArray.count();
-        uint pSqlText = strQuery.cstr;
-        uint pStmt;
+        int_ptr pSqlText = strQuery.cstr;
+        int_ptr pStmt;
         for (uint iQuery = 1;;iQuery++) {
             if (SQLITE_OK != sqlite3_prepare16_v2(_db, pSqlText, -1, pStmt, pSqlText)) {
                 setComException("Ошибка в запросе № " + iQuery + ": " + get_lastError());
@@ -223,8 +226,8 @@ class SqliteBase {
     }
     // Подготовить один запрос
     SqliteQuery&& prepare(const string& strQuery) {
-        uint pSqlText = strQuery.cstr;
-        uint pStmt;
+        int_ptr pSqlText = strQuery.cstr;
+        int_ptr pStmt;
         if (SQLITE_OK != sqlite3_prepare16_v2(_db, pSqlText, -1, pStmt, pSqlText)) {
             setComException(get_lastError());
             return null;
@@ -240,15 +243,15 @@ class SqliteBase {
         return sqlite3_total_changes(_db);
     }
     // Возвращает rowid последней добавленной строки
-    uint lastInsertedID() {
+    uint64 lastInsertedID() {
         return sqlite3_last_insert_rowid(_db);
     }
 };
 
 // Класс для выполнения подготовленного запроса
 class SqliteQuery {
-    uint _stmt;
-    SqliteQuery(uint s) {
+    int_ptr _stmt;
+    SqliteQuery(int_ptr s) {
         _stmt = s;
     }
     // Установить параметр по имени или номеру

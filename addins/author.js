@@ -2,7 +2,7 @@
 //uname: author
 //dname: Авторский комментарий
 //author: Александр Кунташов <kuntashov@gmail.com>, http://compaud.ru/blog
-//descr: Быстрая вставка аворских комментариев об изменениях кода
+//descr: Быстрая вставка авторских комментариев об изменениях кода
 //help: inplace
 //www: https://snegopat.ru/forum/viewtopic.php?t=111
 //addin: global

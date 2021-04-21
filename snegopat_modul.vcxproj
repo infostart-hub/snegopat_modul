@@ -206,7 +206,10 @@ if not exist lib\x86\snegopat.dll (
    echo Не найден lib\x86\snegopat.dll
    exit 1
 )
+if exist help rmdir /s /q help
+mkdir help
 runner run bldTools /f "$(SolutionDir)bld_tools\"
+del addins\std\build.js
 cd ..\..\
 :: Собираем архив, работает только на Win10
 echo Пакуем файлы...
