@@ -383,6 +383,16 @@ interface WinApi {
 	getFocus(): number;
 	sendMessage(hWnd: number, message: number, w: number, l: number): number;
 }
+interface StarterInterProcess {
+	callback_;
+	hStarterWnd: number;
+	hMyWnd: number;
+	myWnd;
+	isConnected(): boolean;
+	showNotify(title: string, message: string): void;
+	setInjectStatus(inject: boolean): void;
+	sendBroadcast(source: string, data: string): void;
+}
 interface SelfScript {
 	fullPath: string;
 	uniqueName: string;
@@ -440,6 +450,7 @@ interface _IfaceDesigner {
 	env: EnvironmentData;
 	cmdService: CommandService;
 	winApi: WinApi;
+	starterIpc: StarterInterProcess;
 	v8New(name: string, ... params);
 	Message(text: string, markerOrPict?, clickHandler?: any, handlerArg?): void;
 	MessageBox(text: string, style?: number, caption?: string, timeout?: number): number;
@@ -1155,6 +1166,7 @@ declare var WM_MOVE: number;
 declare var WM_SIZE: number;
 declare var WM_SETFOCUS: number;
 declare var WM_KILLFOCUS: number;
+declare var WM_SETTEXT: number;
 declare var WM_PAINT: number;
 declare var WM_CLOSE: number;
 declare var WM_GETMINMAXINFO: number;
@@ -3030,6 +3042,13 @@ declare var scgProcedure: number;
 declare var scgFunction: number;
 declare var scgProperty: number;
 declare var scgLast: number;
+declare var smLoadModule: number;
+declare var smConnect: number;
+declare var smDisconnect: number;
+declare var smShowNotify: number;
+declare var smStopInject: number;
+declare var smResumeInject: number;
+declare var smBrodcast: number;
 declare var KEYEVENTF_EXTENDEDKEY: number;
 declare var KEYEVENTF_KEYUP: number;
 declare var KEYEVENTF_SCANCODE: number;
@@ -3140,6 +3159,7 @@ declare var develop: Develop;
 declare var env: EnvironmentData;
 declare var cmdService: CommandService;
 declare var winApi: WinApi;
+declare var starterIpc: StarterInterProcess;
 declare function v8New(name: string, ... params);
 declare function Message(text: string, markerOrPict?, clickHandler?: any, handlerArg?): void;
 declare function MessageBox(text: string, style?: number, caption?: string, timeout?: number): number;

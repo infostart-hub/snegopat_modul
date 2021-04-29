@@ -180,6 +180,7 @@ class SettingsPage implements Page {
 		MultiLineBackground: new ParamColor("ЦветФонаМногострочныхСтрок"),
 		GroupMultiLine: new Param("GroupMultiLine"),
 		UseCtrlClicks: new Param("UseCtrlClicks"),
+		ShowNotifyOnStartup: new Param("ShowNotifyOnStartup"),
 		CamelSearchOnUpperOnly: new Param("CamelSearchOnUpperOnly"),
 		//ActionOnSelectScript: new Param("ВариантДействияПриВыбореСкрипта"),
 		//EditScriptCommand: new Param("КомандаЗапускаРедактора"),
@@ -222,7 +223,11 @@ class SettingsPage implements Page {
 			var p: Param = this.params[k];
 			var onform = p.fromForm(this.form);
 			if (!p.validate(onform))
-				return;
+				return false;
+		}
+		for (var k in this.params) {
+			var p: Param = this.params[k];
+			var onform = p.fromForm(this.form);
 			var sp: OptionsEntry = this.optMap[k];
 			var saved = sp ? profileRoot.getValue(sp.profile) : this.optFolder.getValue(k);
 			if (!p.isEqual(onform, saved)) {
@@ -236,8 +241,10 @@ class SettingsPage implements Page {
 				}
 			}
 		}
+		saveProfile();
 		if (reboot)
 			MessageBox("Необходимо перезапустить Конфигуратор для вступления изменений в силу.", mbIconWarning, "Снегопат");
+		return true;
 	}
 	enter() {
 	}
@@ -247,7 +254,7 @@ class SettingsPage implements Page {
 		addins.byUniqueName("select_scripts").object().openForm();
 	}
 	handlerSettingsCmdBarSaveSettings() {
-		this.applyParams();
+		if (this.applyParams())
 		this.enableButtons(false);
 	}
 	handlerSettingsCmdBarRestoreSettings() {

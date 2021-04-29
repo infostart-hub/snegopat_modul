@@ -206,3 +206,11 @@ function getPredefinedHotkeys(predef) {
     predef.setVersion(7);
     stdlib.getAllPredefHotKeys(SelfScript.self, predef);
 }
+
+(function () {
+    if (profileRoot.getValue("Snegopat/Settings/ShowNotifyOnStartup"))
+        starterIpc.showNotify("Снегопат", "Подключен Снегопат");
+    /*events.connect(starterIpc, "Broadcast", function (sbc) {
+        Message("Получена рассылка. От=" + sbc.source + " Данные=" + sbc.data);
+    }, "-");*/
+})();

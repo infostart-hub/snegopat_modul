@@ -14,6 +14,11 @@ OptionsEntry oeUseCtrlClicks("UseCtrlClicks", function(v){v = useCtrlClicks; },
     function(v) {v.getBoolean(useCtrlClicks); },
     function(v){v.getBoolean(useCtrlClicks); return false; });
 
+bool showNotifyOnStartup = true;
+OptionsEntry oeShowNotifyOnStartup("ShowNotifyOnStartup", function(v){v = showNotifyOnStartup; },
+    function(v) {v.getBoolean(showNotifyOnStartup); },
+    function(v){ v.getBoolean(showNotifyOnStartup); return false; });
+
 // Это интерфейс обработчика событий в тексте.
 // В-зависимости от назначенного текстовому документу расширения (встроенный язык, язык запросов и т.п.)
 // создается соответствующий расширению текстовый процессор. Именно он и обрабатывает события в текстовом окне

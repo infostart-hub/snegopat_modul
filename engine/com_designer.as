@@ -46,7 +46,8 @@ class Designer {
     CommandService&&	_cmdService;
     WinApi&&            _winApi;
     //IV8Debugger     _v8debug;
-    
+    StarterInterProcess&& _starterIpc;
+
     Designer() {
         //Print("designer ctor");
         &&oneDesigner = this;
@@ -61,6 +62,7 @@ class Designer {
         &&_env = EnvironmentData();
         &&_cmdService = CommandService();
         &&_winApi = WinApi();
+        &&_starterIpc = StarterInterProcess("Snegopat", &&onStarterNotify);
         //dumpVtable(&&getBkEndUI());
         // Инициализирем всякую всячину
         setTrapOnComExportCount();
@@ -537,4 +539,23 @@ bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, int timeout, HWND
     // восстановим перехват
     trSelectFileName.swap();
     return res;
+}
+
+class StarterBroadcast {
+    string source;
+    string data;
+};
+
+void onStarterNotify(const string& msg) {
+    auto data = msg.split("\xB");
+    if (data.length == 3) {
+        if (data[1] != "" + oneDesigner._starterIpc.hMyWnd) {
+            array<Variant> args(1);
+            StarterBroadcast sbc;
+            sbc.source = data[0];
+            sbc.data = data[2];
+            args[0].setDispatch(createDispatchFromAS(&&sbc));
+            oneDesigner._events.fireEvent(createDispatchFromAS(&&oneDesigner._starterIpc), "Broadcast", args);
+        }
+    }
 }
