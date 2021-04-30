@@ -186,20 +186,17 @@ stdlib.createMacros(SelfScript.self, "Выбрать подключаемые с
     }
 );
 
-/*
+stdlib.createMacros(SelfScript.self, "Приостановить стартер",
+    "Временно приостанавливает подключение Core.As модулей к запускаемым программам", undefined, () => {
+        starterIpc.setInjectStatus(false);
+    }
+);
 
-function macrosПоказатьПараметры() {
-    //return snegopat.showParams()
-}
-
-function macrosЛистатьПараметрыВперед() {
-    //return snegopat.nextParams()
-}
-
-function macrosЛистатьПараметрыНазад() {
-    //return snegopat.prevParams()
-}
-*/
+stdlib.createMacros(SelfScript.self, "Возобновить cтартер",
+    "Возобновляет подключение Core.As модулей к запускаемым программам", undefined, () => {
+        starterIpc.setInjectStatus(true);
+    }
+);
 
 // Метод вызывается при регистрации хоткеев аддина
 function getPredefinedHotkeys(predef) {
@@ -209,7 +206,7 @@ function getPredefinedHotkeys(predef) {
 
 (function () {
     if (profileRoot.getValue("Snegopat/Settings/ShowNotifyOnStartup"))
-        starterIpc.showNotify("Снегопат", "Подключен Снегопат");
+        starterIpc.showNotify("Снегопат", "Подключен Снегопат к " + stdlib.ibName());
     /*events.connect(starterIpc, "Broadcast", function (sbc) {
         Message("Получена рассылка. От=" + sbc.source + " Данные=" + sbc.data);
     }, "-");*/

@@ -493,3 +493,34 @@ export function allAddins() {
         repoAddin = addins.loadAddin("script:addins\\std\\all.js", addins.sys);
     return repoAddin.object().allAddins as AddinsList;
 }
+
+export function ПолучитьНаименованиеБазы1CИзФайлаЗапуска(строкаСоединения) {
+    if(строкаСоединения) {
+        var Path1C = profileRoot.getValue("Dir/AppData") + "..\\1CEStart\\ibases.v8i";
+        var file = v8New("Файл", Path1C);
+
+        if(file.Существует() && !file.ЭтоКаталог()) {
+            var textDoc = v8New("ТекстовыйДокумент");
+            textDoc.Прочитать(Path1C);
+
+            var re_baseName = /^\s*\[\s*(.+)\s*\]\s*$/ig; // имя базы без учета начальных и конечных пробелов
+            var re_connectString = /Connect=.*/ig; // строка соединения
+            
+            var lineCount = textDoc.КоличествоСтрок();
+            var currName = "";
+            for(var lineNum = 1; lineNum <= lineCount; lineNum++) {
+                var line = textDoc.ПолучитьСтроку(lineNum);
+                if(line.match(re_baseName))
+                    currName = RegExp.$1.replace(/^\s*|\s*$/g, '');
+                else if(line.match(re_connectString) && -1 != line.indexOf(строкаСоединения))
+                    return currName;
+            }
+        }
+    }
+    return '';
+}
+
+export function ibName() {
+    return profileRoot.getValue("CmdLine/IBName").replace(/^\s*|\s*$/g, '') ||
+        ПолучитьНаименованиеБазы1CИзФайлаЗапуска(СтрокаСоединенияИнформационнойБазы());
+}
