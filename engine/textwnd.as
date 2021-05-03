@@ -496,7 +496,7 @@ class TextWnd {
             trFrameViewActivate.setTrap(&&fv, IFramedView_onActivate, TextWnd_Activate);
             // Поставим перехват на детач окна, чтобы освобождать наши ресурсы, связанные с ним
             trWindowDetach.setTrapByName("wbase83.dll",
-            #if x86 = 1
+            #if x86
                 "?detach@Window@wbase@@QAEXXZ"
             #else
                 "?detach@Window@wbase@@QEAAXXZ"
@@ -505,7 +505,7 @@ class TextWnd {
                                                         
             // Ставим перехват на роутинг виндовых сообщений для работы контекстной подсказки.
             trDispatchMsg.setTrapByName("wbase83.dll",
-            #if x86 = 1
+            #if x86
                 "?dispatch_msg@wbase@@YAXABUtagMSG@@PAVIMsgDispHook@1@@Z"
             #else
                 "?dispatch_msg@wbase@@YAXAEBUtagMSG@@PEAVIMsgDispHook@1@@Z"

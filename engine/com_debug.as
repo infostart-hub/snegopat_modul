@@ -95,7 +95,7 @@ class IV8Debugger {
     // Вычислить отладочное вырадение
     IDebugEvalResult&& eval(const string& expression) {
         Vector vec;
-        vec.allock(1, 4);
+        vec.alloc(1, sizeof_ptr);
         mem::dword[vec.start] = 0;
         ICalcValueCreator&& cv;
         currentProcess().createByClsid(CalcValueCreator, IID_ICalcValueCreator, cv);

@@ -81,7 +81,7 @@ function SnippetsManager() {
     this.settings.LoadSettings();
 	if (this.settings.current.TemplateFilesList.Count() == 0) {
 		var row = this.settings.current.TemplateFilesList.Add();
-		row.Value = ".\\core\\addins\\snippets.st";
+		row.Value = ".\\addins\\snippets.st";
 	}
     
     this._snippets = {};

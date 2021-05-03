@@ -36,7 +36,7 @@ bool processOneQuery(int_ptr pStmt, Value& result, QueryResultProcessor& qp) {
                         valOfColumn.clear();
                         break;
                     default:
-                        valOfColumn = stringFromAddress(sqlite3_column_text16(pStmt, i));
+                        valOfColumn = string(sqlite3_column_text16(pStmt, i));
                     }
                     qp.setResultValue(i, valOfColumn);
                 }

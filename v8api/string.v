@@ -22,7 +22,7 @@
 	uint8 text
 
 :class v8string
-  // Под x64 тут неоптимальное выравнивание, по 4ым вместо 8
+  // Под x64 тут неоптимальное выравнивание, по 4ём вместо 8
   :align 4
   :props
 	uint len
@@ -49,7 +49,7 @@
 			mem::interlockedIncr(obj.data);
 	}
 	---
-	void ctor3(int_ptr text, uint l)
+	void ctor3(int_ptr text, size_t l)
 	{
 		if (l < inplaceStringSize) {
 			obj.len = l;

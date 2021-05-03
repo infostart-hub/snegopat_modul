@@ -53,12 +53,16 @@
 
 :struct Glyph
 	:props
-		16
+		size_t p1
+		size_t p2
+		size_t p3
+		size_t p4
 		IImage@ block
 		Size size
 		Point point
 
 :enum PictOffset
+#if x86
   #if ver < 8.3.6
 	64 pictOffset
   #elif ver < 8.3.16
@@ -66,5 +70,12 @@
   #else
 	64 pictOffset
   #endif
+#else
+  #if ver < 8.3.16
+	0x68 pictOffset
+  #else
+	0x70 pictOffset
+  #endif
+#endif
 
 :guid CLSID_V8PictureValue {85D76168-7B84-4321-89CC-E04A68E81047}

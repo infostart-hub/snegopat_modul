@@ -50,7 +50,7 @@ void designScriptForm(const string& path) {
     cfdp.setFormSettings(unk, IID_V8PictureCol);
 
     Vector iids;
-    GuidRef&& pIids = toGuid(iids.allock(6, Guid_size));
+    GuidRef&& pIids = toGuid(iids.alloc(6, Guid_size));
     pIids.ref = IID_FormCopy1; &&pIids = pIids + 1;
     pIids.ref = IID_FormCopy2; &&pIids = pIids + 1;
     pIids.ref = IID_FormCopy3; &&pIids = pIids + 1;
@@ -326,8 +326,8 @@ class ScriptRuntimeModule {
     void init(IContext&){}
     // Свойства не пробрасываем, только методы
     int findProp(const v8string&){return 0;}
-    void setPropVal(int, const Value&){}
-    void getPropVal(int, Value&){}
+    void setPropVal(size_t, const Value&){}
+    void getPropVal(size_t, Value&){}
     // Поиск номера метода
     int findMeth(const v8string& name) {
         if (pEventObject !is null) {
@@ -341,16 +341,16 @@ class ScriptRuntimeModule {
     }
     // получение количества параметров. Не все IDispatch поддерживают это.
     // JScript и VBScript - поддерживают.
-    int getParamsCount(int meth) {
+    int getParamsCount(size_t meth) {
         int ret;
         if (pEventObject !is null && pEventObject.getParamsCount(meth, ret))
             return ret;
         return 0;
     }
     // Вызов метода. В params приходит вектор, содержащий указатели на Value
-    bool call(int meth, Value& retVal, Vector& params, bool
+    bool call(size_t meth, Value& retVal, Vector& params, size_t
 	#if ver >= 8.3.9.2016
-		, int
+		, size_t
 	#endif
 	) {
         if (pEventObject is null)
@@ -446,13 +446,13 @@ void checkSaveFormTrapped() {
 // Для этого при создании первой формы мы создадим свою копию виртуальной таблицы
 // для IFramedView с покером и куртизанками, то бишь поменяем в ней две функции
 // и последующие формы будем сразу перенаправлять на патченную таблицу
-uint customFormVtable = 0;
+int_ptr customFormVtable = 0;
 TrapVirtualStdCall trMdiScheme;
 TrapVirtualStdCall trFormStyle;
 
 // Покер
-funcdef void FlocalFrame(IFramedView&, WndType, Guid&, uint&);
-void localFrameTrap(IFramedView& v, WndType type, Guid& id, uint& style) {
+funcdef void FlocalFrame(IFramedView&, size_t, Guid&, uint&);
+void localFrameTrap(IFramedView& v, size_t type, Guid& id, uint& style) {
     FlocalFrame&& original;
     trFormStyle.getOriginal(&&original);
     original(v, type, id, style);
@@ -467,17 +467,16 @@ int mdiTypeTrap(IFramedView&) {
 void patchMyFormVtable(IFramedView&& view) {
     // Для начала создадим при необходимости копию таблицы
     if (customFormVtable == 0) {
-        customFormVtable = malloc(30 * 4);  // 30 функций достаточно
-        uint realVtable = mem::dword[view.self];
+        customFormVtable = malloc(30 * sizeof_ptr);  // 30 функций достаточно
         // Скопируем реальную таблицу
-        mem::memcpy(customFormVtable, realVtable, 30 * 4);
+        mem::memcpy(customFormVtable, mem::int_ptr[view.self], 30 * sizeof_ptr);
         // Перенаправим объект на копию
-        mem::dword[view.self] = customFormVtable;
+        mem::int_ptr[view.self] = customFormVtable;
         // Перехватим две функции
         trMdiScheme.setTrap(view, IFramedView_mdiType, mdiTypeTrap);
         trFormStyle.setTrap(view, IFramedView_localFrame, localFrameTrap);
     } else {
         // Просто перенаправим таблицу
-        mem::dword[view.self] = customFormVtable;
+        mem::int_ptr[view.self] = customFormVtable;
     }
 }

@@ -146,7 +146,7 @@ array<PVV&&> idleHandlers;
 array<PVV&&> idleHandlersSingle;
 class IdleHandler {
     bool first = true;
-    bool onIdle(int count) {
+    bool onIdle(size_t count) {
         if (first) {
             first = false;
             initPackets(piOnFirstIdle);

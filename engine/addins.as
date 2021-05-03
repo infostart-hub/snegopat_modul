@@ -1,6 +1,5 @@
-﻿/*
- * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
- * Работа с аддинами
+﻿/* addins.as
+Работа с аддинами
  */
 
 // Данные строки нужны только для среды разработки и вырезаются препроцессором
@@ -18,17 +17,12 @@ BuiltinAddin&& builtinAddinsList;
 AddinLoader&& loadersList;
 
 bool initAddins() {
-#if x86 = 0
-    Message("Loaded Snegopat 64", mNone);
-#endif
     if (oneDesigner !is null)
         return true;
     // Создаем корень SnegAPI, а он создаст менеджер аддинов
     Designer();
-#if x86 = 1
     if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
-#endif
     return true;
 }
 

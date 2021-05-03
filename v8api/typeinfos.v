@@ -142,12 +142,12 @@
 :iface IContextDef {FD7B6CC1-DC8E-11D2-B8D0-008048DA0335}
 :virt
     int propsCount()
-    int_ptr propName(int prop, int lang)
+    const uint16& propName(int prop, int lang)
     bool isPropReadable(int prop)
     bool isPropWritable(int prop)
     int findProp(const v8string&in pszPropName)
     int methsCount()
-    int_ptr methName(int meth, int lang)
+    const uint16& methName(int meth, int lang)
     int paramsCount(int meth)
     bool isParamIn(int meth, int param)
     bool isParamOut(int meth, int param)

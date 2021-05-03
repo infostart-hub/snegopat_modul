@@ -1,5 +1,5 @@
 /*
-* API файл для модуля "snegopat", создан 20.12.2020 15:29
+* API файл для модуля "snegopat", создан 04.05.2021 01:59
 * Препроцессор:
 * console = 1
 * ver = 8.3.18.0
@@ -182,10 +182,27 @@ enum snegopat__someConstValues {
 	MINMAXINFO_ptMaxPosition_offset = 16,
 	MINMAXINFO_ptMinTrackSize_offset = 24,
 	MINMAXINFO_ptMaxTrackSize_offset = 32,
-	mbp_size = 12,
-	mbp_i1_offset = 0,
-	mbp_i2_offset = 4,
-	mbp_p1_offset = 8,
+	FILETIME_size = 8,
+	FILETIME_dwLowDateTime_offset = 0,
+	FILETIME_dwHighDateTime_offset = 4,
+	WIN32_FIND_DATA_size = 648,
+	WIN32_FIND_DATA_dwFileAttributes_offset = 0,
+	WIN32_FIND_DATA_ftCreationTime_offset = 4,
+	WIN32_FIND_DATA_ftLastAccessTime_offset = 12,
+	WIN32_FIND_DATA_ftLastWriteTime_offset = 20,
+	WIN32_FIND_DATA_nFileSizeHigh_offset = 28,
+	WIN32_FIND_DATA_nFileSizeLow_offset = 32,
+	WIN32_FIND_DATA_dwReserved0_offset = 36,
+	WIN32_FIND_DATA_dwReserved1_offset = 40,
+	WIN32_FIND_DATA_cFileName_offset = 44,
+	mbp_size = 24,
+	mbp_pNode_offset = 0,
+	mbp_size_offset = 4,
+	mbp_fakeNode_offset = 8,
+	mbp_prev_offset = 12,
+	mbp_next_offset = 16,
+	mbp_i1_offset = 20,
+	mbp_i2_offset = 21,
 	SelectFileName_size = 156,
 	SelectFileName_mode_offset = 0,
 	SelectFileName_flags_offset = 4,
@@ -204,10 +221,10 @@ enum snegopat__someConstValues {
 	Command_id_offset = 0,
 	Command_param_offset = 20,
 	Command_object_offset = 24,
-	ICmdSateImpl_size = 44,
-	ICmdSateImpl_id_offset = 16,
-	ICmdSateImpl_cmdState_offset = 36,
-	ICmdSateImpl_lstState_offset = 40,
+	ICmdStateImpl_size = 44,
+	ICmdStateImpl_id_offset = 16,
+	ICmdStateImpl_cmdState_offset = 36,
+	ICmdStateImpl_lstState_offset = 40,
 	KeyAccel_size = 32,
 	KeyAccel_text_offset = 0,
 	KeyAccel_vkCode_offset = 24,
@@ -247,6 +264,8 @@ enum snegopat__someConstValues {
 	DocSink_size = 48,
 	DocSink_vtab_offset = 0,
 	DocSink_refCount_offset = 4,
+	DocSink_i1_offset = 8,
+	DocSink_i2_offset = 12,
 	DocSink_editHelper_offset = 16,
 	DocSink_propId_offset = 20,
 	StorageFileInfo_size = 56,
@@ -315,6 +334,10 @@ enum snegopat__someConstValues {
 	V8Picture_ptGlyph_offset = 84,
 	V8Picture_szGlyph_offset = 92,
 	Glyph_size = 36,
+	Glyph_p1_offset = 0,
+	Glyph_p2_offset = 4,
+	Glyph_p3_offset = 8,
+	Glyph_p4_offset = 12,
 	Glyph_block_offset = 16,
 	Glyph_size_offset = 20,
 	Glyph_point_offset = 28,
@@ -367,7 +390,7 @@ enum snegopat__someConstValues {
 	Vector_size = 12,
 	Vector_start_offset = 0,
 	Vector_end_offset = 4,
-	Vector_allocked_offset = 8,
+	Vector_allocated_offset = 8,
 	v8strData_size = 8,
 	v8strData_refCount_offset = 0,
 	v8strData_text_offset = 4,
@@ -403,6 +426,11 @@ enum snegopat__someConstValues {
 	LocalWString_size = 4,
 	TypeDomainPattern_size = 4,
 	TypeDomainPattern_ptr_offset = 0,
+	list_node_size = 16,
+	list_node_p1_offset = 0,
+	list_node_p2_offset = 4,
+	list_node_p3_offset = 8,
+	list_node_f_offset = 12,
 	TypeContextInfoItem_size = 272,
 	TypeContextInfoItem_name_offset = 0,
 	TypeContextInfoItem_isMethod_offset = 24,
@@ -413,6 +441,8 @@ enum snegopat__someConstValues {
 	TypeContextInfoItem_lst_0_offset = 40,
 	TypeContextInfoItem_lst_4_offset = 44,
 	TypeContextInfoItem_flag1_offset = 48,
+	TypeContextInfoItem_ip1_offset = 52,
+	TypeContextInfoItem_textPos_vt_offset = 56,
 	TypeContextInfoItem_flag0_1_offset = 60,
 	TypeContextInfoItem_flag0_2_offset = 64,
 	TypeContextInfoItem_objectId_offset = 68,
@@ -513,7 +543,6 @@ enum snegopat__someConstValues {
 	tagRECT_top_offset = 4,
 	tagRECT_right_offset = 8,
 	tagRECT_bottom_offset = 12,
-	IBkEndUI_openView = 10,
 	IBkEndUI_doModal1 = 21,
 	IBkEndUI_messageBox = 22,
 	IBkEndUI_doModal2 = 24,
@@ -637,6 +666,7 @@ enum WndMessages {
 	WM_SIZE = 5,
 	WM_SETFOCUS = 7,
 	WM_KILLFOCUS = 8,
+	WM_SETTEXT = 12,
 	WM_PAINT = 15,
 	WM_CLOSE = 16,
 	WM_GETMINMAXINFO = 36,
@@ -822,6 +852,9 @@ enum VirtualKeyCodes {
 	VK_NONAME = 252,
 	VK_PA1 = 253,
 	VK_OEM_CLEAR = 254,
+};
+enum FileAttributes {
+	FILE_ATTRIBUTE_DIRECTORY = 16,
 };
 enum LexemTypes {
 	endOfText = 0,
@@ -1209,6 +1242,7 @@ typedef void (*TimerProc)(uint);
 typedef uint int_ptr;
 typedef uint size_t;
 typedef uint HWND;
+typedef uint HANDLE;
 typedef uint HDC;
 typedef uint COLORREF;
 typedef uint HICON;
@@ -1396,7 +1430,7 @@ public:
 	~utf8string();
 	utf8string();
 	utf8string(uint text, uint len = - 1);
-	utf8string(const utf8string&);
+	utf8string(const utf8string& other);
 	uint length;
 	operator uint() const;
 	operator string() const;
@@ -1418,15 +1452,15 @@ public:
 	string();
 	string(const char*);
 	string(const string& other);
-	string(const uint16&);
+	string(const uint16& rawPtr);
 	string(uint addr, uint len);
-	string(const string& patern, uint repeat);
-	string(uint);
-	string(int);
-	string(uint64);
-	string(int64);
-	string(double);
-	string(bool);
+	string(const string& pattern, uint repeat);
+	string(uint num);
+	string(int num);
+	string(uint64 num);
+	string(int64 num);
+	string(double num);
+	string(bool val);
 	int find(RegExp&&, uint offset = 0, uint& len) const;
 	uint countOf(RegExp&&, uint maxCount = 0, uint offset = 0) const;
 	RegExpResult&& match(RegExp&&, uint maxCount = 0, uint offset = 0) const;
@@ -1435,29 +1469,29 @@ public:
 	array<string>&& split(RegExp&&) const;
 	string extract(RegExp&&) const;
 	string& remove(RegExp&&);
-	void ctor(uint text, uint len);
-	string& operator=(const string& i);
-	string& operator=(uint);
-	string& operator=(int);
-	string& operator=(uint64);
-	string& operator=(int64);
-	string& operator=(double);
-	string operator+(const string&) const;
-	string operator+(uint) const;
-	string operator+(int) const;
-	string operator+(uint64) const;
-	string operator+(int64) const;
-	string operator+(double) const;
-	string operator+(bool) const;
-	string& operator=(bool);
-	string& operator+=(const string&);
-	string& operator+=(uint);
-	string& operator+=(int);
-	string& operator+=(uint64);
-	string& operator+=(int64);
-	string& operator+=(double);
-	string& operator+=(bool);
-	int operator<(const string&) const;
+	void ctor(uint addr, uint len);
+	string& operator=(const string& other);
+	string& operator=(uint num);
+	string& operator=(int num);
+	string& operator=(uint64 num);
+	string& operator=(int64 num);
+	string& operator=(double num);
+	string& operator=(bool val);
+	string operator+(const string& other) const;
+	string operator+(uint num) const;
+	string operator+(int num) const;
+	string operator+(uint64 num) const;
+	string operator+(int64 num) const;
+	string operator+(double num) const;
+	string operator+(bool val) const;
+	string& operator+=(const string& other);
+	string& operator+=(uint num);
+	string& operator+=(int num);
+	string& operator+=(uint64 num);
+	string& operator+=(int64 num);
+	string& operator+=(double num);
+	string& operator+=(bool val);
+	int operator<(const string& other) const;
 	void empty();
 	string& trim();
 	string& ltrim();
@@ -1472,30 +1506,30 @@ public:
 	uint find(uint16 symb, uint offset = 0) const;
 	uint length;
 	bool isEmpty() const;
-	array<string>&& split(const string&) const;
-	string& replace(const string&, const string&);
+	array<string>&& split(const string& delimiter) const;
+	string& replace(const string& pattern, const string& repl);
 	string& replace(uint16 from, uint16 to);
-	string replaced(const string&, const string&) const;
+	string replaced(const string& pattern, const string& repl) const;
 	string& makeUpper();
 	string uppered() const;
 	string& makeLower();
 	string lowered() const;
-	string& insert(uint, const string&);
-	string& insert(uint, uint16);
+	string& insert(uint pos, const string& text);
+	string& insert(uint pos, uint16 symbol);
 	string& remove(uint from, uint count = 1);
-	string& replace(uint, uint16);
+	string& replace(uint pos, uint16 symbol);
 	string substr(int start, int len = 0) const;
 	string mid(uint start, int len = - 1) const;
 	string dup() const;
-	int compareNoCase(const string&) const;
+	int compareNoCase(const string& other) const;
 	uint cstr;
-	uint16 operator[](uint) const;
+	uint16 operator[](uint pos) const;
 	uint setLength(uint);
-	string& padRight(uint16, uint);
-	string& padLeft(uint16, uint);
+	string& padRight(uint16 symbol, uint width);
+	string& padLeft(uint16 symbol, uint width);
 	bool beginFrom(const string& other) const;
 	utf8string toUtf8() const;
-	string& fromUtf8(const utf8string&);
+	string& fromUtf8(const utf8string& other);
 	uint self;
 	operator v8string() const;
 };
@@ -1505,7 +1539,8 @@ public:
 	Guid(const string& str);
 	bool parseString(const string& str);
 	Guid& operator=(const string&);
-	operator string();
+	operator string() const;
+	string str;
 	bool operator==(const Guid&) const;
 	GuidRef&& ref() const;
 	uint self;
@@ -1569,6 +1604,8 @@ public:
 	const string& tempDir;
 	const string& logDir;
 	const string& dumpDir;
+	string currentDir;
+	void set_currentDir(const string& dir) const;
 	string getEnvVar(const string& varName) const;
 	uint logLevel;
 	void showConsole() const;
@@ -1599,7 +1636,7 @@ public:
 	operator ICommandTarget&&();
 	operator ICommandReceiver&&();
 	operator IListCmdState&&();
-	operator ICmdSateImpl&&();
+	operator ICmdStateImpl&&();
 	operator ICmdDescription&&();
 	operator ICommandService&&();
 	operator IV8DataSource&&();
@@ -1752,7 +1789,7 @@ public:
 	bool getParamsCount(int id, int& params);
 	bool call(int id, array<Variant>& args, Variant& res);
 	bool getProp(const string& name, Variant& res);
-	bool setProp(const string& name, Variant& newVal);
+	bool setProp(const string& name, const Variant& newVal);
 };
 
 class IConnectionPointContainer {
@@ -1913,6 +1950,29 @@ public:
 	Point ptMaxTrackSize;	// 0x20 (32)
 };
 
+class FILETIME {
+public:
+	FILETIMERef&& ref() const;
+	uint self;
+	uint dwLowDateTime;	// 0x0 (0)
+	uint dwHighDateTime;	// 0x4 (4)
+};
+
+class WIN32_FIND_DATA {
+public:
+	WIN32_FIND_DATARef&& ref() const;
+	uint self;
+	uint dwFileAttributes;	// 0x0 (0)
+	FILETIME ftCreationTime;	// 0x4 (4)
+	FILETIME ftLastAccessTime;	// 0xC (12)
+	FILETIME ftLastWriteTime;	// 0x14 (20)
+	uint nFileSizeHigh;	// 0x1C (28)
+	uint nFileSizeLow;	// 0x20 (32)
+	uint dwReserved0;	// 0x24 (36)
+	uint dwReserved1;	// 0x28 (40)
+	int cFileName;	// 0x2C (44)
+};
+
 class GuidRef {
 public:
 	uint self;
@@ -2010,6 +2070,24 @@ public:
 	int operator<(MINMAXINFORef&&);
 	MINMAXINFORef&& operator+(uint) const;
 	MINMAXINFO ref;	// 0x0 (0)
+};
+
+class FILETIMERef {
+public:
+	uint self;
+	int operator<(uint);
+	int operator<(FILETIMERef&&);
+	FILETIMERef&& operator+(uint) const;
+	FILETIME ref;	// 0x0 (0)
+};
+
+class WIN32_FIND_DATARef {
+public:
+	uint self;
+	int operator<(uint);
+	int operator<(WIN32_FIND_DATARef&&);
+	WIN32_FIND_DATARef&& operator+(uint) const;
+	WIN32_FIND_DATA ref;	// 0x0 (0)
 };
 
 class Variant {
@@ -2202,11 +2280,11 @@ public:
 	uint self;
 	IUnknown& unk;
 	void openView(IFramedView& view, const ViewPosition& pos = ViewPosition ( ), int openIn = 0, bool activate = true, const Guid& g = IID_NULL);
-	int doModal1(IFramedView& pView, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8);
-	int messageBox(const v8string& text, uint type = 0, uint timeout = 0, uint caption = 0, uint parent = 0, mbp& param = mbp ( ), int i1 = 0, int i2 = 0, int i3 = 0, int i4 = 0, int i5 = 0);
-	int doModal2(IFramedView& pView, int i1, int i2, int i3, int i4, int i5, int i6, int i7);
+	int doModal1(IFramedView& pView, uint i1, uint i2, uint i3, uint i4, uint i5, uint i6, uint i7, uint i8);
+	int messageBox(const v8string& text, uint type = 0, uint timeout = 0, uint caption = 0, uint parent = 0, mbp& param = mbp ( ), uint i1 = 0, uint i2 = 0, uint i3 = 0, uint i4 = 0, uint i5 = 0);
+	int doModal2(IFramedView& pView, uint i1, uint i2, uint i3, uint i4, uint i5, uint i6, uint i7);
 	ModalStates currentModalState();
-	int doMsgLine(const v8string& text, MessageMarker marker = mNone, const Guid& g = IID_NULL, int i1 = 0, IUnknown&& pUnkObject = null, const V8Picture& customMarker = V8Picture ( ));
+	int doMsgLine(const v8string& text, uint marker = mNone, const Guid& g = IID_NULL, uint i1 = 0, IUnknown&& pUnkObject = null, const V8Picture& customMarker = V8Picture ( ));
 	bool GetFileName(SelectFileName& data, int timeout, uint parent);
 };
 
@@ -2227,9 +2305,13 @@ public:
 	mbpRef&& ref() const;
 	uint self;
 	void ctor();
-	int i1;	// 0x0 (0)
-	int i2;	// 0x4 (4)
-	int p1;	// 0x8 (8)
+	uint pNode;	// 0x0 (0)
+	uint size;	// 0x4 (4)
+	uint fakeNode;	// 0x8 (8)
+	uint prev;	// 0xC (12)
+	uint next;	// 0x10 (16)
+	int8 i1;	// 0x14 (20)
+	int8 i2;	// 0x15 (21)
 };
 
 class SelectFileName {
@@ -2261,20 +2343,20 @@ public:
 
 class CommandID {
 public:
-	CommandID(const Guid& group, int num);
+	CommandID(const Guid& group, uint num);
 	CommandIDRef&& ref() const;
 	uint self;
-	void ctor(const Guid& group, int num);
+	void ctor(const Guid& group, uint num);
 	Guid group;	// 0x0 (0)
 	uint num;	// 0x10 (16)
 };
 
 class Command {
 public:
-	Command(const CommandID& _id, int p);
+	Command(const CommandID& _id, uint p);
 	CommandRef&& ref() const;
 	uint self;
-	void ctor(const CommandID& _id, int p);
+	void ctor(const CommandID& _id, uint p);
 	CommandID id;	// 0x0 (0)
 	int param;	// 0x14 (20)
 	uint object;	// 0x18 (24)
@@ -2335,7 +2417,7 @@ public:
 	void setCount(uint count);
 };
 
-class ICmdSateImpl {
+class ICmdStateImpl {
 public:
 	uint AddRef();
 	uint Release();
@@ -2671,8 +2753,10 @@ class DocSink {
 public:
 	DocSinkRef&& ref() const;
 	uint self;
-	int vtab;	// 0x0 (0)
-	uint refCount;	// 0x4 (4)
+	uint vtab;	// 0x0 (0)
+	int refCount;	// 0x4 (4)
+	uint i1;	// 0x8 (8)
+	uint i2;	// 0xC (12)
 	IUnknown&& editHelper;	// 0x10 (16)
 	Guid propId;	// 0x14 (20)
 };
@@ -3332,8 +3416,8 @@ public:
 	Guid id;	// 0x4 (4)
 	uint nameEng;	// 0x14 (20)
 	uint nameRus;	// 0x18 (24)
-	int i1;	// 0x1C (28)
-	int i2;	// 0x20 (32)
+	uint i1;	// 0x1C (28)
+	uint i2;	// 0x20 (32)
 	uint resMod1;	// 0x24 (36)
 	uint resID;	// 0x28 (40)
 	uint resMod2;	// 0x2C (44)
@@ -3459,6 +3543,10 @@ class Glyph {
 public:
 	GlyphRef&& ref() const;
 	uint self;
+	uint p1;	// 0x0 (0)
+	uint p2;	// 0x4 (4)
+	uint p3;	// 0x8 (8)
+	uint p4;	// 0xC (12)
 	IImage&& block;	// 0x10 (16)
 	Size size;	// 0x14 (20)
 	Point point;	// 0x1C (28)
@@ -3710,11 +3798,11 @@ public:
 	void ctor();
 	void dtor();
 	uint size();
-	uint allock(uint count, uint size);
+	uint alloc(uint count, uint size);
 	uint count(uint s);
 	uint start;	// 0x0 (0)
 	uint end;	// 0x4 (4)
-	uint allocked;	// 0x8 (8)
+	uint allocated;	// 0x8 (8)
 };
 
 class v8strData {
@@ -4059,7 +4147,7 @@ public:
 	operator IUnknown&&();
 	uint self;
 	IUnknown& unk;
-	bool hasCustomBackground(int nLineNo, SyntaxItemInfos& items);
+	bool hasCustomBackground(uint nLineNo, SyntaxItemInfos& items);
 	void getColorInfo(uint currentBGColor, SyntaxItemInfos& items, Vector& res);
 };
 
@@ -4169,6 +4257,16 @@ public:
 	uint ptr;	// 0x0 (0)
 };
 
+class list_node {
+public:
+	list_nodeRef&& ref() const;
+	uint self;
+	uint p1;	// 0x0 (0)
+	uint p2;	// 0x4 (4)
+	uint p3;	// 0x8 (8)
+	uint16 f;	// 0xC (12)
+};
+
 class TypeContextInfoItem {
 public:
 	TypeContextInfoItemRef&& ref() const;
@@ -4183,6 +4281,8 @@ public:
 	uint lst_0;	// 0x28 (40)
 	uint lst_4;	// 0x2C (44)
 	uint flag1;	// 0x30 (48)
+	uint ip1;	// 0x34 (52)
+	uint textPos_vt;	// 0x38 (56)
 	uint flag0_1;	// 0x3C (60)
 	uint flag0_2;	// 0x40 (64)
 	Guid objectId;	// 0x44 (68)
@@ -4460,6 +4560,7 @@ public:
 	Numeric();
 	NumericRef&& ref() const;
 	uint self;
+	void dtor();
 	void ctor(const Numeric&);
 	void ctor(int16);
 	void ctor(uint16);
@@ -4489,7 +4590,6 @@ public:
 	bool toInteger(int64&) const;
 	v8string toString() const;
 	void ctor();
-	void dtor();
 	uint allocked;	// 0x0 (0)
 	uint length;	// 0x4 (4)
 	uint prec;	// 0x8 (8)
@@ -5213,7 +5313,7 @@ public:
 	bool center;	// 0xBC (188)
 	bool unk3;	// 0xBD (189)
 	Rect unk4;	// 0xC0 (192)
-	int unk5;	// 0xD0 (208)
+	uint unk5;	// 0xD0 (208)
 	Size unk6;	// 0xD4 (212)
 	bool unk7;	// 0xDC (220)
 };
@@ -5595,6 +5695,15 @@ public:
 	TypeDomainPattern ref;	// 0x0 (0)
 };
 
+class list_nodeRef {
+public:
+	uint self;
+	int operator<(uint);
+	int operator<(list_nodeRef&&);
+	list_nodeRef&& operator+(uint) const;
+	list_node ref;	// 0x0 (0)
+};
+
 class TypeContextInfoItemRef {
 public:
 	uint self;
@@ -5734,6 +5843,8 @@ public:
 // Globals funcs
 void dumpVtable(?&, const string& alias = "");
 bool checkInterface(?&);
+
+namespace mem {
 uint8 byte;
 void set_byte(uint, uint8);
 uint16 word;
@@ -5758,11 +5869,15 @@ int interlockedIncr(uint address);
 int interlockedDecr(uint address);
 int interlockedExchangeAdd(uint address, int value);
 int64 interlockedExchangeAdd64(uint address, int64 value);
-string join(const array<string>&, const string&);
-string formatInt(int64, const string& = "", uint width = 0);
-string formatFloat(double, const string&, uint, uint);
-int64 parseInt(const string&);
-double parseFloat(const string&);
+uint malloc(uint size);
+void free(uint ptr);
+
+} // namespace mem
+string join(const array<string>& strings, const string& delimeter, bool tail = false);
+string formatInt(int64, const string& fmt = "", uint width = 0);
+string formatFloat(double, const string& fmt, uint width, uint prec);
+int64 parseInt(const string& val);
+double parseFloat(const string& val);
 string stringFromAddress(uint ptr, uint len = uint ( - 1 ));
 string format(const string& pattern, const array<any>& args);
 void Print(const string& message);
@@ -5783,7 +5898,9 @@ RectRef&& toRect(uint);
 PointRef&& toPoint(uint);
 SizeRef&& toSize(uint);
 MINMAXINFORef&& toMINMAXINFO(uint);
-uint SysAllocString(uint16&);
+FILETIMERef&& toFILETIME(uint);
+WIN32_FIND_DATARef&& toWIN32_FIND_DATA(uint);
+uint SysAllocString(const uint16&);
 void SysFreeString(uint);
 int sqlite3_open(uint name, uint& db);
 int sqlite3_open_v2(uint name, uint& db, int flags, uint vfs = 0);
@@ -5809,8 +5926,8 @@ int sqlite3_column_bytes16(uint stmt, int iCol);
 double sqlite3_column_double(uint stmt, int iCol);
 int sqlite3_column_int(uint stmt, int iCol);
 int64 sqlite3_column_int64(uint stmt, int iCol);
-uint sqlite3_column_text(uint stmt, int iCol);
-uint sqlite3_column_text16(uint stmt, int iCol);
+uint8& sqlite3_column_text(uint stmt, int iCol);
+uint16& sqlite3_column_text16(uint stmt, int iCol);
 int sqlite3_column_type(uint stmt, int iCol);
 int sqlite3_clear_bindings(uint stmt);
 int sqlite3_bind_parameter_count(uint stmt);
@@ -5851,6 +5968,7 @@ int DestroyCaret();
 int GetClassName(uint hWnd, uint lpClassName, int nMaxCount);
 uint FindWindow(uint lpClassName, uint lpWindowName);
 int IsWindowVisible(uint hWnd);
+int IsWindow(uint hWnd);
 int PeekMessage(MSG& lpMsg, uint hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 uint DialogBoxIndirectParam(uint hInstance, uint hDialogTemplate, uint hWndParent, uint lpDialogFunc, uint dwInitParam);
 int EndDialog(uint hDlg, uint nResult);
@@ -5884,6 +6002,18 @@ uint GetProcAddress(uint hModule, uint lpProcName);
 void DebugBreak();
 uint GetModuleHandle(uint lpModuleName);
 uint GetLastError();
+uint GetFileAttributes(uint path);
+uint FindFirstFile(uint path, uint lpFindFileData);
+int FindNextFile(uint hFindFile, uint lpFindFileData);
+int FindClose(uint hFindFile);
+uint CreateFile(uint lpFileName, uint dwDesiredAccess, uint dwShareMode, uint lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, uint hTemplateFile);
+uint GetFileSize(uint hFile, uint lpFileSizeHigh = 0);
+int ReadFile(uint hFile, uint lpBuffer, uint nNumberOfBytesToRead, uint lpNumberOfBytesRead = 0, uint lpOverlapped = 0);
+int WriteFile(uint hFile, uint lpBuffer, uint nNumberOfBytesToWrite, uint lpNumberOfBytesWritten = 0, uint lpOverlapped = 0);
+int CloseHandle(uint hObject);
+void ExitProcess(uint uExitCode);
+int TerminateProcess(uint hProcess, uint uExitCode);
+uint GetCurrentProcess();
 IDispatch&& createDispatchFromAS(?&);
 IDispatch&& getEnumsDispatch();
 void setComException(const string& description);
@@ -5897,6 +6027,7 @@ ASWnd&& attachWndToFunction(uint hWnd, WndFunc&& handler, const array<uint>& mes
 void sortItemsArray(?& itemsArray, bool asc);
 void screenGeometry(uint hwnd, Rect& rect);
 void getLogFontSizes(LOGFONT& logFont, Size& size);
+void dumpSnegApi(const string& path);
 ParseMethodResult&& parseMethodText(uint text, uint firstLineNum, uint firstLexem = 0, uint allowedPreprocContextes = uint ( - 1 ));
 ModuleStruct&& parseModuleText(uint textPtr, uint startAllowedPreproc = uint ( - 1 ));
 uint preprocContextesToAccessModes(uint ppc);
@@ -5918,7 +6049,7 @@ ICommandState&& toICommandState(uint);
 ICommandTarget&& toICommandTarget(uint);
 ICommandReceiver&& toICommandReceiver(uint);
 IListCmdState&& toIListCmdState(uint);
-ICmdSateImpl&& toICmdSateImpl(uint);
+ICmdStateImpl&& toICmdStateImpl(uint);
 ICmdDescription&& toICmdDescription(uint);
 ICommandService&& toICommandService(uint);
 IV8DataSource&& toIV8DataSource(uint);
@@ -6094,6 +6225,7 @@ BackColorsItemRef&& toBackColorsItem(uint);
 TextPositionRef&& toTextPosition(uint);
 LocalWStringRef&& toLocalWString(uint);
 TypeDomainPatternRef&& toTypeDomainPattern(uint);
+list_nodeRef&& tolist_node(uint);
 TypeContextInfoItemRef&& toTypeContextInfoItem(uint);
 TypeNameInfoRef&& toTypeNameInfo(uint);
 ContextValueInfoRef&& toContextValueInfo(uint);
@@ -6155,7 +6287,7 @@ Guid IID_ICommandState;
 Guid IID_ICommandTarget;
 Guid IID_ICommandReceiver;
 Guid IID_IListCmdState;
-Guid IID_ICmdSateImpl;
+Guid IID_ICmdStateImpl;
 Guid IID_ICmdDescription;
 Guid IID_ICommandService;
 Guid CLSID_CmdStateImpl;
@@ -6390,15 +6522,3 @@ Guid IID_IFormViewCore;
 Guid gMDIClientID;
 Guid IID_Window;
 Rect kEmptyRect;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;

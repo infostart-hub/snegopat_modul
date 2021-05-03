@@ -156,12 +156,16 @@ enum execContextTypes {
 // Кое-какие регэкспы. Пока нормальный парсер не портировал, используем их
 RegExp quotesRex("""["\|][^"]*(?:["\n]|$)""");    // Для определения, заканчивается ли строка текста открытым литералом (т.е. без завершающей кавычки)
 RegExp indentRex("^\\s*");  // Получение отступа строки
+RegExp endLineRex("\\s*;*\\s*$");  // Получение завершения строки - пробелы и точка с запятой
 RegExp extractFileNameRex("[^\\\\/]+$");
 RegExp extractFileExtRex("(?<\\.)[^\\.]*$");
 RegExp whiteSpaceRex("\\s+");
 RegExp ucaseLetterRex("\\p{Upper}");
 RegExp scriptTagsRex("""^(?://(\w+)\:|\$(\w+))[ \t]*(.*?)\s*?\n""");
 RegExp newlines("\\n");
+RegExp typeMethodOnLeft("Тип\\s*\\(\\s*\"$|Тype\\s*\\(\\s*\"$");
+RegExp closedBracketOnRight("^\\s*\\)");
+RegExp quoteOnRight("^\\s*\"");
 
 // Проверка, завершается ли строка текста открытым литералом
 bool isLineEndWithOpenQuote(const string& line) {
@@ -169,11 +173,37 @@ bool isLineEndWithOpenQuote(const string& line) {
     return res.matches > 0 && (res.len(res.matches - 1, 0) == 1 || res.text(res.matches - 1, 0).substr(-1) != "\"");
 }
 
+string readUtf8File(const string& path) {
+    string result;
+    HANDLE hFile = CreateFile(path.cstr, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+    if (INVALID_HANDLE_VALUE != hFile) {
+        int_ptr size = GetFileSize(hFile, 0);
+        if (size > 0) {
+            int_ptr buffer = mem::malloc(size);
+            ReadFile(hFile, buffer, size);
+            fromUtf8(buffer, size, result);
+            mem::free(buffer);
+        }
+        CloseHandle(hFile);
+    }
+    return result;
+}
+
+void fromUtf8(int_ptr buffer, uint size, string& result) {
+    if ((mem::dword[buffer] & 0xFFFFFF) == 0xBFBBEF) {
+        buffer += 3;
+        size -= 3;
+    }
+    uint len = MultiByteToWideChar(CP_UTF8, 0, buffer, size, 0, 0);
+    int_ptr ptr = result.setLength(len);
+    MultiByteToWideChar(CP_UTF8, 0, buffer, size, ptr, len + 1);
+}
+
 // Функция для чтения содержимого текстового файла.
 // Чтение осуществляется с помощью встроенного объекта 1С "ТекстовыйДокумент".
 // Можно указать кодировку текста.
 bool readTextFile(v8string& result, const string& path, const string& encoding = "") {
-    IContext&& textDoc;
+    /*IContext&& textDoc;
     currentProcess().createByClsid(CLSID_TxtEdtDoc, IID_IContext, textDoc);
     if (textDoc is null)
         return false;
@@ -183,17 +213,17 @@ bool readTextFile(v8string& result, const string& path, const string& encoding =
         return false;
     ValueParamsVector params(3);
     params.values[0] = path;
-    
     if (encoding.isEmpty())
         pCtxDef.getParamDefValue(methPos, 1, params.values[1]);
     else
         params.values[1] = encoding;
     pCtxDef.getParamDefValue(methPos, 2, params.values[2]);
-   
     textDoc.callMeth(methPos, params.retVal, params.args);
-    
     ITextManager&& itm = textDoc.unk;
     itm.getTextManager().save(result);
+    */
+    string text = readUtf8File(path);
+    result = text;
     return true;
 }
 
@@ -205,7 +235,7 @@ class ValueParamsVector {
     ValueParamsVector(uint argsCount = 0) {
         &&values = array<Value>(argsCount);
         if (argsCount > 0) {
-            args.allock(argsCount, sizeof_ptr);
+            args.alloc(argsCount, sizeof_ptr);
             for (uint i = 0; i < argsCount; i++)
                 mem::int_ptr[args.start + i * sizeof_ptr] = values[i].self;
         }

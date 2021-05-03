@@ -59,9 +59,10 @@
 
 :struct DocSink
 	:props
-		int vtab
-		uint refCount
-		+8
+		int_ptr vtab
+		int refCount
+		size_t i1
+		size_t i2
 		IUnknown@ editHelper
 		Guid propId
 		+12

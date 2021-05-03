@@ -161,6 +161,7 @@ class SelectScriptsForm {
 			}
 		})(this.form.AddinsTree.Rows, vt.Rows, addins.users);
 		profileRoot.setValue(profileKey, vt);
+		saveProfile();
 		this.form.Close();
 	}
 	CmdBarHelp(button) {

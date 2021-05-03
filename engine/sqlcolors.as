@@ -119,7 +119,7 @@ bool initGroupingAndColoring() {
     } else if (trITextExtColors_getColors.state == trapDisabled)
         trITextExtColors_getColors.swap();
     // Если включена раскраска строк в цвета запросов, надо разобраться с фоном
-    /*if (colorizedMultiLines) {
+    if (colorizedMultiLines) {
         if (enableBkColorForMultiLine) {
             // Надо устанавливать или восстанавливать перехват на получение фона строки
             // Для начала выясним, какой тип перехвата нужно делать
@@ -156,18 +156,19 @@ bool initGroupingAndColoring() {
             if (trTxtExt_getBG.state == trapEnabled)
                 trTxtExt_getBG.swap();
         }
-    }*/
+    }
     return true;
 }
 
 void printSyntaxInfos(const string& text, Vector& infos) {
     SyntaxItemInfoRef&& s = toSyntaxItemInfo(infos.start);
-    doLog("------", 3);
+    doLog("----->> lexem=" + infos.count(SyntaxItemInfo_size), 3);
     while (s < infos.end) {
         doLog(text.substr(s.ref.start, s.ref.len) + "  blockKind=" + s.ref.blockKind + " blockMode=" + s.ref.blockMode + " isBlock=" + int(s.ref.isBlock)
             + " cat=" + s.ref.lexemCategory + " lexType=" + s.ref.lexemType, 3);
         &&s = s + 1;
     }
+    doLog("<<-----", 3);
 }
 
 // Обработчик перехваченной функции синтакс-разбора строки
@@ -177,10 +178,9 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
     TE_gc&& orig;
     trITextExtColors_getColors.getOriginal(&&orig);
     orig(pThis, sourceLine, infos);
-    // На нет и суда нет
-    if (infos.end == infos.start)
+    // На нет и суда нет. А парсинг нескольких строк вызывается не для раскраски
+    if (infos.end == infos.start || sourceLine.str.find("\n") != badStrIdx)
         return;
-    //printSyntaxInfos(sourceLine.str, infos);
     // Проверим на группирующие комментарии
     string srcLine = sourceLine.str;
     SyntaxItemInfoRef&& sInfo = toSyntaxItemInfo(infos.start);
@@ -188,6 +188,7 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
         return;
     if (!colorizedMultiLines && !groupMultiLine)
         return;
+    
     // Дополнительно парсить языком запросов будем, если первый токен - строковая константа, начинающаяся с |,
     // либо последний токен - открытая строковая константа
     if (!((vlString == sInfo.ref.lexemCategory && '|' == srcLine[sInfo.ref.start])
@@ -200,7 +201,7 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
         array<SQLBlockInfo&&>&& newBlocks = parseQuoteLexemAsSQL(srcLine, infos, newCount);
         // Теперь все полученные блоки нужно слить в один вектор
         infos.dtor();
-        int_ptr pWrite = infos.allock(newCount, SyntaxItemInfo_size);
+        int_ptr pWrite = infos.alloc(newCount, SyntaxItemInfo_size);
         for (uint idx = 0, m = newBlocks.length; idx < m; idx++) {
             SQLBlockInfo&& pBlock = newBlocks[idx];
             int_ptr size = pBlock.tokens.size();
@@ -248,7 +249,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
     uint tokensCount = tokens.count(SyntaxItemInfo_size);
     array<SQLBlockInfo&&> sqlBlocks;
     newCount = 0;
-    printSyntaxInfos(srcLine, tokens);
+    //printSyntaxInfos(srcLine, tokens);
     for (uint idx = 0; idx < tokensCount; idx++) {
         // Один блок по-любому войдет в новый вектор, либо как есть, либо как открывающая кавычка
         newCount++;
@@ -262,7 +263,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
         if (needProcess) {
             // Добавим блок для открывающей кавычки
             SQLBlockInfo&& blockInfo = SQLBlockInfo();
-            SyntaxItemInfoRef&& sCopy = blockInfo.addSyntaxBlock(sInfo.ref);
+            SyntaxItemInfoRef&& sCopy = blockInfo.setSyntaxBlock(sInfo.ref);
             sCopy.ref.len = 1;
             sCopy.ref.lexemCategory = vlUnknown;
             sCopy.ref.lexemType = 1000;
@@ -321,7 +322,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
             if (!withoutEnd) {
                 newCount++;
                 SQLBlockInfo&& blockInfo1 = SQLBlockInfo();
-                SyntaxItemInfoRef&& sCopy1 = blockInfo1.addSyntaxBlock(sInfo.ref);
+                SyntaxItemInfoRef&& sCopy1 = blockInfo1.setSyntaxBlock(sInfo.ref);
                 sCopy1.ref.len = 1;
                 sCopy1.ref.start = sInfo.ref.start + sInfo.ref.len - 1;
                 sCopy1.ref.lexemCategory = vlUnknown;
@@ -331,7 +332,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
         } else {
             // Просто копируем блок
             SQLBlockInfo&& blockInfo = SQLBlockInfo();
-            blockInfo.addSyntaxBlock(sInfo.ref);
+            blockInfo.setSyntaxBlock(sInfo.ref);
             sqlBlocks.insertLast(&&blockInfo);
         }
         &&sInfo = sInfo + 1;
@@ -376,8 +377,8 @@ void checkForGroupingMultiLine(const string& srcLine, Vector& infos) {
 class SQLBlockInfo {
     Vector tokens;
     // Создает вектор для одного элемента и копирует в него элемент
-    SyntaxItemInfoRef&& addSyntaxBlock(SyntaxItemInfo& si) {
-        tokens.allock(1, SyntaxItemInfo_size);
+    SyntaxItemInfoRef&& setSyntaxBlock(SyntaxItemInfo& si) {
+        tokens.alloc(1, SyntaxItemInfo_size);
         SyntaxItemInfoRef&& p = toSyntaxItemInfo(tokens.start);
         p.ref.copy(si);
         return p;
@@ -451,19 +452,19 @@ void processGetColorInfo(Vector& items, Vector& res) {
                 res.dtor();
             }
             res.start = newSpace;
-            res.end = res.allocked = res.start + newSize;
+            res.end = res.allocated = res.start + newSize;
         }
     }
 }
 
-bool TxtExt_hasCustomBackground(ITextExtBackColors& pThis, int nLineNo, SyntaxItemInfos& items) {
+bool TxtExt_hasCustomBackground(ITextExtBackColors& pThis, size_t nLineNo, SyntaxItemInfos& items) {
     trTxtExt_hasBG.swap();
     bool res = pThis.hasCustomBackground(nLineNo, items);
     trTxtExt_hasBG.swap();
     return res || processHasCustomBackground(items.infos);
 }
 
-void TxtExt_getColorInfo(ITextExtBackColors& pThis, COLORREF currentBGColor, SyntaxItemInfos& items, Vector& res) {
+void TxtExt_getColorInfo(ITextExtBackColors& pThis, size_t currentBGColor, SyntaxItemInfos& items, Vector& res) {
     trTxtExt_getBG.swap();
     pThis.getColorInfo(currentBGColor, items, res);
     trTxtExt_getBG.swap();

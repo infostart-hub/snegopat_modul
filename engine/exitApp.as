@@ -26,7 +26,9 @@ class ExitAppNotifier {
         for (uint i = 0, im = exitAppHandlers.length; i < im; i++)
             exitAppHandlers[i]();
         // 1С висит в процессах после выхода - временный хак
-        TerminateProcess(GetCurrentProcess(), 0);
+        setTimer(5000, function(int_ptr timerId) {
+            TerminateProcess(GetCurrentProcess(), 0);
+        });
     }
 };
 

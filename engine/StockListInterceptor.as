@@ -7,9 +7,7 @@
 #pragma once
 #include "../all.h"
 
-#if x86 = 1
 Packet stdListIntercept("stdListIntercept", hookStdList, piOnMainEnter);
-#endif
 
 string tpstr(const TextPosition& tp) {
     return "[" + tp.line + ", " + tp.col + "]";
@@ -59,14 +57,14 @@ bool hookStdList() {
 uint IAssistList_getDataSourceTrap(IAssistList& pThis, IV8DataSource&&& result,
     ITextEditor& editor,
 #if ver >= 8.3.8
-    int i10,
+    size_t i10,
 #endif
     IV8Bookmark&&& bkmk,
     uint& itemsCount,
-    int i1,
-    int method, int i3
+    size_t i1,
+    size_t method, size_t i3
 #if ver >= 8.3
-    , int i4, int i5, int i6, int i7, int i8, int i9
+    , size_t i4, size_t i5, size_t i6, size_t i7, size_t i8, size_t i9
 #endif
 ) {
     //Message("Intercept list " + method + " i1=" + i1 + " i3=" + i3);
@@ -149,7 +147,7 @@ bool showAssistList(IAssistList& lst, TextWnd&& wnd, IV8DataSource&& ds, IV8Book
             if (typeContextInfoItem.isMethod) {
                 if (!methods.insert(name))  // ключ уже был в наборе
                     continue;
-                &&newItem = V8StockMethod(typeContextInfoItem.from, name, item, lst, ds);
+                &&newItem = V8StockMethod(typeContextInfoItem.from, name, typeContextInfoItem.haveRetVal, item, lst, ds);
             } else if (typeContextInfoItem.from == tcfKeyword) {
                 &&newItem = V8StockKeyword(name, item, lst, ds);
             } else if (typeContextInfoItem.from == tcfTemplate) {
@@ -199,6 +197,7 @@ bool showAssistList(IAssistList& lst, TextWnd&& wnd, IV8DataSource&& ds, IV8Book
     return true;
 }
 
+// используется в числе прочих при обработке выбора типа данных для глобального метода Тип()
 class V8StockItemBase : SmartBoxInsertableItem {
     string insert;
     TextPosition tpStart;
@@ -214,9 +213,35 @@ class V8StockItemBase : SmartBoxInsertableItem {
     }
     void updateInsertPosition(TextWnd& wnd, TextPosition& start, TextPosition& end, bool& notIndent) override {
         start = tpStart;
+
+        TextPosition caretPos;
+        wnd.ted.getCaretPosition(caretPos, false);
+
+        string currleft = getTextLine(wnd.textDoc.tm, caretPos.line).substr(0, caretPos.col - 1);
+        string currright = getTextLine(wnd.textDoc.tm, caretPos.line).substr(caretPos.col - 1);
+
+        // Message("V8StockItemBase updateInsertPosition currleft " + currleft);
+        // Message("V8StockItemBase updateInsertPosition currright " + currright);
+
+        if(currleft.match(typeMethodOnLeft).matches > 0){
+            end.col ++; //убираем лишнюю кавычку справа при вставке
+            insert = insert.substr(0, insert.length - 1) + "¦\"" ;//имена вставки всегда приходят в кавычках, поэтому сейчас вставляю курсор внутрь
+            if(currright.match(quoteOnRight).matches == 0){ // если не внутри Тип("¦")
+                insert += ")";
+                //выкинуть правую скобку, если она есть, чтобы правая скобка в разных кейсах ставилась верно всегда
+                bool haveBracketOnRight = currright.match(closedBracketOnRight).matches > 0; 
+                if (haveBracketOnRight){
+                    end.col ++;
+                }
+
+                if (getTextLine(wnd.textDoc.tm, end.line).substr(end.col - 1).replace(indentRex, "").isEmpty())   // Если остаток строки пустой,
+                    insert += ";";
+            }
+        }
     }
     void textForInsert(string&out text) {
         text = insert;
+        // Message("V8StockItemBase textForInsert text " + text);
     }
     void textForTooltip(string& text)  // Получить тултип элемента
     {
@@ -247,7 +272,7 @@ class V8StockKeyword : V8StockItemBase {
         } else if (d.key == "функция") {
             insert = "Функция ¦()\nКонецФункции";
         } else if (d.key == "возврат") {
-            insert = "Возврат¦;";
+            insert = "Возврат ¦;";
         } else if (d.key == "иначеесли")
             insert = "ИначеЕсли ¦ Тогда";
         notIndent = true;
@@ -276,7 +301,9 @@ class V8StockKeyword : V8StockItemBase {
 };
 
 class V8StockMethod : V8StockItemBase {
-    V8StockMethod(int from, const string& d, IV8Bookmark&& b, IAssistList&& l, IV8DataSource&& vd) {
+    bool isFunction;
+    
+    V8StockMethod(int from, const string& d, bool isFunc, IV8Bookmark&& b, IAssistList&& l, IV8DataSource&& vd) {
         imagesIdx idx;
         if (from == tcfModuleSelf)
             idx = imgPublicMethod;
@@ -287,28 +314,64 @@ class V8StockMethod : V8StockItemBase {
         else
             idx = imgMethodWithKey;
         super(d, idx, b, l, vd);
+
+        isFunction = isFunc;
+
+        // Message("V8StockMethod " + getCategory() + ", " + d + ", isFunction " + isFunction); 
     }
     string getCategory() {
+        string type = "Процедура";
+        if (isFunction)
+            type = "Функция";
         switch (d.image) {
-        case imgPublicMethod:
-            return "Метод модуля";
-        case imgCtxMethod:
-            return "Метод контекста";
-        case imgCmnModule:
-            return "Метод общего модуля";
+            case imgPublicMethod:
+                return type + " модуля";
+            case imgCtxMethod:
+                return type + " контекста";
+            case imgCmnModule:
+                return type + " общего модуля";
         }
-        return builtinFuncs.contains(d.descr) ? "Встроенная функция" : "Глобальный метод";
+        if (builtinFuncs.contains(d.descr))
+            return "Встроенная функция";
+        if (isFunction)
+            return "Глобальная функция";
+        else
+            return "Глобальный метод";
     }
     void updateInsertPosition(TextWnd& wnd, TextPosition& start, TextPosition& end, bool& notIndent) override {
+
+        // Message("before V8StockItemBase::updateInsertPosition insert " + insert);
         V8StockItemBase::updateInsertPosition(wnd, start, end, notIndent);
+
+        // TODO есть пересечение кода с MethodInsertable::updateInsertPosition
+        TextPosition caretPos;
+        wnd.ted.getCaretPosition(caretPos, false);
+
         wchar_t lastSymbol = insert[insert.length - 1];
         if (lastSymbol == '(')
-            insert += "¦)";
+            insert += "¦";
         if (lastSymbol == '(' || lastSymbol == ')') {
             if (getTextLine(wnd.textDoc.tm, end.line).substr(end.col - 1).replace(indentRex, "").isEmpty())   // Если остаток строки пустой,
-                insert += ";";         // добавим запяточку
+                if (lastSymbol == '(')
+                    insert += ");";
+                else
+                    insert += ";";
+            else {
+                string lastExpr = getTextLine(wnd.textDoc.tm, caretPos.line).substr(caretPos.col - 1)
+                    .replace(endLineRex, "");
+                array<string>&& tail = lastExpr.split(whiteSpaceRex);
+                if (tail.length > 0) {
+                    lastExpr = tail[0];
+                }
+                insert += lastExpr + ")";
+                end.col += lastExpr.length;
+    
+                // Message("in V8StockMethod::updateInsertPosition lastExpr " + lastExpr);
+            }
         }
+
     }
+
 #if ver >= 8.3.4
     void afterInsert(TextWnd&& editor) {
         showV8MethodsParams();

@@ -206,7 +206,7 @@ function getPredefinedHotkeys(predef) {
 
 (function () {
     if (profileRoot.getValue("Snegopat/Settings/ShowNotifyOnStartup"))
-        starterIpc.showNotify("Снегопат", "Подключен Снегопат к " + stdlib.ibName());
+        starterIpc.showNotify(`Снегопат Core ${env.sVersion} (${env.arch})`, `К ${stdlib.ibName()} подключен Снегопат`);
     /*events.connect(starterIpc, "Broadcast", function (sbc) {
         Message("Получена рассылка. От=" + sbc.source + " Данные=" + sbc.data);
     }, "-");*/

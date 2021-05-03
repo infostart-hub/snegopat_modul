@@ -7,9 +7,7 @@
 #pragma once
 #include "../all.h"
 
-#if x86 = 1
 Packet piSetTrapOnDoModal("trapDoModal", setTrapOnDoModal, piOnMainWindow);
-#endif
 
 class IExtControl {};
 
@@ -287,7 +285,7 @@ class DoModalPatchedTables {
     POnInitialUpdate&& real_iu;
     POnFinalOpen&& real_fo;
 };
-UintMap<DoModalPatchedTables> mapFramedViewVTablesToPatches;
+UintMap<DoModalPatchedTables&&> mapFramedViewVTablesToPatches;
 
 class ModalDialogInfo {
     DoModalPatchedTables&& originals;
@@ -375,7 +373,7 @@ void onFrameViewFinalOpen_trap(IFramedView& pView) {
 // этих методов.
 DoModalPatchedTables&& findPatchedTable(IFramedView& view) {
     DoModalPatchedTables&& patch = null;
-    uint pVtable = mem::dword[view.self];	// Получим адрес vtable этого view
+    int_ptr pVtable = mem::int_ptr[view.self];	// Получим адрес vtable этого view
     auto fnd = mapFramedViewVTablesToPatches.find(pVtable); // поищем его в уже патченных
     if (fnd.isEnd()) {
         // эту таблицу еще не патчили. Создадим её копию.
@@ -390,7 +388,7 @@ DoModalPatchedTables&& findPatchedTable(IFramedView& view) {
         patch.trFinalOpen.setTrap(&&view, IFramedView_onFinalOpen, onFrameViewFinalOpen_trap);
         patch.trFinalOpen.getOriginal(&&patch.real_fo);
         // запомним эту vtable, что для неё уже есть патченная копия
-        mapFramedViewVTablesToPatches.insert(pVtable, patch);
+        mapFramedViewVTablesToPatches.insert(pVtable, &&patch);
     } else
         &&patch = fnd.value;	// для этой vtable уже есть патченная копия
     // направим view на копию

@@ -359,7 +359,7 @@ void setTrapOnComExportCount() {
 #else
         "core83.dll"
 #endif
-    #if x86 = 1
+    #if x86
         , "?com_exported_count@core@@YAIXZ",
     #else
         , "?com_exported_count@core@@YA_KXZ",
@@ -493,10 +493,10 @@ class ISelectFileData {
 };
 
 void VectorV8StringPushBack(Vector& v, const v8string&in str) {
-    if (v.end + v8string_size > v.allocked) {
+    if (v.end + v8string_size > v.allocated) {
         // места больше нет, надо перевыделить память и переместить строки
         // строки в V8 перемещать можно простым копированием памяти
-        int_ptr oldSize = v.allocked - v.start, newSize = oldSize + v8string_size * 3;
+        int_ptr oldSize = v.allocated - v.start, newSize = oldSize + v8string_size * 3;
         int_ptr newData = v8malloc(newSize);
         if (oldSize != 0) {
             mem::memcpy(newData, v.start, oldSize);
@@ -504,7 +504,7 @@ void VectorV8StringPushBack(Vector& v, const v8string&in str) {
         }
         v.start = newData;
         v.end = v.start + oldSize;
-        v.allocked = v.start + newSize;
+        v.allocated = v.start + newSize;
     }
     tov8string(v.end).ref.ctor1(str);
     v.end += v8string_size;
@@ -517,6 +517,13 @@ class EnvironmentData {
     string   _snMainFolder = myFolder;
     string   _ownerName = ownerName;
     string   _BuildDateTime = BuildDateTime;
+#if x86
+    bool     _x64 = false;
+    string   _arch = "x86";
+#else
+    bool     _x64 = true;
+    string   _arch = "x64";
+#endif
     Pathes&& _pathes = pathes;
 };
 

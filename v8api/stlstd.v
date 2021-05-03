@@ -8,11 +8,11 @@
 :props
 	int_ptr start
 	int_ptr end
-	int_ptr allocked
+	int_ptr allocated
 :meths
 	void ctor()
 	{
-		obj.start = obj.end = obj.allocked = 0;
+		obj.start = obj.end = obj.allocated = 0;
 	}
 	---
 	void dtor()
@@ -21,16 +21,16 @@
 	  #if ver < 8.3.11
 			free(obj.start);
 	  #else
-			v8free(obj.start, obj.allocked - obj.start);
+			v8free(obj.start, obj.allocated - obj.start);
 	  #endif
 	}
 	---
-	int_ptr size()
+	size_t size()
 	{
 		return obj.end - obj.start;
 	}
 	---
-	int_ptr allock(uint count, uint size)
+	int_ptr alloc(size_t count, size_t size)
 	{
 		uint s = count * size;
 		obj.start =
@@ -39,11 +39,11 @@
 	  #else
 		v8malloc(s);
 	  #endif
-		obj.allocked = obj.end = obj.start + s;
+		obj.allocated = obj.end = obj.start + s;
 		return obj.start;
 	}
 	---
-	int_ptr count(uint s)
+	size_t count(size_t s)
 	{
 		return obj.start == 0 ? 0 : (obj.end - obj.start) / s;
 	}
