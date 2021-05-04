@@ -113,7 +113,7 @@
     #elif ver >= 8.3.17.1549
         75
     #endif
-        save bool GetFileName(SelectFileName& data, int timeout, HWND parent)
+        save bool GetFileName(SelectFileName& data, size_t timeout, HWND parent)
 
 
 :enum MessageMarker

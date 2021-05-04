@@ -10,9 +10,6 @@
 //Packet TestTestTest("TestTestTest", initTestTestTest, piOnMainEnter);
 
 void testReadTextFile() {
-    v8string textOfFile;
-    Message("" + readTextFile(textOfFile, myFolder + "snegopat.pfl"));
-    Message(textOfFile.str);
 }
 
 void testValueToString() {

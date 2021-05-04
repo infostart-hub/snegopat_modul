@@ -202,12 +202,14 @@ void fromUtf8(int_ptr buffer, uint size, string& result) {
 // Функция для чтения содержимого текстового файла.
 // Чтение осуществляется с помощью встроенного объекта 1С "ТекстовыйДокумент".
 // Можно указать кодировку текста.
-bool readTextFile(v8string& result, const string& path, const string& encoding = "") {
-    /*IContext&& textDoc;
-    currentProcess().createByClsid(CLSID_TxtEdtDoc, IID_IContext, textDoc);
-    if (textDoc is null)
-        return false;
-    IContextDef&& pCtxDef = textDoc;
+IContext&& oneTextDoc;
+bool readTextFile(string& result, const string& path, const string& encoding = "") {
+    if (oneTextDoc is null) {
+        currentProcess().createByClsid(CLSID_TxtEdtDoc, IID_IContext, oneTextDoc);
+        if (oneTextDoc is null)
+            return false;
+    }
+    IContextDef&& pCtxDef = oneTextDoc;
     int methPos = pCtxDef.findMethod("Read");
     if (methPos < 0)
         return false;
@@ -218,12 +220,12 @@ bool readTextFile(v8string& result, const string& path, const string& encoding =
     else
         params.values[1] = encoding;
     pCtxDef.getParamDefValue(methPos, 2, params.values[2]);
-    textDoc.callMeth(methPos, params.retVal, params.args);
-    ITextManager&& itm = textDoc.unk;
-    itm.getTextManager().save(result);
-    */
-    string text = readUtf8File(path);
+    oneTextDoc.callMeth(methPos, params.retVal, params.args);
+    ITextManager&& itm = oneTextDoc.unk;
+    v8string text;
+    itm.getTextManager().save(text);
     result = text;
+    //result = readUtf8File(path);
     return true;
 }
 

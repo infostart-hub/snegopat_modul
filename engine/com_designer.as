@@ -63,7 +63,6 @@ class Designer {
         &&_cmdService = CommandService();
         &&_winApi = WinApi();
         &&_starterIpc = StarterInterProcess("Snegopat", &&onStarterNotify);
-        //dumpVtable(&&getBkEndUI());
         // Инициализирем всякую всячину
         setTrapOnComExportCount();
         fillTypeNames();
@@ -528,7 +527,7 @@ class EnvironmentData {
 };
 
 TrapVirtualStdCall trSelectFileName;
-bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, int timeout, HWND parent) {
+bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, size_t timeout, HWND parent) {
     // В момент обработки событий снимем перехват, чтобы можно было воспользоваться штатным диалогом открытия файлов
     trSelectFileName.swap();
     // Оповестим о событии

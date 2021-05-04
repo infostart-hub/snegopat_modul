@@ -120,9 +120,8 @@ class ScriptLoader : AddinLoader {
             oneAddinMgr._lastAddinError = "Не удалось найти файл " + uri;
             return null;
         }
-        v8string textOfFile;
-        readTextFile(textOfFile, fullPath);
-        string source = textOfFile;
+        string source;
+        readTextFile(source, fullPath);
 
         if (source.isEmpty()) {
             oneAddinMgr._lastAddinError = "Не удалось получить текст файла " + fullPath;

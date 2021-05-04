@@ -74,12 +74,13 @@
 	---
 	void dtor()
 	{
-		if (obj.len == inplaceStringSize && 0 == mem::interlockedDecr(obj.data))
+		if (obj.len == inplaceStringSize && mem::dword[obj.data] == 1 /*0 == mem::interlockedDecr(obj.data)*/) {
 		  #if ver < 8.3.11
 			free(obj.data);
 		  #else
 			v8free(obj.data, obj.pEnd - obj.data + 2);
 		  #endif
+		}
 	}
 	---
 	string opImplConv()const|int_ptr v8string__opImplConv(v8string& obj, string& ret)
