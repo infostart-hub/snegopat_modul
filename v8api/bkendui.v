@@ -1,4 +1,5 @@
-﻿//8.3.17.1549
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
 
 // Сервис BkEndUI
 :service IBkEndUI {614E1F45-71A9-11D4-B997-008048DA0334}
@@ -7,6 +8,8 @@
 // Открытие окна
 #if ver < 8.3.6
 	9
+#elif (ver >= 8.3.17.1823 & ver < 8.3.18)
+	11
 #elif ver < 8.3.18.1201
 	10
 #else
@@ -19,7 +22,9 @@
   #endif
 ////////////////////////////////////////////////////////
 // Открыть диалог и Предупреждение
-#if ver >= 8.3.9
+#if ver >= 8.3.17.1549
+    21
+#elif ver >= 8.3.9
     21
 #elif ver >= 8.3.7
 	20
@@ -30,7 +35,10 @@
 #else
     17
 #endif
-  #if ver < 8.3.4 | ver >= 8.3.18
+	#if (ver >= 8.3.17.1823 & ver < 8.3.18)
+     +1
+    #endif
+  #if ver < 8.3.4 | ver >= 8.3.18 | (ver >= 8.3.16.1659 & ver < 8.3.17)
 	save int doModal1(IFramedView& pView, int_ptr i1, int_ptr i2, int_ptr i3, int_ptr i4, int_ptr i5, int_ptr i6, int_ptr i7, int_ptr i8)
   #else
 	save int doModal1(IFramedView& pView, int_ptr i1, int_ptr i2, int_ptr i3, int_ptr i4, int_ptr i5, int_ptr i6, int_ptr i7, int_ptr i8, int_ptr i9)
@@ -41,7 +49,7 @@
 #elif ver < 8.3.12
     save int messageBox(const v8string&in text, int_ptr type=0, int_ptr timeout=0, int_ptr caption=0, HWND parent=uint(-1), mbp& param=mbp(), int_ptr i1=0, int_ptr i2=0, int_ptr i3=0, int_ptr i4=0, int_ptr i5=0)
 #else
-    #if ver = 8.3.17.1823
+    #if ver = 8.3.17.1823 | (ver >= 8.3.16.1659 & ver < 8.3.17)
      +1
     #endif
     save int messageBox(const v8string&in text, int_ptr type=0, int_ptr timeout=0, int_ptr caption=0, HWND parent=0, mbp& param=mbp(), int_ptr i1=0, int_ptr i2=0, int_ptr i3=0, int_ptr i4=0, int_ptr i5=0)
@@ -49,7 +57,13 @@
 
 	+1
 
-  #if ver < 8.3.4 | ver >= 8.3.18
+#if ver = 8.3.17.1851 | ver = 8.3.17.1989 | ver = 8.3.17.2127 | ver = 8.3.17.2171 | ver = 8.3.17.2198
+    25
+#elif ver >= 8.3.17.1549
+    24
+#endif
+
+  #if ver < 8.3.4 | ver >= 8.3.18 | (ver >= 8.3.16.1659 & ver < 8.3.17)
 	save int doModal2(IFramedView& pView, int_ptr i1, int_ptr i2, int_ptr i3, int_ptr i4, int_ptr i5, int_ptr i6, int_ptr i7)
   #else
 	save int doModal2(IFramedView& pView, int_ptr i1, int_ptr i2, int_ptr i3, int_ptr i4, int_ptr i5, int_ptr i6, int_ptr i7, int_ptr i8)
@@ -62,7 +76,7 @@
 // Сообщить
     #if ver >= 8.3.18
       51
-    #elif ver >= 8.3.17.1823
+    #elif ver >= 8.3.17.1823 | (ver >= 8.3.16.1659 & ver < 8.3.17)
         53
 	#elif ver >= 8.3.10.1877
 		52
@@ -91,6 +105,13 @@
   #else
         +22
   #endif
+#if ver >= 8.3.18
+        74
+    #elif ver >= 8.3.17.1851
+        76
+    #elif ver >= 8.3.17.1549
+        75
+    #endif
 	save bool GetFileName(SelectFileName& data, int_ptr timeout, HWND parent)
 
 

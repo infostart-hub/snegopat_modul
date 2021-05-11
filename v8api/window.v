@@ -1,4 +1,7 @@
-﻿// Описание интерфейсов работы с окнами
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с окнами
 :iface IView {B105A780-F121-11d3-93F7-008048DA11F9}
 :virt
     void drawView(HDC dc, const Rect& rect, const Rect& updateRect)
@@ -99,6 +102,8 @@
 	// Артур
 	#if ver>=8.3.10
 		+1
+	#elif ver >= 8.3.18
+		23
 	#endif
 		uint document(IDocument@&)
 
@@ -159,8 +164,10 @@
     +1
     +1
 	+1
-	#if ver >= 8.3.18
-		+1
+	#if ver = 8.3.17.1549
+		23
+	#elif ver >= 8.3.18
+		24
 	#endif
     v8string getCaption()
 	v8string getTitle()
