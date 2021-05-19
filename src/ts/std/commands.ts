@@ -238,7 +238,8 @@ export var TextEdit = {
     ProcessTemplate: new Command(61, "Обработка текущего слова шаблонами"),
     ShowSubstString: new Command(62, "Показывать строку автозамены в дереве шаблонов"),
     DeleteLine: new Command(63, "Удалить текущую строку"),
-    FormatStringWizard: new Command(66, "Запустить конструктор форматной строки")
+    FormatStringWizard: new Command(66, "Запустить конструктор форматной строки"),
+    MultyLangStrWizard: new Command(67, "Конструктор строк на разных языках")
 };
 
 export var MngFormEdt = {
