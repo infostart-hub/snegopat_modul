@@ -75,7 +75,7 @@
 
 :iface IUnpackFile {F10901A0-3BAC-11D4-8A57-008048DA06DF}
 	:virt
-	#if ver < 8.3.10 | ver = 8.3.10.2639 | ver = 8.3.12.1567 | ver = 8.3.13.1865 | ver = 8.3.14.1565 | ver = 8.3.14.1976 | ver = 8.3.14.1993 | ( ver >= 8.3.15 & ver < 8.3.16 )
+	#if ver < 8.3.10 | (ver >= 8.3.10 & ver < 8.3.11) | ver = 8.3.12.1567 | ver = 8.3.13.1865 | ver = 8.3.14.1565 | ver = 8.3.14.1976 | ver = 8.3.14.1993 | ( ver >= 8.3.15 & ver < 8.3.16 )
 		void init(IFile&& dest)
 	#else
 		void init(IFile&& dest, int t=0)
