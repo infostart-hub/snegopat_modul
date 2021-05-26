@@ -1,4 +1,4 @@
-﻿//engine: JScript
+//engine: JScript
 //uname: qs
 //dname: Быстрый поиск
 //addin: stdcommands
@@ -188,7 +188,7 @@ function CmdPanelprepare() {
         if (!sel.Choose())
             return;
         dbPath = sel.FullFileName;
-        form.Controls.dbPath.Заголовок = dbPath;
+        form.Controls.dbPath.Значение = dbPath;
         profileRoot.setValue(pflPath, dbPath);
     }
     StoreModel.open(dbPath);
@@ -369,7 +369,7 @@ function CmdPanelrefreshModules() {
 function macrosОткрыть() {
     if (!form) {
         form = loadFormForScript(SelfScript);
-        form.Controls.dbPath.Заголовок = dbPath;
+        form.Controls.dbPath.Значение = dbPath;
         form.searchResult.Columns.Add("data");
     }
     form.Open();
@@ -441,4 +441,19 @@ function mdObjFullName(object) {
         return object.mdclass.name(1);
     names.reverse();
     return names.join(".");
+}
+
+function SetDBPath() {
+	var sel = v8New("FileDialog", FileDialogMode.Open);
+    sel.Directory = stdlib.getSnegopatMainFolder();
+    sel.Title = "Укажите расположение файла базы данных для поиска в этой базе";
+    sel.Filter = "Базы данных sqlite (*.db)|*.db|Все файлы|*";
+    sel.FullFileName = ibName() + ".db";
+    sel.DefaultExt = "db";
+    if (!sel.Choose())
+		return;
+    dbPath = sel.FullFileName;
+    form.Controls.dbPath.Значение = dbPath;
+    profileRoot.setValue(pflPath, dbPath);
+    StoreModel.open(dbPath);
 }
