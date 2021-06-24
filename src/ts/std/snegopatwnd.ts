@@ -347,6 +347,7 @@ class HotkeysPage implements Page {
 		hks.applyKeysFromValueTable(vt);
 		// Сохраним таблицу хоткеев в профайл
 		hks.ProfileExchanger.saveHotkeys(vt);
+		saveProfile();
 	}
 	handlerHkCmdBarCancel(): void {
 		this.fillTable();
