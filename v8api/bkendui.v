@@ -58,7 +58,7 @@
 
 	+1
 
-#if ver = 8.3.17.1851 | ver = 8.3.17.1989
+#if ver = 8.3.17.1851 | ver = 8.3.17.1989 | ver = 8.3.17.2127 | ver = 8.3.17.2171 | ver = 8.3.17.2198
     25
 #elif ver >= 8.3.17.1549
     24
@@ -105,15 +105,15 @@
         +21
     #else
         +22
-    #endif
-    #if ver >= 8.3.18
+  #endif
+#if ver >= 8.3.18
         74
     #elif ver >= 8.3.17.1851
         76
     #elif ver >= 8.3.17.1549
         75
     #endif
-        save bool GetFileName(SelectFileName& data, size_t timeout, HWND parent)
+	save bool GetFileName(SelectFileName& data, int_ptr timeout, HWND parent)
 
 
 :enum MessageMarker
