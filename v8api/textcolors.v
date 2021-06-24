@@ -1,4 +1,7 @@
-﻿:enum ColorsKind
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:enum ColorsKind
 	ckRGB
 	ckIdxWin
 	ckIdxWeb
@@ -10,7 +13,7 @@
 	int kind
 	CompositeID value
 :meths
-	void ctor(uint r, uint g, uint b)
+	void ctor(size_t r, size_t g, size_t b)
 	{
 		obj.kind = 0;
 		obj.value.ctor(r | (g<<8) | (b<<16));
@@ -100,9 +103,9 @@
 :iface ITextExtBackColors {89578B27-C06D-4cb5-AA5A-7C5A90D79D66}
 :virt
 	// Определить, нужно ли будет менять фон слов в строке
-	save bool hasCustomBackground(int nLineNo, SyntaxItemInfos& items)
+	save bool hasCustomBackground(size_t nLineNo, SyntaxItemInfos& items)
 	// Получить инфу о цветах фона
-	save void getColorInfo(COLORREF currentBGColor,  SyntaxItemInfos& items, Vector& res)
+	save void getColorInfo(size_t currentBGColor, SyntaxItemInfos& items, Vector& res)
 
 // Интерфейс текстового расширения для раскрашивания слов в строке текста в редакторе
 :iface ITextExtColors {6A93A252-50F8-11d5-B0B3-008048DA0765}

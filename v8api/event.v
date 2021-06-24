@@ -1,4 +1,7 @@
-﻿// Описание интерфейсов работы с событиями
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с событиями
 :iface IEventRecipient {D15F2BB0-BD08-11d3-B950-008048DA0334}
 :virt
 	void onEvent(const Guid&in eventID, long val, IUnknown& obj)

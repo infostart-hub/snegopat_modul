@@ -1,29 +1,32 @@
-﻿/* com_designer.as
-    Объект Designer, который подключается к аддинам и служит корнем для SnegAPI.
-    Его публичные свойства и методы доступны аддинам. Отдаётся им в виде IDispatch.
-    Маршрутизация между IDispatch и AngelScript - осуществляется автоматически
-    унутре snegopat.dll. При этом:
-    числовые типы передаются как есть.
-    string - конвертируются в/из BSTR
-    bool -  конвертируются в/из VARIANT_BOOL
-    Variant - обёртка VARIANT
-    Объекты AngelScript - автоматически отдаются также как IDispatch.
-    На входе если параметр имеет тип объекта AngelScript - из объектов IDispatch на входе пытается
-    получить объект AngelScript, из которого он создан. При неудаче пока выдает ошибку.
-    Если входной параметр имеет тип IDispatch или IUnknown - принимается как есть, при возможности.
-    Объекты array<T> на выходе преобразуются в IDispatch, который имеет свойство length и метод item(idx),
-    на вход не принимаются.
-    Если последний параметр метода в AngelScript имеет тип array<Variant>
-    snegopat.dll создает такой массив сам, и заполняет его всеми оставшимися переданными параметрами,
-    то есть вызывающий может передать переменное количество параметров.
-    Значения по умолчанию поддерживаются только числа, простые строки, перечисления AngelScript
-    Передача параметров по ссылке особо не тестировалась, поэтому лучше считать, что они передаются
-    по значению, тем более, JScript по другому и не умеет.
-    Protected и private методы объектов AngelScript, а также начинающиеся с "_" - не отдаются скриптам.
-    Методы, начинающиеся с "get_" / "set_" отдаются как свойства.
-    Protected и private своойства, а также начинающиеся с "__" - не отдаются скриптам.
-    Public свойства, начинающиеся с "_" - отдаются как read only, без начального "_".
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Объект Designer, который подключается к аддинам и служит корнем для SnegAPI.
+ * Его публичные свойства и методы доступны аддинам. Отдаётся им в виде IDispatch.
+ * Маршрутизация между IDispatch и AngelScript - осуществляется автоматически
+ * унутре snegopat.dll. При этом:
+ * числовые типы передаются как есть.
+ * string - конвертируются в/из BSTR
+ * bool -  конвертируются в/из VARIANT_BOOL
+ * Variant - обёртка VARIANT
+ * Объекты AngelScript - автоматически отдаются также как IDispatch.
+ * На входе если параметр имеет тип объекта AngelScript - из объектов IDispatch на входе пытается
+ * получить объект AngelScript, из которого он создан. При неудаче пока выдает ошибку.
+ * Если входной параметр имеет тип IDispatch или IUnknown - принимается как есть, при возможности.
+ * Объекты array<T> на выходе преобразуются в IDispatch, который имеет свойство length и метод item(idx),
+ * на вход не принимаются.
+ * Если последний параметр метода в AngelScript имеет тип array<Variant>
+ * snegopat.dll создает такой массив сам, и заполняет его всеми оставшимися переданными параметрами,
+ * то есть вызывающий может передать переменное количество параметров.
+ * Значения по умолчанию поддерживаются только числа, простые строки, перечисления AngelScript
+ * Передача параметров по ссылке особо не тестировалась, поэтому лучше считать, что они передаются
+ * по значению, тем более, JScript по другому и не умеет.
+ * Protected и private методы объектов AngelScript, а также начинающиеся с "_" - не отдаются скриптам.
+ * Методы, начинающиеся с "get_" / "set_" отдаются как свойства.
+ * Protected и private своойства, а также начинающиеся с "__" - не отдаются скриптам.
+ * Public свойства, начинающиеся с "_" - отдаются как read only, без начального "_".
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -43,7 +46,8 @@ class Designer {
     CommandService&&	_cmdService;
     WinApi&&            _winApi;
     //IV8Debugger     _v8debug;
-    
+    StarterInterProcess&& _starterIpc;
+
     Designer() {
         //Print("designer ctor");
         &&oneDesigner = this;
@@ -58,7 +62,7 @@ class Designer {
         &&_env = EnvironmentData();
         &&_cmdService = CommandService();
         &&_winApi = WinApi();
-        //dumpVtable(&&getBkEndUI());
+        &&_starterIpc = StarterInterProcess("Snegopat", &&onStarterNotify);
         // Инициализирем всякую всячину
         setTrapOnComExportCount();
         fillTypeNames();
@@ -354,12 +358,13 @@ void setTrapOnComExportCount() {
 #else
         "core83.dll"
 #endif
-    #if x86 = 1
+    #if x86
         , "?com_exported_count@core@@YAIXZ",
     #else
         , "?com_exported_count@core@@YA_KXZ",
     #endif
         0, com_export_count);
+    exitAppHandlers.insertLast(function() { trComExportCount.swap(); });
 }
 
 
@@ -487,10 +492,10 @@ class ISelectFileData {
 };
 
 void VectorV8StringPushBack(Vector& v, const v8string&in str) {
-    if (v.end + v8string_size > v.allocked) {
+    if (v.end + v8string_size > v.allocated) {
         // места больше нет, надо перевыделить память и переместить строки
         // строки в V8 перемещать можно простым копированием памяти
-        int_ptr oldSize = v.allocked - v.start, newSize = oldSize + v8string_size * 3;
+        int_ptr oldSize = v.allocated - v.start, newSize = oldSize + v8string_size * 3;
         int_ptr newData = v8malloc(newSize);
         if (oldSize != 0) {
             mem::memcpy(newData, v.start, oldSize);
@@ -498,7 +503,7 @@ void VectorV8StringPushBack(Vector& v, const v8string&in str) {
         }
         v.start = newData;
         v.end = v.start + oldSize;
-        v.allocked = v.start + newSize;
+        v.allocated = v.start + newSize;
     }
     tov8string(v.end).ref.ctor1(str);
     v.end += v8string_size;
@@ -511,11 +516,18 @@ class EnvironmentData {
     string   _snMainFolder = myFolder;
     string   _ownerName = ownerName;
     string   _BuildDateTime = BuildDateTime;
+#if x86
+    bool     _x64 = false;
+    string   _arch = "x86";
+#else
+    bool     _x64 = true;
+    string   _arch = "x64";
+#endif
     Pathes&& _pathes = pathes;
 };
 
 TrapVirtualStdCall trSelectFileName;
-bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, int timeout, HWND parent) {
+bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, size_t timeout, HWND parent) {
     // В момент обработки событий снимем перехват, чтобы можно было воспользоваться штатным диалогом открытия файлов
     trSelectFileName.swap();
     // Оповестим о событии
@@ -533,4 +545,23 @@ bool GetFileNameTrap(IBkEndUI& pBkEndUI, SelectFileName& data, int timeout, HWND
     // восстановим перехват
     trSelectFileName.swap();
     return res;
+}
+
+class StarterBroadcast {
+    string source;
+    string data;
+};
+
+void onStarterNotify(const string& msg) {
+    auto data = msg.split("\xB");
+    if (data.length == 3) {
+        if (data[1] != "" + oneDesigner._starterIpc.hMyWnd) {
+            array<Variant> args(1);
+            StarterBroadcast sbc;
+            sbc.source = data[0];
+            sbc.data = data[2];
+            args[0].setDispatch(createDispatchFromAS(&&sbc));
+            oneDesigner._events.fireEvent(createDispatchFromAS(&&oneDesigner._starterIpc), "Broadcast", args);
+        }
+    }
 }

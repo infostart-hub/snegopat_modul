@@ -1,4 +1,7 @@
-﻿// Тип Rect
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Тип Rect
 :mixin Rect
 :dlls
 #if ver < 8.3

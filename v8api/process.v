@@ -1,9 +1,11 @@
-﻿#if ver < 8.2.19 | (ver > 8.3.0 & ver < 8.3.4) | ver >= 8.3.19
-//#err Unsupported version of 1C - Эта версия 1С не поддерживается!
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+#if ver < 8.2.19 | (ver > 8.3.0 & ver < 8.3.4) | ver >= 8.3.19
+#err Unsupported version of 1C - Эта версия 1С не поддерживается!
 #endif
 
 :guid IID_NULL {00000000-0000-0000-0000-000000000000}
-
 
 // Описание интерфейсов работы с процессом
 :service SCOM_Process {EBF766A9-F32C-11D3-9851-008048DA1252}
@@ -38,9 +40,9 @@
     SCOM_Process@ currentProcess()|?current_process@core@@YAPAVSCOM_Process@1@XZ|?current_process@core@@YAPEAVSCOM_Process@1@XZ
 	void val2var(const Value&, Variant&)|?value_to_variant_val@core@@YAXABVGenericValue@1@AAUtagVARIANT@@@Z|?value_to_variant_val@core@@YAXAEBVGenericValue@1@AEAUtagVARIANT@@@Z
 #if ver < 8.3.11
-	v8string load_module_wstring(uint charNameModule, uint charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@PBD0@Z
+	v8string load_module_wstring(int_ptr charNameModule, int_ptr charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@PBD0@Z
 #else
-	v8string load_module_wstring(uint charNameModule, uint charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PBD0@Z|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEBD0@Z
+	v8string load_module_wstring(int_ptr charNameModule, int_ptr charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PBD0@Z|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEBD0@Z
 #endif
 
 #if ver < 8.3.6

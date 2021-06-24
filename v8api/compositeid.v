@@ -1,4 +1,7 @@
-﻿// тип CompositeID
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// тип CompositeID
 :struct CompositeID
 :props
 	int id

@@ -1,9 +1,9 @@
-//engine: JScript
+п»ї//engine: JScript
 //uname: marked
-//dname: Markdown парсер
+//dname: Markdown РїР°СЂСЃРµСЂ
 //author: Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
 //www: https://github.com/chjj/marked
-//descr: этот скрипт используется для преобразования файлов с markdown-разметкой в html файлы.
+//descr: СЌС‚РѕС‚ СЃРєСЂРёРїС‚ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ С„Р°Р№Р»РѕРІ СЃ markdown-СЂР°Р·РјРµС‚РєРѕР№ РІ html С„Р°Р№Р»С‹.
 //help: inplace
 
 /**
@@ -11,6 +11,8 @@
  * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
  * https://github.com/chjj/marked
  */
+ 
+ var _marked;
 
 ;(function() {
 
@@ -801,16 +803,17 @@ Renderer.prototype.html = function(html) {
 };
 
 Renderer.prototype.heading = function(text, level, raw) {
+	var id = raw.toLowerCase().replace(/[^\wР°-СЏС‘Рђ-РЇРЃ]+/g, '-');
   return '<h'
     + level
     + ' id="'
     + this.options.headerPrefix
-    + raw.toLowerCase().replace(/[^\w]+/g, '-')
+    + id
     + '">'
     + text
     + '</h'
     + level
-    + '>\n';
+    + '><a name="' + id + '"></a>\n';
 };
 
 Renderer.prototype.hr = function() {
@@ -1279,17 +1282,8 @@ marked.InlineLexer = InlineLexer;
 marked.inlineLexer = InlineLexer.output;
 
 marked.parse = marked;
-
-if (typeof module !== 'undefined' && typeof exports === 'object') {
-  module.exports = marked;
-} else if (typeof define === 'function' && define.amd) {
-  define(function() { return marked; });
-} else {
-    //this.marked = marked;
-    SelfScript.self.marked = marked;
-}
+_marked = marked;
 
 }).call(function() {
-    //return this || (typeof window !== 'undefined' ? window : global);
-    return SelfScript.self;
+    return null;
 }());

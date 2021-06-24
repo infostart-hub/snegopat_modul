@@ -1,6 +1,8 @@
-﻿/* com_metadata.as
-    Работа с метаданными из аддинов.
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с метаданными из аддинов.
+ */
+
 // Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
@@ -175,12 +177,11 @@ IV8MDContainer&& getContainerWrapper(IMDContainer&& container) {
     //+ mike_a
     if(container is null)
         return null;
-    uint s = container.self;
-    auto find = contFind.find(s);
+    auto find = contFind.find(container.self);
     if (!find.isEnd())
         return find.value;
     IV8MDContainer&& cont = IV8MDContainer(container);
-    contFind.insert(s, cont);
+    contFind.insert(container.self, cont);
     contWrappers.insertLast(cont);
     return cont;
 }
@@ -299,12 +300,11 @@ UintMap<IV8MDClass&&> mdClasses;
 IV8MDClass&& getMDClassWrapper(IMDClass&& mdc) {
     if (mdc is null)
         return null;
-    uint s = mdc.self;
-    auto find = mdClasses.find(s);
+    auto find = mdClasses.find(mdc.self);
     if (!find.isEnd())
         return find.value;
     IV8MDClass&& mdcw = IV8MDClass(mdc);
-    mdClasses.insert(s, mdcw);
+    mdClasses.insert(mdc.self, &&mdcw);
     return mdcw;
 }
 
@@ -332,12 +332,13 @@ UintMap<IV8MDProperty&&> mdProps;
 IV8MDProperty&& getMDPropWrapper(MDPropertyRef&& mdp) {
     if (mdp is null)
         return null;
-    uint s = mdp.self;
-    auto find = mdProps.find(s);
+    //doLog("Explore MDPropery " + formatInt(mdp.self, "0x", 2 * sizeof_ptr));
+    //MsgBox("Explore MDPropery " + formatInt(mdp.self, "0x", 2 * sizeof_ptr));
+    auto find = mdProps.find(mdp.self);
     if (!find.isEnd())
         return find.value;
     IV8MDProperty&& mdpw = IV8MDProperty(mdp);
-    mdProps.insert(s, mdpw);
+    mdProps.insert(mdp.self, mdpw);
     return mdpw;
 }
 
@@ -366,7 +367,7 @@ class IV8MDObject {
     }
     IV8MDClass&& get_mdclass() {
         if (myClass is null)
-            &&myClass = getMDClassWrapper(object.mdClass);
+            &&myClass = getMDClassWrapper(object.get_mdClass());
         return myClass;
     }
     IV8MDObject&& get_parent() {
@@ -954,7 +955,9 @@ Variant image2pict(IUnknown&& img) {
     IGlyph&& glyph = image.unk;
     if (glyph !is null) {
         &&gl = toGlyph(image.self);
-        &&iPict = toIV8Picture(mem::dword[gl.ref.block.self + pictOffset]);
+        //doLog("Glyph " + formatInt(gl.self, "0X", 16));
+        //MsgBox("Glyph " + formatInt(gl.self, "0X", 16));
+        &&iPict = toIV8Picture(mem::int_ptr[gl.ref.block.self + pictOffset]);
         key = "," + gl.ref.size.cx + "," + gl.ref.size.cy + "," + gl.ref.point.x + "," + gl.ref.point.y;
     } else
         &&iPict = toIV8Picture(mem::int_ptr[image.self + pictOffset]);

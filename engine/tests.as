@@ -1,6 +1,8 @@
 ﻿/*
-Тут всякие запускаемые тесты
-*/
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Тут всякие запускаемые тесты
+ */
+
 // Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
@@ -8,9 +10,6 @@
 //Packet TestTestTest("TestTestTest", initTestTestTest, piOnMainEnter);
 
 void testReadTextFile() {
-    v8string textOfFile;
-    Message("" + readTextFile(textOfFile, myFolder + "snegopat.pfl"));
-    Message(textOfFile.str);
 }
 
 void testValueToString() {

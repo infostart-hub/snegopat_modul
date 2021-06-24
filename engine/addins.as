@@ -1,6 +1,8 @@
 ﻿/* addins.as
 Работа с аддинами
-*/
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -15,17 +17,12 @@ BuiltinAddin&& builtinAddinsList;
 AddinLoader&& loadersList;
 
 bool initAddins() {
-#if x86 = 0
-    Message("Loaded Snegopat 64", mNone);
-#endif
     if (oneDesigner !is null)
         return true;
     // Создаем корень SnegAPI, а он создаст менеджер аддинов
     Designer();
-#if x86 = 1
     if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
-#endif
     return true;
 }
 
@@ -104,6 +101,18 @@ class AddinGroup {
     Addin&& addin(uint idx) {
         return idx < addins.length ? addins[idx] : null;
     }
+
+    void removeGroup(AddinGroup&& g) {
+        uint idx = childs.findByRef(&&g);
+        if (idx != uint(-1)) {
+            if (idx == 0)
+                &&child = g.next;
+            else
+                &&childs[idx - 1].next = g.next;
+            &&g.parent = null;
+            childs.removeAt(idx);
+        }
+    }
 };
 
 class AddinMgr {
@@ -172,6 +181,8 @@ class AddinMgr {
             _lastAddinError = "Не найден загрузчик '" + proto + "'";
             return null;
         }
+        if (path[0] != '\\' && path[1] != ':')
+            path = pathes._core + path;
         path.replace("<addins>", pathes._addins)./*replace("<custom>", pathes._custom).*/replace("<core>", pathes._core);
         Addin&& addin = fndLdr.value.load(path);
         if (addin is null)

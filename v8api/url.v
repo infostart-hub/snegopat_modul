@@ -1,4 +1,7 @@
-﻿// тип Url
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// тип Url
 :class URL
 :props
 	v8string url // x64 - 0 байт

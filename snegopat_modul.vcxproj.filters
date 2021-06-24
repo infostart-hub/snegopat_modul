@@ -45,129 +45,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="engine\add_global.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\addins.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\colorer.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_commands.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_debug.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_designer.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_events.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_files.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_hotkeys.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_metadata.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_profile.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_snegopat.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_sqlite.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_textwindow.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_v8ti.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_v8value.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\com_windows.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\controls.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\develop.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\dllloader.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\exitApp.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\forms.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\grid.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\intellisite.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\keywords.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\lexer.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\main.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\mainframe.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\mlist.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\ModuleElements.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\ModuleTextProcessor.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\options.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\packets.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\pathes.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\scriptLoader.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\smartboxitems.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\sqlcolors.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\StockListInterceptor.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\synedit.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\tests.as">
-      <Filter>5 engine</Filter>
-    </None>
-    <None Include="engine\textwnd.as">
-      <Filter>5 engine</Filter>
-    </None>
     <None Include="src\ts\std\commands.ts">
       <Filter>6 scripts</Filter>
     </None>
@@ -201,92 +78,8 @@
     <None Include="src\ts\std\std.ts">
       <Filter>6 scripts</Filter>
     </None>
-    <None Include="v8api\bkendui.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\com.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\command.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\compositeid.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\datasource.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\debugger.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\document.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\event.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\file.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\font.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\form.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\metadata.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\picture.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\process.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\profile.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\properties.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\rect.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\scintilla.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\stlstd.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\string.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\text.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\textcolors.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\textmgr.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\TypeDomainPattern.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\typeinfos.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\url.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\value.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="v8api\vt.v">
-      <Filter>4 v8api</Filter>
-    </None>
-    <None Include="lib\x64\snegopat.dll">
-      <Filter>1 Основные</Filter>
+    <None Include="bld_tools\build.as">
+      <Filter>3 Прочее</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +94,216 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="lib\x86\snegopat.dll">
       <Filter>1 Основные</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\add_global.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\addins.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\colorer.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_commands.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_debug.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_designer.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_events.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_files.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_hotkeys.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_metadata.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_profile.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_snegopat.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_sqlite.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_textwindow.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_v8ti.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_v8value.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\com_windows.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\controls.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\develop.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\dllloader.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\exitApp.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\forms.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\grid.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\intellisite.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\keywords.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\lexer.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\main.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\mainframe.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\mlist.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\ModuleElements.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\ModuleTextProcessor.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\options.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\packets.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\pathes.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\scriptLoader.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\smartboxitems.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\sqlcolors.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\StockListInterceptor.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\synedit.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\tests.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="engine\textwnd.as">
+      <Filter>5 engine</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\x64\snegopat.dll">
+      <Filter>1 Основные</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\bkendui.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\com.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\command.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\compositeid.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\datasource.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\debugger.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\document.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\event.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\file.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\font.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\form.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\metadata.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\picture.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\process.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\profile.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\properties.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\rect.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\scintilla.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\stlstd.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\string.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\text.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\textcolors.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\textmgr.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\TypeDomainPattern.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\typeinfos.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\url.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\value.v">
+      <Filter>4 v8api</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="v8api\vt.v">
+      <Filter>4 v8api</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

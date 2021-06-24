@@ -1,4 +1,7 @@
-﻿:iface IDocumentFactory {EA26B900-A5D1-11D4-942A-008048DA11F9}
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+:iface IDocumentFactory {EA26B900-A5D1-11D4-942A-008048DA11F9}
 :virt
     uint createDocument(IDocument@&, const v8string&in initData)
 

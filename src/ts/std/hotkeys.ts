@@ -6,6 +6,11 @@
 //help: inplace
 //author: orefkov
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с хоткеями
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 

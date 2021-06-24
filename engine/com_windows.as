@@ -1,10 +1,11 @@
-﻿/* com_windows.as
-    Работы из аддинов с окнами 1С.
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работы из аддинов с окнами 1С.
+ */
+
 // Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
-
 
 IDispatch&& dspWindows;
 
@@ -28,7 +29,6 @@ class IV8Windows {
     }
     // Текущий модальный режим
     ModalStates get_modalMode() {
-        //dumpVtable(getBkEndUI());
         return getBkEndUI().currentModalState();
     }
     // Заголовок основного окна
@@ -118,10 +118,12 @@ class IV8Windows {
 
 IV8View&& frameView(uint offset) {
     ITopLevelFrameCore&& tlc = coreMainFrame.unk;
+    //doLog("Offsets of active and focused view in toplevelframe: искать от 0x" + formatInt(tlc.self, "0x", sizeof_ptr * 2));
     //MsgBox("Offsets of active and focused view in toplevelframe: искать от 0x" + formatInt(tlc.self, "0x", sizeof_ptr * 2));
     int_ptr addrOfViewCont = mem::int_ptr[tlc.self + offset];
     if (addrOfViewCont > 0) {
-        //MsgBox("ViewContextInView: искать от 0x" + formatInt(addrOfViewCont + ViewContextInView + ViewContext_parent_offset, "0x", sizeof_ptr * 2));
+        //doLog("ViewContextInView: искать от 0x" + formatInt(addrOfViewCont + ViewContextInView, "0x", sizeof_ptr * 2));
+        //MsgBox("ViewContextInView: искать от 0x" + formatInt(addrOfViewCont + ViewContextInView, "0x", sizeof_ptr * 2));
         ViewContextRef&& pCont = toViewContext(addrOfViewCont + ViewContextInView);
         return getViewWrapper(pCont.ref.id);
     }
@@ -180,10 +182,12 @@ IMDObject&& getMdObjFromView(IFramedView&& view) {
                     if (pCont !is null) {
                         IUnknown&& pCP;
                         if (0 == pCont.FindConnectionPoint(IID_IDocumentSink, pCP) && pCP !is null) {
-                            uint pdata = mem::dword[pCP.self + 4];
-                            uint size = mem::dword[pCP.self + 8];
+                            //doLog("Search DocSinks at " + formatInt(pCP.self, "0X", 2 * sizeof_ptr));
+                            //MsgBox("Search DocSinks at " + formatInt(pCP.self, "0X", 2 * sizeof_ptr));
+                            int_ptr pdata = mem::int_ptr[pCP.self + sizeof_ptr];
+                            uint size = mem::dword[pCP.self + 2 * sizeof_ptr];
                             for (uint i = 0; i < size; i++) {
-                                DocSinkRef&& pSink = toDocSink(mem::dword[pdata + i * 4]);
+                                DocSinkRef&& pSink = toDocSink(mem::int_ptr[pdata + i * sizeof_ptr]);
                                 if (pSink !is null && pSink.ref.refCount < 10) {
                                     IMDEditHelper&& eh = pSink.ref.editHelper;
                                     if (eh !is null)
@@ -200,8 +204,10 @@ IMDObject&& getMdObjFromView(IFramedView&& view) {
         IEventRecipient&& er = view.unk;
         ICommandTarget&& ct = view.unk;
         if (er !is null && ct !is null && er.self < view.self && ct.request(CommandID(cmdFrameGroup, cmdFindInTree))) {
-            //MsgBox("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
-            //    " до объекта с интерфейсом " + IID_IMDObject);
+            doLog("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
+                " до объекта с интерфейсом " + IID_IMDObject);
+            MsgBox("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
+                " до объекта с интерфейсом " + IID_IMDObject);
             IMDObject&& obj = toIUnknown(mem::int_ptr[er.self + MetaDataObjInEventRecipientOffset]);
             obj.AddRef();
             return obj;
@@ -221,10 +227,10 @@ Guid getMdPropIDFromView(IFramedView&& view) {
             if (pCont !is null) {
                 IUnknown&& pCP;
                 if (0 == pCont.FindConnectionPoint(IID_IDocumentSink, pCP) && pCP !is null) {
-                    uint pdata = mem::dword[pCP.self + 4];
-                    uint size = mem::dword[pCP.self + 8];
+                    int_ptr pdata = mem::int_ptr[pCP.self + sizeof_ptr];
+                    uint size = mem::dword[pCP.self + 2 * sizeof_ptr];
                     for (uint i = 0; i < size; i++) {
-                        DocSinkRef&& pSink = toDocSink(mem::dword[pdata + i * 4]);
+                        DocSinkRef&& pSink = toDocSink(mem::int_ptr[pdata + i * sizeof_ptr]);
                         if (pSink !is null && pSink.ref.refCount < 10) {
                             IMDEditHelper&& eh = pSink.ref.editHelper;
                             if (eh !is null)
@@ -331,6 +337,8 @@ class IV8View {
                 } else {
                     IMDIClient&& mdi = vl.unk;
                     if (mdi !is null) {
+                        //doLog("Search MDI childs list at " + formatInt(mdi.self, "0x", 2 * sizeof_ptr));
+                        //MsgBox("Search MDI childs list at " + formatInt(mdi.self, "0x", 2 * sizeof_ptr));
                         if (mdi.childsIds.start > 0) {
                             for (GuidRef&& ids = toGuid(mdi.childsIds.start); ids < mdi.childsIds.end; &&ids = ids + 1)
                                 result.insertAt(0, getViewWrapper(ids.ref));
@@ -548,8 +556,9 @@ class IV8View {
 };
 
 ViewContextRef&& getViewContext(IViewContext&& ctx) {
-    //Guid id;
-    //ctx.getID(id);
+    Guid id;
+    ctx.getID(id);
+    //doLog("ViewContextOffset: искать от 0x" + formatInt(ctx.self, "0x", sizeof_ptr * 2) + " " + id);
     //MsgBox("ViewContextOffset: искать от 0x" + formatInt(ctx.self, "0x", sizeof_ptr * 2) + " " + id);
     return toViewContext(ctx.self + ViewContextOffset);
 }

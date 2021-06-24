@@ -5,6 +5,11 @@
 //author: orefkov
 //help: inplace
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Стартовый скрипт, загружающий все остальные
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 
@@ -32,41 +37,20 @@
     // Загрузка стандартных аддинов
     function loadStdAddins() {
         var group = addins.sys;
-        var prefix = "script:<addins>std\\";
+        var prefix = "script:addins\\std\\";
         return loadAddin(prefix + "vbs.vbs", group) &&
             loadAddin(prefix + "commands.js", addins.root) &&
-            loadAddin(prefix + "marked.js", group) &&
             loadAddin(prefix + "std.js", group) &&
             loadAddin(prefix + "hotkeys.js", group) &&
             loadAddin(prefix + "macroswnd.js", group) &&
-            //loadAddin(prefix + "help.js", group) &&
-            //loadAddin(prefix + "repo.js", group) &&
-            loadAddin(prefix + "snegopat.js", group)// &&
-            //loadAddin(prefix + "editors.js", group) &&
-            //loadAddin(prefix + "snegopatwnd.js", group)
+            loadAddin(prefix + "help.js", group) &&
+            loadAddin(prefix + "snegopat.js", group) &&
+            loadAddin(prefix + "select_scripts.js", group) 
             ;
     }
 
     function loadUserAddins() {
-        // Список загружаемых аддинов хранится в виде дерева значений в настройках снегопата
-        var profileKey = "Snegopat/AddinsTree";
-        var vt = v8New("ValueTree");
-        vt.Columns.Add("Addin");
-        vt.Columns.Add("isGroup");
-        profileRoot.createValue(profileKey, vt, pflSnegopat);
-        (function (rows, parentGroup) {
-            for (var i = 0, c = rows.count(); i < c; i++) {
-                var row = rows.get(i)
-                if (row.isGroup)
-                    arguments.callee(row.rows, parentGroup.addGroup(row.Addin));
-                else
-                    loadAddin(row.Addin, parentGroup);
-            }
-        })(profileRoot.getValue(profileKey).Строки, addins.users);
-        /*var snwnd = <any>addins.byUniqueName("snegopatwnd").object();
-        snwnd.addinsProfileKey = profileKey;
-        snwnd.restoreWindowState();
-        */
+        addins.byUniqueName("select_scripts").object().loadUserScripts();
     }
 
     function loadAddin(loaderStr, group) {

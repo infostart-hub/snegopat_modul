@@ -1,3 +1,6 @@
+// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов Scintilla.
+
 :tdef uptr_t int_ptr
 :tdef sptr_t int_ptr
 :tdef Sci_Position int

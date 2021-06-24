@@ -20,6 +20,7 @@
   #else
 	void openView(IFramedView& view, const ViewPosition& pos=ViewPosition(), int openIn=0, bool activate=true, const Guid& g=IID_NULL, const Rect& r=kEmptyRect)
   #endif
+
 ////////////////////////////////////////////////////////
 // Открыть диалог и Предупреждение
 #if ver >= 8.3.17.1549
@@ -100,9 +101,9 @@
         43
     #endif
     save int doMsgLine(const v8string&in text, int_ptr marker=mNone, const Guid&in g=IID_NULL, int_ptr i1=0, IUnknown@ pUnkObject=null, const V8Picture&in customMarker=V8Picture())
-  #if ver < 8.3.15
-		+21
-  #else
+    #if ver < 8.3.15
+        +21
+    #else
         +22
   #endif
 #if ver >= 8.3.18

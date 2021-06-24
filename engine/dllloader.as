@@ -1,13 +1,16 @@
-﻿/* dllloader.as
-Загрузчик аддинов-длл
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Загрузчик аддинов-длл
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
-funcdef uint GetAddinInfo(uint&, uint&);
+funcdef int_ptr GetAddinInfo(int_ptr&, int_ptr&);
 funcdef void InitAddin(IDispatch&&);
-funcdef uint GetMacroses();
-funcdef void InvokeMacros(uint, Variant&);
+funcdef int_ptr GetMacroses();
+funcdef void InvokeMacros(int_ptr, Variant&);
 funcdef void GetObject(IUnknown&&&);
 
 // Аддин - длл
@@ -44,7 +47,7 @@ class AddinDll : Addin {
     // получить массив имен макросов
     array<string>&& macroses() {
         if (getMacroses !is null) {
-            uint res = getMacroses();
+            int_ptr res = getMacroses();
             if (res > 0) {
                 string m = stringFromAddress(res);
                 SysFreeString(res);
@@ -92,7 +95,7 @@ class DllLoader : AddinLoader {
         if (ptr != 0) {
             GetAddinInfo&& getAddinInfo;
             initFuncDefFromAddress(ptr, &&getAddinInfo);
-            uint bun = 0, bdn = 0;
+            int_ptr bun = 0, bdn = 0;
             getAddinInfo(bun, bdn);
             if (bun != 0) {
                 un = stringFromAddress(bun);

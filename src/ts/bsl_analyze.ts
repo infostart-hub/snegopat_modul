@@ -2,8 +2,10 @@
 //uname: bsl_analyze
 //dname: Расширенный анализ модулей
 //descr: Скрипт для взаимодействия с bsl language server
+//category: Редактирование\Качество кода
 //author: orefkov
 //help: inplace
+//autoload: 1
 //addin: global
 
 /// <reference path="./snegopat.d.ts" />

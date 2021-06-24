@@ -6,6 +6,11 @@
 //help: inplace
 //descr: Аддин для работы со стандартными командами 1С
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Скрипт для работы с командами 1С
+ */
+
 /*@
 Описание различных стандартных команд Конфигуратора.
 Список не полон, и пополняется по мере исследований.
@@ -233,7 +238,8 @@ export var TextEdit = {
     ProcessTemplate: new Command(61, "Обработка текущего слова шаблонами"),
     ShowSubstString: new Command(62, "Показывать строку автозамены в дереве шаблонов"),
     DeleteLine: new Command(63, "Удалить текущую строку"),
-    FormatStringWizard: new Command(66, "Запустить конструктор форматной строки")
+    FormatStringWizard: new Command(66, "Запустить конструктор форматной строки"),
+    MultyLangStrWizard: new Command(67, "Конструктор строк на разных языках")
 };
 
 export var MngFormEdt = {

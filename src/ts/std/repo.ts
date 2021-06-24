@@ -7,6 +7,11 @@
 //help: inplace
 //addin: global
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с репозитарием скриптов снегопата.
+ */
+
 /*@
 Скрипт организует работу с репозитариями аддинов снегопата. Снегопат поддерживает работу
 с двумя репозитариями аддинов - официальный репозитарий, в котором размещаются официальные
@@ -57,7 +62,6 @@
 
 global.connectGlobals(SelfScript);
 import * as stdlib from "./std";
-import * as helpsys from "./help";
 
 /**
  * Введём несколько интерфейсов и типов для удобства
@@ -237,7 +241,6 @@ class Reposytory {
                     al[ai.load.toLowerCase()] = ai;
             }
         })(this.root);
-        helpsys.getHelpSystem().createAddinsDocs(this.root);
     }
     findByUname(uname: string): AddinInfo {
         return this.addinsByUname[uname];

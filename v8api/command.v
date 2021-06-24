@@ -1,10 +1,13 @@
-﻿// Описание интерфейсов работы с командами
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание интерфейсов работы с командами
 :struct CommandID
 :props
 	Guid group
 	uint num
 :meths
-	void ctor(const Guid&in group, int num)
+	void ctor(const Guid&in group, size_t num)
 	{
 		obj.group = group;
 		obj.num = num;
@@ -17,7 +20,7 @@
 	int       param
 	int_ptr	  object
 :meths
-	void ctor(const CommandID&in _id, int p)
+	void ctor(const CommandID&in _id, size_t p)
 	{
 		obj.id = _id;
 		obj.param = p;

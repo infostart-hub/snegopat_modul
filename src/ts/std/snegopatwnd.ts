@@ -7,6 +7,11 @@
 //descr: Скрипт для работы с окном снегопата
 //help: inplace
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Показ окна снегопата
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 
@@ -44,8 +49,9 @@ var FormDriver = (function () {
 	return {
 		switchPage: function (pageNum: number) {
 			if (currentPage) {
-				var i: Page = instances[currentPage];
-				i.exit();
+                var i: Page = instances[currentPage];
+                if (i)
+                    i.exit();
 			}
 			currentPage = form.Panel.Pages.Get(pageNum).Name;
 			if (currentPage in instances)
@@ -69,6 +75,15 @@ var FormDriver = (function () {
 			}
 			form.Open();
 		},
+		selectPage(name: string) {
+			for (var i = 0, k = form.Panel.Pages.Count(); i < k; i++) {
+				var page = form.Panel.Pages.Get(i);
+				if (page.Name == name) {
+					form.Panel.CurrentPage = page;
+					break;
+				}
+			}
+		},
 		OnCurrentPageChange: function (Control, CurrentPage) {
 			this.switchPage(CurrentPage.val);
 		}
@@ -79,477 +94,9 @@ export function openWnd() {
 	FormDriver.open();
 }
 
-type AddinsControls = FormItems & {
-	LoadedAddins: TableBox, AllAddins: TableBox, AddinInfo: HTMLDocumentField,
-	CmdBar: CommandBar, CmdBar2: CommandBar, Panel1: Panel, LoadList: TableBox
-};
-type AddinsTreeRow = { Addin: string, picture: number, object: Addin | AddinGroup } & ValueTreeRow;
-type AllAddinsRow = { Addin: string, Descr: string, ai: repo.AddinInfo } & ValueTreeRow;
-type AddinsTree = { Get(p: number): AddinsTreeRow } & ValueTree;
-type AllAddinsTree = { Get(p: number): AllAddinsRow } & ValueTree;
-type AddinsForm = { Controls: AddinsControls, AllAddins: AllAddinsTree, LoadedAddins: AddinsTree, LoadList: ValueTree } & Form;
-type LoadRow = { Addin: string, isGroup: boolean } & ValueTreeRow;
-type UserListRow = { LoadStr: string, Dname: string, isGroup: boolean } & ValueTreeRow;
-type UserListTree = { Get(p: number): UserListRow } & ValueTree;
-
-class AddinsPage implements Page {
-	form: AddinsForm;
-	menu: CommandBarButtons;
-	btnMoveAddin: CommandBarButton;
-	btnUnloadAddin: CommandBarButton;
-	btnRestartAddin: CommandBarButton;
-	loaderButtons: CommandBarButton[];
-	idleNode: HandlerNode;
-	lastInfoControl: string = "";
-	loadedGroup: AddinGroup;
-	reloadRow: AddinsTreeRow;
-
-	connect(form) {
-		this.form = form;
-		this.form.LoadedAddins.Columns.Add("object");
-		this.form.AllAddins.Columns.Add("ai");
-		this.form.LoadList.Columns.Add("isGroup");
-		var buttons: CommandBarButtons = this.form.Controls.CmdBar.Buttons;
-		this.btnMoveAddin = buttons.Find("MoveAddin");
-		this.menu = this.form.Controls.CmdBar2.Buttons.Find("Menu").Buttons;
-		this.btnUnloadAddin = this.menu.Find("UnloadAddin");
-		this.btnRestartAddin = this.menu.Find("RestartAddin");
-		// Добавим команды загрузчиков
-		this.loaderButtons = [];
-		var loaders: string[] = stdlib.toArray(addins.getLoaderCommands());
-		for (var idx = 0; idx < loaders.length; idx++) {
-			var cmd = loaders[idx].split('|');
-			this.loaderButtons.push(this.menu.Insert(idx, cmd[1], CommandBarButtonType.Action, cmd[0] + "...", v8New("Action", "DoLoadAddin")));
-		}
-		// Добавим макросы для разработчиков
-		var devs: CommandBarButtons = buttons.Find("Develop").Buttons;
-		idx = 0;
-		for (var k in snmain) {
-			if (/macrosРазработка\\(.+)/.exec(k)) {
-				var btn: CommandBarButton = devs.Add("devs" + k, CommandBarButtonType.Action, RegExp.$1, v8New("Action", "DevelopCommand"));
-				btn.Description = btn.ToolTip = "Вызвать макрос '" + RegExp.$1 + "'";
-				if (snmain[k].descr && snmain[k].descr.picture)
-					btn.Picture = snmain[k].descr.picture;
-			}
-		}
-		// Заполним работающие аддины
-		this.fillLoadedAddins();
-		// Покажем аддины из репозитария
-		this.fillAllAddins();
-		// Заполним список загружаемых аддинов
-		this.fillUserAddinsTree();
-		// Будем следить за загрузкой/выгрузкой аддинов, дабы поддерживать актуальность списка
-		events.connect(Designer, "onLoadAddin", this);
-		events.connect(Designer, "onUnLoadAddin", this);
-	}
-	enter() {
-		// В 1С ТабличноеПоле не имеет события получения фокуса, приходится извращатся.
-		this.idleNode = events.connect(Designer, "onIdle", this);
-	}
-	exit() {
-		events.disconnectNode(this.idleNode);
-	}
-	// Отслеживание загрузки аддинов
-	onLoadAddin(addin: Addin) {
-		if (this.loadedGroup == addin.group) {    // Это загрузился аддин по нашей команде "Загрузить"
-			var row: AddinsTreeRow = this.form.Controls.LoadedAddins.CurrentRow.Rows.Add();
-			row.picture = 2;
-			row.Addin = addin.displayName;
-			row.object = addin;
-			this.form.Controls.LoadedAddins.CurrentRow = row;
-		} else if (this.reloadRow) {   // Это загрузился аддин по команде "Перезагрузить"
-			this.reloadRow.Addin = addin.displayName;
-			this.reloadRow.object = addin;
-			this.reloadRow = null;
-		}
-		else    // Аддин типа где-то со стороны загрузился
-			this.fillLoadedAddins();
-	}
-	onUnLoadAddin(addin: Addin) {
-		if (this.reloadRow)
-			return;
-		this.fillLoadedAddins();
-	}
-	// Заполнение списка всех аддинов из репозитариев
-	fillAllAddins() {
-		(function processRepo(repoFolder: repo.AddinsFolder, rows: ValueTreeRowCollection) {
-			for (var i in repoFolder.childs) {
-				var row = <AllAddinsRow>rows.Add();
-				var fi = repoFolder.childs[i];
-				row.Addin = fi.name;
-				processRepo(fi, row.Rows);
-			}
-			for (var a in repoFolder.addins) {
-				var ai = repoFolder.addins[a];
-				if (ai.tags.hidden != "yes") {
-					var row = <AllAddinsRow>rows.Add();
-					row.Addin = ai.name();
-					row.Descr = ai.tags.descr;
-					row.ai = ai;
-				}
-			}
-		})(repo.getRepo().root, this.form.AllAddins.Rows);
-	}
-	// Первоначальное заполнение списка загруженных аддинов
-	fillLoadedAddins() {
-		this.form.LoadedAddins.Rows.Clear();
-		// Выполняется рекурсивно
-		(function (rows: ValueTreeRowCollection, group: AddinGroup) {
-			// добавляем дочерние группы
-			for (var child = group.child; child; child = child.next) {
-				var row = <AddinsTreeRow>rows.Add();
-				row.Addin = child.name;
-				row.picture = 0;
-				row.object = child;
-				arguments.callee(row.Rows, child)
-			}
-			// добавляем аддины из группы
-			for (var i = 0, c = group.addinsCount; i < c; i++) {
-				var row = <AddinsTreeRow>rows.Add();
-				var a = group.addin(i);
-				row.Addin = a.displayName;
-				row.object = a;
-				row.picture = 2;
-			}
-		})(this.form.LoadedAddins.Rows, addins.root);
-	}
-	// При активизации строки списка работающих аддинов.
-	// Нужно выставить доступность разным командам, в-зависимости от текущей строки
-	handlerLoadedAddinsOnActivateRow() {
-		var cr: AddinsTreeRow = this.form.Controls.LoadedAddins.CurrentRow;
-		if (!cr)
-			return;
-		for (var r = cr; r.Parent; r = <AddinsTreeRow>r.Parent);
-		var inUsersAddins = r.object == addins.users;
-		var isAddin = cr.picture == 2;
-		// Разберемся с выгрузкой/перезагрузкой
-		if (isAddin) {
-			if (inUsersAddins && addins.isAddinUnloadable(<Addin>cr.object)) {
-				this.btnUnloadAddin.Text = "Выгрузить <" + cr.Addin + ">";
-				this.btnRestartAddin.Text = "Перезагрузить <" + cr.Addin + ">";
-				this.btnUnloadAddin.Enabled = this.btnRestartAddin.Enabled = true;
-			} else {
-				this.btnUnloadAddin.Text = "Этот аддин не выгружается";
-				this.btnRestartAddin.Text = "И не перезагружается";
-				this.btnUnloadAddin.Enabled = this.btnRestartAddin.Enabled = false;
-			}
-		} else {
-			this.btnUnloadAddin.Text = "Выгрузить аддин";
-			this.btnRestartAddin.Text = "Перезагрузить аддин";
-			this.btnUnloadAddin.Enabled = this.btnRestartAddin.Enabled = false;
-		}
-		// Теперь с загрузкой. Она активна, если стоим на группе в пользовательском разделе
-		for (var idx in this.loaderButtons)
-			this.loaderButtons[idx].Enabled = inUsersAddins && !isAddin;
-		// Теперь надо показать инфу об аддине, если она есть
-		var helpPath;
-		if (isAddin)
-			helpPath = helpsys.getHelpSystem().addinHelpPath((<Addin>cr.object).uniqueName);
-		this.setInfo(helpPath);
-	}
-	onIdle() {
-		var ctrl = this.form.CurrentControl.Name;
-		if (ctrl != this.lastInfoControl) {
-			if (ctrl == "LoadedAddins")
-				this.handlerLoadedAddinsOnActivateRow();
-			else if (ctrl == "AllAddins")
-				this.handlerAllAddinsOnActivateRow();
-			else if (ctrl == "LoadList")
-				this.handlerLoadListOnActivateRow();
-			this.lastInfoControl = ctrl;
-		}
-	}
-	setInfo(path: string) {
-		if (!path || !path.length)
-			path = "core\\00 firststep.md0.html";
-		path = env.pathes.help + path;
-		try {
-			var testPath = "/" + path.replace(/ /g, "%20").replace(/\\/g, "/").toLowerCase();
-			var loc = getLocation(this.form.Controls.AddinInfo.Document);
-			if (loc.protocol != "file:" || loc.pathname.toLowerCase() != testPath)
-				this.form.Controls.AddinInfo.Navigate(path);
-		} catch (e) {
-			this.form.Controls.AddinInfo.Navigate(path);
-		}
-	}
-	// Обработчик команды загрузки аддина
-	handlerDoLoadAddin(button: { val: CommandBarButton }) {
-		this.loadedGroup = this.form.Controls.LoadedAddins.CurrentRow.object;
-		try {
-			addins.selectAndLoad(button.val.Name, this.loadedGroup);
-		} catch (e) {
-			Message("Ошибка при загрузке: " + e.description)
-		}
-		this.loadedGroup = null;
-	}
-	// Обработка команды меню "Выбрать и выполнить макрос"
-	handlerCmdBarRunMacros() {
-		addins.byUniqueName("SnegopatMainScript").invokeMacros("ВыбратьИВыполнитьМакрос");
-	}
-	// Обработка динамически созданных команд подменю "Разработка"
-	handlerDevelopCommand(button: { val: CommandBarButton }) {
-		addins.byUniqueName("SnegopatMainScript").invokeMacros("Разработка\\" + button.val.Text);
-	}
-	// Обработка нажатия на ссылку в поле "www" на страницах описаний аддинов. Чтобы открывать во внешнем браузере
-	handlerAddinInfoonhelp(Control, pEvtObj) {
-		try {
-			RunApp(this.form.Controls.AddinInfo.Document.getElementById('wwwsite').innerText);
-		} catch (e) { }
-	}
-	// Обработчик команды "Выгрузить аддин"
-	handlerCmdBarUnloadScript() {
-		var cr: AddinsTreeRow = this.form.Controls.LoadedAddins.CurrentRow;
-		if (cr && cr.picture == 2) {
-			var addin = <Addin>cr.object;
-			if (addins.isAddinUnloadable(addin)) {
-				this.reloadRow = cr;
-				try {
-					if (addins.unloadAddin(addin))
-						cr.Parent.Rows.Delete(cr);
-					else
-						Message("Аддин не смог выгрузится: " + addins.lastAddinError);
-				} catch (e) {
-					Message("При выгрузке аддина произошла ошибка " + e.description);
-				}
-				this.reloadRow = null;
-			}
-		}
-	}
-	// Обработчик команды "Перезагрузить аддин"
-	handlerCmdBarRestartCurrentScript() {
-		var cr: AddinsTreeRow = this.form.Controls.LoadedAddins.CurrentRow;
-		if (cr && cr.picture == 2) {
-			var addin = <Addin>cr.object;
-			if (addins.isAddinUnloadable(addin)) {
-				this.reloadRow = cr;
-				try {
-					if (addins.unloadAddin(addin)) {
-						if (!addins.loadAddin(addin.fullPath, addin.group)) {
-							Message("Аддин не смог загрузится: " + addins.lastAddinError);
-							cr.Parent.Rows.Delete(cr);
-						}
-					}
-					else
-						Message("Аддин не смог выгрузится: " + addins.lastAddinError);
-				} catch (e) {
-					Message("При выгрузке аддина произошла ошибка " + e.description);
-				}
-				this.reloadRow = null;
-			}
-		}
-	}
-	// При активизации строки в дереве репозитариев покажем первый топик справки по аддину, при наличии
-	handlerAllAddinsOnActivateRow() {
-		if (this.form.Controls.AllAddins.CurrentRow) {
-			var ai: repo.AddinInfo = this.form.Controls.AllAddins.CurrentRow.ai;
-			this.setInfo(ai ? ai.helpPath : undefined);
-		}
-	}
-	handlerAddinInfoSyncContent() {
-		var loc = getLocation(this.form.Controls.AddinInfo.Document);
-		if (loc.protocol == "file:") {
-			var hf = "/" + env.pathes.help.replace(/\\/g, "/").replace(/ /g, "%20").toLowerCase();
-			if (loc.pathname.toLowerCase().indexOf(hf) == 0) {
-				var path = loc.pathname.substr(hf.length).replace(/\//g, "\\").replace(/%20/g, ' ').toLowerCase();
-				var hs = helpsys.getHelpSystem();
-				if (path in hs.allTopics) {
-					var p = this.form.Panel;
-					p.CurrentPage = p.Pages.Find("Help");
-					if (hs.allTopics[path]["row"])
-						(<any>this.form.Controls).Find("HelpTree").CurrentRow = hs.allTopics[path]["row"];
-				}
-			}
-		}
-	}
-	// Обработчик при выводе строки дерева репозитариев аддинов
-	handlerAllAddinsOnRowOutput(Control, RowAppearance: { val }, RowData: { val: AllAddinsRow }) {
-		// если аддин из репозитария уже загружен, покажем его зелёненьким
-		if (RowData.val.ai && addins.byUniqueName(RowData.val.ai.tags.uname)) {
-			RowAppearance.val.TextColor = clrLoadedAddin;
-		}
-		RowAppearance.val.Cells.Addin.ShowPicture = true;
-		RowAppearance.val.Cells.Addin.PictureIndex = RowData.val.ai ? 2 : 0;
-	}
-	// Заполнение списка загрузки аддинов
-	fillUserAddinsTree() {
-		var vt = profileRoot.getValue(addinsProfileKey);
-		this.form.LoadList.Rows.Clear();
-		var row = <UserListRow>this.form.LoadList.Rows.Add();
-		row.LoadStr = "Пользовательские аддины";
-		row.isGroup = true;
-		var rp = repo.getRepo();
-		(function copyvt(src, dst) {
-			for (var i = 0; i < src.Count(); i++) {
-				var from: LoadRow = src.Get(i);
-				var to: UserListRow = <UserListRow>dst.Add();
-				var ai = rp.findByLoadStr(from.Addin);
-				to.LoadStr = from.Addin;
-				to.Dname = ai ? ai.name() : "";
-				to.isGroup = from.isGroup;
-				copyvt(from.Rows, to.Rows);
-			}
-		})(vt.Rows, row.Rows);
-	}
-	handlerLoadListOnActivateRow() {
-		var row: UserListRow = this.form.Controls.LoadList.CurrentRow;
-		if (row) {
-			var ai: repo.AddinInfo = repo.getRepo().findByLoadStr(row.LoadStr);
-			this.setInfo(ai ? ai.helpPath : undefined);
-		}
-	}
-	// Отмена правок в списке загружаемых аддинов
-	handlerLoadListCmdBarReloadAddinBootList() {
-		if (MessageBox("Будут отменены все изменения, внесённые с момента\nпоследнего сохранения списка.\nПродолжить?", mbYesNo) == mbaNo)
-			return;
-		this.fillUserAddinsTree();
-	}
-	// Сохранение списка загружаемых аддинов
-	handlerLoadListCmdBarSaveAddinList() {
-		var vt: ValueTree = profileRoot.getValue(addinsProfileKey);
-		vt.Rows.Clear();
-		(function copyvt(src, dst) {
-			for (var i = 0; i < src.Count(); i++) {
-				var from: UserListRow = <UserListRow>src.Get(i);
-				var to: LoadRow = <LoadRow>dst.Add();
-				to.Addin = from.LoadStr;
-				to.isGroup = from.isGroup;
-				copyvt(from.Rows, to.Rows);
-			}
-		})(this.form.LoadList.Rows.Get(0).Rows, vt.Rows);
-		profileRoot.setValue(addinsProfileKey, vt);
-	}
-	handlerLoadListOnRowOutput(Control, RowAppearance, RowData) {
-		RowAppearance.val.Cells.LoadStr.ShowPicture = true;
-		RowAppearance.val.Cells.LoadStr.PictureIndex = RowData.val.isGroup ? 0 : 2;
-	}
-	// Перед удалением строки из списка загружаемых аддинов
-	handlerLoadListBeforeDeleteRow(Control: { val: TableBox }, Cancel) {
-		// корневую строку удалять нельзя
-		if (!Control.val.CurrentRow.Parent)
-			Cancel.val = true;
-	}
-	// Перед добавлением. К аддину уже нельзя добавлять
-	handlerLoadListBeforeAddRow(Control, Cancel, Clone, Parent) {
-		if (!Parent.val.isGroup)
-			Cancel.val = true;
-	}
-	// Перед началом изменения. Корневую строку менять нельзя.
-	handlerLoadListBeforeRowChange(Control, Cancel) {
-		var cr: UserListRow = Control.val.CurrentRow;
-		if (!cr.Parent)
-			Cancel.val = true;
-	}
-	// При начале редактирования
-	handlerLoadListOnStartEdit(Control: { val: TableBox }, NewRow, Clone) {
-		var cr: UserListRow = Control.val.CurrentRow;
-		if (NewRow.val) {
-			cr.isGroup = true;
-			cr.LoadStr = "Новая группа";
-		}
-	}
-	// перед окончанием редактирования
-	handlerLoadListBeforeEditEnd(Control, NewRow, CancelEdit, Cancel) {
-		var cr: UserListRow = Control.val.CurrentRow;
-		var ls = cr.LoadStr.toLowerCase();
-		// Если это группа, надо проверить, что у этого родителя больше нет группы с таким именем
-		if (cr.isGroup) {
-			var rows = cr.Parent.Rows;
-			var midx = rows.IndexOf(cr);
-			for (var idx = 0; idx < rows.Count(); idx++) {
-				var test = <UserListRow>rows.Get(idx);
-				if (idx != midx && test.LoadStr.toLowerCase() == ls) {
-					MessageBox("Такая группа уже есть");
-					Cancel.val = true;
-					return;
-				}
-			}
-		} else {
-			// Это аддин, надо проверить, что такой строки загрузки больше нет.
-			var founded = 0;
-			try {
-				(function test(rows: ValueTreeRowCollection) {
-					for (var idx = 0; idx < rows.Count(); idx++) {
-						var r = <UserListRow>rows.Get(idx);
-						if (r.isGroup)
-							test(r.Rows);
-						else if (r.LoadStr == cr.LoadStr && ++founded == 2) {
-							MessageBox("Такой аддин уже есть");
-							Cancel.val = true;
-							throw 1;
-						}
-					}
-				})(this.form.LoadList.Rows);
-			} catch (e) { }
-		}
-	}
-	// После редактирования
-	handlerLoadListOnEditEnd(Control, NewRow, CancelEdit) {
-		if (!CancelEdit.val) {
-			var cr: UserListRow = Control.val.CurrentRow;
-			if (!cr.isGroup) {
-				var ai = repo.getRepo().findByLoadStr(cr.LoadStr);
-				cr.Dname = ai ? ai.name() : "";
-			}
-		}
-	}
-	handlerCmdBarMoveAddin() {
-		var selected: repo.AddinInfo = this.form.Controls.AllAddins.CurrentRow.ai;
-		if (!selected) {
-			MessageBox("Не выбран аддин в репозитарии аддинов");
-			return;
-		}
-		if (selected.isStd) {
-			MessageBox("Это стандартный аддин и он подключается автоматически");
-			return;
-		}
-		if (this.form.Controls.Panel1.CurrentPage.Name == "LoadList") {
-			if (this.form.LoadList.Rows.Find(selected.load, "LoadStr", true)) {
-				MessageBox("Такой аддин уже есть в списке");
-				return;
-			}
-			var cr: UserListRow = this.form.Controls.LoadList.CurrentRow;
-			if (!cr) {
-				MessageBox("Не выбрана группа для аддина");
-				return;
-			}
-			if (!cr.isGroup)
-				cr = <UserListRow>cr.Parent;
-			cr = <UserListRow>cr.Rows.Add();
-			cr.isGroup = false;
-			cr.LoadStr = selected.load;
-			cr.Dname = selected.name();
-			this.form.Controls.LoadList.CurrentRow = cr;
-		} else {
-			if (addins.byUniqueName(selected.tags.uname)) {
-				MessageBox("Этот аддин уже запущен.");
-				return;
-			}
-			var ar: AddinsTreeRow = this.form.Controls.LoadedAddins.CurrentRow;
-			if (!ar) {
-				MessageBox("Не выбрана группа для загрузки аддина");
-				return;
-			}
-			if (ar.picture == 2) {
-				ar = <AddinsTreeRow>ar.Parent;
-				this.form.Controls.LoadedAddins.CurrentRow = ar;
-			}
-			var test = <any>ar;
-			while (test.Parent)
-				test = test.Parent;
-			if (test.object != addins.users) {
-				MessageBox("Загружать аддин на выполнение можно только в группу пользовательских аддинов");
-				return;
-			}
-			this.loadedGroup = <AddinGroup>ar.object;
-			try {
-				if (!addins.loadAddin(selected.load, this.loadedGroup))
-					Message("Ошибка при загрузке аддина: " + addins.lastAddinError);
-			} catch (e) {
-				Message("Ошибка при загрузке: " + e.description);
-			}
-			this.loadedGroup = null;
-		}
-	}
+export function openPage(name: string) {
+	FormDriver.open();
+	FormDriver.selectPage(name);
 }
 
 // Базовый класс обработчика параметра настроек снегопата
@@ -633,6 +180,7 @@ class SettingsPage implements Page {
 		MultiLineBackground: new ParamColor("ЦветФонаМногострочныхСтрок"),
 		GroupMultiLine: new Param("GroupMultiLine"),
 		UseCtrlClicks: new Param("UseCtrlClicks"),
+		ShowNotifyOnStartup: new Param("ShowNotifyOnStartup"),
 		CamelSearchOnUpperOnly: new Param("CamelSearchOnUpperOnly"),
 		//ActionOnSelectScript: new Param("ВариантДействияПриВыбореСкрипта"),
 		//EditScriptCommand: new Param("КомандаЗапускаРедактора"),
@@ -675,7 +223,11 @@ class SettingsPage implements Page {
 			var p: Param = this.params[k];
 			var onform = p.fromForm(this.form);
 			if (!p.validate(onform))
-				return;
+				return false;
+		}
+		for (var k in this.params) {
+			var p: Param = this.params[k];
+			var onform = p.fromForm(this.form);
 			var sp: OptionsEntry = this.optMap[k];
 			var saved = sp ? profileRoot.getValue(sp.profile) : this.optFolder.getValue(k);
 			if (!p.isEqual(onform, saved)) {
@@ -689,15 +241,20 @@ class SettingsPage implements Page {
 				}
 			}
 		}
+		saveProfile();
 		if (reboot)
 			MessageBox("Необходимо перезапустить Конфигуратор для вступления изменений в силу.", mbIconWarning, "Снегопат");
+		return true;
 	}
 	enter() {
 	}
 	exit() {
 	}
+	handlerSettingsCmdBarSelectScripts() {
+		addins.byUniqueName("select_scripts").object().openForm();
+	}
 	handlerSettingsCmdBarSaveSettings() {
-		this.applyParams();
+		if (this.applyParams())
 		this.enableButtons(false);
 	}
 	handlerSettingsCmdBarRestoreSettings() {
@@ -1262,21 +819,27 @@ class UpdatePage implements Page {
 /**
  * Данный класс служит для связи отображения справки в форме со справочной системой
  */
+
+import {HelpInfo} from "./build";
+
 type HelpControls = FormItems & { HelpTree: TableBox, HelpSearch: TextBox, HelpHtml: HTMLDocumentField, HelpBar: CommandBar };
-type HelpTreeRow = { topic: string, data: helpsys.HelpFolder } & ValueTreeRow;
+type HelpTreeRow = { topic: string, data: HelpInfo } & ValueTreeRow;
 type HelpTree = { Get(p: number): HelpTreeRow } & ValueTree;
 type HelpForm = { Controls: HelpControls, HelpSearch: string, HelpTree: HelpTree } & Form;
 
 class HelpPage implements Page {
+	static helpPage: HelpPage = null;
 	form: HelpForm;
 	stdButtonsCount: number;
 	breadCrumbs;
+	helpDir = "";
 	connect(form) {
-		helpsys.getHelpSystem().createDocs();
+		HelpPage.helpPage = this;
 		this.form = form;
 		this.stdButtonsCount = this.form.Controls.HelpBar.Buttons.Count();
 		this.form.HelpTree.Columns.Add("data");
 		this.fillHelpTree();
+		this.helpDir = env.pathes.help.toLocaleLowerCase();
 	}
 	enter() {
 	}
@@ -1284,25 +847,42 @@ class HelpPage implements Page {
 	}
 	fillHelpTree() {
 		var hs = helpsys.getHelpSystem();
-		(function process(folder: helpsys.HelpFolder, rows: ValueTreeRowCollection) {
+
+		function process(folder: HelpInfo, rows: ValueTreeRowCollection) {
 			var row = <HelpTreeRow>rows.Add();
 			row.data = folder;
-			row.topic = folder.title;
-			if (!folder.folder)
-				folder.row = row;
-			for (var i in folder.topics)
-				process(folder.topics[i], row.Rows);
-		})(hs.root, this.form.HelpTree.Rows);
+			row.topic = folder.name;
+			folder.row = row;
+			for (var i in folder.childs)
+				process(folder.childs[i], row.Rows);
+		};
+		process(hs.root.childs[0], this.form.HelpTree.Rows);
+		process(hs.root.childs[1], this.form.HelpTree.Rows);
 	}
-	activate(topic: helpsys.HelpFolder) {
-		if (topic.folder)
+	getCurrentUrl() {
+		var url = this.form.Controls.HelpHtml.Document.location.href;
+		if (/^file:\/\/\/([^#]+)/i.exec(url)) {
+			var file = RegExp.$1.replace(/\//g, "\\").replace(/%20/g, ' ').toLocaleLowerCase();
+			if (file.indexOf(this.helpDir) == 0) {
+				return "help\\" + file.substr(this.helpDir.length);
+			}
+		}
+		return "";
+	}
+	activate(topic: HelpInfo) {
+		var url = this.getCurrentUrl();
+		if (url && url == topic.path)
 			return;
-		this.form.Controls.HelpHtml.Navigate(env.pathes.help + topic.path);
+		if (topic.path)
+			this.form.Controls.HelpHtml.Navigate(env.pathes.main + topic.path);
+		else
+			this.form.Controls.HelpHtml.SetText("<html><body></body><html>");
 		for (var idx = this.form.Controls.HelpBar.Buttons.Count() - 1; idx >= this.stdButtonsCount; idx--)
 			this.form.Controls.HelpBar.Buttons.Delete(idx);
 		idx = 0;
 		this.breadCrumbs = {};
-		for (var r = <HelpTreeRow>topic.row.Parent; !r.data.folder; r = <HelpTreeRow>r.Parent) {
+
+		for (var r = <HelpTreeRow>topic.row.Parent; r && r.data.helpId; r = <HelpTreeRow>r.Parent) {
 			var name = "btn" + idx;
 			var button: CommandBarButton = this.form.Controls.HelpBar.Buttons.Insert(this.stdButtonsCount, name,
 				CommandBarButtonType.Action, r.topic, v8New("Действие", "OnBreadCrumbsClick"));
@@ -1314,7 +894,7 @@ class HelpPage implements Page {
 	}
 	activateByPath(path: string) {
 		try {
-			this.form.Controls.HelpTree.CurrentRow = helpsys.getHelpSystem().allTopics[path].row;
+			this.form.Controls.HelpTree.CurrentRow = helpsys.getHelpSystem().allFiles[path].row;
 		} catch (e) { }
 	}
 	handlerHelpTreeПриАктивизацииСтроки() {
@@ -1323,23 +903,10 @@ class HelpPage implements Page {
 	handlerHelpTreeПриВыводеСтроки(Control, RowAppearance: { val }, RowData: { val }) {
 		var ra = RowAppearance.val.Cells.topic;
 		ra.ShowPicture = true;
-		if (RowData.val.data.folder)
+		if (!RowData.val.data.helpId)
 			ra.PictureIndex = 0;
 		else
 			ra.Picture = (<any>PictureLib).ListViewModeList;
-	}
-	handlerHelpBarsyncContent() {
-		var loc = getLocation(this.form.Controls.HelpHtml.Document);
-		if (loc.protocol == "file:") {
-			var hf = "/" + env.pathes.help.replace(/\\/g, "/").replace(/ /g, "%20").toLowerCase();
-			if (loc.pathname.toLowerCase().indexOf(hf) == 0) {
-				var path = loc.pathname.substr(hf.length).replace(/\//g, "\\").toLowerCase();
-				var hs = helpsys.getHelpSystem();
-				if (path in hs.allTopics && hs.allTopics[path]["row"]) {
-					this.form.Controls.HelpTree.CurrentRow = hs.allTopics[path]["row"];
-				}
-			}
-		}
 	}
 	handlerOnBreadCrumbsClick(button: { val: CommandBarButton }) {
 		this.form.Controls.HelpTree.CurrentRow = this.breadCrumbs[button.val.Name];
@@ -1347,21 +914,28 @@ class HelpPage implements Page {
 	handlerHelpSearchOpening(Control, StandardProcessing: { val: boolean }) {
 		StandardProcessing.val = false;
 		if (this.form.HelpSearch.length) {
-			var search = helpsys.getHelpSystem().searchTopics(this.form.HelpSearch);
+			var hs = helpsys.getHelpSystem();
+			var search = hs.searchTopics(this.form.HelpSearch);
 			var resultCount = search.Count();
 			if (0 == resultCount)
 				MessageBox("Ничего не найдено");
 			else if (1 == resultCount)
-				this.activateByPath(search.Get(0).path);
+				this.activate(hs.allTopics[search.Get(0).docid]);
 			else {
 				var vl = v8New("ValueList");
 				for (var i = 0; i < search.Count(); i++) {
 					var row = search.Get(i);
-					vl.Add(row.path, row.fullTitle, false, (<any>PictureLib).ListViewModeList);
+					var ti = hs.allTopics[row.docid], tc = ti;
+					var names = [];
+					while(tc && tc.helpId) {
+						names.unshift(tc.name);
+						tc = tc.parent;
+					}
+					vl.Add(ti, names.join('::'), false, (<any>PictureLib).ListViewModeList);
 				}
 				var choise = vl.ChooseItem("Выберите раздел справки");
 				if (choise)
-					this.activateByPath(choise.Value);
+					this.activate(choise.Value);
 			}
 		}
 	}
@@ -1369,6 +943,14 @@ class HelpPage implements Page {
 		try {
 			RunApp(this.form.Controls.HelpHtml.Document.getElementById('wwwsite').innerText);
 		} catch (e) { }
+	}
+	handlerHelpHtmlДокументСформирован(control) {
+		var url = this.getCurrentUrl();
+		if (url) {
+			var helpInfo = helpsys.getHelpSystem().allFiles[url];
+			if (helpInfo && this.form.Controls.HelpTree.CurrentRow && !(this.form.Controls.HelpTree.CurrentRow.data === helpInfo))
+				this.form.Controls.HelpTree.CurrentRow = helpInfo.row;
+		}
 	}
 };
 

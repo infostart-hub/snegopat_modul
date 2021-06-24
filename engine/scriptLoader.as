@@ -1,8 +1,12 @@
-﻿/* scriptLoader.as
-Загрузчик скриптов
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Загрузчик скриптов
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
+
 Packet ScriptInit("ScriptInit", initScripts, piOnMainWindow);
 
 bool initScripts() {
@@ -116,9 +120,8 @@ class ScriptLoader : AddinLoader {
             oneAddinMgr._lastAddinError = "Не удалось найти файл " + uri;
             return null;
         }
-        v8string textOfFile;
-        readTextFile(textOfFile, fullPath);
-        string source = textOfFile;
+        string source;
+        readTextFile(source, fullPath);
 
         if (source.isEmpty()) {
             oneAddinMgr._lastAddinError = "Не удалось получить текст файла " + fullPath;

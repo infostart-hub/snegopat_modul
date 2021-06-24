@@ -1,4 +1,7 @@
-﻿// Описание объекта Строка
+﻿// (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+// Описание интерфейсов 1С.
+
+// Описание объекта Строка
 :enum EStringSize
 #if ver < 8.3
 	16 inplaceStringSize
@@ -19,7 +22,7 @@
 	uint8 text
 
 :class v8string
-  // Под x64 тут неоптимальное выравнивание, по 4ым вместо 8
+  // Под x64 тут неоптимальное выравнивание, по 4ём вместо 8
   :align 4
   :props
 	uint len
@@ -46,7 +49,7 @@
 			mem::interlockedIncr(obj.data);
 	}
 	---
-	void ctor3(int_ptr text, uint l)
+	void ctor3(int_ptr text, size_t l)
 	{
 		if (l < inplaceStringSize) {
 			obj.len = l;
@@ -71,12 +74,13 @@
 	---
 	void dtor()
 	{
-		if (obj.len == inplaceStringSize && 0 == mem::interlockedDecr(obj.data))
+		if (obj.len == inplaceStringSize && mem::dword[obj.data] == 1 /*0 == mem::interlockedDecr(obj.data)*/) {
 		  #if ver < 8.3.11
 			free(obj.data);
 		  #else
 			v8free(obj.data, obj.pEnd - obj.data + 2);
 		  #endif
+		}
 	}
 	---
 	string opImplConv()const|int_ptr v8string__opImplConv(v8string& obj, string& ret)

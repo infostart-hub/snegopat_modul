@@ -1,7 +1,9 @@
-﻿// textwnd.as
-/*
-  Тут часть кода, работающая с текстовыми окнами
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Тут часть кода, работающая с текстовыми окнами
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -11,6 +13,11 @@ bool useCtrlClicks = false;
 OptionsEntry oeUseCtrlClicks("UseCtrlClicks", function(v){v = useCtrlClicks; },
     function(v) {v.getBoolean(useCtrlClicks); },
     function(v){v.getBoolean(useCtrlClicks); return false; });
+
+bool showNotifyOnStartup = true;
+OptionsEntry oeShowNotifyOnStartup("ShowNotifyOnStartup", function(v){v = showNotifyOnStartup; },
+    function(v) {v.getBoolean(showNotifyOnStartup); },
+    function(v){ v.getBoolean(showNotifyOnStartup); return false; });
 
 // Это интерфейс обработчика событий в тексте.
 // В-зависимости от назначенного текстовому документу расширения (встроенный язык, язык запросов и т.п.)
@@ -489,7 +496,7 @@ class TextWnd {
             trFrameViewActivate.setTrap(&&fv, IFramedView_onActivate, TextWnd_Activate);
             // Поставим перехват на детач окна, чтобы освобождать наши ресурсы, связанные с ним
             trWindowDetach.setTrapByName("wbase83.dll",
-            #if x86 = 1
+            #if x86
                 "?detach@Window@wbase@@QAEXXZ"
             #else
                 "?detach@Window@wbase@@QEAAXXZ"
@@ -498,7 +505,7 @@ class TextWnd {
                                                         
             // Ставим перехват на роутинг виндовых сообщений для работы контекстной подсказки.
             trDispatchMsg.setTrapByName("wbase83.dll",
-            #if x86 = 1
+            #if x86
                 "?dispatch_msg@wbase@@YAXABUtagMSG@@PAVIMsgDispHook@1@@Z"
             #else
                 "?dispatch_msg@wbase@@YAXAEBUtagMSG@@PEAVIMsgDispHook@1@@Z"

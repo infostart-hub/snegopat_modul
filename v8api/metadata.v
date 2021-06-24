@@ -177,7 +177,7 @@
 	    59
 	  #endif
 		IConfigMngr@+ getConfigMngr()
-	  
+
 	  #if ver < 8.3.18.1829
 	    +1
 	  #else
@@ -192,9 +192,9 @@
 :iface IMDClass {12BFDDD1-36CC-11D4-940F-008048DA11F9}
 	:virt
 		Guid& get_id() 
-		uint getName(int lang)				// Имя одного объекта - Документ
+		int_ptr getName(int lang)				// Имя одного объекта - Документ
 		int presentation(v8string& text)	// Представление одного объекта
-		uint getClassName(int lang)			// Имя класса объектов - Документы
+		int_ptr getClassName(int lang)			// Имя класса объектов - Документы
 		int classPresentation(v8string&)	// Представление класса объектов
 		+1
 		uint propCount()
@@ -394,14 +394,14 @@
 	  #endif
 		int refs
 		Guid id
-		uint nameEng
-		uint nameRus
-		int i1
-		int i2
-		uint resMod1
-		uint resID
-		uint resMod2
-		uint resCatID
+		int_ptr nameEng
+		int_ptr nameRus
+		size_t i1
+		size_t i2
+		int_ptr resMod1
+		int_ptr resID
+		int_ptr resMod2
+		int_ptr resCatID
 		IType@ pIType
 
 :enum EventMetaDataKind

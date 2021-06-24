@@ -6,6 +6,11 @@
 //author: orefkov
 //help: inplace
 
+/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Работа с окном макросов
+ */
+
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
 import * as stdlib from "./std";

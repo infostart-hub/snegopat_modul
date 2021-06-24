@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "emitBOM": true,
-	"noImplicitUseStrict": true,
+    "noImplicitUseStrict": true,
     "module": "commonjs",
     "newLine": "LF",
     "noImplicitAny": false,
     "sourceMap": false,
-    "target": "es3"
+    "target": "es3",
+    "removeComments": false
   },
-    "exclude": [
-        "node_modules"
-    ]
+  "exclude": [
+    "node_modules"
+  ]
 }

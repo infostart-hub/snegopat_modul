@@ -1,5 +1,8 @@
+; (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+; Файл описания модуля для Core.As
+
 [info]
 descr = Система для расширения возможностей Конфигуратора 1С-Предприятия 8.3
-src = engine
+src = engine,.|modules\starter\src\ipc
 api = v8api
 lib = snegopat.dll

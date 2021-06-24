@@ -1,0 +1,8 @@
+; (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+; Файл описания модуля для Core.As
+
+[info]
+descr = Скрипт для сборки модуля Снегопата
+src = .
+
+

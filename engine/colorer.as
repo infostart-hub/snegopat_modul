@@ -1,7 +1,10 @@
-﻿/* colorer.as
-    Внедрение текстового редактора "Scintilla"
-    http://www.scintilla.org/index.html
-*/
+﻿/*
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Внедрение текстового редактора "Scintilla"
+ * http://www.scintilla.org/index.html
+ */
+
+// Данные строки нужны только для среды разработки и вырезаются препроцессором
 #pragma once
 #include "../all.h"
 
@@ -206,7 +209,7 @@ class ScintillaDesignerEventsHandler {
                 bookmarks.remove(activeSciEditor.breakPointKey + (curSciLine + 1));
             } else {
                 activeSciEditor.swnd.markerAdd(curSciLine, markBookmark);
-                bookmarks.insert(activeSciEditor.breakPointKey + (curSciLine + 1), curSciLine + 1);
+                bookmarks.insert(activeSciEditor.breakPointKey + (curSciLine + 1), uint(curSciLine + 1));
             }
         }
     }
@@ -1034,22 +1037,22 @@ class ScintillaSetup {
         addStyle(SciStyleDefinition(stCurrentLine, "Цвет фона текущей линии", 0xF7E8D7));
         addStyle(SciStyleDefinition(stSelectionHighlight, "Цвет фона подсветки выделенного слова", rgb(0, 0, 255)));
 
-        stylesByName.insert("default", STYLE_DEFAULT);
-        stylesByName.insert("keyword", stKeyword);
-        stylesByName.insert("comment", stRemark);
-        stylesByName.insert("number", stNumber);
-        stylesByName.insert("string", stString);
-        stylesByName.insert("date", stDate);
-        stylesByName.insert("identifier", stIdentifier);
-        stylesByName.insert("operator", stOperator);
-        stylesByName.insert("preprocessor", stPreproc);
-        stylesByName.insert("label", stLabel);
-        stylesByName.insert("directive", stDirective);
-        stylesByName.insert("brace", STYLE_BRACELIGHT);
-        stylesByName.insert("linenumber", STYLE_LINENUMBER);
-        stylesByName.insert("indentguide", STYLE_INDENTGUIDE);
-        stylesByName.insert("currentline", stCurrentLine);
-        stylesByName.insert("selectionhighlight", stSelectionHighlight);
+        stylesByName.insert("default", uint(STYLE_DEFAULT));
+        stylesByName.insert("keyword", uint(stKeyword));
+        stylesByName.insert("comment", uint(stRemark));
+        stylesByName.insert("number", uint(stNumber));
+        stylesByName.insert("string", uint(stString));
+        stylesByName.insert("date", uint(stDate));
+        stylesByName.insert("identifier", uint(stIdentifier));
+        stylesByName.insert("operator", uint(stOperator));
+        stylesByName.insert("preprocessor", uint(stPreproc));
+        stylesByName.insert("label", uint(stLabel));
+        stylesByName.insert("directive", uint(stDirective));
+        stylesByName.insert("brace", uint(STYLE_BRACELIGHT));
+        stylesByName.insert("linenumber", uint(STYLE_LINENUMBER));
+        stylesByName.insert("indentguide", uint(STYLE_INDENTGUIDE));
+        stylesByName.insert("currentline", uint(stCurrentLine));
+        stylesByName.insert("selectionhighlight", uint(stSelectionHighlight));
     }
 
     uint caretWidth = 2;
@@ -1059,7 +1062,7 @@ class ScintillaSetup {
     int useTabs = 1;
     uint tabWidth = 4;
     bool useFolding = true;
-    NoCaseMap<int> stylesByName;
+    NoCaseMap<uint> stylesByName;
     color clrCurrentLine;
     color clrSelectedWordHighlight;
     bool highlightFoldHeader = false;

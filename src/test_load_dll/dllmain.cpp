@@ -1,7 +1,7 @@
 ﻿/*
-* (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
-* Старт библиотеки
-*/
+ * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
+ * Старт библиотеки
+ */
 #include "pch.h"
 wchar_t argBuffer[0x1000];
 

@@ -99,8 +99,7 @@
 :iface IDocumentView {425EE301-9DD3-11D4-84AE-008048DA06DF}
 	:base IFramedView
 	:virt
-	// Артур
-	#if ver>=8.3.10
+	#if ver >= 8.3.10
 		+1
 	#elif ver >= 8.3.18
 		23
@@ -253,7 +252,11 @@
 		uint childrensCount()
 		thiscall IViewContext@+ viewByIdx(uint index)
 	:props
-		0x18
+		#if x86
+			0x18
+		#else
+			0x30
+		#endif
 		Vector childsIds
 
 :iface IFormViewCore {B1C6A8A6-BC9F-11D4-9437-004095E12FC7}
@@ -266,14 +269,14 @@
 
 :struct ViewContextListNode
 	:props
-		uint next
-		uint prev
+		int_ptr next
+		int_ptr prev
 		IViewContext@ view
 
 :struct ViewContextList
 	:props
-		uint head
-		uint end
+		int_ptr head
+		int_ptr end
 		+4
 // Для уточнения смотреть IBkEndUI::OpenView и IFramedViewSite_getViewPosition
 :struct ViewPosition
@@ -300,7 +303,7 @@
 	bool			center
 	bool			unk3
 	Rect			unk4
-	int				unk5
+	size_t			unk5
 	Size			unk6
   #if ver < 8.3.14.1565
   #else
@@ -345,21 +348,30 @@
 :struct ViewContext
 	:props
 		Guid			id
+	#if x86
 	  #if ver < 8.3.15
 		+28
 	  #else
 	    +32
 	  #endif
+	#else
+	  #if ver < 8.3.15
+		+56
+	  #else
+	    +64
+	  #endif
+	#endif
 		ViewPosition	vpCurrent
 		+12
 		ViewPosition	vpOriginal
 		Size			sizeOriginal
 	  #if ver < 8.3.14.1565
-		+4
+		size_t s0
 	  #endif
 		IUnknown@		parent
 
 :enum ViewOffsets
+#if x86
   #if ver < 8.3.11
 	64 ViewContextOffset
 	44 FocusedViewInCoreFrame
@@ -376,6 +388,19 @@
 	56 ActiveViewInCoreFrame
 	88 ViewContextInView
   #endif
+#else
+  #if ver < 8.3.14.1565
+	112 ViewContextOffset
+	96 FocusedViewInCoreFrame
+	104 ActiveViewInCoreFrame
+	176 ViewContextInView
+  #else
+	112 ViewContextOffset
+	104 FocusedViewInCoreFrame
+	112 ActiveViewInCoreFrame
+	176 ViewContextInView
+  #endif
+#endif
 
 :guid gMDIClientID	{33ECE94C-5FB9-4540-9B97-C874FD45AE08}
 
