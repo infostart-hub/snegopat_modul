@@ -15,7 +15,7 @@ robocopy "%ProjectDir%load" ..\..\load\ /mir /im /NJH /NJS /NP > nul
 set rootdir=%cd%
 cd /d "%ProjectDir%"
 echo Typescript -^> JScript...
-tsc.exe -p "src\ts" --outDir "%rootdir%\addins"
+packages\Microsoft.TypeScript.Compiler.3.1.5\tools\tsc.exe -p "src\ts" --outDir "%rootdir%\addins"
 :: Проверяем модуль
 echo Синтакс-проверка...
-runner check snegopat /f "%cd%\" /d ver=8.3.18
+coreas_runner_c check snegopat /f "%cd%\" /d ver=8.3.18

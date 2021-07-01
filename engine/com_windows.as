@@ -204,10 +204,10 @@ IMDObject&& getMdObjFromView(IFramedView&& view) {
         IEventRecipient&& er = view.unk;
         ICommandTarget&& ct = view.unk;
         if (er !is null && ct !is null && er.self < view.self && ct.request(CommandID(cmdFrameGroup, cmdFindInTree))) {
-            doLog("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
+            /*doLog("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
                 " до объекта с интерфейсом " + IID_IMDObject);
             MsgBox("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
-                " до объекта с интерфейсом " + IID_IMDObject);
+                " до объекта с интерфейсом " + IID_IMDObject);*/
             IMDObject&& obj = toIUnknown(mem::int_ptr[er.self + MetaDataObjInEventRecipientOffset]);
             obj.AddRef();
             return obj;
