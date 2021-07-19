@@ -216,14 +216,14 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
     }
 }
 
-RegExp reGroupComment("(//\\{)|(//\\})");
+RegExp reGroupComment("(?i)(//\\{|#Удаление|#Вставка)|(//\\}|#КонецУдаления|#КонецВставки)");
 // Проверка на группирующий комментарий
 bool checkForGroupingRemark(const string& srcLine, Vector& infos) {
     if (infos.start > 0) {
         SyntaxItemInfoRef&& sInfo = toSyntaxItemInfo(infos.start);
         while (sInfo < infos.end) {
             // Если строка - коментарий, проверим на символы группировки
-            if (vlRemark == sInfo.ref.lexemCategory) {
+            if (vlRemark == sInfo.ref.lexemCategory || vlUnknown == sInfo.ref.lexemCategory) {
                 auto res = reGroupComment.match(srcLine.substr(sInfo.ref.start));
                 if (res.matches > 0) {
                     sInfo.ref.isBlock = res.text(0, 1).isEmpty() ? groupBlockEnd : groupBlockBegin;
