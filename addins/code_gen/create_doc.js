@@ -3,7 +3,6 @@
 //dname: Генератор Документов
 //author: Александр Орефков orefkov@gmail.com
 //help: inplace
-//addin: codegen_manager
 //addin: stdlib
 
 /*@
@@ -11,6 +10,8 @@
 Для работы совместно со скриптом - менеджером генераторов кода.
 Менеджер генераторов кода должен быть подключен раньше этого скрипта.
 @*/
+
+var codegen_manager = stdlib.require(env.pathes.addins + "code_gen\\gen_mgr.js");
 
 codegen_manager.registerCodeGen("Документы/Новый/С заполнением всех реквизитов", genarateNewDoc)
 

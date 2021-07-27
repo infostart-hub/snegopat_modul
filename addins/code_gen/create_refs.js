@@ -3,7 +3,6 @@
 //dname: Генератор Справочников
 //author: Александр Орефков orefkov@gmail.com, Сосна Евгений <shenja@sosna.zp.ua>
 //help: inplace
-//addin: codegen_manager
 //addin: stdlib
 //addin: vbs
 
@@ -13,6 +12,7 @@
 Для работы совместно со скриптом - менеджером генераторов кода.
 Менеджер генераторов кода должен быть подключен раньше этого скрипта.
 @*/
+var codegen_manager = stdlib.require(env.pathes.addins + "code_gen\\gen_mgr.js");
 
 var СтандартныеРеквизиты    = ["Код", "Наименование", "Родитель", "Владелец", "ПометкаУдаления", "Ссылка"]
 codegen_manager.registerCodeGen("Справочники/Новый/Элемент с заполнением всех реквизитов", genarateNewRefsElement);
