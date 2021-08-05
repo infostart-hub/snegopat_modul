@@ -338,7 +338,8 @@ class TextDoc {
                 } else
                     &&mdInfo = TextDocMdInfo(data, this);
             } else {
-                Print("No assistent data");
+                //Павлюков - в старом не было - для пользователя не информативно и мешает.
+                //Print("No assistent data");
             }
 
         }

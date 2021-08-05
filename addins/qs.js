@@ -1,4 +1,4 @@
-//engine: JScript
+﻿//engine: JScript
 //uname: qs
 //dname: Быстрый поиск
 //addin: stdcommands
