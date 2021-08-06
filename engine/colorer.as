@@ -2334,7 +2334,7 @@ void enumMonoFonts(NoCaseMap<int>& fonts) {
     ReleaseDC(0, hdc);
 }
 
-int FontNameProc(LOGFONT& lf, int_ptr lpntme, int FontType, NoCaseMap<int>& names) {
+int FontNameProc(LOGFONT& lf, int_ptr lpntme, int_ptr FontType, NoCaseMap<int>& names) {
     if ((lf.lfPitchAndFamily & 1) != 0)
         names.insert(stringFromAddress(mem::addressOf(lf.lfFaceNameStart)), 1);
     return 1;

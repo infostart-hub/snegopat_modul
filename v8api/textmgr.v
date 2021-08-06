@@ -45,7 +45,11 @@
 	void clearText()|?clearText@TextManager@core@@QAEXXZ|?clearText@TextManager@core@@QEAAXXZ
 	bool empty()|?empty@TextManager@core@@QAE_NXZ|?empty@TextManager@core@@QEAA_NXZ
 	int getLinesCount()|?getLinesCount@TextManager@core@@QAEHXZ|?getLinesCount@TextManager@core@@QEAAHXZ
+	#if ver < 8.3.19
+	//не нашел точку входа - предположил, что от этого метода избавились
+	//далее в файлах - вызовы без этого объекта будут
 	uint getCashObject(IUnknown@&)|?getCashObject@TextManager@core@@QAE?AV?$InterfacePtr@VITextManagerCash@core@@@2@XZ|?getCashObject@TextManager@core@@QEAA?AV?$InterfacePtr@VITextManagerCash@core@@@2@XZ
+	#endif
 	int getLineLength(int, bool)|?getLineLength@TextManager@core@@QAEHH_N@Z|?getLineLength@TextManager@core@@QEAAHH_N@Z
 	void getSelectRange(TextPosition&, TextPosition&)|?getSelectRange@TextManager@core@@QAEXAAVTextPosition@2@0@Z|?getSelectRange@TextManager@core@@QEAAXAEAVTextPosition@2@0@Z
 	void setSelectRange(const TextPosition&in, const TextPosition&in)|?setSelectRange@TextManager@core@@QAEXABVTextPosition@2@0@Z|?setSelectRange@TextManager@core@@QEAAXAEBVTextPosition@2@0@Z
@@ -58,9 +62,18 @@
 	void getTextArea(const TextPosition&in, const TextPosition&in, int_ptr&out result)|?getTextArea@TextManager@core@@QAEXABVTextPosition@2@0PAPA_W@Z
 #else
 	bool save(v8string&)|?save@TextManager@core@@QAE_NAAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?save@TextManager@core@@QEAA_NAEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+	#if ver > 8.3.19
+	bool getLineFast(int, v8string&)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+	#else
 	bool getLineFast(int, v8string&, IUnknown& cash)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PAVITextManagerCash@2@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEAVITextManagerCash@2@@Z
+	#endif
 	void setSelectText(int_ptr, bool)|?setSelectText@TextManager@core@@QAEXPB_S_N@Z|?setSelectText@TextManager@core@@QEAAXPEB_S_N@Z
+	#if ver > 8.3.19
+	//на x64 падает
+	void getTextArea(const TextPosition&in, const TextPosition&in, int_ptr&out result)|?getTextAreaStartStop@TextManager@core@@IAEXABVTextPosition@2@0AAUTextPositionPlacementInText@12@1@Z|?getTextAreaStartStop@TextManager@core@@IEAAXAEBVTextPosition@2@0AEAUTextPositionPlacementInText@12@1@Z
+	#else
 	void getTextArea(const TextPosition&in, const TextPosition&in, int_ptr&out result)|?getTextArea@TextManager@core@@QAEXABVTextPosition@2@0PAPA_S@Z|?getTextArea@TextManager@core@@QEAAXAEBVTextPosition@2@0PEAPEA_S@Z
+	#endif
 #endif
 
 :struct LocalWString 4

@@ -134,9 +134,11 @@ bool initGroupingAndColoring() {
                     trTextExtModule_QI.setTrap(tExt, 0, TextExtModule_QI);
                     bgColorTrapType = 1;
                 } else {
+                    #if ver < 8.3.19
                     trTxtExt_hasBG.setTrap(bgHandler, ITextExtBackColors_hasCustomBackground, TxtExt_hasCustomBackground);
                     trTxtExt_getBG.setTrap(bgHandler, ITextExtBackColors_getColorInfo, TxtExt_getColorInfo);
                     bgColorTrapType = 2;
+                    #endif
                 }
             } else if (bgColorTrapType == 1) {
                 if (trTextExtModule_QI.state != trapEnabled)

@@ -227,6 +227,11 @@ FilterCurrentUserInCfgStore = stdlib.Class.extend({
                 reCaptionCfgStore = /Отбор\sобъектов\sхранилища/ig
                 if (reCaptionCfgStore.test(dlgInfo.Caption)){
                     dlgInfo.form.getControl("FilterType").value = 2
+                    //debugger
+                    //TODO: надо как-то заставить его выбирать из списка по тексту
+                    //var dlgUser = dlgInfo.form.getControl("User")
+                    //var cfgUserName = snegopat.parseTemplateString('<?"", ИмяПользователяХранилищаКонфигурации>');
+                    //dlgUser.Value = dlgUser.ChoiceList.findByValue(cfgUserName);//вот тут не работает
                     dlgInfo.cancel = true
                     dlgInfo.result = mbaOK
                 }

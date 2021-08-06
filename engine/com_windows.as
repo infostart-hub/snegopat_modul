@@ -710,13 +710,14 @@ class IMsgBoxHook {
 ////////////////////////////////////////////////////////////////////////////////////
 // Перехват и оповещение о Сообщить
 void setTrapOnMessage() {
-    //trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
+    //Павлюков - убрал коммент - иначе выводит сообщение и не переходит
+    trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
 }
 
 TrapVirtualStdCall trMessage;
 
 int doMsgLineTrap(IBkEndUI& pUI, const v8string&in text, int_ptr marker, const Guid&in g, int_ptr i1, IUnknown& pUnkObject, const V8Picture&in customMarker) {
-    Print(text.str);
+    //Print(text.str);//Павлюков - иначе выводит сообщение, когда надо было спрятать
     // Для начала снимем перехват. Тогда обработчики события смогут также вызывать Message без зацикливания
     trMessage.swap();
     if (oneDesigner._events._hasHandlers(dspWindows, "onMessage")) {
