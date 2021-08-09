@@ -601,6 +601,8 @@ mixin class MethodInsertable {
         text += addingString + ")";
         if (!isFunction)
             text += ";";
+        if (d.key == "нстр")
+            text.replace("¦", "\"ru='¦';\"");
     }
 
 #if ver >= 8.3.4
