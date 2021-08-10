@@ -24,7 +24,7 @@ type ParsedBlameLine = {
 };
 
 type BlameForm = {
-    data: {mdObj: IV8MDObject, mdProp: IV8MDProperty, shift?: number, folder?: string, file?: string },
+    data: {mdObj: IV8MDObject, mdProp: IV8MDProperty, shift?: number, fullPath?: string },
     Controls: {Module: TextDocumentField, Title: Label, CmdBar: CommandBar} & Controls}
     & Form;
 
@@ -65,16 +65,20 @@ function processBlame(mdObj: IV8MDObject, mdProp: IV8MDProperty, title: string) 
         return null;
     }
 
-    var form = findOrLoadForm(mdObj, mdProp, title);
+    var form = findOrLoadForm(mdObj, mdProp);
     form.Open();
     var blameText = blameToText(parseGitBlame(res.out));
     form.data.shift = blameText.shift;
+    form.data.fullPath = fullPath;
     form.Controls.Module.SetText(blameText.text);
     form.Controls.Module.InsertLine(form.Controls.Module.LineCount() + 1, "");
+    form.Caption = "Git Blame: " + title;
+    form.Controls.Title.Caption = title + " ( " + fullPath + " )";
+
     return form;
 }
 
-function findOrLoadForm(mdObj: IV8MDObject, mdProp: IV8MDProperty, title: string) {
+function findOrLoadForm(mdObj: IV8MDObject, mdProp: IV8MDProperty) {
     var key = mdObj.container.identifier + '\t' + mdObj.id + '\t' + mdProp.id;
     var form = openedForms[key];
     if (!form) {
@@ -98,11 +102,10 @@ function findOrLoadForm(mdObj: IV8MDObject, mdProp: IV8MDProperty, title: string
                 delete openedForms[key];
             }
         }) as BlameForm;
+        form.WindowState = WindowStateVariant.Normal;
         form.Controls.CmdBar.Buttons.Goto.СочетаниеКлавиш = stdlib.v8hotkey(13, 0);
         form.Controls.CmdBar.Buttons.GotoClose.СочетаниеКлавиш = stdlib.v8hotkey(13, 8);
-        form.Caption = "Git Blame: " + title;
         form.data = {mdObj: mdObj, mdProp: mdProp};
-        form.Controls.Title.Caption = title;
         openedForms[key] = form;
     }
     return form;

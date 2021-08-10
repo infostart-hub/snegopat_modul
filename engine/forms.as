@@ -302,7 +302,6 @@ bool loadFormForScript(SelfScript&& selfScript, string formName, IDispatch&& eve
 		pathToForm.replace(RegExp(".js$"), (formName.isEmpty()?"":("." + formName))+".ssf", 1);
 		return loadScriptForm(loadFormFile(pathToForm, ""), (eventHandler is null)?selfScript.self:eventHandler, eventPrefix, result, false);
 	}
-	
 }
 
 bool loadScriptFormEpf(string path, string formName, IDispatch&& eventHandler, const string& eventPrefix, Value& out result) {
