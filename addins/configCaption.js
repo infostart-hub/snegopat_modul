@@ -1,4 +1,4 @@
-﻿//engine: JScript
+//engine: JScript
 //uname: configCaption 
 //dname: Заголовок окна Конфигуратора
 //descr: Изменение заголовка окна Конфигуратора на более полезное
@@ -23,10 +23,19 @@ var form;
 var sVersion = env.sVersion;
 var v8Version = env.v8Version;
 var arch = env.arch;
+var debugTitle = "*** РЕЖИМ ОТЛАДКИ *** ";
+
 events.connect(windows, "onChangeTitles", SelfScript.self);
 function setCaption(mainTitle, additionalTitle) {
     var mainTitleShort = mainTitle.replace(/^Конфигуратор - /, "");
     windows.caption = eval(captionExpr);
+    
+	// Временное решение, после пересборки в новый релиз snegopat_modul/src/ts/std/std.ts нужно переписать на
+	// if (stdlib.isDebug)
+	if (profileRoot.getValue("CmdLine/OriginalCmdLine").toLowerCase().indexOf("coreas-tracefunctions 1") > 0)
+	{
+		windows.caption = debugTitle + eval(captionExpr);
+	}
 }
 function ibName() {
     return stdlib.ibName();
