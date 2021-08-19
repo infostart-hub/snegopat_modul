@@ -23,7 +23,7 @@ var form;
 var sVersion = env.sVersion;
 var v8Version = env.v8Version;
 var arch = env.arch;
-var debugTitle = "*** РЕЖИМ ОТЛАДКИ *** ";
+var debugTitle = "*** ОТЛАДКА Снегопат *** ";
 
 events.connect(windows, "onChangeTitles", SelfScript.self);
 function setCaption(mainTitle, additionalTitle) {
