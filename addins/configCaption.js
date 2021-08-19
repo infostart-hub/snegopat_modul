@@ -23,10 +23,20 @@ var form;
 var sVersion = env.sVersion;
 var v8Version = env.v8Version;
 var arch = env.arch;
+var debugTitle = "*** ОТЛАДКА Снегопат *** ";
+
 events.connect(windows, "onChangeTitles", SelfScript.self);
 function setCaption(mainTitle, additionalTitle) {
     var mainTitleShort = mainTitle.replace(/^Конфигуратор - /, "");
     windows.caption = eval(captionExpr);
+    
+    // Временное решение, после одобрения PR и пересборки в новый релиз snegopat_modul/src/ts/std/std.ts нужно переписать на
+	// if (stdlib.isDebug) или Александр добавит env.isDebug в api.h в класс as_env после чего можно будет
+    // переписать на if (env.isDebug) и убрать не нужный код проверяющий coreas-tracefunctions в modul/src/ts/std/std.ts если был одобрен его PR
+	if (profileRoot.getValue("CmdLine/OriginalCmdLine").toLowerCase().indexOf("-coreas-tracefunctions 1") > 0)
+	{
+		windows.caption = debugTitle + eval(captionExpr);
+	}
 }
 function ibName() {
     return stdlib.ibName();
