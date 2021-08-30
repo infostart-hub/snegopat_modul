@@ -5,12 +5,11 @@
 //author: orefkov
 //help: inplace
 //descr: Аддин для работы со стандартными командами 1С
-
+exports.__esModule = true;
 /*
  * (c) проект "Snegopat.Module", Александр Орефков orefkov@gmail.com
  * Скрипт для работы с командами 1С
  */
-
 /*@
 Описание различных стандартных команд Конфигуратора.
 Список не полон, и пополняется по мере исследований.
@@ -33,7 +32,7 @@
 
 либо добавив в начало скрипта строку
 
-	//addin: stdcommands
+    //addin: stdcommands
 
 В TypeScript подключение осуществляется так:
 
@@ -41,18 +40,15 @@
 
 Путь в импорте должен начинаться с . и быть относительным каталога вашего файла
 @*/
-
 /// <reference path="../snegopat.d.ts"/>
 /// <reference path="../v8.d.ts"/>
-
 // Описание команды
-class Command {
-    constructor(public num: number, public description: string) { }
-    subStates: ICmdUpdateResult[];
-    groupID: string;
-    info: CommandDescription;
-
-    getState(view?): ICmdUpdateResult {
+var Command = /** @class */ (function () {
+    function Command(num, description) {
+        this.num = num;
+        this.description = description;
+    }
+    Command.prototype.getState = function (view) {
         if (!view)
             view = Designer;
         delete this.subStates;
@@ -63,23 +59,23 @@ class Command {
                 this.subStates.push(view.getCmdState(this.groupID, this.num, i));
         }
         return state;
-    }
-    send(subCommand?) {
+    };
+    Command.prototype.send = function (subCommand) {
         return sendCommand(this.groupID, this.num, subCommand);
-    }
-    sendToView(view, subCommand?) {
+    };
+    Command.prototype.sendToView = function (view, subCommand) {
         return view.sendCommand(this.groupID, this.num, subCommand);
-    }
-    addHandler(obj, member) {
-        events.addCommandHandler(this.groupID, this.num, obj, member)
-    }
-    delHandler(obj, member) {
-        events.delCommandHandler(this.groupID, this.num, obj, member)
-    }
-}
-
+    };
+    Command.prototype.addHandler = function (obj, member) {
+        events.addCommandHandler(this.groupID, this.num, obj, member);
+    };
+    Command.prototype.delHandler = function (obj, member) {
+        events.delCommandHandler(this.groupID, this.num, obj, member);
+    };
+    return Command;
+}());
 // Описание групп команд
-export var Frame = {
+exports.Frame = {
     groupID: "{00000000-0000-0000-0000-000000000000}",
     description: "Основные команды меню",
     FileNew: new Command(1, "Новый документ"),
@@ -123,10 +119,9 @@ export var Frame = {
     ShowTableGrid: new Command(371, "Отображать сетку"),
     InsertObject: new Command(173, "Вставить объект..."),
     SplitCell: new Command(227, "Разбить ячейку"),
-    WndList: new Command(280, "Список окон"),
+    WndList: new Command(280, "Список окон")
 };
-
-export var Config = {
+exports.Config = {
     groupID: "{F10CBB81-F679-11D4-9DD3-0050BAE2BC79}",
     description: "Конфигурация",
     Open: new Command(2, "Открыть конфигурацию"),
@@ -150,8 +145,7 @@ export var Config = {
     TestAndRepair: new Command(33, "Тестирование и исправление"),
     OpenDBCfg: new Command(34, "Открыть конфигурацию БД")
 };
-
-export var CDebug = {
+exports.CDebug = {
     groupID: "{DE680E96-5826-4E22-834D-692E307A1D9C}",
     description: "Отладчик",
     Attach: new Command(1, "Подключение"),
@@ -179,8 +173,7 @@ export var CDebug = {
     Dettach: new Command(23, "Отключиться"),
     LocalVars: new Command(28, "Локальные переменные")
 };
-
-export var Frntend = {
+exports.Frntend = {
     groupID: "{6B7291BF-BCD2-41AF-BAC7-414D47CC6E6A}",
     description: "Команды frnteеnd'а",
     MDReport: new Command(1, "Отчет по конфигурации"),
@@ -207,10 +200,9 @@ export var Frntend = {
     QueryWizardParam: new Command(217, "Конструктор запроса с обработкой результата"),
     TextBlockEscapeNewline: new Command(106, "Добавить перенос строки"),
     TextBlockUnescapeNewline: new Command(107, "Удалить перенос строки"),
-    AddToExtention: new Command(271, "Добавить в расширение"),
+    AddToExtention: new Command(271, "Добавить в расширение")
 };
-
-export var TextEdit = {
+exports.TextEdit = {
     groupID: "{FFE26CB2-322B-11D5-B096-008048DA0765}",
     description: "Команды текстового редактора",
     ToggleBookmark: new Command(1, "Установить/снять закладку"),
@@ -243,8 +235,7 @@ export var TextEdit = {
     FormatStringWizard: new Command(66, "Запустить конструктор форматной строки"),
     MultyLangStrWizard: new Command(67, "Конструктор строк на разных языках")
 };
-
-export var MngFormEdt = {
+exports.MngFormEdt = {
     groupID: "{28CC865A-72ED-46BD-A236-C871EDDC3DFD}",
     description: "Редактор управляемых форм",
     SwitchToForm: new Command(11, "Переключиться на закладку 'Форма'"),
@@ -255,14 +246,12 @@ export var MngFormEdt = {
     SwitchToFormComInterface: new Command(16, "Переключиться на закладку 'Форма' и активизировать закладку 'Командный интерфейс'"),
     SwitchToFormParameter: new Command(17, "Переключиться на закладку 'Форма' и активизировать закладку 'Параметры'")
 };
-
-export var ModulePass = {
+exports.ModulePass = {
     groupID: "{EF6D156B-12FB-4CE7-A0E9-7F0C2EDC7D06}",
     description: "Установка пароля на модуль",
     SetPassword: new Command(0, "Установить пароль на модуль")
 };
-
-export var TableEdit = {
+exports.TableEdit = {
     groupID: "{505A90DD-950E-4300-874D-8675BC2120B2}",
     description: "Команды табличного редактора",
     FixupGrid: new Command(1, "Зафиксировать сетку"),
@@ -318,8 +307,7 @@ export var TableEdit = {
     EditingPanel: new Command(65, "Панель редактирования"),
     FixEditingPanel: new Command(64, "Зафиксировать панель редактирования")
 };
-
-export var CfgStore = {
+exports.CfgStore = {
     groupID: "{5679B714-7E65-4ED4-92BF-6DDD604C6EA3}",
     description: "Хранилище конфигурации",
     GetFromCfgStore: new Command(150, "Получить из хранилища"),
@@ -341,29 +329,20 @@ export var CfgStore = {
     CloseCfgStore: new Command(104, "Закрыть хранилище"),
     CreateCfgStore: new Command(100, "Создать хранилище")
 };
-
-export class TestForm {
-    public static one: TestForm;
-    static open() {
-        if (!TestForm.one)
-            new TestForm;
-        TestForm.one.form.Open();
-    }
-    form: Form & { CommandTree: ValueTree, OnlyState: boolean, TraceCommands: boolean };
-    constructor() {
-        type CommandRow = ValueTreeRow & { Command: string, object: any };
+var TestForm = /** @class */ (function () {
+    function TestForm() {
         TestForm.one = this;
         this.form = loadScriptForm(env.pathes.core + "forms\\commands.ssf", this);
-        this.form.CommandTree.Колонки.Добавить("object")
+        this.form.CommandTree.Колонки.Добавить("object");
         for (var i in SelfScript.self) {
-            var prop = <Object>SelfScript.self[i];
+            var prop = SelfScript.self[i];
             if (prop instanceof Object && prop.hasOwnProperty("groupID")) {
-                var row = <CommandRow><any>this.form.CommandTree.Rows.Add();
+                var row = this.form.CommandTree.Rows.Add();
                 row.Command = prop['description'];
                 for (var k in prop) {
-                    var cmd: Command = prop[k];
+                    var cmd = prop[k];
                     if (cmd instanceof Command) {
-                        var crow = <CommandRow><any>row.Rows.Add();
+                        var crow = row.Rows.Add();
                         crow.Command = cmd.description;
                         crow.object = cmd;
                     }
@@ -371,57 +350,61 @@ export class TestForm {
             }
         }
     }
-    CommandTreeSelection(Control, RowSelected, Column, StandardProcessing) {
-        var cmd: Command = RowSelected.val.object;
+    TestForm.open = function () {
+        if (!TestForm.one)
+            new TestForm;
+        TestForm.one.form.Open();
+    };
+    TestForm.prototype.CommandTreeSelection = function (Control, RowSelected, Column, StandardProcessing) {
+        var cmd = RowSelected.val.object;
         if (!cmd)
             return;
         this.form.Close();
         var state = cmd.getState();
-        logCmdState(cmd, state, <TextDocument>this.form.Controls.Get("Output"));
-
+        logCmdState(cmd, state, this.form.Controls.Get("Output"));
         if (cmd.subStates) {
             for (var k = 0; k < cmd.subStates.length; k++)
-                logCmdState(cmd, cmd.subStates[k], <TextDocument>this.form.Controls.Get("Output"), k);
+                logCmdState(cmd, cmd.subStates[k], this.form.Controls.Get("Output"), k);
         }
         if (!this.form.OnlyState)
             RowSelected.val.object.send();
         this.form.Open();
-
-        function logCmdState(cmd: Command, state: ICmdUpdateResult, textDoc: TextDocument, subState?) {
+        function logCmdState(cmd, state, textDoc, subState) {
             textDoc.ДобавитьСтроку("----------------------");
-            textDoc.ДобавитьСтроку(cmd.description + " " + cmd.groupID + " " + cmd.num + (subState != undefined ? "/" + subState : ""))
+            textDoc.ДобавитьСтроку(cmd.description + " " + cmd.groupID + " " + cmd.num + (subState != undefined ? "/" + subState : ""));
             if (state) {
-                textDoc.ДобавитьСтроку("Доступна: " + state.enabled)
-                textDoc.ДобавитьСтроку("Пометка:  " + state.checked)
-                textDoc.ДобавитьСтроку("Текст:    " + state.text)
-                textDoc.ДобавитьСтроку("Описание: " + state.description)
-                textDoc.ДобавитьСтроку("Тултип:   " + state.tooltip)
-                textDoc.ДобавитьСтроку("Подкоманд:" + state.subCommands)
+                textDoc.ДобавитьСтроку("Доступна: " + state.enabled);
+                textDoc.ДобавитьСтроку("Пометка:  " + state.checked);
+                textDoc.ДобавитьСтроку("Текст:    " + state.text);
+                textDoc.ДобавитьСтроку("Описание: " + state.description);
+                textDoc.ДобавитьСтроку("Тултип:   " + state.tooltip);
+                textDoc.ДобавитьСтроку("Подкоманд:" + state.subCommands);
             }
             else
-                textDoc.ДобавитьСтроку("Нет обработчика")
+                textDoc.ДобавитьСтроку("Нет обработчика");
         }
-    }
-    TraceCommandsПриИзменении(Элемент) {
+    };
+    TestForm.prototype.TraceCommandsПриИзменении = function (Элемент) {
         develop.cmdTrace = this.form.TraceCommands;
-    }
-    ОбновлениеОтображения() {
+    };
+    TestForm.prototype.ОбновлениеОтображения = function () {
         this.form.TraceCommands = develop.cmdTrace;
-    }
-}
-
+    };
+    return TestForm;
+}());
+exports.TestForm = TestForm;
 // Создадим макросы для всех команд, для возможности привязки к хоткеям
 (function () {
     var self = SelfScript.self;
     for (var i in self) {
-        var prop: Object = self[i];
+        var prop = self[i];
         if (prop instanceof Object && prop.hasOwnProperty("groupID")) {
-            var name: string = prop['description'] + "\\", groupID: string = prop['groupID'];
+            var name = prop['description'] + "\\", groupID = prop['groupID'];
             for (var k in prop) {
-                var cmd: Command = prop[k];
+                var cmd = prop[k];
                 if (cmd instanceof Command) {
                     cmd.groupID = groupID;
-                    cmd.info = cmdService.getCommandDescription(groupID, cmd.num)
+                    cmd.info = cmdService.getCommandDescription(groupID, cmd.num);
                     var objName = i + "." + k;
                     var macrosName = "macros" + name + (cmd.description ? cmd.description : k);
                     self[macrosName] = new Function(objName + ".getState();return " + objName + ".send()");
@@ -431,8 +414,7 @@ export class TestForm {
         }
     }
 })();
-
-function getMacrosInfo(name: string, info) {
+function getMacrosInfo(name, info) {
     try {
         var descr = SelfScript.self["macros" + name].descr;
         if (descr) {
@@ -440,6 +422,6 @@ function getMacrosInfo(name: string, info) {
             info.hotkey = descr.accel;
             info.descr = descr.description;
         }
-    } catch (e) { }
+    }
+    catch (e) { }
 }
-
