@@ -1,7 +1,7 @@
 ---
 name: Ошибка
 about: Опишите возникающую ошибку и свои действия, приводящие к ней
-title: "[BUG] "
+title: "[BUG] 8.3.XX.YYYY - "
 labels: bug
 assignees: ''
 
