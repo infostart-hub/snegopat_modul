@@ -232,6 +232,8 @@
 		63
 	  #elif ver < 8.3.10
 		41
+	  #elif ver > 8.3.19
+	    45
 	  #else
 	    42
 	  #endif
