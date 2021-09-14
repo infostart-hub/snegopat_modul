@@ -81,7 +81,7 @@ function onDoModal(dlgInfo) {
             if (!exprCtrl.value.match(/^\s*$/)) 
             {            
                 if (!params.commandCheck) {
-                    exprCtrl.value = 'ВнешниеОбработки.Создать("' + params.path + '").Отладить(' + exprCtrl.value + ', ' + (params.doModal ? 'Истина' :  'Ложь') + ')';
+                    exprCtrl.value = 'ВнешниеОбработки.Создать("' + params.path + '", Ложь).Отладить(' + exprCtrl.value + ', ' + (params.doModal ? 'Истина' :  'Ложь') + ')';
                 } else {
                     exprCtrl.value = ''+ params.command + '(' + exprCtrl.value + ', ' + (params.doModal ? 'Истина' :  'Ложь') + ')';
                 }
