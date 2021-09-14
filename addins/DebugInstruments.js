@@ -301,7 +301,7 @@ DebugInstruments = ScriptForm.extend({
         if (this.form.useEpf){
             var f = v8New('File', getAbsolutePath(this.form.pathToEpf));
             if (f.IsFile() && f.Exist()){
-                expText = 'ВнешниеОбработки.Создать("' +f.FullName +'").'
+                expText = 'ВнешниеОбработки.Создать("' +f.FullName +'", Ложь).'
             }
         }
         return expText + text;
