@@ -161,7 +161,7 @@ class SqliteBase {
         if (SQLITE_OK != sqlite3_exec(_db, strQuery.toUtf8().ptr))
             setComException("Ошибка в запросе: " + get_lastError());
         else
-            res = answerIsID ? sqlite3_last_insert_rowid(_db) : sqlite3_changes(_db);
+            res = answerIsID ? sqlite3_last_insert_rowid(_db) : int64(sqlite3_changes(_db));
         return res;
     }
     // Получить описание ошибки
@@ -262,7 +262,7 @@ class SqliteQuery {
         if (SQLITE_DONE != res)
             setComException(stringFromAddress(sqlite3_errmsg16(sqlite3_db_handle(_stmt))));
         int_ptr db = sqlite3_db_handle(_stmt);
-        return isAnswerID ? sqlite3_last_insert_rowid(db) : sqlite3_total_changes(db);
+        return isAnswerID ? sqlite3_last_insert_rowid(db) : int64(sqlite3_total_changes(db));
     }
     // Выполняет запрос и возвращает строку результата
     array<ResultRow&&>&& query() {

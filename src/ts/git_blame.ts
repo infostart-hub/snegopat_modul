@@ -162,3 +162,7 @@ function parseGitBlame(text: string) {
     }
     return res;
 }
+
+events.connect(Designer, "onChangeTextManager", function(s1, s2, s3) {
+    //MessageBox("Text area changed");
+}, '-');

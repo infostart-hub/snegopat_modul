@@ -346,7 +346,7 @@ IV8MDProperty&& getMDPropWrapper(MDPropertyRef&& mdp) {
 // Ведь тогда придется как-то отслеживать их время жизни. Пока буду каждый раз создавать новую
 // обёртку, и добавлю метод isSame для сравнения на одинаковость объектов.
 IV8MDObject&& getMDObjectWrapper(IMDObject&& obj) {
-    return obj is null ? null : IV8MDObject(obj);
+    return obj is null ? null : &&IV8MDObject(obj);
 }
 
 class IV8MDObject {

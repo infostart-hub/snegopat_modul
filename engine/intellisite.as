@@ -314,7 +314,7 @@ class IntelliSite : SmartBoxSite {
             if (posInBuffer == 0)
                 hideAndSend(WM_KEYDOWN, wParam, lParam);
             else {
-                int c = (GetKeyState(VK_CONTROL) & 0x8000) > 0 ? posInBuffer : 1;
+                int c = (GetKeyState(VK_CONTROL) & 0x8000) > 0 ? posInBuffer : uint(1);
                 TextPosition tpStart = caretPos;
                 tpStart.col -= c;
                 editor.setSelection(tpStart, caretPos, false, false);

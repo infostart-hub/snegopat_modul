@@ -295,7 +295,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
             }
             if (enableBkColorForMultiLine && needChangeBG) {
                 sCopy.ref.color.value.uuid.data1 = bgMagic;
-                sCopy.ref.color.value.uuid.data2 = withoutEnd ? 777 : sInfo.ref.len - 2;
+                sCopy.ref.color.value.uuid.data2 = withoutEnd ? uint(777) : sInfo.ref.len - 2;
             }
             sCopy.ref.isBlock = isBlock;
             sCopy.ref.blockKind = blockKind;

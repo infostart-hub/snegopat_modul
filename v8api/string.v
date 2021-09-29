@@ -96,7 +96,7 @@
 	---
 	uint get_length()const
 	{
-		return obj.len < inplaceStringSize ? obj.len : (obj.pEnd - (obj.data + v8strData_text_offset)) / 2;
+		return obj.len < inplaceStringSize ? obj.len : uint(obj.pEnd - (obj.data + v8strData_text_offset)) / 2;
 	}
 	---
 	void opAssign(const v8string&in s)

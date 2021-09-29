@@ -331,11 +331,11 @@ class IV8Lexer {
     }
     int idxOfName(const string& name) {
         auto fnd = findNames.find(name);
-        return fnd.isEnd() ? -1 : fnd.value;
+        return fnd.isEnd() ? -1 : int(fnd.value);
     }
     int posToLexem(uint posInReStream) {
         auto find = lexemPos.find(posInReStream);
-        return find.isEnd() ? -1 : find.value;
+        return find.isEnd() ? -1 : int(find.value);
     }
     string strNameIdx(const string& name) {
         auto fnd = findNames.find(name);

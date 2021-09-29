@@ -34,6 +34,7 @@ void run() {
     initPathes();
     initSnegopatProfile();
     initWorkWithMainFrame();
+    //initTextAreaModifiedTraps();
 }
 
 // Вызывается из Core.As в момент загрузки модуля.
