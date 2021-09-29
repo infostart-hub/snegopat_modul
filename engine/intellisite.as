@@ -602,7 +602,7 @@ mixin class MethodInsertable {
         if (!isFunction)
             text += ";";
         if (d.key == "нстр")
-            text.replace("¦", "\"ru='¦';\"");
+            text.replace("¦", "\"ru='¦'\"");
     }
 
 #if ver >= 8.3.4

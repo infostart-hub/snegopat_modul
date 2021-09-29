@@ -202,6 +202,7 @@ export var Frntend = {
     ConfigEditLang: new Command(15, "Язык редактирования конфигурации"),
     FindRefsFrom: new Command(82, "Поиск ссылок в объекте"),
     GoToDefinition: new Command(83, "Перейти к определению"),
+    AllRoles: new Command(84, "Все роли"),
     QueryWizard: new Command(63, "Конструктор запроса"),
     QueryWizardParam: new Command(217, "Конструктор запроса с обработкой результата"),
     TextBlockEscapeNewline: new Command(106, "Добавить перенос строки"),

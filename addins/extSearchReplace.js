@@ -678,13 +678,23 @@ ExtSearch = ScriptForm.extend({
 		}
 	},
 
+	getTextObject : function (obj, title) {
+		
+        if (obj && toV8Value(obj).typeName(0) == 'TextDocument')
+			return new TextDocObject(obj, title);
+
+		if (obj) Message('Неподдерживаемый тип объекта для поиска: ' + toV8Value(obj).typeName(0));
+
+		return null;
+	},
+
 	getWindowObject : function (view) {
 		try {
 			if (!view || !view.isAlive())
 				return null;
 		} catch(e){}
        
-        if (view.mdObj && view.mdProp) 
+        if (view.mdProp && view.mdObj)
 			return new MdObject(view.mdObj, view.mdProp, view.title);
 
 		var obj = view.getObject();
@@ -745,8 +755,13 @@ ExtSearch = ScriptForm.extend({
 		this.re = this.buildSearchRegExpObject();
 		if (!this.re) return;
 
-		var obj = this.getWindowObject(activeWindow.GetView());
-		if (!obj) return;
+		var aView = activeWindow.GetView();
+		var obj = this.getWindowObject(aView);
+		if (!obj) {
+			obj = this.getTextObject(activeWindow.textWindow.textDocument, aView.title);
+			if (!obj)
+			return;
+		}
 
 		var docRow = this.search(obj, this.re);
 
