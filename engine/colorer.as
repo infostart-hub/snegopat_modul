@@ -1781,7 +1781,9 @@ class ScintillaEditor : TextEditorWindow, SelectionChangedReceiver {
 
     BreakPointDef&& getBreakPointAtLine(int line) {
         auto found = breakpoints.find(breakPointKey + line);
-        return found.isEnd() ? null : found.value;
+        if (found.isEnd())
+            return null;
+        return found.value;
     }
 
     LRESULT onNotifyParent(SCNotification& scn) {
