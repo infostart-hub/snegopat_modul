@@ -624,6 +624,7 @@ if exist "$(OutDir)$(TargetName).pdb" del "$(OutDir)$(TargetName).pdb"
     </CopyFileToFolders>
     <None Include="bld_tools\build.as" />
     <None Include="packages.config" />
+    <None Include="src\ts\std\build.ts" />
     <None Include="src\ts\std\commands.ts" />
     <None Include="src\ts\std\editors.ts" />
     <None Include="src\ts\std\help.ts" />

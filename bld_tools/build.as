@@ -90,11 +90,16 @@ class ScriptApi {
         if (flags == -1)
             flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
         int res = sqlite3_open_v2(baseName.toUtf8().ptr, db, flags);
-        if (SQLITE_OK == res)
+        if (SQLITE_OK == res) {
+			Print("Открыли базу данных " + baseName);
             return SqliteBase(db);
-        setComException(stringFromAddress(sqlite3_errmsg16(db)));
-        if (db != 0)
+		}
+		Print("Ошибка открытия базы данных " + baseName + ": " + res);
+		Print(stringFromAddress(sqlite3_errmsg16(db)));
+        if (db != 0) {
+			setComException(stringFromAddress(sqlite3_errmsg16(db)));
             sqlite3_close(db);
+		}
         return null;
     }
 

@@ -7,8 +7,6 @@
 #pragma once
 #include "../all.h"
 
-const uint badStrIdx = uint(-1);
-
 // синглтон списка снегопата
 IntelliSite&& oneIntelliSite;
 IntelliSite&& getIntelliSite() {
@@ -298,7 +296,7 @@ class IntelliSite : SmartBoxSite {
             editor.setSelection(tpStart, tpEnd, false, false);
             insertInSelection(editor, textWnd.textDoc.tm, textWnd.textDoc.itm, text, true, !notIndent);
             updateHotOrder(ins);
-            buffer.empty();
+            buffer.makeEmpty();
             TextWnd&& tw = textWnd;
             hide(ins);
             // Уведомим сам элемент, что его вставили

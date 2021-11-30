@@ -207,8 +207,8 @@ function buildHelp() {
      * Обёртка над поисковой базой данных
      */
     var Store = (function () {
-        var db: SqliteBase;
-        var cStruct =
+        let db: SqliteBase;
+        let cStruct =
         `pragma journal_mode=off;pragma encoding='utf-16le';
         begin;
         create virtual table if not exists search using fts4(tokenize=unicode61);
@@ -217,7 +217,7 @@ function buildHelp() {
             iSearch: { q: <SqliteQuery>null, t: `insert into search values(@text)` },
         };
         function prepareQueries() {
-            for (var k in queries)
+            for (let k in queries)
                 queries[k].q = db.prepare(queries[k].t);
         }
         function closeQueries() {

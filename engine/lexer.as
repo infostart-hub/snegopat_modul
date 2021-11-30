@@ -521,7 +521,7 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
                     currLine = currLine.substr(0, pos);
                 } else {
                     lines.insertLast(currLine);
-                    currLine.empty();
+                    currLine.makeEmpty();
                 }
                 break;
             } else if (lex.type == kwEndProcedure || lex.type == kwEndFunction) {

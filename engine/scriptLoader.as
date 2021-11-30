@@ -87,7 +87,7 @@ class AddinScript : Addin, ScriptSite {
     void _unload() {
         &&selfScript.__addin = null;
         script.stop();
-        uName.empty();
+        uName.makeEmpty();
     }
 };
 
