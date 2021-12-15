@@ -512,13 +512,13 @@ class ScintillaInfo : EditorInfo {
                         if (commaPos>1) {
                             strBPcount = strBPcount.substr(1, commaPos - 1);
                             //Message(strBPcount);
-                            uint bpCount = parseInt(strBPcount);
+                            uint bpCount = strBPcount.parseInt();
                             for (uint ii = 0; ii < bpCount; ii++) {
                                 i++; if (i >= arrPflStrings.length)return;
                                 string strBP = arrPflStrings[i].substr(1); // {14,1,"",0,2}, номер строки, активность, условие
                                 array<string>&& arrBP = strBP.split(",");
                                 if (arrBP.length > 2) {
-                                    uint lineNum = parseInt(arrBP[0]);
+                                    uint lineNum = arrBP[0].parseInt();
                                     bool isEnabled = arrBP[1] == "1";
                                     bool isCondition = arrBP[2] != "\"\"";
                                     //Message("строка " + lineNum + (isEnabled ? " включена " : " отключена ") + (isCondition ? " с условием " : " обычная "));
@@ -561,13 +561,13 @@ class ScintillaInfo : EditorInfo {
                         if (commaPos>1) {
                             strBPcount = strBPcount.substr(1, commaPos - 1);
                             //Message(strBPcount);
-                            uint bpCount = parseInt(strBPcount);
+                            uint bpCount = strBPcount.parseInt();
                             for (uint ii = 0; ii < bpCount; ii++) {
                                 i++; if (i >= arrPflStrings.length)return;
                                 string strBP = arrPflStrings[i].substr(1); // {14,1,"",0,2}, номер строки
                                 array<string>&& arrBP = strBP.split(",");
                                 if (arrBP.length > 2) {
-                                    uint lineNum = parseInt(arrBP[0]);
+                                    uint lineNum = arrBP[0].parseInt();
                                     bookmarks.insert(strGuidObj + strGuidProp + lineNum, lineNum);
                                 }
                             }
@@ -1892,7 +1892,7 @@ class ScintillaEditor : TextEditorWindow, SelectionChangedReceiver {
                 tpStart = tpEnd;
             } else {
                 ed.setSelection(tpStart, tpEnd, false);
-                text.empty();
+                text.makeEmpty();
             }
             ed.setSelectionText(text);
             ed.setCaretPosition(tpStart);
