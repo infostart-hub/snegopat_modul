@@ -57,8 +57,10 @@
 	void ctor(int, int, int, int, int, int)|??0Date@core@@QAE@HHHHHH@Z|??0Date@core@@QEAA@HHHHHH@Z
 #if ver < 8.3.11
 	v8string toString()const|?toString@Date@core@@QBE?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@XZ
-#else
+#elif ver < 8.3.20
 	v8string toString()const|?toString@Date@core@@QBE?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ|?toString@Date@core@@QEBA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ
+#else
+	v8string toString()const|?toString@Date@core@@QBE?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ|?toString@Date@core@@QEBA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ
 #endif
 
 // Число
@@ -112,8 +114,10 @@
 	bool toInteger(int64&)const|?toInteger@Numeric@core@@QBE_NAA_J@Z|?toInteger@Numeric@core@@QEBA_NAEA_J@Z
 #if ver < 8.3.11
 	v8string toString()const|?toString@Numeric@core@@QBE?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@XZ
-#else
+#elif ver < 8.3.20
 	v8string toString()const|?toString@Numeric@core@@QBE?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ|?toString@Numeric@core@@QEBA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ
+#else
+	v8string toString()const|?toString@Numeric@core@@QBE?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ|?toString@Numeric@core@@QEBA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ
 #endif
 :meths
 	void ctor()
@@ -191,13 +195,22 @@
 	bool getString(v8string&)const|?getString@GenericValue@core@@QBE_NAAV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@@Z
 	void toString(v8string&)const|?toString@GenericValue@core@@QBEXAAV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@@Z
 #else
+	void opAssign(const uint16&)|?assign@GenericValue@core@@QAEXPB_S@Z|?assign@GenericValue@core@@QEAAXPEB_S@Z
+	bool opEquals(const uint16&)const|?equals@GenericValue@core@@QBE_NPB_S@Z|?equals@GenericValue@core@@QEBA_NPEB_S@Z
+
+  #if ver < 8.3.20
 	void ctor(const v8string&in)|??0Value@core@@QAE@ABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|??0Value@core@@QEAA@AEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	void opAssign(const v8string&in)|?assign@GenericValue@core@@QAEXABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?assign@GenericValue@core@@QEAAXAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
-	void opAssign(const uint16&)|?assign@GenericValue@core@@QAEXPB_S@Z|?assign@GenericValue@core@@QEAAXPEB_S@Z
 	bool opEquals(const v8string&in)const|?equals@GenericValue@core@@QBE_NABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?equals@GenericValue@core@@QEBA_NAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
-	bool opEquals(const uint16&)const|?equals@GenericValue@core@@QBE_NPB_S@Z|?equals@GenericValue@core@@QEBA_NPEB_S@Z
 	bool getString(v8string&)const|?getString@GenericValue@core@@QBE_NAAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?getString@GenericValue@core@@QEBA_NAEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	void toString(v8string&)const|?toString@GenericValue@core@@QBEXAAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?toString@GenericValue@core@@QEBAXAEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+  #else
+	void ctor(const v8string&in)|??0Value@core@@QAE@ABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|??0Value@core@@QEAA@AEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	void opAssign(const v8string&in)|?assign@GenericValue@core@@QAEXABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?assign@GenericValue@core@@QEAAXAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	bool opEquals(const v8string&in)const|?equals@GenericValue@core@@QBE_NABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?equals@GenericValue@core@@QEBA_NAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	bool getString(v8string&)const|?getString@GenericValue@core@@QBE_NAAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?getString@GenericValue@core@@QEBA_NAEAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	void toString(v8string&)const|?toString@GenericValue@core@@QBEXAAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?toString@GenericValue@core@@QEBAXAEAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+  #endif
 #endif
 
 
@@ -222,8 +235,10 @@
 	Type& opAssign(const Type&in)|??4Type@core@@QAEAAV01@ABV01@@Z|??4Type@core@@QEAAAEAV01@AEBV01@@Z
 #if ver < 8.3.11
 	void ctor(const v8string&in)|??0Type@core@@QAE@ABV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@@Z
-#else
+#elif ver < 8.3.20
 	void ctor(const v8string&in)|??0Type@core@@QAE@ABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|??0Type@core@@QEAA@AEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+#else
+	void ctor(const v8string&in)|??0Type@core@@QAE@ABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|??0Type@core@@QEAA@AEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
 #endif
 
 :global
@@ -235,7 +250,9 @@
 #endif
 #if ver < 8.3.11
 	void valueFromString(const v8string&in, Value&)|?fromString@GenericValue@core@@SAXABV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@AAV12@@Z
-#else
+#elif ver < 8.3.20
 	void valueFromString(const v8string&in, Value&)|?fromString@GenericValue@core@@SAXABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@AAV12@@Z|?fromString@GenericValue@core@@SAXAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@AEAV12@@Z
+#else
+	void valueFromString(const v8string&in, Value&)|?fromString@GenericValue@core@@SAXABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@AAV12@@Z|?fromString@GenericValue@core@@SAXAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@AEAV12@@Z
 #endif
 	IValue@+ create_undefined_value()|?create_undefined_value@core@@YAPAVIValue@1@XZ|?create_undefined_value@core@@YAPEAVIValue@1@XZ

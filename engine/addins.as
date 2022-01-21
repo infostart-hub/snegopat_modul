@@ -21,7 +21,7 @@ bool initAddins() {
         return true;
     // Создаем корень SnegAPI, а он создаст менеджер аддинов
     Designer();
-    if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
+    if (oneAddinMgr.loadAddin("script:" + pathes._addins + "std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
     return true;
 }

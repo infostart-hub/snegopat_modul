@@ -228,10 +228,17 @@
 	bool is_space(wchar_t)|?is_space@core@@YA_N_S@Z
 	bool is_title(wchar_t)|?is_title@core@@YA_N_S@Z
 	bool is_upper(wchar_t)|?is_upper@core@@YA_N_S@Z
+  #if ver < 8.3.20
 	bool is_valid_name(const v8string&in)|?is_valid_name@core@@YA_NABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?is_valid_name@core@@YA_NAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	bool is_valid_path(const v8string&in)|?is_valid_path@core@@YA_NABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?is_valid_path@core@@YA_NAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	long hash(const v8string&in)|?hash@core@@YAJABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?hash@core@@YAJAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	long hash_nocase(const v8string&in)|?hash_nocase@core@@YAJABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?hash_nocase@core@@YAJAEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+  #else
+	bool is_valid_name(const v8string&in)|?is_valid_name@core@@YA_NABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?is_valid_name@core@@YA_NAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	bool is_valid_path(const v8string&in)|?is_valid_path@core@@YA_NABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?is_valid_path@core@@YA_NAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	long hash(const v8string&in)|?hash@core@@YAJABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?hash@core@@YAJAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+	long hash_nocase(const v8string&in)|?hash_nocase@core@@YAJABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?hash_nocase@core@@YAJAEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+  #endif
 #endif
 :meths
 	ITxtEdtService@ getTxtEdtService()

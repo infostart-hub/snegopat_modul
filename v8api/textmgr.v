@@ -61,12 +61,22 @@
 	void setSelectText(int_ptr, bool)|?setSelectText@TextManager@core@@QAEXPB_W_N@Z
 	void getTextArea(const TextPosition&in, const TextPosition&in, int_ptr&out result)|?getTextArea@TextManager@core@@QAEXABVTextPosition@2@0PAPA_W@Z
 #else
+  #if ver < 8.3.20
 	bool save(v8string&)|?save@TextManager@core@@QAE_NAAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?save@TextManager@core@@QEAA_NAEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
-	#if ver > 8.3.19
-	bool getLineFast(int, v8string&)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
+  #else
+	bool save(v8string&)|?save@TextManager@core@@QAE_NAAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?save@TextManager@core@@QEAA_NAEAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
+  #endif
+
+  #if ver > 8.3.19
+    #if ver < 8.3.20
+	  bool getLineFast(int, v8string&)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@@Z
 	#else
-	bool getLineFast(int, v8string&, IUnknown& cash)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PAVITextManagerCash@2@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEAVITextManagerCash@2@@Z
+	  bool getLineFast(int, v8string&)|?getLineFast@TextManager@core@@QAE_NHPAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@@Z
 	#endif
+  #else
+	bool getLineFast(int, v8string&, IUnknown& cash)|?getLineFast@TextManager@core@@QAE_NHPAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PAVITextManagerCash@2@@Z|?getLineFast@TextManager@core@@QEAA_NHPEAV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEAVITextManagerCash@2@@Z
+  #endif
+	
 	void setSelectText(int_ptr, bool)|?setSelectText@TextManager@core@@QAEXPB_S_N@Z|?setSelectText@TextManager@core@@QEAAXPEB_S_N@Z
 	#if ver > 8.3.19
 	//на x64 падает
@@ -86,6 +96,8 @@
 	void ctor()|??0LocalWString@core@@QAE@XZ|??0LocalWString@core@@QEAA@XZ
 #if ver < 8.3.11
 	v8string getString(const v8string&in)const|?getString@LocalWString@core@@QBE?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@ABV34@@Z
-#else
+#elif ver < 8.3.20
 	v8string getString(const v8string&in)const|?getString@LocalWString@core@@QBE?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@ABV34@@Z|?getString@LocalWString@core@@QEBA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@AEBV34@@Z
+#else
+	v8string getString(const v8string&in)const|?getString@LocalWString@core@@QBE?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@ABV34@@Z|?getString@LocalWString@core@@QEBA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@AEBV34@@Z
 #endif

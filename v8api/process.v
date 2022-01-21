@@ -41,8 +41,10 @@
 	void val2var(const Value&, Variant&)|?value_to_variant_val@core@@YAXABVGenericValue@1@AAUtagVARIANT@@@Z|?value_to_variant_val@core@@YAXAEBVGenericValue@1@AEAUtagVARIANT@@@Z
 #if ver < 8.3.11
 	v8string load_module_wstring(int_ptr charNameModule, int_ptr charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@PBD0@Z
-#else
+#elif ver < 8.3.20
 	v8string load_module_wstring(int_ptr charNameModule, int_ptr charResID)|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PBD0@Z|?load_module_wstring@core@@YA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@PEBD0@Z
+#else
+	v8string load_module_wstring(int_ptr charNameModule, int_ptr charResID)|?load_module_wstring@core@@YA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@PBD0@Z|?load_module_wstring@core@@YA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@PEBD0@Z
 #endif
 
 #if ver < 8.3.6
