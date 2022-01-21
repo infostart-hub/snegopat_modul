@@ -88,19 +88,12 @@
     ---
     void dtor()
     {
-        if (obj.len == inplaceStringSize) {
-            uint32 refs = mem::dword[obj.data];
-            doLog("Str dtor data=" + formatInt(obj.data, "0x", 2 * sizeof_ptr) + ", refs=" + refs + " str=" + stringFromAddress(obj.data + 4));
-            if (0 == mem::interlockedDecr(obj.data)) {
-            //if (refs == 1) {
-                #if ver < 8.3.11
-                free(obj.data);
-                #else
-                v8free(obj.data, obj.pEnd - obj.data + 2);
-                #endif
-            }
-            //} else
-            //    mem::dword[obj.data] = refs - 1;
+        if (obj.len == inplaceStringSize && 0 == mem::interlockedDecr(obj.data)) {
+          #if ver < 8.3.11
+            free(obj.data);
+          #else
+            v8free(obj.data, obj.pEnd - obj.data + 2);
+          #endif
         }
     }
     ---
@@ -229,7 +222,6 @@
   :meths
     v8string opImplConv()const|int_ptr string__opImplConv(string& obj, v8string& ret)
     {
-        doLog("Impl conv string " + obj);
         v8string__ctor3(ret, obj.cstr, obj.length);
         return ret.self;
     }
