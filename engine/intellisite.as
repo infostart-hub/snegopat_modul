@@ -7,8 +7,6 @@
 #pragma once
 #include "../all.h"
 
-const uint badStrIdx = uint(-1);
-
 // синглтон списка снегопата
 IntelliSite&& oneIntelliSite;
 IntelliSite&& getIntelliSite() {
@@ -298,7 +296,7 @@ class IntelliSite : SmartBoxSite {
             editor.setSelection(tpStart, tpEnd, false, false);
             insertInSelection(editor, textWnd.textDoc.tm, textWnd.textDoc.itm, text, true, !notIndent);
             updateHotOrder(ins);
-            buffer.empty();
+            buffer.makeEmpty();
             TextWnd&& tw = textWnd;
             hide(ins);
             // Уведомим сам элемент, что его вставили
@@ -314,7 +312,7 @@ class IntelliSite : SmartBoxSite {
             if (posInBuffer == 0)
                 hideAndSend(WM_KEYDOWN, wParam, lParam);
             else {
-                int c = (GetKeyState(VK_CONTROL) & 0x8000) > 0 ? posInBuffer : 1;
+                int c = (GetKeyState(VK_CONTROL) & 0x8000) > 0 ? posInBuffer : uint(1);
                 TextPosition tpStart = caretPos;
                 tpStart.col -= c;
                 editor.setSelection(tpStart, caretPos, false, false);
@@ -601,6 +599,8 @@ mixin class MethodInsertable {
         text += addingString + ")";
         if (!isFunction)
             text += ";";
+        if (d.key == "нстр")
+            text.replace("¦", "\"ru='¦'\"");
     }
 
 #if ver >= 8.3.4

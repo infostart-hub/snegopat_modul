@@ -202,10 +202,12 @@ export var Frntend = {
     ConfigEditLang: new Command(15, "Язык редактирования конфигурации"),
     FindRefsFrom: new Command(82, "Поиск ссылок в объекте"),
     GoToDefinition: new Command(83, "Перейти к определению"),
+    AllRoles: new Command(84, "Все роли"),
     QueryWizard: new Command(63, "Конструктор запроса"),
     QueryWizardParam: new Command(217, "Конструктор запроса с обработкой результата"),
     TextBlockEscapeNewline: new Command(106, "Добавить перенос строки"),
-    TextBlockUnescapeNewline: new Command(107, "Удалить перенос строки")
+    TextBlockUnescapeNewline: new Command(107, "Удалить перенос строки"),
+    AddToExtention: new Command(271, "Добавить в расширение"),
 };
 
 export var TextEdit = {
@@ -422,7 +424,7 @@ export class TestForm {
                     cmd.info = cmdService.getCommandDescription(groupID, cmd.num)
                     var objName = i + "." + k;
                     var macrosName = "macros" + name + (cmd.description ? cmd.description : k);
-                    self[macrosName] = new Function("return " + objName + ".send()");
+                    self[macrosName] = new Function(objName + ".getState();return " + objName + ".send()");
                     self[macrosName].descr = cmd.info;
                 }
             }

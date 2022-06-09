@@ -464,7 +464,11 @@ void initTextAreaModifiedTraps() {
     #else
         string dll = "core83.dll";
     #endif
+    #if x86
         trTextAreaModified.setTrapByName(dll, "?onTextAreaModified@TextManager@core@@UAEX_NABVTextPosition@2@111@Z", asCALL_THISCALL, textAreaModified_trap);
+    #else
+        trTextAreaModified.setTrapByName(dll, "?onTextAreaModified@TextManager@core@@UEAAX_NAEBVTextPosition@2@111@Z", asCALL_THISCALL, textAreaModified_trap);
+    #endif
     } else if (trTextAreaModified.state == trapDisabled) {
         trTextAreaModified.swap();
     }
@@ -476,7 +480,8 @@ void disableTextAreaModifiedTrap() {
     }
 }
 
-void textAreaModified_trap(TextManager& tm, bool b, TextPosition& beforeStart, TextPosition& beforeEnd, TextPosition& afterStart, TextPosition& afterEnd) {
+void textAreaModified_trap(TextManager& tm, int_ptr _b, TextPosition& beforeStart, TextPosition& beforeEnd, TextPosition& afterStart, TextPosition& afterEnd) {
+    bool b = _b != 0;
     notifyTextAreaModified(tm, b, Selection(beforeStart, beforeEnd), Selection(afterStart, afterEnd));
     trTextAreaModified.swap();
     tm.onTextAreaModified(b, beforeStart, beforeEnd, afterStart, afterEnd);
@@ -484,11 +489,13 @@ void textAreaModified_trap(TextManager& tm, bool b, TextPosition& beforeStart, T
 }
 
 void notifyTextAreaModified(TextManager& tm, bool b, Selection&& before, Selection&& after) {
-    array<Variant> args(3);
-    args[0].setDispatch(createDispatchFromAS(&&after));
-    args[1].setDispatch(createDispatchFromAS(&&before));
-    args[2].setDispatch(createDispatchFromAS(&&before));//TextManager will be here...
-    oneDesigner._events.fireEvent(oneDesigner._me(), "onChangeTextManager", args);
+    if (oneDesigner !is null) {
+        array<Variant> args(3);
+        args[0].setDispatch(createDispatchFromAS(&&after));
+        args[1].setDispatch(createDispatchFromAS(&&before));
+        args[2].setDispatch(createDispatchFromAS(&&before));//TextManager will be here...
+        oneDesigner._events.fireEvent(oneDesigner._me(), "onChangeTextManager", args);
+    }
 }
 
 TrapSwap trCaretSelection;

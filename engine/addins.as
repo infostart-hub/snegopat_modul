@@ -21,7 +21,7 @@ bool initAddins() {
         return true;
     // Создаем корень SnegAPI, а он создаст менеджер аддинов
     Designer();
-    if (oneAddinMgr.loadAddin("script:" + pathes._addins + "\\std\\main.js", oneAddinMgr._root.childs[0]) is null)
+    if (oneAddinMgr.loadAddin("script:" + pathes._addins + "std\\main.js", oneAddinMgr._root.childs[0]) is null)
         Message(oneAddinMgr._lastAddinError);
     return true;
 }
@@ -193,8 +193,8 @@ class AddinMgr {
             return null;
         }
         if (mapUniqueName.contains(un)) {
-            _lastAddinError = "Аддин с уникальным именем '" + un + "' уже загружен";
-            return null;
+            doLog("Аддин с уникальным именем '" + un + "' уже загружен");
+            return addin;
         }
         string fp = addin.fullPath;
         if (fp.isEmpty()) {
@@ -202,8 +202,8 @@ class AddinMgr {
             return null;
         }
         if (mapFullPath.contains(fp)) {
-            _lastAddinError = "Аддин с полным путём '" + fp + "' уже загружен";
-            return null;
+            doLog("Аддин с полным путём '" + fp + "' уже загружен");
+            return addin;
         }
         // В момент запуска аддин уже должен видеть себя в менеджере аддинов
         group.addAddin(addin);

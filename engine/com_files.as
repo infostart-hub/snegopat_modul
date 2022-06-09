@@ -24,7 +24,7 @@ class V8Files {
             }
         }
         IFileEx&& fex = file.unk;
-        return fex is null ? null : IV8DataFile(fex);
+        return fex is null ? null : &&IV8DataFile(fex);
     }
     IV8DataFile&& createMemoryFile() {
         IFileEx&& fex;
@@ -274,7 +274,7 @@ class IV8StorageFile {
             setComException(catcher.errStr);
             return null;
         }
-        return file is null ? null : IV8DataFile(file);
+        return file is null ? null : &&IV8DataFile(file);
     }
     void rename(const string& oldName, const string& newName) {
         ExceptionCatcher catcher;

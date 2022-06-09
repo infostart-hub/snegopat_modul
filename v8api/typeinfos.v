@@ -145,7 +145,7 @@
     const uint16& propName(int prop, int lang)
     bool isPropReadable(int prop)
     bool isPropWritable(int prop)
-    int findProp(const v8string&in pszPropName)
+    int  findProp(const v8string&in pszPropName)
     int methsCount()
     const uint16& methName(int meth, int lang)
     int paramsCount(int meth)

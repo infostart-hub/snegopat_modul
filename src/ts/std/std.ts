@@ -24,6 +24,13 @@
 import * as stdcommands from "./commands";
 import {AddinsList} from "./build";
 
+// Определение режима отладки
+var isDebug = false;
+if (profileRoot.getValue("CmdLine/OriginalCmdLine").toLowerCase().indexOf("-coreas-tracefunctions 1") >= 0)
+{
+	isDebug = true;
+}
+
 global.connectGlobals(SelfScript);
 /**
  * Guid'ы различных типов документов

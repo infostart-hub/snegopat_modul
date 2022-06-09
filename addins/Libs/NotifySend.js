@@ -193,10 +193,7 @@ function _TrayTipProvider() {
 }
 
 _TrayTipProvider.prototype.SendMessage = function(title, text, timeout, type) {
-    title = title.replace(/\\/g, "\\\\").substr(0, 62);
-    text = text.replace(/\n/g, "~n").replace(/\t/g, "~t").replace(/"/g, "~q");
-    var cmd = '"' + env.pathes.tools+'TrayTip.exe" "'+title+'" "'+ text +'" ' +timeout+' '+type;
-    ЗапуститьПриложение(cmd, "", false);
+	starterIpc.showNotify(title, text);
 }
 
 ////

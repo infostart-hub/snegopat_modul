@@ -90,11 +90,16 @@ class ScriptApi {
         if (flags == -1)
             flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
         int res = sqlite3_open_v2(baseName.toUtf8().ptr, db, flags);
-        if (SQLITE_OK == res)
+        if (SQLITE_OK == res) {
+			Print("Открыли базу данных " + baseName);
             return SqliteBase(db);
-        setComException(stringFromAddress(sqlite3_errmsg16(db)));
-        if (db != 0)
+		}
+		Print("Ошибка открытия базы данных " + baseName + ": " + res);
+		Print(stringFromAddress(sqlite3_errmsg16(db)));
+        if (db != 0) {
+			setComException(stringFromAddress(sqlite3_errmsg16(db)));
             sqlite3_close(db);
+		}
         return null;
     }
 
@@ -161,7 +166,7 @@ class SqliteBase {
         if (SQLITE_OK != sqlite3_exec(_db, strQuery.toUtf8().ptr))
             setComException("Ошибка в запросе: " + get_lastError());
         else
-            res = answerIsID ? sqlite3_last_insert_rowid(_db) : sqlite3_changes(_db);
+            res = answerIsID ? sqlite3_last_insert_rowid(_db) : int64(sqlite3_changes(_db));
         return res;
     }
     // Получить описание ошибки
@@ -262,7 +267,7 @@ class SqliteQuery {
         if (SQLITE_DONE != res)
             setComException(stringFromAddress(sqlite3_errmsg16(sqlite3_db_handle(_stmt))));
         int_ptr db = sqlite3_db_handle(_stmt);
-        return isAnswerID ? sqlite3_last_insert_rowid(db) : sqlite3_total_changes(db);
+        return isAnswerID ? sqlite3_last_insert_rowid(db) : int64(sqlite3_total_changes(db));
     }
     // Выполняет запрос и возвращает строку результата
     array<ResultRow&&>&& query() {

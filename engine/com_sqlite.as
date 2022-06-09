@@ -120,7 +120,7 @@ class ValueTableQueryResultProcessor : QueryResultProcessor {
     }
     void setAnswer(Value& val, uint db) {
         if (pIValueTable is null)
-            val = answerIsID ? sqlite3_last_insert_rowid(db) : sqlite3_changes(db);
+            val = answerIsID ? sqlite3_last_insert_rowid(db) : int64(sqlite3_changes(db));
         else
             val = cast<IValue>(cast<IUnknown>(pIValueTable));
     }

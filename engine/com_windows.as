@@ -204,10 +204,10 @@ IMDObject&& getMdObjFromView(IFramedView&& view) {
         IEventRecipient&& er = view.unk;
         ICommandTarget&& ct = view.unk;
         if (er !is null && ct !is null && er.self < view.self && ct.request(CommandID(cmdFrameGroup, cmdFindInTree))) {
-            doLog("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
+            /*doLog("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
                 " до объекта с интерфейсом " + IID_IMDObject);
             MsgBox("MetaDataObjInEventRecipientOffset: Искать смещение от 0x" + formatInt(er.self, "0x", sizeof_ptr * 2) +
-                " до объекта с интерфейсом " + IID_IMDObject);
+                " до объекта с интерфейсом " + IID_IMDObject);*/
             IMDObject&& obj = toIUnknown(mem::int_ptr[er.self + MetaDataObjInEventRecipientOffset]);
             obj.AddRef();
             return obj;
@@ -710,13 +710,14 @@ class IMsgBoxHook {
 ////////////////////////////////////////////////////////////////////////////////////
 // Перехват и оповещение о Сообщить
 void setTrapOnMessage() {
-    //trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
+    //Павлюков - убрал коммент - иначе выводит сообщение и не переходит
+    trMessage.setTrap(getBkEndUI(), IBkEndUI_doMsgLine, doMsgLineTrap);
 }
 
 TrapVirtualStdCall trMessage;
 
 int doMsgLineTrap(IBkEndUI& pUI, const v8string&in text, int_ptr marker, const Guid&in g, int_ptr i1, IUnknown& pUnkObject, const V8Picture&in customMarker) {
-    Print(text.str);
+    //Print(text.str);//Павлюков - иначе выводит сообщение, когда надо было спрятать
     // Для начала снимем перехват. Тогда обработчики события смогут также вызывать Message без зацикливания
     trMessage.swap();
     if (oneDesigner._events._hasHandlers(dspWindows, "onMessage")) {

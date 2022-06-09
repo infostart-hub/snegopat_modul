@@ -134,9 +134,11 @@ bool initGroupingAndColoring() {
                     trTextExtModule_QI.setTrap(tExt, 0, TextExtModule_QI);
                     bgColorTrapType = 1;
                 } else {
+                    #if ver < 8.3.19
                     trTxtExt_hasBG.setTrap(bgHandler, ITextExtBackColors_hasCustomBackground, TxtExt_hasCustomBackground);
                     trTxtExt_getBG.setTrap(bgHandler, ITextExtBackColors_getColorInfo, TxtExt_getColorInfo);
                     bgColorTrapType = 2;
+                    #endif
                 }
             } else if (bgColorTrapType == 1) {
                 if (trTextExtModule_QI.state != trapEnabled)
@@ -216,14 +218,14 @@ void ITextExtColors_getColorsTrap(ITextExtColors& pThis, const v8string& sourceL
     }
 }
 
-RegExp reGroupComment("(//\\{)|(//\\})");
+RegExp reGroupComment("(?i)(//\\{|#Удаление|#Вставка)|(//\\}|#КонецУдаления|#КонецВставки)");
 // Проверка на группирующий комментарий
 bool checkForGroupingRemark(const string& srcLine, Vector& infos) {
     if (infos.start > 0) {
         SyntaxItemInfoRef&& sInfo = toSyntaxItemInfo(infos.start);
         while (sInfo < infos.end) {
             // Если строка - коментарий, проверим на символы группировки
-            if (vlRemark == sInfo.ref.lexemCategory) {
+            if (vlRemark == sInfo.ref.lexemCategory || vlUnknown == sInfo.ref.lexemCategory) {
                 auto res = reGroupComment.match(srcLine.substr(sInfo.ref.start));
                 if (res.matches > 0) {
                     sInfo.ref.isBlock = res.text(0, 1).isEmpty() ? groupBlockEnd : groupBlockBegin;
@@ -293,7 +295,7 @@ array<SQLBlockInfo&&>&& parseQuoteLexemAsSQL(const string& srcLine, Vector& toke
             }
             if (enableBkColorForMultiLine && needChangeBG) {
                 sCopy.ref.color.value.uuid.data1 = bgMagic;
-                sCopy.ref.color.value.uuid.data2 = withoutEnd ? 777 : sInfo.ref.len - 2;
+                sCopy.ref.color.value.uuid.data2 = withoutEnd ? uint(777) : sInfo.ref.len - 2;
             }
             sCopy.ref.isBlock = isBlock;
             sCopy.ref.blockKind = blockKind;

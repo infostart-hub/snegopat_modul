@@ -248,7 +248,7 @@ class V8Dumper {
                     newNames.insertLast(name0);
                     newNames.insertLast(name1);
                 } else
-                    name1.empty();
+                    name1.makeEmpty();
                 dumpContextDef(ctx, name0, name1);
             }
             }

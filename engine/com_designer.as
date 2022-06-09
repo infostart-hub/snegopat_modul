@@ -263,6 +263,11 @@ class Designer {
                 break;
             }
         }
+        if (res.vt != VT_DISPATCH) {
+            Addin&& ld = _addins.loadAddin("script:" + pathes._addins + addinFile.replace("/", "\\") + ".js", _addins._users);
+            if (ld !is null)
+                res.setDispatch(ld.object());
+        }
         return res;
     }
 

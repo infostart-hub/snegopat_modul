@@ -4,7 +4,6 @@
 //author: Александр Орефков orefkov@gmail.com, Сосна Евгений <shenja@sosna.zp.ua>
 //help: inplace
 //www: https://www.youtube.com/watch?v=ybQkiLsfCCw
-//addin: codegen_manager
 //addin: stdlib
 //addin: vbs
 
@@ -17,6 +16,8 @@
 Для работы совместно со скриптом - менеджером генераторов кода.
 Менеджер генераторов кода должен быть подключен раньше этого скрипта.
 @*/
+
+var codegen_manager = stdlib.require(env.pathes.addins + "code_gen\\gen_mgr.js");
 
 codegen_manager.registerCodeGen("Типизирующий коммент/Справочник", genarateNewRefs);
 codegen_manager.registerCodeGen("Типизирующий коммент/Документ", genarateNewDoc);

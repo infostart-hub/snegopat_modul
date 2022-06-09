@@ -331,11 +331,11 @@ class IV8Lexer {
     }
     int idxOfName(const string& name) {
         auto fnd = findNames.find(name);
-        return fnd.isEnd() ? -1 : fnd.value;
+        return fnd.isEnd() ? -1 : int(fnd.value);
     }
     int posToLexem(uint posInReStream) {
         auto find = lexemPos.find(posInReStream);
-        return find.isEnd() ? -1 : find.value;
+        return find.isEnd() ? -1 : int(find.value);
     }
     string strNameIdx(const string& name) {
         auto fnd = findNames.find(name);
@@ -492,11 +492,18 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
     uint startLine = line;
     array<string> lines;
     IUnknown&& cashObject;
+    #if ver < 8.3.19
+    //вроде в 19 кеша больше нет - дальше изменены вызовы - без него
     pTextManager.getCashObject(cashObject);
+    #endif
     lex_provider lexSrc;
     lexem lex;
     v8string wline;
+    #if ver < 8.3.19
     pTextManager.getLineFast(line, wline, cashObject);
+    #else
+    pTextManager.getLineFast(line, wline);
+    #endif
     col--;
     string currLine = wline.str.rtrim("\r\n").padRight(' ', col);
     currLine.setLength(col);
@@ -514,7 +521,7 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
                     currLine = currLine.substr(0, pos);
                 } else {
                     lines.insertLast(currLine);
-                    currLine.empty();
+                    currLine.makeEmpty();
                 }
                 break;
             } else if (lex.type == kwEndProcedure || lex.type == kwEndFunction) {
@@ -528,7 +535,11 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
         lines.insertLast(currLine);
         if (--line == 0)
             break;
+        #if ver < 8.3.19
         pTextManager.getLineFast(line, wline, cashObject);
+        #else
+        pTextManager.getLineFast(line, wline);
+        #endif
         currLine = wline.str;
     }
     if (typeOfMethodBegin == 1) {   // Начинается с Процедура/Функция
@@ -560,7 +571,11 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
             testLine--;
             if (testLine == 0)
                 break;
+            #if ver < 8.3.19
             pTextManager.getLineFast(testLine, wline, cashObject);
+            #else
+            pTextManager.getLineFast(testLine, wline);
+            #endif
             currLine = wline.str;
         }
     }
@@ -577,7 +592,11 @@ LexemTypes getMethodText(TextManager& pTextManager, uint& line, uint col, bool b
         // то разрешить только методы, иначе методы и стэйтменты
         uint maxLine = pTextManager.getLinesCount();
         while (++startLine <= maxLine) {
+            #if ver < 8.3.19
             pTextManager.getLineFast(startLine, wline, cashObject);
+            #else
+            pTextManager.getLineFast(startLine, wline);
+            #endif
             lexSrc.setSource(wline.cstr);
             while (lexSrc.nextWithKeyword(lex)) {
                 if (lex.type == lexRemark || lex.type == lexPreproc)

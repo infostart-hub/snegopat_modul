@@ -295,14 +295,13 @@ bool loadFormForScript(SelfScript&& selfScript, string formName, IDispatch&& eve
 	string fullPath = findFullPath(pathToForm);
 	
 	if (!fullPath.isEmpty()) {
-		return loadScriptForm(loadFormFile(pathToForm, formName.isEmpty()?"Форма":formName), (eventHandler is null)?selfScript.self:eventHandler, eventPrefix, result, true);
+		return loadScriptForm(loadFormFile(pathToForm, formName.isEmpty()?"Форма":formName), (eventHandler is null) ? cast<IDispatch>(selfScript.self) : eventHandler, eventPrefix, result, true);
 	} else {
         //оставим поддержку SSF на всякий случай
 		pathToForm = path;
 		pathToForm.replace(RegExp(".js$"), (formName.isEmpty()?"":("." + formName))+".ssf", 1);
-		return loadScriptForm(loadFormFile(pathToForm, ""), (eventHandler is null)?selfScript.self:eventHandler, eventPrefix, result, false);
+		return loadScriptForm(loadFormFile(pathToForm, ""), (eventHandler is null) ? cast<IDispatch>(selfScript.self) : eventHandler, eventPrefix, result, false);
 	}
-	
 }
 
 bool loadScriptFormEpf(string path, string formName, IDispatch&& eventHandler, const string& eventPrefix, Value& out result) {

@@ -7,7 +7,7 @@
 #pragma once
 #include "../all.h"
 
-funcdef int_ptr DlgProc(HWND, UINT, WPARAM, LPARAM);
+funcdef int_ptr DlgProc(HWND, int_ptr, WPARAM, LPARAM);
 enum MethDialogConsts{
     editFontDelta = 8,
     ctrlDelta = 2,
@@ -84,7 +84,7 @@ class MethodsDialog: SmartBoxSite {
     bool onKillFocus(HWND newWnd)				{ return false; }
     void onChar(WPARAM wParam, LPARAM lParam)		{}
 
-    int_ptr mainDialogProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    int_ptr mainDialogProc(HWND hWnd, int_ptr msg, WPARAM wParam, LPARAM lParam) {
         switch (msg) {
         case WM_INITDIALOG:
             hMainWnd = hWnd;

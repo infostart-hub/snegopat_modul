@@ -26,11 +26,16 @@
 	void ctor(const v8string&in, bool p=false)|??0URL@core@@QAE@ABV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@_N@Z
 	v8string part(int, int)const|?part@URL@core@@QBE?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@HH@Z
 	v8string presentation()const|?presentation@URL@core@@QBE?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@XZ
-#else
+#elif ver < 8.3.20
 	void ctor(const v8string&in, const v8string&in, bool)|??0URL@core@@QAE@ABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@0_N@Z|??0URL@core@@QEAA@AEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@0_N@Z
 	void ctor(const v8string&in, bool p=false)|??0URL@core@@QAE@ABV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@_N@Z|??0URL@core@@QEAA@AEBV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@_N@Z
 	v8string part(int, int)const|?part@URL@core@@QBE?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@HH@Z|?part@URL@core@@QEBA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@HH@Z
 	v8string presentation()const|?presentation@URL@core@@QBE?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ|?presentation@URL@core@@QEBA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@XZ
+#else
+	void ctor(const v8string&in, const v8string&in, bool)|??0URL@core@@QAE@ABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@0_N@Z|??0URL@core@@QEAA@AEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@0_N@Z
+	void ctor(const v8string&in, bool p=false)|??0URL@core@@QAE@ABV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@_N@Z|??0URL@core@@QEAA@AEBV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@_N@Z
+	v8string part(int, int)const|?part@URL@core@@QBE?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@HH@Z|?part@URL@core@@QEBA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@HH@Z
+	v8string presentation()const|?presentation@URL@core@@QBE?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ|?presentation@URL@core@@QEBA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@XZ
 #endif
 
 :meths
@@ -49,6 +54,8 @@
 #endif
 #if ver < 8.3.11
 	v8string Url_unescape(const v8string&in)|?unescape@URL@core@@SA?AV?$basic_string@_WV?$char_traits@_W@stlp_std@@V?$allocator@_W@2@@stlp_std@@ABV34@@Z
-#else
+#elif ver < 8.3.20
 	v8string Url_unescape(const v8string&in)|?unescape@URL@core@@SA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@ABV34@@Z|?unescape@URL@core@@SA?AV?$basic_string@_SU?$fix_char_traits@_S@stdx@@V?$allocator@_S@std@@@stdx@@AEBV34@@Z
+#else
+	v8string Url_unescape(const v8string&in)|?unescape@URL@core@@SA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@ABV34@@Z|?unescape@URL@core@@SA?AV?$BasicString@_S$0A@$0A@Vallocator@std@@@ale@@AEBV34@@Z
 #endif

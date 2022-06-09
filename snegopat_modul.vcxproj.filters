@@ -81,6 +81,10 @@
     <None Include="bld_tools\build.as">
       <Filter>3 Прочее</Filter>
     </None>
+    <None Include="packages.config" />
+    <None Include="src\ts\std\build.ts">
+      <Filter>6 scripts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="engine\typereader.as">
