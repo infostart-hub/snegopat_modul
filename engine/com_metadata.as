@@ -799,6 +799,8 @@ IMDContainer&& editedMetaDataCont() {
 #if test = 0
     IConfigMngrUI&& pmdUI;
     getMDEditService().getTemplatesMainConfigMngrUI(pmdUI);
+    if (!checkInterface(&&pmdUI))
+		return null;
     return pmdUI.getMDCont();
 #else
     IMDEditService&& mdes = getMDEditService();
